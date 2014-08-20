@@ -36,3 +36,8 @@ proguard/
 *.ipr
 *.iws
 .idea/
+
+
+# Gradle files
+.gradle/
+build/
