@@ -8,11 +8,11 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".controller.exchange.ExchangeRateMenuActivity"
+            android:name="uy.infocorp.banking.glass.controller.exchange.ExchangeRateMenuActivity"
             android:theme="@style/MenuTheme" />
 
         <service
-            android:name=".controller.exchange.ExchangeRateService"
+            android:name="uy.infocorp.banking.glass.controller.exchange.ExchangeRateService"
             android:icon="@drawable/ic_glass_logo"
             android:label="@string/title_activity_exchange_rate_service" >
             <intent-filter>
