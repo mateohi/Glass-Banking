@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import uy.infocorp.banking.glass.icbankingglass.R;
+import uy.infocorp.banking.glass.R;
 
 public class ExchangeRateMenuActivity extends Activity {
 
