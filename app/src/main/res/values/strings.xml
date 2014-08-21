@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ICBankingGlass</string>
+    <string name="title_activity_exchange_rate_service">Exchange rates</string>
+    <string name="action_stop">Stop</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="ic_api_host"></string>
+    <string name="ic_api_port"></string>
+    <string name="ic_api_exchange_rates_path"></string>
+    <string name="ic_api_public_info_path"></string>
+</resources>
