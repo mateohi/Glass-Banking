@@ -1,10 +1,12 @@
 package uy.infocorp.banking.glass.integration.publicapi.info.dto;
 
+import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
+
 public class PublicInfoDTO {
 
     private FrequentlyAskedQuestionsDTO[] frequentlyAskedQuestions;
     private LinksOfInterestGroupsDTO[] linksOfInterestGroups;
-    private ExchangeRatesDTO[] exchangeRates;
+    private ExchangeRateDTO[] exchangeRates;
     private NewsFeedDTO[] newsFeed;
     private PointsOfInterestDTO[] pointsOfInterest;
     private ContactItemsGroupsDTO[] contactItemsGroups;
@@ -27,11 +29,11 @@ public class PublicInfoDTO {
         this.linksOfInterestGroups = linksOfInterestGroups;
     }
 
-    public ExchangeRatesDTO[] getExchangeRatesDTO() {
+    public ExchangeRateDTO[] getExchangeRatesDTO() {
         return exchangeRates;
     }
 
-    public void setExchangeRatesDTO(ExchangeRatesDTO[] exchangeRates) {
+    public void setExchangeRatesDTO(ExchangeRateDTO[] exchangeRates) {
         this.exchangeRates = exchangeRates;
     }
 

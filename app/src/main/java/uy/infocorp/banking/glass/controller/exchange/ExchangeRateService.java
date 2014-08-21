@@ -9,11 +9,23 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import uy.infocorp.banking.glass.icbankingglass.R;
+import uy.infocorp.banking.glass.integration.publicapi.PublicApiService;
+import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
 
 public class ExchangeRateService extends Service {
 
     private static final String TAG = ExchangeRateService.class.getSimpleName();
+
+    private static final int INITIAL_DELAY = 0;
+    private static final int TASK_DELAY = 5;
+
+    private ScheduledExecutorService task;
 
     private LiveCard liveCard;
 
@@ -33,6 +45,8 @@ public class ExchangeRateService extends Service {
             Intent menuIntent = new Intent(this, ExchangeRateMenuActivity.class);
             liveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
             liveCard.publish(PublishMode.REVEAL);
+
+            createAndStartScheduledTask();
         } else {
             liveCard.navigate();
         }
@@ -45,6 +59,35 @@ public class ExchangeRateService extends Service {
             liveCard.unpublish();
             liveCard = null;
         }
+        task.shutdown();
         super.onDestroy();
     }
+
+    private void createAndStartScheduledTask() {
+        task = Executors.newSingleThreadScheduledExecutor();
+
+        task.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                String alphaCode = "UYU";
+                StringBuilder sb = new StringBuilder();
+                List<ExchangeRateDTO> exchangeRates = PublicApiService.getExchangeRatesByAlpha3Code(alphaCode);
+                for (ExchangeRateDTO exchangeRate : exchangeRates) {
+                    String sourceSymbol = exchangeRate.getSourceCurrencyDTO().getCurrencySymbol();
+                    String destinationSymbol = exchangeRate.getDestinationCurrencyDTO().getCurrencySymbol();
+                    String buy = exchangeRate.getBuyRate();
+                    String sell = exchangeRate.getSellRate();
+                    sb.append(sourceSymbol);
+                    sb.append("-");
+                    sb.append(destinationSymbol);
+                    sb.append(" : Buy ");
+                    sb.append(buy);
+                    sb.append(" Sell ");
+                    sb.append(sell);
+                    sb.append('\n');
+                }
+                String mostrar = sb.toString();
+            }
+        }, INITIAL_DELAY, TASK_DELAY, TimeUnit.MINUTES);
+    }
+
 }
