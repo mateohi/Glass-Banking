@@ -39,16 +39,18 @@ public class ExchangeRateClient {
     }
 
     public ExchangeRateDTO[] getExchangeRates() {
+        /*
         HttpGet httpGet = new HttpGet(PublicUrls.GET_EXCHANGE_RATES_URL);
         try {
+
             HttpResponse response = this.httpClient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
 
-            if (status == HttpStatus.SC_OK) {
-                String data = EntityUtils.toString(response.getEntity());
+            if (status == HttpStatus.SC_OK) {*/
+                String data = test();//EntityUtils.toString(response.getEntity());
                 ExchangeRateDTO[] rates = this.gson.fromJson(data, ExchangeRateDTO[].class);
                 return rates;
-            }
+            /*}
             else {
                 Log.e(TAG, "Server response: " + status);
                 throw new ServerException(httpGet.getURI().getHost(), response);
@@ -57,7 +59,44 @@ public class ExchangeRateClient {
         catch (IOException e) {
             Log.e(TAG, e.getMessage());
             throw new ConnectionException(httpGet.getURI().getHost());
-        }
+        }*/
+    }
+
+    private String test() {
+        return "[{\"sourceCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\"," +
+                "\"currencyDescription\":\"Uruguayan peso\",\"currencySymbol\":\"$\"}," +
+                "\"destinationCurrency\":{\"currencyId\":\"32\",\"currencyAlpha3Code\":\"ARS\"," +
+                "\"currencyDescription\":\"Argentine peso\",\"currencySymbol\":\"$\"},\"buyRate\":4.49," +
+                "\"sellRate\":5.26,\"official\":5.09},{\"sourceCurrency\":{\"currencyId\":\"858\",\"" +
+                "currencyAlpha3Code\":\"UYU\",\"currencyDescription\":\"Uruguayan peso\",\"currencySymbol\":\"$\"},\"" +
+                "destinationCurrency\":{\"currencyId\":\"840\",\"currencyAlpha3Code\":\"USD\",\"currencyDescription\":" +
+                "\"United States dollar\",\"currencySymbol\":\"US$\"},\"buyRate\":19.15,\"sellRate\":20.25,\"official\":19.95}," +
+                "{\"sourceCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\",\"currencyDescription\":\"Uruguayan peso\"" +
+                ",\"currencySymbol\":\"$\"},\"destinationCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\"," +
+                "\"currencyDescription\":\"Uruguayan peso\",\"currencySymbol\":\"$\"},\"buyRate\":1.00,\"sellRate\":1.00,\"official" +
+                "\":1.00},{\"sourceCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\",\"currencyDescription\":\"Uruguayan " +
+                "peso\",\"currencySymbol\":\"$\"},\"destinationCurrency\":{\"currencyId\":\"978\",\"currencyAlpha3Code\":\"EUR\"," +
+                "\"currencyDescription\":\"Euro\",\"currencySymbol\":\"€\"},\"buyRate\":25.10,\"sellRate\":33.33,\"official\":31.89},{" +
+                "\"sourceCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\",\"currencyDescription\":\"Uruguayan peso\"," +
+                "\"currencySymbol\":\"$\"},\"destinationCurrency\":{\"currencyId\":\"986\",\"currencyAlpha3Code\":\"BRL\"," +
+                "\"currencyDescription\":\"Brazilian real\",\"currencySymbol\":\"R$\"},\"buyRate\":10.49,\"sellRate\":11.00,\"official" +
+                "\":10.50}, {\"sourceCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\"," +
+                "\"currencyDescription\":\"Uruguayan peso\",\"currencySymbol\":\"$\"},\"destinationCurrency\":{\"currencyId\":" +
+                "\"32\",\"currencyAlpha3Code\":\"ARS\",\"currencyDescription\":\"Argentine peso\",\"currencySymbol\":\"$\"}," +
+                "\"buyRate\":4.49,\"sellRate\":5.26,\"official\":5.09},{\"sourceCurrency\":{\"currencyId\":\"858\"," +
+                "\"currencyAlpha3Code\":\"UYU\",\"currencyDescription\":\"Uruguayan peso\",\"currencySymbol\":\"$\"}," +
+                "\"destinationCurrency\":{\"currencyId\":\"840\",\"currencyAlpha3Code\":\"USD\",\"currencyDescription\":" +
+                "\"United States dollar\",\"currencySymbol\":\"US$\"},\"buyRate\":19.15,\"sellRate\":20.25,\"official\":19.95},{" +
+                "\"sourceCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\",\"currencyDescription\":\"Uruguayan peso" +
+                "\",\"currencySymbol\":\"$\"},\"destinationCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\"," +
+                "\"currencyDescription\":\"Uruguayan peso\",\"currencySymbol\":\"$\"},\"buyRate\":1.00,\"sellRate\":1.00,\"official" +
+                "\":1.00},{\"sourceCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\",\"currencyDescription\":" +
+                "\"Uruguayan peso\",\"currencySymbol\":\"$\"},\"destinationCurrency\":{\"currencyId\":\"978\",\"currencyAlpha3Code\":" +
+                "\"EUR\",\"currencyDescription\":\"Euro\",\"currencySymbol\":\"€\"},\"buyRate\":25.10,\"sellRate\":33.33,\"official" +
+                "\":31.89},{\"sourceCurrency\":{\"currencyId\":\"858\",\"currencyAlpha3Code\":\"UYU\",\"currencyDescription\":" +
+                "\"Uruguayan peso\",\"currencySymbol\":\"$\"},\"destinationCurrency\":{\"currencyId\":\"986\",\"currencyAlpha3Code\":" +
+                "\"BRL\",\"currencyDescription\":\"Brazilian real\",\"currencySymbol\":\"R$\"},\"buyRate\":10.49,\"sellRate\":11.00," +
+                "\"official\":10.50}]";
     }
 
 }

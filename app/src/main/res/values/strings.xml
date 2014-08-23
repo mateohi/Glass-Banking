@@ -4,7 +4,8 @@
     <string name="app_name">ICBankingGlass</string>
     <string name="title_activity_exchange_rate_service">Exchange rates</string>
     <string name="action_stop">Stop</string>
-    <string name="hello_world">Hello world!</string>
+
+    <string name="loading">Loading rates ...</string>
 
     <string name="ic_api_host"></string>
     <string name="ic_api_port"></string>
