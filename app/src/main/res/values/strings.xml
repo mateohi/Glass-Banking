@@ -11,4 +11,7 @@
     <string name="ic_api_port"></string>
     <string name="ic_api_exchange_rates_path"></string>
     <string name="ic_api_public_info_path"></string>
+    <string name="currency_header">CURRENCY</string>
+    <string name="buy_header">BUY</string>
+    <string name="sell_header">SELL</string>
 </resources>

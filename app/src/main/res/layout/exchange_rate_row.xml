@@ -1,0 +1,39 @@
+<RelativeLayout
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/exchange_currency_description"
+        android:text="USD"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_width="160dp"
+        android:layout_height="@dimen/row_height"/>
+
+    <TextView
+        android:id="@+id/exchange_currency_symbol"
+        android:text="U$S"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_toEndOf="@id/exchange_currency_description"
+        android:layout_width="80dp"
+        android:layout_height="@dimen/row_height"/>
+
+    <TextView
+        android:id="@+id/exchange_rate_buy"
+        android:text="23.4"
+        android:gravity="center"
+        android:layout_toEndOf="@id/exchange_currency_symbol"
+        android:layout_width="70dp"
+        android:layout_height="@dimen/row_height"/>
+
+    <TextView
+        android:id="@+id/exchange_rate_sell"
+        android:text="24.5"
+        android:gravity="center_vertical"
+        android:layout_toEndOf="@id/exchange_rate_buy"
+        android:layout_width="50dp"
+        android:layout_height="@dimen/row_height"/>
+</RelativeLayout>

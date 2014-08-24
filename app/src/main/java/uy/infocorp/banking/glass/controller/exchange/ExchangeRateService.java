@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -28,6 +29,7 @@ public class ExchangeRateService extends Service {
     private ScheduledExecutorService task;
 
     private LiveCard liveCard;
+    private List<ExchangeRateDTO> exchangeRates = new ArrayList<ExchangeRateDTO>();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -52,34 +54,6 @@ public class ExchangeRateService extends Service {
         return START_STICKY;
     }
 
-    private void loadInitialView() {
-        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.exchange_rate);
-        liveCard.setViews(remoteViews);
-    }
-
-    private void updateView(List<ExchangeRateDTO> exchangeRates) {
-        StringBuilder sb = new StringBuilder();
-        for (ExchangeRateDTO exchangeRate : exchangeRates) {
-            String sourceSymbol = exchangeRate.getSourceCurrencyDTO().getCurrencySymbol();
-            String destinationSymbol = exchangeRate.getDestinationCurrencyDTO().getCurrencySymbol();
-            String buy = exchangeRate.getBuyRate();
-            String sell = exchangeRate.getSellRate();
-            sb.append(sourceSymbol);
-            sb.append("-");
-            sb.append(destinationSymbol);
-            sb.append(" : Buy ");
-            sb.append(buy);
-            sb.append(" Sell ");
-            sb.append(sell);
-            sb.append('\n');
-        }
-        String mostrar = sb.toString();
-
-        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.exchange_rate);
-        remoteViews.setTextViewText(0, mostrar);
-        liveCard.setViews(remoteViews);
-    }
-
     @Override
     public void onDestroy() {
         if (liveCard != null && liveCard.isPublished()) {
@@ -90,14 +64,57 @@ public class ExchangeRateService extends Service {
         super.onDestroy();
     }
 
+    private void loadInitialView() {
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.exchange_rate_row);
+        liveCard.setViews(remoteViews);
+    }
+
+    private void updateView() {
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.exchange_rate);
+
+        RemoteViews header = new RemoteViews(getPackageName(), R.layout.exchange_rate_header);
+        remoteViews.addView(R.id.content, header);
+
+        createNestedViews(remoteViews, 0);
+
+        liveCard.setViews(remoteViews);
+    }
+
+    private void createNestedViews(RemoteViews parent, int position) {
+        if (position < this.exchangeRates.size()) {
+            RemoteViews row = createRowRemoteView(exchangeRates.get(position));
+
+            RemoteViews nested = new RemoteViews(getPackageName(), R.layout.exchange_rate);
+            nested.addView(R.id.content, row);
+            parent.addView(R.id.nested, nested);
+
+            createNestedViews(parent, position + 1);
+        }
+    }
+
+    private RemoteViews createRowRemoteView(ExchangeRateDTO exchangeRateDTO) {
+        String description = exchangeRateDTO.getDestinationCurrencyDTO().getCurrencyDescription();
+        String alphaCode = exchangeRateDTO.getDestinationCurrencyDTO().getCurrencyAlpha3Code();
+        String buy = exchangeRateDTO.getBuyRate();
+        String sell = exchangeRateDTO.getSellRate();
+
+        RemoteViews row = new RemoteViews(getPackageName(), R.layout.exchange_rate_row);
+        row.setTextViewText(R.id.exchange_currency_description, description);
+        row.setTextViewText(R.id.exchange_currency_symbol, alphaCode);
+        row.setTextViewText(R.id.exchange_rate_buy, buy);
+        row.setTextViewText(R.id.exchange_rate_sell, sell);
+
+        return row;
+    }
+
     private void createAndStartScheduledTask() {
         task = Executors.newSingleThreadScheduledExecutor();
 
         task.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 String alphaCode = "UYU";
-                List<ExchangeRateDTO> exchangeRates = PublicApiService.getExchangeRatesByAlpha3Code(alphaCode);
-                updateView(exchangeRates);
+                exchangeRates = PublicApiService.getExchangeRatesByAlpha3Code(alphaCode);
+                updateView();
             }
         }, INITIAL_DELAY, TASK_DELAY, TimeUnit.MINUTES);
     }
