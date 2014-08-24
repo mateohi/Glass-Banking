@@ -12,7 +12,7 @@
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center_vertical"
-        android:layout_width="200dp"
+        android:layout_width="220dp"
         android:layout_height="@dimen/row_height"
         tools:ignore="RtlSymmetry"/>
 
@@ -23,7 +23,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:layout_toEndOf="@id/exchange_currency_header"
-        android:layout_width="60dp"
+        android:layout_width="70dp"
         android:layout_height="@dimen/row_height"/>
 
     <TextView
@@ -35,4 +35,14 @@
         android:layout_toEndOf="@id/exchange_rate_buy_header"
         android:layout_width="70dp"
         android:layout_height="@dimen/row_height"/>
+
+    <LinearLayout
+        android:layout_below="@id/exchange_rate_sell_header"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="25dp"
+        android:background="#FFFFFF" />
+
 </RelativeLayout>

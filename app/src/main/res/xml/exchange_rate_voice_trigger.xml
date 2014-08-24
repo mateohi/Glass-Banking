@@ -1,1 +1,3 @@
-<trigger command="FIND_THE_EXCHANGE_RATE" />
+<trigger command="FIND_THE_EXCHANGE_RATE">
+    <constraints network="true" />
+</trigger>

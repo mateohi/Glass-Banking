@@ -6,6 +6,7 @@ import com.google.android.glass.timeline.LiveCard.PublishMode;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 
@@ -82,27 +83,36 @@ public class ExchangeRateService extends Service {
 
     private void createNestedViews(RemoteViews parent, int position) {
         if (position < this.exchangeRates.size()) {
-            RemoteViews row = createRowRemoteView(exchangeRates.get(position));
+            RemoteViews row = createRowRemoteView(position);
 
             RemoteViews nested = new RemoteViews(getPackageName(), R.layout.exchange_rate);
             nested.addView(R.id.content, row);
             parent.addView(R.id.nested, nested);
 
-            createNestedViews(parent, position + 1);
+            createNestedViews(parent, ++position);
         }
     }
 
-    private RemoteViews createRowRemoteView(ExchangeRateDTO exchangeRateDTO) {
-        String description = exchangeRateDTO.getDestinationCurrencyDTO().getCurrencyDescription();
-        String alphaCode = exchangeRateDTO.getDestinationCurrencyDTO().getCurrencyAlpha3Code();
-        String buy = exchangeRateDTO.getBuyRate();
-        String sell = exchangeRateDTO.getSellRate();
+    private RemoteViews createRowRemoteView(int position) {
+        ExchangeRateDTO exchangeRate = this.exchangeRates.get(position);
+
+        String description = exchangeRate.getDestinationCurrencyDTO().getCurrencyDescription();
+        String alphaCode = exchangeRate.getDestinationCurrencyDTO().getCurrencyAlpha3Code();
+        String buy = exchangeRate.getBuyRate();
+        String sell = exchangeRate.getSellRate();
+
+        int color = position % 2 == 0 ? Color.GRAY : Color.WHITE;
 
         RemoteViews row = new RemoteViews(getPackageName(), R.layout.exchange_rate_row);
         row.setTextViewText(R.id.exchange_currency_description, description);
         row.setTextViewText(R.id.exchange_currency_symbol, alphaCode);
         row.setTextViewText(R.id.exchange_rate_buy, buy);
         row.setTextViewText(R.id.exchange_rate_sell, sell);
+
+        row.setTextColor(R.id.exchange_currency_description, color);
+        row.setTextColor(R.id.exchange_currency_symbol, color);
+        row.setTextColor(R.id.exchange_rate_buy, color);
+        row.setTextColor(R.id.exchange_rate_sell, color);
 
         return row;
     }
