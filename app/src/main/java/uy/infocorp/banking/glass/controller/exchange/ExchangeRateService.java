@@ -6,6 +6,8 @@ import com.google.android.glass.timeline.LiveCard.PublishMode;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.IBinder;
 import android.widget.RemoteViews;
@@ -66,7 +68,20 @@ public class ExchangeRateService extends Service {
     }
 
     private void loadInitialView() {
-        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.exchange_rate_row);
+        setLeftImageView(R.drawable.ic_sync, "Loading exchange rates ...");
+    }
+
+    private void loadErrorView() {
+        setLeftImageView(R.drawable.ic_warning_150, "Unable to get rates");
+    }
+
+    private void setLeftImageView(int resourceId, String text) {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
+
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.left_column_image);
+        remoteViews.setImageViewBitmap(R.id.left_column_image_image, bitmap);
+        remoteViews.setTextViewText(R.id.left_column_image_content, text);
+
         liveCard.setViews(remoteViews);
     }
 
@@ -77,7 +92,7 @@ public class ExchangeRateService extends Service {
         remoteViews.addView(R.id.content, header);
 
         createNestedViews(remoteViews, 0);
-
+        //remoteViews.setScrollPosition(R.id.nested, 10);
         liveCard.setViews(remoteViews);
     }
 
@@ -122,9 +137,14 @@ public class ExchangeRateService extends Service {
 
         task.scheduleAtFixedRate(new Runnable() {
             public void run() {
-                String alphaCode = "UYU";
-                exchangeRates = PublicApiService.getExchangeRatesByAlpha3Code(alphaCode);
-                updateView();
+                try {
+                    String alphaCode = "UYU";
+                    exchangeRates = PublicApiService.getExchangeRatesByAlpha3Code(alphaCode);
+                    updateView();
+                }
+                catch (Exception e) {
+                    loadErrorView();
+                }
             }
         }, INITIAL_DELAY, TASK_DELAY, TimeUnit.MINUTES);
     }

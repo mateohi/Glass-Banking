@@ -9,6 +9,7 @@
     <TextView
         android:id="@+id/exchange_currency_header"
         android:text="@string/currency_header"
+        android:textColor="@color/yellow"
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center_vertical"
@@ -19,6 +20,7 @@
     <TextView
         android:id="@+id/exchange_rate_buy_header"
         android:text="@string/buy_header"
+        android:textColor="@color/yellow"
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -29,6 +31,7 @@
     <TextView
         android:id="@+id/exchange_rate_sell_header"
         android:text="@string/sell_header"
+        android:textColor="@color/yellow"
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -36,13 +39,13 @@
         android:layout_width="70dp"
         android:layout_height="@dimen/row_height"/>
 
-    <LinearLayout
+    <!--LinearLayout
         android:layout_below="@id/exchange_rate_sell_header"
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
         android:layout_marginRight="25dp"
-        android:background="#FFFFFF" />
+        android:background="#FFFFFF" /-->
 
 </RelativeLayout>
