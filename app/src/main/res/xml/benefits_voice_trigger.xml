@@ -1,0 +1,3 @@
+<trigger keyword="@string/show_me_benefits">
+    <!--constraints network="true" /-->
+</trigger>
