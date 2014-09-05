@@ -22,6 +22,8 @@
     <!-- /Exchange rates -->
 
     <!-- Benefits -->
+    <string name="maps_intent_uri">google.navigation:ll=%s,%s&amp;mode=w&amp;title=%s</string>
+    <string name="benefit_to_speech">%s in %s</string>
 
     <string-array name="direction_abbreviations">
         <item>N</item>

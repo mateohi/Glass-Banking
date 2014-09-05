@@ -1,0 +1,28 @@
+{
+    "landmarks": [
+        {
+            "name": "Mdeo Shopping",
+            "description": "50% off on men clothing",
+            "latitude": -34.903876,
+            "longitude": -56.138528
+        },
+        {
+            "name": "Urban express",
+            "description": "30% off on all rooms",
+            "latitude": "-34.9042214",
+            "longitude": "-56.1980522"
+        },
+        {
+            "name": "Levi's",
+            "description": "2 for 1 in jeans",
+            "latitude": "-34.9078379",
+            "longitude": "-56.1915545"
+        },
+        {
+            "name": "Roots radios",
+            "description": "Free subwoofer with radio kit",
+            "latitude": "-34.8956888",
+            "longitude": "-56.1842796"
+        }
+    ]
+}

@@ -39,18 +39,17 @@ public class ExchangeRateClient {
     }
 
     public ExchangeRateDTO[] getExchangeRates() {
-        /*
         HttpGet httpGet = new HttpGet(PublicUrls.GET_EXCHANGE_RATES_URL);
         try {
 
             HttpResponse response = this.httpClient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
 
-            if (status == HttpStatus.SC_OK) {*/
-                String data = test();//EntityUtils.toString(response.getEntity());
+            if (status == HttpStatus.SC_OK) {
+                String data = EntityUtils.toString(response.getEntity());
                 ExchangeRateDTO[] rates = this.gson.fromJson(data, ExchangeRateDTO[].class);
                 return rates;
-            /*}
+            }
             else {
                 Log.e(TAG, "Server response: " + status);
                 throw new ServerException(httpGet.getURI().getHost(), response);
@@ -59,7 +58,7 @@ public class ExchangeRateClient {
         catch (IOException e) {
             Log.e(TAG, e.getMessage());
             throw new ConnectionException(httpGet.getURI().getHost());
-        }*/
+        }
     }
 
     private String test() {
