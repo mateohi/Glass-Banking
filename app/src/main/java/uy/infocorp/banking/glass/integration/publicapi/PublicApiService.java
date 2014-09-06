@@ -46,11 +46,11 @@ public class PublicApiService {
             if (knownBenefit.getAssociatedPointsOfInterest().length > 0) {
                 AssociatedPointOfInterestDTO pointOfInterest = knownBenefit.getAssociatedPointsOfInterest()[0];
 
-                double latitude = pointOfInterest.getLatitude();
-                double longitude = pointOfInterest.getLongitude();
                 PointsOfInterestDTO point = findPointById(pointsOfInterest, pointOfInterest);
                 String name = point.getName();
-                String description = point.getName();
+                String description = knownBenefit.getTitle();
+                double latitude = point.getLatitude();
+                double longitude = point.getLongitude();
 
                 float distanceToBenefit = MathUtils.getDistance(userLatitude, userLongitude,
                         latitude, longitude);
@@ -93,7 +93,7 @@ public class PublicApiService {
 
     private static PointsOfInterestDTO findPointById(List<PointsOfInterestDTO> pointsOfInterest, AssociatedPointOfInterestDTO pointOfInterest) {
         for (PointsOfInterestDTO point : pointsOfInterest) {
-            if (point.getId().equals(pointOfInterest.getId())) {
+            if (point.getId() == pointOfInterest.getId()) {
                 return point;
             }
         }

@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicApiService;
 import uy.infocorp.banking.glass.model.benefit.Benefit;
+import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.view.benefit.BenefitsCompassView;
 
 public class BenefitsCompassRenderer implements DirectRenderingCallback {
@@ -149,8 +150,12 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
 
     private void updateNearBenefits() {
         Location location = this.orientationManager.getLocation();
-        List<Benefit> benefits = PublicApiService.getNearbyBenefits(location);
-        benefitsCompassView.setNearbyPlaces(benefits);
+        new GetNearbyBenefitsTask(new FinishedTaskListener<List<Benefit>>() {
+            @Override
+            public void onResult(List<Benefit> result) {
+                benefitsCompassView.setNearbyPlaces(result);
+            }
+        }).execute(location);
     }
 
     /**

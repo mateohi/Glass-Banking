@@ -9,6 +9,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -41,7 +42,6 @@ public class PublicInfoClient {
     public PublicInfoDTO getPublicInfo() {
         HttpGet httpGet = new HttpGet(PublicUrls.GET_PUBLIC_INFO_URL);
         try {
-
             HttpResponse response = this.httpClient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
 
