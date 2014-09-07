@@ -2,14 +2,10 @@ package uy.infocorp.banking.glass.integration.publicapi.exchange;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
@@ -17,6 +13,7 @@ import uy.infocorp.banking.glass.exception.ConnectionException;
 import uy.infocorp.banking.glass.exception.ServerException;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
+import uy.infocorp.banking.glass.util.http.HttpUtils;
 
 public class ExchangeRateClient {
 
@@ -24,11 +21,9 @@ public class ExchangeRateClient {
 
     private static ExchangeRateClient instance;
     private HttpClient httpClient;
-    private Gson gson;
 
     private ExchangeRateClient() {
-        this.httpClient = new DefaultHttpClient();
-        this.gson = new Gson();
+        this.httpClient = HttpUtils.defaultHttpClient();
     }
 
     public static ExchangeRateClient instance() {
@@ -46,8 +41,7 @@ public class ExchangeRateClient {
             int status = response.getStatusLine().getStatusCode();
 
             if (status == HttpStatus.SC_OK) {
-                String data = EntityUtils.toString(response.getEntity());
-                ExchangeRateDTO[] rates = this.gson.fromJson(data, ExchangeRateDTO[].class);
+                ExchangeRateDTO[] rates = HttpUtils.typeFromResponse(response, ExchangeRateDTO[].class);
                 return rates;
             }
             else {

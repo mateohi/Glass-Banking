@@ -2,6 +2,7 @@ package uy.infocorp.banking.glass.integration.publicapi;
 
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.util.Log;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -26,12 +27,27 @@ import uy.infocorp.banking.glass.util.math.MathUtils;
 
 public class PublicApiService {
 
+    private static final String TAG = PublicApiService.class.getSimpleName();
+    private static final String INTEREST_POINT_ATM = "atm";
+    private static final String INTEREST_POINT_BRANCH = "branch";
     private static final double MAX_DISTANCE_KM = 10;
 
-    public static List<BenefitDTO> getBenefits() {
+    public static List<PointsOfInterestDTO> getNearbyAtms(Location location) {
         PublicInfoDTO publicInfo = PublicInfoClient.instance().getPublicInfo();
 
-        return Arrays.asList(publicInfo.getBenefits());
+        List<PointsOfInterestDTO> atms = new ArrayList<PointsOfInterestDTO>();
+
+        for (PointsOfInterestDTO pointOfInterest : publicInfo.getPointsOfInterestDTO()) {
+            String type = pointOfInterest.getType();
+            float distanceToAtm = getDistance(location, pointOfInterest.getLatitude(),
+                    pointOfInterest.getLongitude());
+
+            if (INTEREST_POINT_ATM.equals(type) && MAX_DISTANCE_KM <= distanceToAtm) {
+                atms.add(pointOfInterest);
+            }
+        }
+
+        return atms;
     }
 
     public static List<Benefit> getNearbyBenefits(Location location) {
@@ -39,24 +55,26 @@ public class PublicApiService {
         List<PointsOfInterestDTO> pointsOfInterest = Arrays.asList(publicInfo.getPointsOfInterestDTO());
 
         List<Benefit> nearbyBenefits = new ArrayList<Benefit>();
-        double userLatitude = location.getLatitude();
-        double userLongitude = location.getLongitude();
 
         for (BenefitDTO knownBenefit : publicInfo.getBenefits()) {
             if (knownBenefit.getAssociatedPointsOfInterest().length > 0) {
-                AssociatedPointOfInterestDTO pointOfInterest = knownBenefit.getAssociatedPointsOfInterest()[0];
+                for (AssociatedPointOfInterestDTO pointOfInterest : knownBenefit.getAssociatedPointsOfInterest()) {
+                    PointsOfInterestDTO point = findPointById(pointsOfInterest, pointOfInterest);
 
-                PointsOfInterestDTO point = findPointById(pointsOfInterest, pointOfInterest);
-                String name = point.getName();
-                String description = knownBenefit.getTitle();
-                double latitude = point.getLatitude();
-                double longitude = point.getLongitude();
+                    if (point != null) {
+                        String name = point.getName();
+                        String description = knownBenefit.getTitle();
+                        double latitude = point.getLatitude();
+                        double longitude = point.getLongitude();
 
-                float distanceToBenefit = MathUtils.getDistance(userLatitude, userLongitude,
-                        latitude, longitude);
+                        float distanceToBenefit = getDistance(location, latitude, longitude);
 
-                if (distanceToBenefit <= MAX_DISTANCE_KM) {
-                    nearbyBenefits.add(new Benefit(latitude, longitude, name, description));
+                        if (distanceToBenefit <= MAX_DISTANCE_KM) {
+                            nearbyBenefits.add(new Benefit(latitude, longitude, name, description));
+                        }
+                    } else {
+                        Log.w(TAG, "Unknown point of interest in benefit");
+                    }
                 }
             }
         }
@@ -98,6 +116,13 @@ public class PublicApiService {
             }
         }
 
-        throw new NoSuchElementException("Point of interest associated with benefit not found");
+        return null;
+    }
+
+    private static float getDistance(Location location, double latitude, double longitude) {
+        double userLatitude = location.getLatitude();
+        double userLongitude = location.getLongitude();
+
+        return MathUtils.getDistance(userLatitude, userLongitude, latitude, longitude);
     }
 }
