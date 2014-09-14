@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">ICBankingGlass</string>
+    <bool name="mock">false</bool>
 
     <!-- Integration -->
     <string name="ic_api_host"></string>

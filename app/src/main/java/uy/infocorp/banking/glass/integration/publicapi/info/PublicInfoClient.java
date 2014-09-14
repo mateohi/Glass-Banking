@@ -18,6 +18,7 @@ import uy.infocorp.banking.glass.exception.ConnectionException;
 import uy.infocorp.banking.glass.exception.ServerException;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
+import uy.infocorp.banking.glass.util.http.HttpUtils;
 
 public class PublicInfoClient {
 
@@ -25,11 +26,9 @@ public class PublicInfoClient {
 
     private static PublicInfoClient instance;
     private HttpClient httpClient;
-    private Gson gson;
 
     private PublicInfoClient() {
-        this.httpClient = new DefaultHttpClient();
-        this.gson = new Gson();
+        this.httpClient = HttpUtils.defaultHttpClient();
     }
 
     public static PublicInfoClient instance() {
@@ -46,9 +45,7 @@ public class PublicInfoClient {
             int status = response.getStatusLine().getStatusCode();
 
             if (status == HttpStatus.SC_OK) {
-                String data = EntityUtils.toString(response.getEntity());
-                PublicInfoDTO publicInfo = this.gson.fromJson(data, PublicInfoDTO.class);
-                return publicInfo;
+                return HttpUtils.typeFromResponse(response, PublicInfoDTO.class);
             }
             else {
                 Log.e(TAG, "Server response: " + status);

@@ -36,13 +36,11 @@ public class ExchangeRateClient {
     public ExchangeRateDTO[] getExchangeRates() {
         HttpGet httpGet = new HttpGet(PublicUrls.GET_EXCHANGE_RATES_URL);
         try {
-
             HttpResponse response = this.httpClient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
 
             if (status == HttpStatus.SC_OK) {
-                ExchangeRateDTO[] rates = HttpUtils.typeFromResponse(response, ExchangeRateDTO[].class);
-                return rates;
+                return HttpUtils.typeFromResponse(response, ExchangeRateDTO[].class);
             }
             else {
                 Log.e(TAG, "Server response: " + status);

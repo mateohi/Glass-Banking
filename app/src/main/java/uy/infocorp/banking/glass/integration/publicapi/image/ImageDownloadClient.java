@@ -2,8 +2,6 @@ package uy.infocorp.banking.glass.integration.publicapi.image;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -17,6 +15,7 @@ import uy.infocorp.banking.glass.exception.ConnectionException;
 import uy.infocorp.banking.glass.exception.ServerException;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.image.dto.ImageDTO;
+import uy.infocorp.banking.glass.util.http.HttpUtils;
 
 public class ImageDownloadClient {
 
@@ -24,11 +23,9 @@ public class ImageDownloadClient {
 
     private static ImageDownloadClient instance;
     private HttpClient httpClient;
-    private Gson gson;
 
     private ImageDownloadClient() {
-        this.httpClient = new DefaultHttpClient();
-        this.gson = new Gson();
+        this.httpClient = HttpUtils.defaultHttpClient();
     }
 
     public static ImageDownloadClient instance() {
@@ -45,8 +42,7 @@ public class ImageDownloadClient {
             int status = response.getStatusLine().getStatusCode();
 
             if (status == HttpStatus.SC_OK) {
-                String data = EntityUtils.toString(response.getEntity());
-                ImageDTO[] images = this.gson.fromJson(data, ImageDTO[].class);
+                ImageDTO[] images = HttpUtils.typeFromResponse(response, ImageDTO[].class);
                 return images[0];
             }
             else {
