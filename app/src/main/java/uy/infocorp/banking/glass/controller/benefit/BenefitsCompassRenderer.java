@@ -13,13 +13,13 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.glass.app.Card;
 import com.google.android.glass.timeline.DirectRenderingCallback;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.integration.publicapi.PublicApiService;
 import uy.infocorp.banking.glass.model.benefit.Benefit;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.view.benefit.BenefitsCompassView;
@@ -32,6 +32,8 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
     private static final int REFRESH_RATE_FPS = 45;
     private static final long FRAME_TIME_MILLIS = TimeUnit.SECONDS.toMillis(1) / REFRESH_RATE_FPS;
 
+    private Context context;
+
     private final TextView benefitNameView;
     private final TextView benefitDescriptionView;
 
@@ -43,6 +45,7 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
     private int surfaceHeight;
 
     private boolean renderingPaused;
+    private boolean serviceCalled;
 
     private final FrameLayout frameLayout;
     private final BenefitsCompassView benefitsCompassView;
@@ -78,6 +81,7 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
 
     public BenefitsCompassRenderer(Context context, OrientationManager orientationManager) {
         LayoutInflater inflater = LayoutInflater.from(context);
+        this.context = context;
         this.frameLayout = (FrameLayout) inflater.inflate(R.layout.benefits, null);
         this.frameLayout.setWillNotDraw(false);
 
@@ -92,6 +96,8 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
 
         this.benefitsCompassView.setOrientationManager(this.orientationManager);
         this.orientationManager.setBenefitsCompassListener(this.benefitsCompassListener);
+
+        this.serviceCalled = false;
     }
 
     @Override
@@ -138,22 +144,24 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
 
                 this.renderThread = new RenderThread();
                 this.renderThread.start();
-            } else {
+            }
+            else {
                 this.renderThread.quit();
                 this.renderThread = null;
 
                 this.orientationManager.stop();
-
             }
         }
     }
 
     private void updateNearBenefits() {
         Location location = this.orientationManager.getLocation();
+
         new GetNearbyBenefitsTask(new FinishedTaskListener<List<Benefit>>() {
             @Override
             public void onResult(List<Benefit> result) {
                 benefitsCompassView.setNearbyPlaces(result);
+                serviceCalled = true;
             }
         }).execute(location);
     }
@@ -176,18 +184,28 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
 
         try {
             canvas = this.surfaceHolder.lockCanvas();
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e) {
             Log.d(TAG, "lockCanvas failed", e);
         }
 
         if (canvas != null) {
-            updateFrontBenefits();
-            canvas.drawColor(Color.BLACK);
-            this.frameLayout.draw(canvas);
+
+            if (serviceCalled) {
+                updateFrontBenefits();
+                canvas.drawColor(Color.BLACK);
+                this.frameLayout.draw(canvas);
+            }
+            else {
+                Card loadingCard = new Card(this.context.getApplicationContext());
+                loadingCard.setText("Loading nearby benefits");
+                loadingCard.getView().draw(canvas);
+            }
 
             try {
                 this.surfaceHolder.unlockCanvasAndPost(canvas);
-            } catch (RuntimeException e) {
+            }
+            catch (RuntimeException e) {
                 Log.d(TAG, "unlockCanvasAndPost failed", e);
             }
         }
@@ -209,10 +227,12 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
         if (this.isTooSteep) {
             this.tipsView.setText(R.string.pitch_too_steep);
             doLayout();
-        } else if (this.hasMagneticInterference) {
+        }
+        else if (this.hasMagneticInterference) {
             this.tipsView.setText(R.string.magnetic_interference);
             doLayout();
-        } else {
+        }
+        else {
             tipsAlpha = 0.0f;
             benefitsAlpha = 1.0f;
         }

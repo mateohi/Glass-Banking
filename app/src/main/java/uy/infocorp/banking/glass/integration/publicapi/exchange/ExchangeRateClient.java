@@ -1,29 +1,16 @@
 package uy.infocorp.banking.glass.integration.publicapi.exchange;
 
-import android.util.Log;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-
-import java.io.IOException;
-
-import uy.infocorp.banking.glass.exception.ConnectionException;
-import uy.infocorp.banking.glass.exception.ServerException;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
-import uy.infocorp.banking.glass.util.http.HttpUtils;
+import uy.infocorp.banking.glass.util.http.RestClient;
 
 public class ExchangeRateClient {
 
-    private static final String TAG = ExchangeRateClient.class.getSimpleName();
-
     private static ExchangeRateClient instance;
-    private HttpClient httpClient;
+    private RestClient client;
 
     private ExchangeRateClient() {
-        this.httpClient = HttpUtils.defaultHttpClient();
+        this.client = new RestClient();
     }
 
     public static ExchangeRateClient instance() {
@@ -34,23 +21,7 @@ public class ExchangeRateClient {
     }
 
     public ExchangeRateDTO[] getExchangeRates() {
-        HttpGet httpGet = new HttpGet(PublicUrls.GET_EXCHANGE_RATES_URL);
-        try {
-            HttpResponse response = this.httpClient.execute(httpGet);
-            int status = response.getStatusLine().getStatusCode();
-
-            if (status == HttpStatus.SC_OK) {
-                return HttpUtils.typeFromResponse(response, ExchangeRateDTO[].class);
-            }
-            else {
-                Log.e(TAG, "Server response: " + status);
-                throw new ServerException(httpGet.getURI().getHost(), response);
-            }
-        }
-        catch (IOException e) {
-            Log.e(TAG, e.getMessage());
-            throw new ConnectionException(httpGet.getURI().getHost());
-        }
+        return this.client.get(PublicUrls.GET_EXCHANGE_RATES_URL, ExchangeRateDTO[].class);
     }
 
     private String test() {

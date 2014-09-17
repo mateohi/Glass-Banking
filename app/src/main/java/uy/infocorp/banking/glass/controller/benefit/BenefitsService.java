@@ -67,7 +67,8 @@ public class BenefitsService extends Service {
             liveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
             liveCard.attach(this);
             liveCard.publish(PublishMode.REVEAL);
-        } else {
+        }
+        else {
             liveCard.navigate();
         }
 
@@ -93,9 +94,9 @@ public class BenefitsService extends Service {
 
         public void readBenefitDescription() {
             Benefit benefit = benefitsCompassRenderer.getFrontBenefit();
-
             String spokenDescription = getResources().getString(R.string.benefit_to_speech,
                     benefit.getDescription(), benefit.getName());
+
             speech.speak(spokenDescription, TextToSpeech.QUEUE_FLUSH, null);
         }
 
@@ -107,6 +108,7 @@ public class BenefitsService extends Service {
             Intent mapIntent = new Intent(Intent.ACTION_VIEW);
             mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mapIntent.setData(Uri.parse(uri));
+
             startActivity(mapIntent);
         }
     }

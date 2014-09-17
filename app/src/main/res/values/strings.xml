@@ -58,4 +58,7 @@
 
     <string name="show_me_benefits">Show me benefits</string>
     <!-- /Benefits -->
+
+    <!-- Glass Dialog -->
+    <string name="action_dismiss">Dismiss</string>
 </resources>

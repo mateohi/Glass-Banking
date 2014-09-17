@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class HttpUtils {
 
-    private static final int DEFAULT_TIMEOUT = (int) TimeUnit.SECONDS.toMillis(20);
+    private static final int DEFAULT_TIMEOUT = (int) TimeUnit.SECONDS.toMillis(10);
     private static final Gson GSON = new Gson();
 
     public static HttpClient defaultHttpClient() {

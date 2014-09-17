@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import uy.infocorp.banking.glass.integration.publicapi.exchange.ExchangeRateClient;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
@@ -57,24 +56,23 @@ public class PublicApiService {
         List<Benefit> nearbyBenefits = new ArrayList<Benefit>();
 
         for (BenefitDTO knownBenefit : publicInfo.getBenefits()) {
-            if (knownBenefit.getAssociatedPointsOfInterest().length > 0) {
-                for (AssociatedPointOfInterestDTO pointOfInterest : knownBenefit.getAssociatedPointsOfInterest()) {
-                    PointsOfInterestDTO point = findPointById(pointsOfInterest, pointOfInterest);
+            for (AssociatedPointOfInterestDTO pointOfInterest : knownBenefit.getAssociatedPointsOfInterest()) {
+                PointsOfInterestDTO point = findPointById(pointsOfInterest, pointOfInterest);
 
-                    if (point != null) {
-                        String name = point.getName();
-                        String description = knownBenefit.getTitle();
-                        double latitude = point.getLatitude();
-                        double longitude = point.getLongitude();
+                if (point != null) {
+                    String name = point.getName();
+                    String description = knownBenefit.getTitle();
+                    double latitude = point.getLatitude();
+                    double longitude = point.getLongitude();
 
-                        float distanceToBenefit = getDistance(location, latitude, longitude);
+                    float distanceToBenefit = getDistance(location, latitude, longitude);
 
-                        if (distanceToBenefit <= MAX_DISTANCE_KM) {
-                            nearbyBenefits.add(new Benefit(latitude, longitude, name, description));
-                        }
-                    } else {
-                        Log.w(TAG, "Unknown point of interest in benefit");
+                    if (distanceToBenefit <= MAX_DISTANCE_KM) {
+                        nearbyBenefits.add(new Benefit(latitude, longitude, name, description));
                     }
+                }
+                else {
+                    Log.w(TAG, "Unknown point of interest in benefit");
                 }
             }
         }

@@ -74,55 +74,55 @@ public class BenefitsCompassView extends View {
     public BenefitsCompassView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-        paint.setAntiAlias(true);
-        paint.setTextSize(DIRECTION_TEXT_HEIGHT);
-        paint.setColor(Color.GRAY);
-        paint.setTypeface(Typeface.create("sans-serif-thin", Typeface.BOLD));
+        this.paint = new Paint();
+        this.paint.setStyle(Paint.Style.FILL);
+        this.paint.setAntiAlias(true);
+        this.paint.setTextSize(DIRECTION_TEXT_HEIGHT);
+        this.paint.setColor(Color.GRAY);
+        this.paint.setTypeface(Typeface.create("sans-serif-thin", Typeface.BOLD));
 
-        tickPaint = new Paint();
-        tickPaint.setStyle(Paint.Style.STROKE);
-        tickPaint.setStrokeWidth(TICK_WIDTH);
-        tickPaint.setAntiAlias(true);
-        tickPaint.setColor(Color.GRAY);
+        this.tickPaint = new Paint();
+        this.tickPaint.setStyle(Paint.Style.STROKE);
+        this.tickPaint.setStrokeWidth(TICK_WIDTH);
+        this.tickPaint.setAntiAlias(true);
+        this.tickPaint.setColor(Color.GRAY);
 
-        benefitPaint = new TextPaint();
-        benefitPaint.setStyle(Paint.Style.FILL);
-        benefitPaint.setAntiAlias(true);
-        benefitPaint.setColor(Color.WHITE);
-        benefitPaint.setTextSize(PLACE_TEXT_HEIGHT);
-        benefitPaint.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+        this.benefitPaint = new TextPaint();
+        this.benefitPaint.setStyle(Paint.Style.FILL);
+        this.benefitPaint.setAntiAlias(true);
+        this.benefitPaint.setColor(Color.WHITE);
+        this.benefitPaint.setTextSize(PLACE_TEXT_HEIGHT);
+        this.benefitPaint.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
 
-        frontBenefitPaint = new TextPaint();
-        frontBenefitPaint.setStyle(Paint.Style.FILL);
-        frontBenefitPaint.setAntiAlias(true);
-        frontBenefitPaint.setColor(Color.CYAN);
-        frontBenefitPaint.setTextSize(NEAR_PLACE_TEXT_HEIGHT);
-        frontBenefitPaint.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        this.frontBenefitPaint = new TextPaint();
+        this.frontBenefitPaint.setStyle(Paint.Style.FILL);
+        this.frontBenefitPaint.setAntiAlias(true);
+        this.frontBenefitPaint.setColor(Color.CYAN);
+        this.frontBenefitPaint.setTextSize(NEAR_PLACE_TEXT_HEIGHT);
+        this.frontBenefitPaint.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
 
-        textBounds = new Rect();
-        allBounds = new ArrayList<Rect>();
+        this.textBounds = new Rect();
+        this.allBounds = new ArrayList<Rect>();
 
-        distanceFormat = NumberFormat.getNumberInstance();
-        distanceFormat.setMinimumFractionDigits(0);
-        distanceFormat.setMaximumFractionDigits(1);
+        this.distanceFormat = NumberFormat.getNumberInstance();
+        this.distanceFormat.setMinimumFractionDigits(0);
+        this.distanceFormat.setMaximumFractionDigits(1);
 
-        placeBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.place_mark);
+        this.placeBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.place_mark);
 
         // We use NaN to indicate that the compass is being drawn for the first
         // time, so that we can jump directly to the starting orientation
         // instead of spinning from a default value of 0.
-        animatedHeading = Float.NaN;
+        this.animatedHeading = Float.NaN;
 
-        directions = context.getResources().getStringArray(R.array.direction_abbreviations);
+        this.directions = context.getResources().getStringArray(R.array.direction_abbreviations);
 
-        valueAnimator = new ValueAnimator();
+        this.valueAnimator = new ValueAnimator();
         setupAnimator();
     }
 
     public Benefit getFrontBenefit() {
-        return frontBenefit;
+        return this.frontBenefit;
     }
 
     public void setOrientationManager(OrientationManager orientationManager) {
@@ -130,16 +130,16 @@ public class BenefitsCompassView extends View {
     }
 
     public float getHeading() {
-        return heading;
+        return this.heading;
     }
 
     public void setHeading(float degrees) {
-        heading = MathUtils.mod(degrees, 360.0f);
-        animateTo(heading);
+        this.heading = MathUtils.mod(degrees, 360.0f);
+        animateTo(this.heading);
     }
 
     public void setNearbyPlaces(List<Benefit> benefits) {
-        nearbyBenefits = benefits;
+        this.nearbyBenefits = benefits;
     }
 
     @Override
@@ -198,15 +198,15 @@ public class BenefitsCompassView extends View {
                 double latitude1 = userLocation.getLatitude();
                 double longitude1 = userLocation.getLongitude();
 
-                allBounds.clear();
+                this.allBounds.clear();
 
                 // Loop over the list of nearby places (those within 10 km of the user's current
                 // location), and compute the relative bearing from the user's location to the
                 // place's location. This determines the position on the compass view where the
                 // pin will be drawn.
-                Benefit front = nearbyBenefits.get(0);
+                Benefit front = this.nearbyBenefits.get(0);
                 double smallestDifference = 360;
-                for (Benefit benefit : nearbyBenefits) {
+                for (Benefit benefit : this.nearbyBenefits) {
                     double latitude2 = benefit.getLatitude();
                     double longitude2 = benefit.getLongitude();
                     float bearing = MathUtils.getBearing(latitude1, longitude1, latitude2,
@@ -221,7 +221,7 @@ public class BenefitsCompassView extends View {
                     // Measure the text and offset the text bounds to the location where the text
                     // will finally be drawn.
                     Rect textBounds = new Rect();
-                    benefitPaint.getTextBounds(text, 0, text.length(), textBounds);
+                    this.benefitPaint.getTextBounds(text, 0, text.length(), textBounds);
                     textBounds.offsetTo((int) (offset + bearing * pixelsPerDegree
                             + PLACE_PIN_WIDTH / 2 + PLACE_TEXT_MARGIN), canvas.getHeight() / 2
                             - (int) PLACE_TEXT_HEIGHT + (int) (distanceKm * 5.0));
@@ -244,7 +244,7 @@ public class BenefitsCompassView extends View {
                         numberOfTries++;
                         textBounds.offset(0, (int) -(PLACE_TEXT_HEIGHT + PLACE_TEXT_LEADING));
 
-                        for (Rect existing : allBounds) {
+                        for (Rect existing : this.allBounds) {
                             if (Rect.intersects(existing, textBounds)) {
                                 intersects = true;
                                 break;
@@ -265,13 +265,13 @@ public class BenefitsCompassView extends View {
                                 benefitPaint);
                     }
 
-                    double difference = MathUtils.getAngleDifference(bearing, heading);
+                    double difference = MathUtils.getAngleDifference(bearing, this.heading);
                     if (difference < smallestDifference) {
                         smallestDifference = difference;
                         front = benefit;
                     }
                 }
-                frontBenefit = front;
+                this.frontBenefit = front;
             }
         }
     }
