@@ -2,16 +2,63 @@
 <resources>
 
     <string name="app_name">ICBankingGlass</string>
+    <bool name="mock">false</bool>
+
+    <!-- Integration -->
+    <string name="ic_api_host"></string>
+    <string name="ic_api_port"></string>
+    <string name="ic_api_exchange_rates_path"></string>
+    <string name="ic_api_public_info_path"></string>
+    <!-- /Integration -->
+
+    <!-- Exchange rates -->
     <string name="title_activity_exchange_rate_service">Exchange rates</string>
     <string name="action_stop">Stop</string>
 
     <string name="loading">Loading rates ...</string>
 
-    <string name="ic_api_host"></string>
-    <string name="ic_api_port"></string>
-    <string name="ic_api_exchange_rates_path"></string>
-    <string name="ic_api_public_info_path"></string>
     <string name="currency_header">Currency</string>
     <string name="buy_header">Buy</string>
     <string name="sell_header">Sell</string>
+    <!-- /Exchange rates -->
+
+    <!-- Benefits -->
+    <string name="maps_intent_uri" formatted="false">google.navigation:ll=%s,%s&amp;mode=w&amp;title=%s</string>
+    <string name="benefit_to_speech" formatted="false">%s in %s</string>
+
+    <string-array name="direction_abbreviations">
+        <item>N</item>
+        <item>NNE</item>
+        <item>NE</item>
+        <item>ENE</item>
+        <item>E</item>
+        <item>ESE</item>
+        <item>SE</item>
+        <item>SSE</item>
+        <item>S</item>
+        <item>SSW</item>
+        <item>SW</item>
+        <item>WSW</item>
+        <item>W</item>
+        <item>WNW</item>
+        <item>NW</item>
+        <item>NNW</item>
+    </string-array>
+
+    <string name="place_text_format">%1$s (%2$s km)</string>
+
+    <!-- Warning messages. -->
+    <string name="pitch_too_steep">Keep Glass horizontal to see benefits</string>
+    <string name="magnetic_interference">Glass is detecting low GPS accuracy</string>
+
+    <!-- Menu item strings. -->
+    <string name="read_aloud">Read aloud</string>
+    <string name="stop">Stop</string>
+    <string name="get_directions">Get directions</string>
+
+    <string name="show_me_benefits">Show me benefits</string>
+    <!-- /Benefits -->
+
+    <!-- Glass Dialog -->
+    <string name="action_dismiss">Dismiss</string>
 </resources>

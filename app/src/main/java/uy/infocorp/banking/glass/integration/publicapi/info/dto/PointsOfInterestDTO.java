@@ -2,27 +2,27 @@ package uy.infocorp.banking.glass.integration.publicapi.info.dto;
 
 public class PointsOfInterestDTO {
 
-    private String isDeleted;
+    private boolean isDeleted;
     private String type;
     private String modifiedDate;
-    private String id;
+    private int id;
     private String creationDate;
     private String workingHours;
-    private String imageId;
+    private int imageId;
     private String address;
     private String email;
     private String name;
-    private String longitude;
-    private String latitude;
+    private double longitude;
+    private double latitude;
     private String notes;
     private String telephone;
     private ZoneDTO zone;
 
-    public String getIsDeleted() {
+    public boolean isDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(String isDeleted) {
+    public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 
@@ -42,11 +42,11 @@ public class PointsOfInterestDTO {
         this.modifiedDate = modifiedDate;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -66,11 +66,11 @@ public class PointsOfInterestDTO {
         this.workingHours = workingHours;
     }
 
-    public String getImageId() {
+    public int getImageId() {
         return imageId;
     }
 
-    public void setImageId(String imageId) {
+    public void setImageId(int imageId) {
         this.imageId = imageId;
     }
 
@@ -98,19 +98,19 @@ public class PointsOfInterestDTO {
         this.name = name;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 

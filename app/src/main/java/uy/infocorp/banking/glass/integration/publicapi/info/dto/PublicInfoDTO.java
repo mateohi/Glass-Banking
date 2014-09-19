@@ -10,7 +10,7 @@ public class PublicInfoDTO {
     private NewsFeedDTO[] newsFeed;
     private PointsOfInterestDTO[] pointsOfInterest;
     private ContactItemsGroupsDTO[] contactItemsGroups;
-    private String[] benefits;
+    private BenefitDTO[] benefits;
     private BannerDTO banner;
 
     public FrequentlyAskedQuestionsDTO[] getFrequentlyAskedQuestionsDTO() {
@@ -61,11 +61,11 @@ public class PublicInfoDTO {
         this.contactItemsGroups = contactItemsGroups;
     }
 
-    public String[] getBenefits() {
+    public BenefitDTO[] getBenefits() {
         return benefits;
     }
 
-    public void setBenefits(String[] benefits) {
+    public void setBenefits(BenefitDTO[] benefits) {
         this.benefits = benefits;
     }
 

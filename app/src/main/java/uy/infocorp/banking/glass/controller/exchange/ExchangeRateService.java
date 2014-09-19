@@ -2,6 +2,7 @@ package uy.infocorp.banking.glass.controller.exchange;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
+import com.google.android.glass.widget.CardBuilder;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicApiService;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
+import uy.infocorp.banking.glass.util.view.dialog.GlassDialog;
 
 public class ExchangeRateService extends Service {
 
@@ -33,6 +35,7 @@ public class ExchangeRateService extends Service {
 
     private LiveCard liveCard;
     private List<ExchangeRateDTO> exchangeRates = new ArrayList<ExchangeRateDTO>();
+    private boolean firstRates;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -42,47 +45,52 @@ public class ExchangeRateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (liveCard == null) {
-            liveCard = new LiveCard(this, TAG);
+            this.firstRates = true;
+            this.liveCard = new LiveCard(this, TAG);
 
             loadInitialView();
 
             Intent menuIntent = new Intent(this, ExchangeRateMenuActivity.class);
-            liveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
-            liveCard.publish(PublishMode.REVEAL);
+            this.liveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
+            this.liveCard.publish(PublishMode.REVEAL);
 
             createAndStartScheduledTask();
         } else {
-            liveCard.navigate();
+            this.liveCard.navigate();
         }
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        if (liveCard != null && liveCard.isPublished()) {
-            liveCard.unpublish();
-            liveCard = null;
-        }
-        task.shutdown();
+        destroy();
         super.onDestroy();
     }
 
+    private void destroy() {
+        if (this.liveCard != null && this.liveCard.isPublished()) {
+            this.liveCard.unpublish();
+            this.liveCard = null;
+        }
+        this.task.shutdown();
+    }
+
     private void loadInitialView() {
-        setLeftImageView(R.drawable.ic_sync, "Loading exchange rates ...");
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_sync);
+
+        RemoteViews remoteViews = new CardBuilder(this, CardBuilder.Layout.ALERT)
+                .setText("Loading")
+                .setFootnote("Waiting for exchange rates")
+                .setIcon(bitmap)
+                .getRemoteViews();
+
+        this.liveCard.setViews(remoteViews);
     }
 
     private void loadErrorView() {
-        setLeftImageView(R.drawable.ic_warning_150, "Unable to get rates");
-    }
-
-    private void setLeftImageView(int resourceId, String text) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
-
-        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.left_column_image);
-        remoteViews.setImageViewBitmap(R.id.left_column_image_image, bitmap);
-        remoteViews.setTextViewText(R.id.left_column_image_content, text);
-
-        liveCard.setViews(remoteViews);
+        GlassDialog.warning(this.getApplicationContext(), "Unable to get exchange rates",
+                "Check your internet connection");
+        destroy();
     }
 
     private void updateView() {
@@ -93,7 +101,7 @@ public class ExchangeRateService extends Service {
 
         createNestedViews(remoteViews, 0);
         //remoteViews.setScrollPosition(R.id.nested, 10);
-        liveCard.setViews(remoteViews);
+        this.liveCard.setViews(remoteViews);
     }
 
     private void createNestedViews(RemoteViews parent, int position) {
@@ -133,17 +141,22 @@ public class ExchangeRateService extends Service {
     }
 
     private void createAndStartScheduledTask() {
-        task = Executors.newSingleThreadScheduledExecutor();
+        this.task = Executors.newSingleThreadScheduledExecutor();
 
-        task.scheduleAtFixedRate(new Runnable() {
+        this.task.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 try {
                     String alphaCode = "UYU";
                     exchangeRates = PublicApiService.getExchangeRatesByAlpha3Code(alphaCode);
                     updateView();
+
+                    firstRates = false;
                 }
                 catch (Exception e) {
-                    loadErrorView();
+                    if (firstRates) {
+                        loadErrorView();
+                    }
+                    // else -> No update, no need to throw an error, we just show older rates
                 }
             }
         }, INITIAL_DELAY, TASK_DELAY, TimeUnit.MINUTES);
