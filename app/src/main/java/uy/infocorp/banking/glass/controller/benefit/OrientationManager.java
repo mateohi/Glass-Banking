@@ -42,7 +42,7 @@ public class OrientationManager {
     private GeomagneticField geomagneticField;
     private boolean hasInterference;
 
-    private SensorEventListener mSensorListener = new SensorEventListener() {
+    private SensorEventListener sensorListener = new SensorEventListener() {
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -109,13 +109,13 @@ public class OrientationManager {
 
     public void start() {
         if (!tracking) {
-            sensorManager.registerListener(mSensorListener,
+            sensorManager.registerListener(sensorListener,
                     sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
                     SensorManager.SENSOR_DELAY_UI);
 
             // The rotation vector sensor doesn't give us accuracy updates, so we observe the
             // magnetic field sensor solely for those.
-            sensorManager.registerListener(mSensorListener,
+            sensorManager.registerListener(sensorListener,
                     sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
                     SensorManager.SENSOR_DELAY_UI);
 
@@ -146,7 +146,7 @@ public class OrientationManager {
 
     public void stop() {
         if (tracking) {
-            sensorManager.unregisterListener(mSensorListener);
+            sensorManager.unregisterListener(sensorListener);
             locationManager.removeUpdates(locationListener);
             tracking = false;
         }

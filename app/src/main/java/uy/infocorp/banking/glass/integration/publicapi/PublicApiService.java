@@ -45,6 +45,15 @@ public class PublicApiService {
                 atms.add(pointOfInterest);
             }
         }
+        /*
+        for (PointsOfInterestDTO atm : atms) {
+            String name = atm.getName();
+            String telephone = atm.getTelephone();
+            double latitude = atm.getLatitude();
+            double longitude = atm.getLongitude();
+            Bitmap image = getImage(atm.getImageId());
+        }
+        */
 
         return atms;
     }

@@ -1,8 +1,10 @@
 package uy.infocorp.banking.glass.controller.benefit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.location.Location;
 import android.os.SystemClock;
 import android.util.Log;
@@ -15,13 +17,17 @@ import android.widget.TextView;
 
 import com.google.android.glass.app.Card;
 import com.google.android.glass.timeline.DirectRenderingCallback;
+import com.google.android.glass.widget.CardBuilder;
 
+import java.util.EventListener;
 import java.util.List;
+import java.util.Observer;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.model.benefit.Benefit;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.view.dialog.GlassDialog;
 import uy.infocorp.banking.glass.view.benefit.BenefitsCompassView;
 
 public class BenefitsCompassRenderer implements DirectRenderingCallback {
@@ -32,7 +38,7 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
     private static final int REFRESH_RATE_FPS = 45;
     private static final long FRAME_TIME_MILLIS = TimeUnit.SECONDS.toMillis(1) / REFRESH_RATE_FPS;
 
-    private Context context;
+    private BenefitsService service;
 
     private final TextView benefitNameView;
     private final TextView benefitDescriptionView;
@@ -79,9 +85,9 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
         }
     };
 
-    public BenefitsCompassRenderer(Context context, OrientationManager orientationManager) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        this.context = context;
+    public BenefitsCompassRenderer(BenefitsService service, OrientationManager orientationManager) {
+        LayoutInflater inflater = LayoutInflater.from(service);
+        this.service = service;
         this.frameLayout = (FrameLayout) inflater.inflate(R.layout.benefits, null);
         this.frameLayout.setWillNotDraw(false);
 
@@ -160,8 +166,14 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
         new GetNearbyBenefitsTask(new FinishedTaskListener<List<Benefit>>() {
             @Override
             public void onResult(List<Benefit> result) {
-                benefitsCompassView.setNearbyPlaces(result);
-                serviceCalled = true;
+                if (result != null) {
+                    benefitsCompassView.setNearbyPlaces(result);
+                    serviceCalled = true;
+                }
+                else {
+                    service.stopService();
+                    GlassDialog.warning(service.getApplicationContext(), "Unable to get benefits", "Check your internet connection");
+                }
             }
         }).execute(location);
     }
@@ -190,16 +202,17 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
         }
 
         if (canvas != null) {
+            canvas.drawColor(Color.BLACK);
 
             if (serviceCalled) {
                 updateFrontBenefits();
-                canvas.drawColor(Color.BLACK);
                 this.frameLayout.draw(canvas);
             }
             else {
-                Card loadingCard = new Card(this.context.getApplicationContext());
-                loadingCard.setText("Loading nearby benefits");
-                loadingCard.getView().draw(canvas);
+                new CardBuilder(this.service.getApplicationContext(), CardBuilder.Layout.ALERT)
+                .setText("Loading nearby benefits")
+                .getView()
+                .draw(canvas);
             }
 
             try {

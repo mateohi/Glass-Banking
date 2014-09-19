@@ -2,13 +2,13 @@ package uy.infocorp.banking.glass.integration.publicapi.info.dto;
 
 public class PointsOfInterestDTO {
 
-    private String isDeleted;
+    private boolean isDeleted;
     private String type;
     private String modifiedDate;
     private int id;
     private String creationDate;
     private String workingHours;
-    private String imageId;
+    private int imageId;
     private String address;
     private String email;
     private String name;
@@ -18,11 +18,11 @@ public class PointsOfInterestDTO {
     private String telephone;
     private ZoneDTO zone;
 
-    public String getIsDeleted() {
+    public boolean isDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(String isDeleted) {
+    public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 
@@ -66,11 +66,11 @@ public class PointsOfInterestDTO {
         this.workingHours = workingHours;
     }
 
-    public String getImageId() {
+    public int getImageId() {
         return imageId;
     }
 
-    public void setImageId(String imageId) {
+    public void setImageId(int imageId) {
         this.imageId = imageId;
     }
 

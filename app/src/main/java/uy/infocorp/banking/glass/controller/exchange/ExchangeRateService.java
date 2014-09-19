@@ -2,6 +2,7 @@ package uy.infocorp.banking.glass.controller.exchange;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
+import com.google.android.glass.widget.CardBuilder;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -75,23 +76,21 @@ public class ExchangeRateService extends Service {
     }
 
     private void loadInitialView() {
-        setLeftImageView(R.drawable.ic_sync, "Loading exchange rates ...");
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_sync);
+
+        RemoteViews remoteViews = new CardBuilder(this, CardBuilder.Layout.ALERT)
+                .setText("Loading")
+                .setFootnote("Waiting for exchange rates")
+                .setIcon(bitmap)
+                .getRemoteViews();
+
+        this.liveCard.setViews(remoteViews);
     }
 
     private void loadErrorView() {
-        GlassDialog.warning(this.getApplicationContext(), "Unable to get benefits",
+        GlassDialog.warning(this.getApplicationContext(), "Unable to get exchange rates",
                 "Check your internet connection");
         destroy();
-    }
-
-    private void setLeftImageView(int resourceId, String text) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
-
-        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.left_column_image);
-        remoteViews.setImageViewBitmap(R.id.left_column_image_image, bitmap);
-        remoteViews.setTextViewText(R.id.left_column_image_content, text);
-
-        this.liveCard.setViews(remoteViews);
     }
 
     private void updateView() {

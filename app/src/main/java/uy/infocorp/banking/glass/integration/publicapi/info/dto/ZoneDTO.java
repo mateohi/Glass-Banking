@@ -2,13 +2,13 @@ package uy.infocorp.banking.glass.integration.publicapi.info.dto;
 
 public class ZoneDTO {
 
-    private String zoneId;
+    private int zoneId;
 
-    public String getZoneId() {
+    public int getZoneId() {
         return zoneId;
     }
 
-    public void setZoneId(String zoneId) {
+    public void setZoneId(int zoneId) {
         this.zoneId = zoneId;
     }
 }

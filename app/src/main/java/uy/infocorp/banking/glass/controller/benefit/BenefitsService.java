@@ -90,6 +90,10 @@ public class BenefitsService extends Service {
         super.onDestroy();
     }
 
+    public void stopService() {
+        this.stopSelf();
+    }
+
     public class BenefitsBinder extends Binder {
 
         public void readBenefitDescription() {
