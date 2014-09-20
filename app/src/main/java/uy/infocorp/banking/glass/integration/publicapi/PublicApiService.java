@@ -20,6 +20,7 @@ import uy.infocorp.banking.glass.integration.publicapi.info.dto.AssociatedPointO
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.BenefitDTO;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PointsOfInterestDTO;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
+import uy.infocorp.banking.glass.model.benefit.Atm;
 import uy.infocorp.banking.glass.model.benefit.Benefit;
 import uy.infocorp.banking.glass.util.graphics.BitmapUtils;
 import uy.infocorp.banking.glass.util.math.MathUtils;
@@ -31,7 +32,7 @@ public class PublicApiService {
     private static final String INTEREST_POINT_BRANCH = "branch";
     private static final double MAX_DISTANCE_KM = 10;
 
-    public static List<PointsOfInterestDTO> getNearbyAtms(Location location) {
+    public static List<Atm> getNearbyAtms(Location location) {
         PublicInfoDTO publicInfo = PublicInfoClient.instance().getPublicInfo();
 
         List<PointsOfInterestDTO> atms = new ArrayList<PointsOfInterestDTO>();
@@ -45,17 +46,8 @@ public class PublicApiService {
                 atms.add(pointOfInterest);
             }
         }
-        /*
-        for (PointsOfInterestDTO atm : atms) {
-            String name = atm.getName();
-            String telephone = atm.getTelephone();
-            double latitude = atm.getLatitude();
-            double longitude = atm.getLongitude();
-            Bitmap image = getImage(atm.getImageId());
-        }
-        */
 
-        return atms;
+        return pointsOfInterestToAtms(atms);
     }
 
     public static List<Benefit> getNearbyBenefits(Location location) {
@@ -131,5 +123,25 @@ public class PublicApiService {
         double userLongitude = location.getLongitude();
 
         return MathUtils.getDistance(userLatitude, userLongitude, latitude, longitude);
+    }
+
+    private static List<Atm> pointsOfInterestToAtms(List<PointsOfInterestDTO> atmsDTO) {
+        List<Atm> atms = new ArrayList<Atm>();
+
+        for (PointsOfInterestDTO atmDTO : atmsDTO) {
+            String name = atmDTO.getName();
+            double latitude = atmDTO.getLatitude();
+            double longitude = atmDTO.getLongitude();
+            Bitmap image = getImage(atmDTO.getImageId());
+
+            Atm atm = new Atm();
+            atm.setName(name);
+            atm.setLatitude(latitude);
+            atm.setLongitude(longitude);
+            atm.setImage(image);
+
+            atms.add(atm);
+        }
+        return atms;
     }
 }
