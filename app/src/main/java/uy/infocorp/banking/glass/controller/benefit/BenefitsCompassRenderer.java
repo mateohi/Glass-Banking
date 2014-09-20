@@ -1,10 +1,9 @@
 package uy.infocorp.banking.glass.controller.benefit;
 
-import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.location.Location;
 import android.os.SystemClock;
 import android.util.Log;
@@ -15,13 +14,10 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.glass.app.Card;
 import com.google.android.glass.timeline.DirectRenderingCallback;
 import com.google.android.glass.widget.CardBuilder;
 
-import java.util.EventListener;
 import java.util.List;
-import java.util.Observer;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
@@ -38,28 +34,29 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
     private static final int REFRESH_RATE_FPS = 45;
     private static final long FRAME_TIME_MILLIS = TimeUnit.SECONDS.toMillis(1) / REFRESH_RATE_FPS;
 
+    private Bitmap syncIcon;
+
     private BenefitsService service;
-
     private final TextView benefitNameView;
-    private final TextView benefitDescriptionView;
 
+    private final TextView benefitDescriptionView;
     private SurfaceHolder surfaceHolder;
     private RenderThread renderThread;
     private boolean isTooSteep;
     private boolean hasMagneticInterference;
     private int surfaceWidth;
+
     private int surfaceHeight;
-
     private boolean renderingPaused;
-    private boolean serviceCalled;
 
+    private boolean serviceCalled;
     private final FrameLayout frameLayout;
     private final BenefitsCompassView benefitsCompassView;
     private final RelativeLayout tipsContainer;
     private final RelativeLayout benefitsContainer;
     private final TextView tipsView;
-    private final OrientationManager orientationManager;
 
+    private final OrientationManager orientationManager;
     private final BenefitsCompassListener benefitsCompassListener = new BenefitsCompassListener() {
 
         @Override
@@ -90,6 +87,8 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
         this.service = service;
         this.frameLayout = (FrameLayout) inflater.inflate(R.layout.benefits, null);
         this.frameLayout.setWillNotDraw(false);
+
+        this.syncIcon = BitmapFactory.decodeResource(service.getResources(), R.drawable.ic_sync);
 
         this.benefitsCompassView = (BenefitsCompassView) this.frameLayout.findViewById(R.id.compass);
         this.tipsContainer = (RelativeLayout) this.frameLayout.findViewById(R.id.tips_container);
@@ -167,10 +166,12 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
             @Override
             public void onResult(List<Benefit> result) {
                 if (result != null) {
+                    Log.i(TAG, "Updating nearby benefits");
                     benefitsCompassView.setNearbyPlaces(result);
                     serviceCalled = true;
                 }
                 else {
+                    Log.e(TAG, "Unable te get benefits, stopping service...");
                     service.stopService();
                     GlassDialog.warning(service.getApplicationContext(), "Unable to get benefits", "Check your internet connection");
                 }
@@ -209,10 +210,15 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
                 this.frameLayout.draw(canvas);
             }
             else {
-                new CardBuilder(this.service.getApplicationContext(), CardBuilder.Layout.ALERT)
-                .setText("Loading nearby benefits")
-                .getView()
-                .draw(canvas);
+                View syncView = new CardBuilder(this.service, CardBuilder.Layout.ALERT)
+                    .setText("Loading nearby benefits")
+                    .setIcon(syncIcon)
+                    .getView();
+
+                syncView.measure(640, 320);
+                syncView.layout(0, 0, 0, 0);
+
+                syncView.draw(canvas);
             }
 
             try {
