@@ -62,9 +62,14 @@
 
     <!-- Glass Dialog -->
     <string name="action_dismiss">Dismiss</string>
+    <!-- /Glass Dialog -->
 
     <!-- Closest ATMs -->
-    <string name="find_place_atms">ATMs</string>
+    <string name="find_place_atm">ATM</string>
     <!-- /Closest ATMs -->
+
+    <!-- Closest branches -->
+    <string name="find_place_branch">Branch</string>
+    <!-- /Closest branches -->
 
 </resources>

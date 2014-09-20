@@ -1,4 +1,4 @@
-package uy.infocorp.banking.glass.controller.atm;
+package uy.infocorp.banking.glass.controller.branch;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
@@ -10,9 +10,9 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 
-public class ClosestAtmService extends Service {
+public class ClosestBranchService extends Service {
 
-    private static final String LIVE_CARD_TAG = ClosestAtmService.class.getSimpleName();
+    private static final String LIVE_CARD_TAG = ClosestBranchService.class.getSimpleName();
 
     private LiveCard liveCard;
 
@@ -28,7 +28,7 @@ public class ClosestAtmService extends Service {
 
             liveCard.setViews(buildRemoteViews());
 
-            Intent menuIntent = new Intent(this, ClosestAtmMenuActivity.class);
+            Intent menuIntent = new Intent(this, ClosestBranchMenuActivity.class);
             liveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
             liveCard.publish(PublishMode.REVEAL);
         } else {
@@ -48,7 +48,7 @@ public class ClosestAtmService extends Service {
 
     private RemoteViews buildRemoteViews() {
         return new CardBuilder(getApplicationContext(), CardBuilder.Layout.MENU)
-                .setText("ATM")
+                .setText("BRANCH")
                 .getRemoteViews();
     }
 }

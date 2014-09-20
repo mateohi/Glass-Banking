@@ -56,6 +56,7 @@
         </service>
         <!-- Benefits -->
 
+
         <!-- Closest ATMs -->
         <activity android:name=".controller.atm.ClosestAtmMenuActivity" />
 
@@ -63,7 +64,7 @@
             android:name=".controller.atm.ClosestAtmService"
             android:enabled="true"
             android:icon="@drawable/logo_ic"
-            android:label="@string/find_place_atms" >
+            android:label="@string/find_place_atm" >
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
             </intent-filter>
@@ -73,6 +74,25 @@
                 android:resource="@xml/find_place_voice_trigger" />
         </service>
         <!-- Closest ATMs -->
+
+        <!-- Closest branches -->
+        <activity android:name=".controller.branch.ClosestBranchMenuActivity" />
+
+        <service
+            android:name=".controller.branch.ClosestBranchService"
+            android:enabled="true"
+            android:icon="@drawable/logo_ic"
+            android:label="@string/find_place_branch" >
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/find_place_voice_trigger" />
+        </service>
+        <!-- /Closest branches -->
+
     </application>
 
 </manifest>
