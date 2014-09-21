@@ -15,15 +15,16 @@
         android:label="@string/app_name" >
 
         <!-- Dialog -->
-        <activity android:name="uy.infocorp.banking.glass.util.view.dialog.DialogActivity" />
+        <activity android:name=".util.view.dialog.DialogActivity" />
         <!-- /Dialog -->
 
+
         <!-- Exchange rates -->
-        <activity
-            android:name="uy.infocorp.banking.glass.controller.exchange.ExchangeRateMenuActivity" />
+        <activity android:name=".controller.exchange.ExchangeRateMenuActivity" />
 
         <service
-            android:name="uy.infocorp.banking.glass.controller.exchange.ExchangeRateService"
+            android:name=".controller.exchange.ExchangeRateService"
+            android:enabled="true"
             android:icon="@drawable/logo_ic"
             android:label="@string/title_activity_exchange_rate_service" >
             <intent-filter>
@@ -36,23 +37,60 @@
         </service>
         <!-- /Exchange rates -->
 
+
         <!-- Benefits -->
-        <activity
-            android:name="uy.infocorp.banking.glass.controller.benefit.BenefitsMenuActivity" />
+        <activity android:name=".controller.benefit.BenefitsMenuActivity" />
 
         <service
-            android:name="uy.infocorp.banking.glass.controller.benefit.BenefitsService"
+            android:name=".controller.benefit.BenefitsService"
+            android:enabled="true"
             android:icon="@drawable/logo_ic"
-            android:label="@string/show_me_benefits"
-            android:enabled="true" >
+            android:label="@string/show_me_benefits" >
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
             </intent-filter>
+
             <meta-data
                 android:name="com.google.android.glass.VoiceTrigger"
                 android:resource="@xml/benefits_voice_trigger" />
         </service>
         <!-- Benefits -->
+
+
+        <!-- Closest ATMs -->
+        <activity
+            android:name=".controller.atm.ClosestAtmActivity"
+            android:enabled="true"
+            android:icon="@drawable/logo_ic"
+            android:immersive="true"
+            android:label="@string/find_place_atm" >
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/find_place_voice_trigger" />
+        </activity>
+        <!-- Closest ATMs -->
+
+
+        <!-- Closest branches -->
+        <activity
+            android:name=".controller.branch.ClosestBranchActivity"
+            android:enabled="true"
+            android:icon="@drawable/logo_ic"
+            android:immersive="true"
+            android:label="@string/find_place_branch" >
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/find_place_voice_trigger" />
+        </activity>
+        <!-- /Closest branches -->
     </application>
 
 </manifest>

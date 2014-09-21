@@ -1,0 +1,3 @@
+<trigger command="FIND_A_PLACE">
+    <!--constraints network="true" /-->
+</trigger>

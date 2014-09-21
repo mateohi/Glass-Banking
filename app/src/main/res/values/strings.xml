@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">ICBankingGlass</string>
+
     <bool name="mock">false</bool>
 
     <!-- Integration -->
@@ -11,16 +12,16 @@
     <string name="ic_api_public_info_path"></string>
     <!-- /Integration -->
 
+
     <!-- Exchange rates -->
     <string name="title_activity_exchange_rate_service">Exchange rates</string>
     <string name="action_stop">Stop</string>
-
     <string name="loading">Loading rates ...</string>
-
     <string name="currency_header">Currency</string>
     <string name="buy_header">Buy</string>
     <string name="sell_header">Sell</string>
     <!-- /Exchange rates -->
+
 
     <!-- Benefits -->
     <string name="maps_intent_uri" formatted="false">google.navigation:ll=%s,%s&amp;mode=w&amp;title=%s</string>
@@ -55,10 +56,27 @@
     <string name="read_aloud">Read aloud</string>
     <string name="stop">Stop</string>
     <string name="get_directions">Get directions</string>
-
     <string name="show_me_benefits">Show me benefits</string>
     <!-- /Benefits -->
 
+
     <!-- Glass Dialog -->
     <string name="action_dismiss">Dismiss</string>
+    <!-- /Glass Dialog -->
+
+
+    <!-- Closest ATMs -->
+    <string name="find_place_atm">ATM</string>
+    <!-- /Closest ATMs -->
+
+
+    <!-- Closest branches -->
+    <string name="find_place_branch">Branch</string>
+    <string name="action_get_directions">Get directions</string>
+    <!-- /Closest branches -->
+
+    <string name="title_activity_closest_atm">ClosestAtmActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
 </resources>
