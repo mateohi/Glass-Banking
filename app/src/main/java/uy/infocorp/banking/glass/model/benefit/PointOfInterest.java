@@ -7,6 +7,7 @@ public class PointOfInterest {
     private String name;
     private double latitude;
     private double longitude;
+    private double distance;
     private Bitmap image;
 
     public String getName() {
@@ -31,6 +32,14 @@ public class PointOfInterest {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     public Bitmap getImage() {

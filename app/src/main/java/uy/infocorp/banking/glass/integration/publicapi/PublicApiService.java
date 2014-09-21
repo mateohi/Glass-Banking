@@ -9,6 +9,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import uy.infocorp.banking.glass.integration.publicapi.exchange.ExchangeRateClient;
@@ -22,6 +23,7 @@ import uy.infocorp.banking.glass.integration.publicapi.info.dto.PointsOfInterest
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
 import uy.infocorp.banking.glass.model.benefit.Atm;
 import uy.infocorp.banking.glass.model.benefit.Benefit;
+import uy.infocorp.banking.glass.model.benefit.Branch;
 import uy.infocorp.banking.glass.util.graphics.BitmapUtils;
 import uy.infocorp.banking.glass.util.math.MathUtils;
 
@@ -32,7 +34,7 @@ public class PublicApiService {
     private static final String INTEREST_POINT_BRANCH = "branch";
     private static final double MAX_DISTANCE_KM = 10;
 
-    public static List<Atm> getNearbyAtms(Location location) {
+    public static List<Atm> getClosestAtms(Location location) {
         PublicInfoDTO publicInfo = PublicInfoClient.instance().getPublicInfo();
 
         List<PointsOfInterestDTO> atms = new ArrayList<PointsOfInterestDTO>();
@@ -47,7 +49,43 @@ public class PublicApiService {
             }
         }
 
-        return pointsOfInterestToAtms(atms);
+        getThreeClosestPointsOfInterest(location, atms);
+
+        return pointsOfInterestToAtms(atms, location);
+    }
+
+    public static List<Branch> getClosestBranches(final Location location) {
+        PublicInfoDTO publicInfo = PublicInfoClient.instance().getPublicInfo();
+
+        List<PointsOfInterestDTO> branches = new ArrayList<PointsOfInterestDTO>();
+
+        for (PointsOfInterestDTO pointOfInterest : publicInfo.getPointsOfInterestDTO()) {
+            String type = pointOfInterest.getType();
+            float distanceToAtm = getDistance(location, pointOfInterest.getLatitude(),
+                    pointOfInterest.getLongitude());
+
+            if (INTEREST_POINT_BRANCH.equals(type) && MAX_DISTANCE_KM <= distanceToAtm) {
+                branches.add(pointOfInterest);
+            }
+        }
+
+        getThreeClosestPointsOfInterest(location, branches);
+
+        return pointsOfInterestToBranches(branches, location);
+    }
+
+    private static List<PointsOfInterestDTO> getThreeClosestPointsOfInterest(final Location location, List<PointsOfInterestDTO> branches) {
+        Collections.sort(branches, new Comparator<PointsOfInterestDTO>() {
+            @Override
+            public int compare(PointsOfInterestDTO left, PointsOfInterestDTO right) {
+                Float lDistance = getDistance(location, left.getLatitude(), left.getLongitude());
+                Float rDistance = getDistance(location, right.getLatitude(), right.getLongitude());
+
+                return lDistance.compareTo(rDistance);
+            }
+        });
+
+        return branches;
     }
 
     public static List<Benefit> getNearbyBenefits(Location location) {
@@ -125,23 +163,68 @@ public class PublicApiService {
         return MathUtils.getDistance(userLatitude, userLongitude, latitude, longitude);
     }
 
-    private static List<Atm> pointsOfInterestToAtms(List<PointsOfInterestDTO> atmsDTO) {
+    private static List<Atm> pointsOfInterestToAtms(List<PointsOfInterestDTO> atmsDTO, Location location) {
         List<Atm> atms = new ArrayList<Atm>();
 
         for (PointsOfInterestDTO atmDTO : atmsDTO) {
-            String name = atmDTO.getName();
-            double latitude = atmDTO.getLatitude();
-            double longitude = atmDTO.getLongitude();
-            Bitmap image = getImage(atmDTO.getImageId());
+            try {
+                String name = atmDTO.getName();
+                double latitude = atmDTO.getLatitude();
+                double longitude = atmDTO.getLongitude();
+                double distance = getDistance(location, latitude, longitude);
+                Bitmap image = getImage(atmDTO.getImageId());
 
-            Atm atm = new Atm();
-            atm.setName(name);
-            atm.setLatitude(latitude);
-            atm.setLongitude(longitude);
-            atm.setImage(image);
+                Atm atm = new Atm();
+                atm.setName(name);
+                atm.setLatitude(latitude);
+                atm.setLongitude(longitude);
+                atm.setDistance(distance);
+                atm.setImage(image);
 
-            atms.add(atm);
+                atms.add(atm);
+
+                if (atms.size() == 3) {
+                    break;
+                }
+            }
+            catch (Exception e) {
+                Log.e(TAG, "No image found for id: " + atmDTO.getImageId());
+            }
         }
         return atms;
+    }
+
+    private static List<Branch> pointsOfInterestToBranches(List<PointsOfInterestDTO> branchesDTO, Location location) {
+        List<Branch> branches = new ArrayList<Branch>();
+
+        for (PointsOfInterestDTO branchDTO : branchesDTO) {
+            try {
+                String name = branchDTO.getName();
+                double latitude = branchDTO.getLatitude();
+                double longitude = branchDTO.getLongitude();
+                double distance = getDistance(location, latitude, longitude);
+                String telephone = branchDTO.getTelephone();
+                Bitmap image = getImage(branchDTO.getImageId());
+
+                Branch branch = new Branch();
+                branch.setName(name);
+                branch.setLatitude(latitude);
+                branch.setLongitude(longitude);
+                branch.setDistance(distance);
+                branch.setImage(image);
+                branch.setTelephone(telephone);
+
+                branches.add(branch);
+
+                if (branches.size() == 3) {
+                    break;
+                }
+            }
+            catch (Exception e) {
+                Log.e(TAG, "No image found for id: " + branchDTO.getImageId());
+                // We do not add the branch and go on
+            }
+        }
+        return branches;
     }
 }

@@ -70,6 +70,7 @@
 
     <!-- Closest branches -->
     <string name="find_place_branch">Branch</string>
+    <string name="action_get_directions">Get directions</string>
     <!-- /Closest branches -->
 
 </resources>
