@@ -141,6 +141,16 @@ public class ClosestBranchActivity extends Activity {
         setContentView(initialView);
     }
 
+    private void showNoBranchesView() {
+        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+                .setText("No branch found nearby")
+                .setTimestamp("Try again later")
+                .setIcon(R.drawable.ic_help)
+                .getView();
+
+        setContentView(initialView);
+    }
+
     private void showErrorView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get closest ATMs")
@@ -155,16 +165,19 @@ public class ClosestBranchActivity extends Activity {
         new GetClosestBranchesTask(new FinishedTaskListener<List<Branch>>() {
             @Override
             public void onResult(List<Branch> branches) {
-                if (branches != null) {
+                if (branches == null) {
+                    showErrorView();
+                }
+                else if (branches.isEmpty()) {
+                    showNoBranchesView();
+                }
+                else {
                     ClosestBranchActivity.this.branches = branches;
 
                     for (Branch branch : branches) {
                         cards.add(createCard(branch));
                     }
                     updateCardScrollView();
-                }
-                else {
-                    showErrorView();
                 }
             }
         }).execute(getLastLocation());

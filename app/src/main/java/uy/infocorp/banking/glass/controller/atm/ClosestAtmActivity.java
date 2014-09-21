@@ -142,6 +142,16 @@ public class ClosestAtmActivity extends Activity {
         setContentView(initialView);
     }
 
+    private void showNoAtmsView() {
+        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+                .setText("No ATM found nearby")
+                .setTimestamp("Try again later")
+                .setIcon(R.drawable.ic_help)
+                .getView();
+
+        setContentView(initialView);
+    }
+
     private void showErrorView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get closest ATMs")
@@ -156,16 +166,19 @@ public class ClosestAtmActivity extends Activity {
         new GetClosestAtmsTask(new FinishedTaskListener<List<Atm>>() {
             @Override
             public void onResult(List<Atm> atms) {
-                if (atms != null) {
+                if (atms == null) {
+                    showErrorView();
+                }
+                else if (atms.isEmpty()) {
+                    showNoAtmsView();
+                }
+                else {
                     ClosestAtmActivity.this.atms = atms;
 
                     for (Atm atm : atms) {
                         cards.add(createCard(atm));
                     }
                     updateCardScrollView();
-                }
-                else {
-                    showErrorView();
                 }
             }
         }).execute(getLastLocation());
