@@ -1,10 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- The recommended margin for the top, left, and right edges of a card. -->
     <dimen name="card_margin">40px</dimen>
 
-    <!-- The recommended margin between the bottom of the card and the footer. This is
+    <!--
+         The recommended margin between the bottom of the card and the footer. This is
          an adjusted value so that the baseline of the text in the footer sits 40px
-         from the bottom of the card, matching the other margins. -->
+         from the bottom of the card, matching the other margins.
+    -->
     <dimen name="card_footer_margin">33px</dimen>
 
     <!-- The recommended margin for the left column of the two-column card. -->
@@ -18,4 +22,7 @@
 
     <!-- The height of a row in a listview -->
     <dimen name="row_height">40dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
 </resources>

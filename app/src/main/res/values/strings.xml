@@ -64,13 +64,19 @@
     <string name="action_dismiss">Dismiss</string>
     <!-- /Glass Dialog -->
 
+
     <!-- Closest ATMs -->
     <string name="find_place_atm">ATM</string>
     <!-- /Closest ATMs -->
+
 
     <!-- Closest branches -->
     <string name="find_place_branch">Branch</string>
     <string name="action_get_directions">Get directions</string>
     <!-- /Closest branches -->
+
+    <string name="title_activity_closest_atm">ClosestAtmActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
