@@ -20,7 +20,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.integration.publicapi.PublicApiService;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.ExchangeRateClient;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
 import uy.infocorp.banking.glass.util.view.dialog.GlassDialog;

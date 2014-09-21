@@ -31,9 +31,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.controller.branch.GetClosestBranchesTask;
 import uy.infocorp.banking.glass.model.benefit.Atm;
-import uy.infocorp.banking.glass.model.benefit.Branch;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 
 public class ClosestAtmActivity extends Activity {
