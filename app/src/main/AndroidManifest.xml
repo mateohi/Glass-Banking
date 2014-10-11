@@ -18,7 +18,6 @@
         <activity android:name=".util.view.dialog.DialogActivity" />
         <!-- /Dialog -->
 
-
         <!-- Exchange rates -->
         <activity android:name=".controller.exchange.ExchangeRateMenuActivity" />
 
@@ -91,6 +90,9 @@
                 android:resource="@xml/find_place_voice_trigger" />
         </activity>
         <!-- /Closest branches -->
+
+        <!-- Rate branches -->
+        <!-- /Rate branches -->
     </application>
 
 </manifest>
