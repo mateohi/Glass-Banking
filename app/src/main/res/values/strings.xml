@@ -2,6 +2,9 @@
 <resources>
 
     <string name="app_name">ICBankingGlass</string>
+    <string name="alpha_code">UYU</string>
+    <string name="bank_name">Bank</string>
+
 
     <bool name="mock">false</bool>
 
