@@ -12,6 +12,7 @@ import java.util.List;
 
 import uy.infocorp.banking.glass.domain.beacon.BeaconHandler;
 import uy.infocorp.banking.glass.domain.beacon.PlaceListener;
+import uy.infocorp.banking.glass.exception.BeaconMonitoringException;
 import uy.infocorp.banking.glass.exception.BluetoothException;
 
 public class EstimoteBeaconHandler extends BeaconHandler {
@@ -37,7 +38,6 @@ public class EstimoteBeaconHandler extends BeaconHandler {
             throw new BluetoothException("Bluetooth not enabled");
         }
 
-        //beaconManager.setBackgroundScanPeriod(TimeUnit.SECONDS.toMillis(1), 0);
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> beacons) {
@@ -65,7 +65,7 @@ public class EstimoteBeaconHandler extends BeaconHandler {
                     Log.i(TAG, "Started monitoring");
                 }
                 catch (RemoteException e) {
-                    throw new RuntimeException("Unable to start monitoring beacon manager");
+                    throw new BeaconMonitoringException("Unable to start monitoring beacon manager");
                 }
             }
         });
@@ -78,7 +78,7 @@ public class EstimoteBeaconHandler extends BeaconHandler {
             Log.i(TAG, "Stopped monitoring");
         }
         catch (RemoteException e) {
-            throw new RuntimeException("Unable to stop monitoring beacon manager");
+            throw new BeaconMonitoringException("Unable to stop monitoring beacon manager");
         }
     }
 

@@ -211,9 +211,9 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
             }
             else {
                 View syncView = new CardBuilder(this.service, CardBuilder.Layout.ALERT)
-                    .setText("Loading nearby benefits")
-                    .setIcon(syncIcon)
-                    .getView();
+                        .setText("Loading nearby benefits")
+                        .setIcon(syncIcon)
+                        .getView();
 
                 syncView.measure(640, 320);
                 syncView.layout(0, 0, 0, 0);

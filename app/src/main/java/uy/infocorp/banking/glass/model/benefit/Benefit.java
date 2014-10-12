@@ -1,4 +1,3 @@
-
 package uy.infocorp.banking.glass.model.benefit;
 
 public class Benefit {

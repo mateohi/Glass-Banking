@@ -4,6 +4,7 @@
     android:paddingLeft="@dimen/card_margin"
     android:paddingRight="@dimen/card_margin"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <TextView
         android:id="@+id/exchange_currency_description"
         android:text="USD"
