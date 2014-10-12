@@ -11,6 +11,8 @@ public abstract class BeaconHandler {
     }
 
     public abstract void startMonitoring();
+
     public abstract void stopMonitoring();
+
     public abstract void destroy();
 }

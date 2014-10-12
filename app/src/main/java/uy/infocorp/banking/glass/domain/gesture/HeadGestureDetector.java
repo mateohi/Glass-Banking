@@ -1,19 +1,14 @@
 package uy.infocorp.banking.glass.domain.gesture;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
 
 import com.google.common.collect.EvictingQueue;
 import com.google.common.collect.Queues;
 
-import java.util.Iterator;
 import java.util.Queue;
 
 /*

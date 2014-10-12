@@ -182,7 +182,8 @@ public class BenefitsCompassView extends View {
                 canvas.drawText(direction,
                         i * degreesPerTick * pixelsPerDegree - textBounds.width() / 2,
                         textBounds.height() / 2, paint);
-            } else {
+            }
+            else {
                 // Draw a tick mark for the odd indices.
                 canvas.drawLine(i * degreesPerTick * pixelsPerDegree, -TICK_HEIGHT / 2, i
                         * degreesPerTick * pixelsPerDegree, TICK_HEIGHT / 2, tickPaint);
@@ -250,7 +251,8 @@ public class BenefitsCompassView extends View {
                                 break;
                             }
                         }
-                    } while (intersects && numberOfTries <= MAX_OVERLAPPING_PLACE_NAMES);
+                    }
+                    while (intersects && numberOfTries <= MAX_OVERLAPPING_PLACE_NAMES);
 
                     // Only draw the string if it would not go high enough to overlap the compass
                     // directions. This means some places may not be drawn, even if they're nearby.
@@ -261,7 +263,7 @@ public class BenefitsCompassView extends View {
                                 - PLACE_PIN_WIDTH / 2, textBounds.top + 2, paint);
                         canvas.drawText(text,
                                 offset + bearing * pixelsPerDegree + PLACE_PIN_WIDTH / 2
-                                + PLACE_TEXT_MARGIN, textBounds.top + PLACE_TEXT_HEIGHT,
+                                        + PLACE_TEXT_MARGIN, textBounds.top + PLACE_TEXT_HEIGHT,
                                 benefitPaint);
                     }
 
@@ -326,7 +328,8 @@ public class BenefitsCompassView extends View {
                 // immediately instead of doing an animation.
                 animatedHeading = end;
                 invalidate();
-            } else {
+            }
+            else {
                 // For larger distances (i.e., if the compass "jumps" because of sensor calibration
                 // issues), we animate the effect to provide a more fluid user experience. The
                 // calculation below finds the shortest distance between the two angles, which may
@@ -335,9 +338,11 @@ public class BenefitsCompassView extends View {
 
                 if (distance < reverseDistance) {
                     goal = end;
-                } else if (end < start) {
+                }
+                else if (end < start) {
                     goal = end + 360.0f;
-                } else {
+                }
+                else {
                     goal = end - 360.0f;
                 }
 

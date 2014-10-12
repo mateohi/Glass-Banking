@@ -1,4 +1,4 @@
 package uy.infocorp.banking.glass.model.benefit;
 
-public class Atm extends PointOfInterest{
+public class Atm extends PointOfInterest {
 }

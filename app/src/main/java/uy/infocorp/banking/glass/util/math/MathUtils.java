@@ -5,10 +5,14 @@ package uy.infocorp.banking.glass.util.math;
  */
 public class MathUtils {
 
-    /** The number of half winds for boxing the compass. */
+    /**
+     * The number of half winds for boxing the compass.
+     */
     private static final int NUMBER_OF_HALF_WINDS = 16;
 
-    /** The Earth's radius, in kilometers. */
+    /**
+     * The Earth's radius, in kilometers.
+     */
     private static final double EARTH_RADIUS_KM = 6371.0;
 
     /**
@@ -52,15 +56,15 @@ public class MathUtils {
     /**
      * Gets the relative bearing from one geographical coordinate to another.
      *
-     * @param latitude1 the latitude of the source point
+     * @param latitude1  the latitude of the source point
      * @param longitude1 the longitude of the source point
-     * @param latitude2 the latitude of the destination point
+     * @param latitude2  the latitude of the destination point
      * @param longitude2 the longitude of the destination point
      * @return the relative bearing from point 1 to point 2, in degrees. The result is guaranteed
-     *         to fall in the range 0-360
+     * to fall in the range 0-360
      */
     public static float getBearing(double latitude1, double longitude1, double latitude2,
-            double longitude2) {
+                                   double longitude2) {
         latitude1 = Math.toRadians(latitude1);
         longitude1 = Math.toRadians(longitude1);
         latitude2 = Math.toRadians(latitude2);
@@ -80,14 +84,14 @@ public class MathUtils {
      * Gets the great circle distance in kilometers between two geographical points, using
      * the <a href="http://en.wikipedia.org/wiki/Haversine_formula">haversine formula</a>.
      *
-     * @param latitude1 the latitude of the first point
+     * @param latitude1  the latitude of the first point
      * @param longitude1 the longitude of the first point
-     * @param latitude2 the latitude of the second point
+     * @param latitude2  the latitude of the second point
      * @param longitude2 the longitude of the second point
      * @return the distance, in kilometers, between the two points
      */
     public static float getDistance(double latitude1, double longitude1, double latitude2,
-            double longitude2) {
+                                    double longitude2) {
         double dLat = Math.toRadians(latitude2 - latitude1);
         double dLon = Math.toRadians(longitude2 - longitude1);
         double lat1 = Math.toRadians(latitude1);

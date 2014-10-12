@@ -189,7 +189,8 @@ public class OrientationManager {
     private float computeTrueNorth(float heading) {
         if (geomagneticField != null) {
             return heading + geomagneticField.getDeclination();
-        } else {
+        }
+        else {
             return heading;
         }
     }

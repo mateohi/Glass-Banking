@@ -246,7 +246,7 @@ public class ClosestAtmActivity extends Activity {
         }
 
         @Override
-        public int getItemViewType(int position){
+        public int getItemViewType(int position) {
             return cards.get(position).getItemViewType();
         }
 
