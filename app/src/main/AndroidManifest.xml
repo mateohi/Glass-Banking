@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="com.google.android.glass.permission.DEVELOPMENT"/>
 
     <application
@@ -79,7 +80,6 @@
         </activity>
         <!-- Closest ATMs -->
 
-
         <!-- Closest branches -->
         <activity
             android:name=".controller.branch.ClosestBranchActivity"
@@ -97,10 +97,23 @@
         </activity>
         <!-- /Closest branches -->
 
-        <!-- Rate branches -->
+        <!-- Beacon listener (rating && welcome) -->
+        <receiver android:name=".controller.boot.BootCompletedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <service
-            android:name=".controller.rate.RateBranchService"
+            android:name=".controller.beacon.BeaconListenerService"
             android:enabled="true"/>
+        <!-- /Beacon listener (rating && welcome) -->
+
+        <!-- Rate branches -->
+        <activity
+            android:name=".controller.beacon.rate.BranchRatingActivity"
+            android:enabled="true"
+            android:immersive="true"/>
         <!-- /Rate branches -->
     </application>
 
