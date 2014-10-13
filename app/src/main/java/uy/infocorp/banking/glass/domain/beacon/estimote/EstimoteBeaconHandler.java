@@ -9,6 +9,7 @@ import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit
 
 import uy.infocorp.banking.glass.domain.beacon.BeaconHandler;
 import uy.infocorp.banking.glass.domain.beacon.PlaceListener;
@@ -38,6 +39,7 @@ public class EstimoteBeaconHandler extends BeaconHandler {
             throw new BluetoothException("Bluetooth not enabled");
         }
 
+        beaconManager.setBackgroundScanPeriod(TimeUnit.SECONDS.toMillis(1), 0);
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> beacons) {
