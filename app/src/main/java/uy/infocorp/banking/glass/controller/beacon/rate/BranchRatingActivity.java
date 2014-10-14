@@ -1,6 +1,8 @@
 package uy.infocorp.banking.glass.controller.beacon.rate;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,7 +25,10 @@ public class BranchRatingActivity extends Activity {
     private String branchId;
     private String bankName;
 
-    public BranchRatingActivity() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         this.bankName = getResources().getString(R.string.bank_name);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -37,11 +42,12 @@ public class BranchRatingActivity extends Activity {
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
         headGestureDetector.stopListening();
     }
 
     private View buildView() {
-        return new CardBuilder(this, CardBuilder.Layout.ALERT)
+        return new CardBuilder(this, CardBuilder.Layout.TEXT)
                 .setText("Rate your experience at " + bankName)
                 .setTimestamp("Nod or shake your head")
                 .getView();
@@ -80,7 +86,12 @@ public class BranchRatingActivity extends Activity {
     }
 
     private void doRating(Boolean positive) {
-        setContentView(buildLoadingView());
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setContentView(buildLoadingView());
+            }
+        });
 
         new RateBranchTask(new FinishedTaskListener<Boolean>() {
             @Override
@@ -90,8 +101,13 @@ public class BranchRatingActivity extends Activity {
         }).execute(branchId, positive);
     }
 
-    private void showResultAndFinish(String message) {
-        GlassToast.createShort(this, message);
-        this.finish();
+    private void showResultAndFinish(final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                GlassToast.createShort(BranchRatingActivity.this, message);
+                finish();
+            }
+        });
     }
 }
