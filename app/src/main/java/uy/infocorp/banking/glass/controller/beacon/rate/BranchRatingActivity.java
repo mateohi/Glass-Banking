@@ -42,8 +42,8 @@ public class BranchRatingActivity extends Activity {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         headGestureDetector.stopListening();
+        super.onDestroy();
     }
 
     private View buildView() {
@@ -102,12 +102,7 @@ public class BranchRatingActivity extends Activity {
     }
 
     private void showResultAndFinish(final String message) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                GlassToast.createShort(BranchRatingActivity.this, message);
-                finish();
-            }
-        });
+        GlassToast.createShort(this, message).show();
+        finish();
     }
 }
