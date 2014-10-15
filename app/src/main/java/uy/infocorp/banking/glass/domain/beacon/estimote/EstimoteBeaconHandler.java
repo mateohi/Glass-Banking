@@ -25,6 +25,7 @@ public class EstimoteBeaconHandler extends BeaconHandler {
 
     private BeaconManager beaconManager;
     private final PlaceListener listener;
+    private int lastMinor;
 
     public EstimoteBeaconHandler(Context context, final PlaceListener listener) {
         super(context);
@@ -43,16 +44,19 @@ public class EstimoteBeaconHandler extends BeaconHandler {
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> beacons) {
+                Beacon beacon = beacons.get(0);
+                lastMinor = beacon.getMinor();
+
                 Log.i(TAG, String.format("Entered region: UUID[%s], Major[%d], Minor:[%d]",
-                        region.getProximityUUID(), region.getMajor(), region.getMinor()));
-                listener.onEntered(String.valueOf(region.getMinor()));
+                        beacon.getProximityUUID(), beacon.getMajor(), beacon.getMinor()));
+                listener.onEntered(String.valueOf(lastMinor));
             }
 
             @Override
             public void onExitedRegion(Region region) {
                 Log.i(TAG, String.format("Exited region: UUID[%s], Major[%d], Minor:[%d]",
                         region.getProximityUUID(), region.getMajor(), region.getMinor()));
-                listener.onExit(String.valueOf(region.getMinor()));
+                listener.onExit(String.valueOf(lastMinor));
             }
         });
     }
