@@ -9,7 +9,7 @@ import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.domain.beacon.BeaconHandler;
 import uy.infocorp.banking.glass.domain.beacon.PlaceListener;
