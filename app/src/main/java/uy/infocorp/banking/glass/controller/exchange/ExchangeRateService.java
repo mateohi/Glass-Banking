@@ -36,6 +36,7 @@ public class ExchangeRateService extends Service {
     private LiveCard liveCard;
     private List<ExchangeRateDTO> exchangeRates = new ArrayList<ExchangeRateDTO>();
     private boolean firstRates;
+    private String alphaCode;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -45,6 +46,8 @@ public class ExchangeRateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (liveCard == null) {
+            alphaCode = getResources().getString(R.string.alpha_code);
+
             this.firstRates = true;
             this.liveCard = new LiveCard(this, TAG);
 
@@ -147,7 +150,6 @@ public class ExchangeRateService extends Service {
         this.task.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 try {
-                    String alphaCode = "UYU";
                     exchangeRates = ExchangeRateClient.instance().getExchangeRatesByAlpha3Code(alphaCode);
                     updateView();
 
