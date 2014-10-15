@@ -2,11 +2,14 @@ package uy.infocorp.banking.glass.controller.beacon.rate;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 
 import uy.infocorp.banking.glass.R;
@@ -42,7 +45,6 @@ public class BranchRatingActivity extends Activity {
 
     @Override
     public void onDestroy() {
-        headGestureDetector.stopListening();
         super.onDestroy();
     }
 
@@ -60,17 +62,18 @@ public class BranchRatingActivity extends Activity {
                 .getView();
     }
 
-
     private void createHeadGestureDetector() {
         this.headGestureDetector = new HeadGestureDetector(getApplicationContext(), new HeadGestureListener() {
             @Override
             public void onNod() {
                 positiveRating();
+                headGestureDetector.stopListening();
             }
 
             @Override
             public void onHeadShake() {
                 negativeRating();
+                headGestureDetector.stopListening();
             }
         });
     }
@@ -102,7 +105,13 @@ public class BranchRatingActivity extends Activity {
     }
 
     private void showResultAndFinish(final String message) {
-        GlassToast.createShort(this, message).show();
+        playSound();
+        GlassToast.done(this, message, Toast.LENGTH_LONG).show();
         finish();
+    }
+
+    private void playSound() {
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        audioManager.playSoundEffect(Sounds.SUCCESS);
     }
 }

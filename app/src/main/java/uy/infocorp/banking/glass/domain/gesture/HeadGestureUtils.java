@@ -5,8 +5,8 @@ import java.util.List;
 
 public class HeadGestureUtils {
 
-    private static final int ANGLE_DIFFERENCE_AMOUNT = 3;
-    private static final Float ANGLE_DEGREES = new Float(15);
+    private static final int ANGLE_DIFFERENCE_AMOUNT = 4;
+    private static final Float ANGLE_DEGREES = new Float(20);
 
     public static boolean isNod(Float[] values) {
         return check(values, ANGLE_DEGREES, ANGLE_DIFFERENCE_AMOUNT);
