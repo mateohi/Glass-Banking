@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.model.benefit.Atm;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
-import uy.infocorp.banking.glass.util.view.toast.GlassToast;
 
 public class ClosestAtmActivity extends Activity {
 

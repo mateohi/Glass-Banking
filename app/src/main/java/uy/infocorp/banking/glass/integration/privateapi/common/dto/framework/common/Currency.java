@@ -10,5 +10,8 @@ public class Currency {
     public int getCurrencyId() {
         return currencyId;
     }
-    public void setCurrencyId(int currencyId) { this.currencyId = currencyId; }
+
+    public void setCurrencyId(int currencyId) {
+        this.currencyId = currencyId;
+    }
 }

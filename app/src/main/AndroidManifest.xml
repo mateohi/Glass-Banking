@@ -100,7 +100,7 @@
         <!-- Beacon listener (rating && welcome) -->
         <receiver android:name=".controller.boot.BootCompletedReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 

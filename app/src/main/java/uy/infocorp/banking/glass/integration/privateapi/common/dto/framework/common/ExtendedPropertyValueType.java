@@ -1,8 +1,7 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common;
 
-public enum ExtendedPropertyValueType
-{
-	/*String(TypeCode.String),
+public enum ExtendedPropertyValueType {
+    /*String(TypeCode.String),
 	Int32(TypeCode.Int32),
 	Int64(TypeCode.Int64),
 	Decimal(TypeCode.Decimal),
