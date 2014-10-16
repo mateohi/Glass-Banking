@@ -1,6 +1,11 @@
 package uy.infocorp.banking.glass.integration.privateapi.products;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityQuestionsAnswers;
@@ -25,8 +30,9 @@ public class ProductsClient {
         return instance;
     }
 
-    public Product getConsolidatedPosition() throws UnsupportedEncodingException {
-        return this.client.get(PrivateUrls.GET_CONSOLIDATED_POSITION_URL, Product.class);
+    public ArrayList<Product> getConsolidatedPosition() throws UnsupportedEncodingException {
+        Product[] productList = this.client.get(PrivateUrls.GET_CONSOLIDATED_POSITION_URL, Product[].class);
+        return new ArrayList(Arrays.asList(productList));
     }
 
     public SecurityQuestionsAnswers validateSecurityDevice(SecurityQuestionsAnswers securityQuestionsAnswers) throws UnsupportedEncodingException {
