@@ -35,8 +35,8 @@ public class PrivateUrls {
     /**
      * Get Transfers History
      */
-    //ToDO: Change parameters
-//    public static final String GET_TRANSFERS_HISTORY_URL = BASE_URL + "/transfers/transfers?dateFrom=2014‐09‐01T03:00:00.000Z&dateTo=2014‐09‐30T02:59:59.999Z";
+//  public static final String GET_TRANSFERS_HISTORY_URL = BASE_URL + "/transfers/transfers?dateFrom=2014‐09‐01T03:00:00.000Z&dateTo=2014‐09‐30T02:59:59.999Z";
+    public static final String GET_TRANSFERS_HISTORY_URL = BASE_URL + "/transfers/transfers?dateFrom=%s&dateTo=%s";
     /**
      * Get Service Payments
      */
@@ -46,11 +46,13 @@ public class PrivateUrls {
      * Get Acounts Movements
      */
     //ToDO: Change parameters
+    public static final String GET_ACCOUNTS_MOVEMENTS_URL = BASE_URL + "/accounts/accounts/1%7C003107442811%7CDDA/movements?dateFrom=%s&dateTo=%s";
 //    public static final String GET_ACCOUNTS_MOVEMENTS_URL = BASE_URL + "/accounts/accounts/1%7C003107442811%7CDDA/movements?dateFrom=2014‐09‐01T03:00:00.000Z&dateTo=2014‐09‐30T02:59:59.999Z";
     /**
      * Get Credit Cards Movements
      */
     //ToDO: Change parameters
+    public static final String GET_CREDIT_CARDS_MOVEMENTS_URL = BASE_URL + "/creditCards/creditCards/6%7C00040001400000296660%7C%7C5414800091043440/movements?dateFrom=%s&dateTo=%s";
 //    public static final String GET_CREDIT_CARDS_MOVEMENTS_URL = BASE_URL + "/creditCards/creditCards/6%7C00040001400000296660%7C%7C5414800091043440/movements?dateFrom=2014‐09‐01T03:00:00.000Z&dateTo=2014‐09‐30T02:59:59.999Z";
 
     /**

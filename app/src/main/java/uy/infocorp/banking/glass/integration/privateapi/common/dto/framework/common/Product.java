@@ -104,14 +104,8 @@ public class Product
 	public final void setProductStatus(ProductStatus value) { productStatus = value; }
 */
 
-	public final java.util.HashMap<String, Object> getExtendedProperties()
-	{
-		return extendedProperties;
-	}
-	public final void setExtendedProperties(java.util.HashMap<String, Object> value)
-	{
-		extendedProperties = value;
-	}
+	public final java.util.HashMap<String, Object> getExtendedProperties(){ return extendedProperties; }
+	public final void setExtendedProperties(java.util.HashMap<String, Object> value) { extendedProperties = value; }
 
 	public final boolean getCanTransact()
 	{
