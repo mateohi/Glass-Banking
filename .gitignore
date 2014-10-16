@@ -36,6 +36,7 @@ proguard/
 *.ipr
 *.iws
 .idea/
+model_data.bin
 
 
 # Gradle files

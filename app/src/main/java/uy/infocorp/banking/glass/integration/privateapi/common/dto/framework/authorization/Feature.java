@@ -1,8 +1,7 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.authorization;
 
 
-public class Feature //extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum
-{
+public class Feature { //extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum {
 /*
 
 	public static final Feature Undefined = (Feature)0;

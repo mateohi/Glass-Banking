@@ -1,78 +1,76 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common;
 
-public abstract class ExtendedPropertyValueBase
-{
-	protected abstract ExtendedPropertyValueTypeAndValue getTypeAndValue();
+public abstract class ExtendedPropertyValueBase {
+    protected abstract ExtendedPropertyValueTypeAndValue getTypeAndValue();
 
-	public final ExtendedPropertyValueType getType()
-	{
-		return getTypeAndValue().getType();
-	}
+    public final ExtendedPropertyValueType getType() {
+        return getTypeAndValue().getType();
+    }
 
-/*	@Override
-	public boolean equals(Object obj)
-	{
-		boolean result = false;
+    /*	@Override
+        public boolean equals(Object obj)
+        {
+            boolean result = false;
 
-		if (obj != null)
-		{
-			ExtendedPropertyValueBase extendedPropertyValueBase = (ExtendedPropertyValueBase)((obj instanceof ExtendedPropertyValueBase) ? obj : null);
-			if (extendedPropertyValueBase != null)
-			{
-				ExtendedPropertyValueTypeAndValue objTypeAndValue = extendedPropertyValueBase.getTypeAndValue();
-				if (objTypeAndValue != null)
-				{
-					ExtendedPropertyValueTypeAndValue thisTypeAndValue = getTypeAndValue();
+            if (obj != null)
+            {
+                ExtendedPropertyValueBase extendedPropertyValueBase = (ExtendedPropertyValueBase)((obj instanceof ExtendedPropertyValueBase) ? obj : null);
+                if (extendedPropertyValueBase != null)
+                {
+                    ExtendedPropertyValueTypeAndValue objTypeAndValue = extendedPropertyValueBase.getTypeAndValue();
+                    if (objTypeAndValue != null)
+                    {
+                        ExtendedPropertyValueTypeAndValue thisTypeAndValue = getTypeAndValue();
 
-					result = objTypeAndValue.getType() == thisTypeAndValue.getType() && objTypeAndValue.getValue().equals(thisTypeAndValue.getValue());
-				}
-			}
-		}
+                        result = objTypeAndValue.getType() == thisTypeAndValue.getType() && objTypeAndValue.getValue().equals(thisTypeAndValue.getValue());
+                    }
+                }
+            }
 
-		return result;
-	}
+            return result;
+        }
 
-	public final boolean equals(ExtendedPropertyValueBase other)
-	{
-		boolean result = false;
+        public final boolean equals(ExtendedPropertyValueBase other)
+        {
+            boolean result = false;
 
-		if (other != null)
-		{
-			ExtendedPropertyValueTypeAndValue thisTypeAndValue = getTypeAndValue();
-			ExtendedPropertyValueTypeAndValue otherTypeAndValue = other.getTypeAndValue();
+            if (other != null)
+            {
+                ExtendedPropertyValueTypeAndValue thisTypeAndValue = getTypeAndValue();
+                ExtendedPropertyValueTypeAndValue otherTypeAndValue = other.getTypeAndValue();
 
-			result = thisTypeAndValue.getType() == otherTypeAndValue.getType() && thisTypeAndValue.getValue().equals(otherTypeAndValue.getValue());
-		}
+                result = thisTypeAndValue.getType() == otherTypeAndValue.getType() && thisTypeAndValue.getValue().equals(otherTypeAndValue.getValue());
+            }
 
-		return result;
-	}
+            return result;
+        }
 
-	@Override
-	public int hashCode()
-	{
-		return getTypeAndValue().getValue().hashCode();
-	}
+        @Override
+        public int hashCode()
+        {
+            return getTypeAndValue().getValue().hashCode();
+        }
 
-	@Override
-	public String toString()
-	{
-		String result;
+        @Override
+        public String toString()
+        {
+            String result;
 
-		ExtendedPropertyValueTypeAndValue typeAndValue = getTypeAndValue();
-		if (typeAndValue.getType() == ExtendedPropertyValueType.ExtensibleEnum)
-		{
-			result = "";//String.format(CultureInfo.InvariantCulture, "ExtensibleEnum: %1$s", typeAndValue.getValue());
-		}
-		else
-		{
-			result = typeAndValue.getValue().toString();
-		}
+            ExtendedPropertyValueTypeAndValue typeAndValue = getTypeAndValue();
+            if (typeAndValue.getType() == ExtendedPropertyValueType.ExtensibleEnum)
+            {
+                result = "";//String.format(CultureInfo.InvariantCulture, "ExtensibleEnum: %1$s", typeAndValue.getValue());
+            }
+            else
+            {
+                result = typeAndValue.getValue().toString();
+            }
 
-		return result;
-	}
+            return result;
+        }
 
-*//*
-	public static explicit operator String(ExtendedPropertyValueBase extendedPropertyValueBase)
+    *//*
+    public static explicit operator String(ExtendedPropertyValueBase extendedPropertyValueBase)
 	{
 		return extendedPropertyValueBase.toString(null);
 	}
@@ -323,25 +321,25 @@ public abstract class ExtendedPropertyValueBase
 		return new UnsupportedOperationException(String.format(CultureInfo.InvariantCulture, "ExtendedPropertyValue is of type \"%1$s\": \"%2$s\"", typeAndValue.getType(), typeAndValue.getValue()));
 	}
 */
-	protected static class ExtendedPropertyValueTypeAndValue
-	{
-		private ExtendedPropertyValueType privateType = ExtendedPropertyValueType.values()[0];
-		public final ExtendedPropertyValueType getType()
-		{
-			return privateType;
-		}
-		public final void setType(ExtendedPropertyValueType value)
-		{
-			privateType = value;
-		}
-		private Object privateValue;
-		public final Object getValue()
-		{
-			return privateValue;
-		}
-		public final void setValue(Object value)
-		{
-			privateValue = value;
-		}
-	}
+    protected static class ExtendedPropertyValueTypeAndValue {
+        private ExtendedPropertyValueType privateType = ExtendedPropertyValueType.values()[0];
+
+        public final ExtendedPropertyValueType getType() {
+            return privateType;
+        }
+
+        public final void setType(ExtendedPropertyValueType value) {
+            privateType = value;
+        }
+
+        private Object privateValue;
+
+        public final Object getValue() {
+            return privateValue;
+        }
+
+        public final void setValue(Object value) {
+            privateValue = value;
+        }
+    }
 }

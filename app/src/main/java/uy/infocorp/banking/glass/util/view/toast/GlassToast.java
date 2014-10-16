@@ -7,11 +7,14 @@ import android.widget.Toast;
 
 import com.google.android.glass.widget.CardBuilder;
 
+import uy.infocorp.banking.glass.R;
+
 public class GlassToast {
 
-    public static Toast create(Context context, String message, int duration) {
-        View view = new CardBuilder(context, CardBuilder.Layout.COLUMNS)
+    public static Toast create(Context context, String message, int duration, int drawable) {
+        View view = new CardBuilder(context, CardBuilder.Layout.ALERT)
                 .setText(message)
+                .setIcon(drawable)
                 .getView();
 
         Toast toast = new Toast(context);
@@ -22,11 +25,11 @@ public class GlassToast {
         return toast;
     }
 
-    public static Toast createShort(Context context, String message) {
-        return create(context, message, Toast.LENGTH_SHORT);
+    public static Toast done(Context context, String message, int duration) {
+        return create(context, message, duration, R.drawable.ic_done);
     }
 
-    public static Toast createLong(Context context, String message) {
-        return create(context, message, Toast.LENGTH_LONG);
+    public static Toast warn(Context context, String message, int duration) {
+        return create(context, message, duration, R.drawable.ic_warning_150);
     }
 }

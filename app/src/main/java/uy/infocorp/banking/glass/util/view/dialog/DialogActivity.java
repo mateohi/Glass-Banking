@@ -109,7 +109,7 @@ public class DialogActivity extends Activity {
     private GestureDetector createGestureDetector() {
         GestureDetector gestureDetector = new GestureDetector(this);
         //Create a base listener for generic gestures
-        gestureDetector.setBaseListener( new GestureDetector.BaseListener() {
+        gestureDetector.setBaseListener(new GestureDetector.BaseListener() {
             @Override
             public boolean onGesture(Gesture gesture) {
                 if (gesture == Gesture.TAP) {

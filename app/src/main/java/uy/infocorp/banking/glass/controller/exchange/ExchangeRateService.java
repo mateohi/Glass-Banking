@@ -1,9 +1,5 @@
 package uy.infocorp.banking.glass.controller.exchange;
 
-import com.google.android.glass.timeline.LiveCard;
-import com.google.android.glass.timeline.LiveCard.PublishMode;
-import com.google.android.glass.widget.CardBuilder;
-
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -12,6 +8,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.IBinder;
 import android.widget.RemoteViews;
+
+import com.google.android.glass.timeline.LiveCard;
+import com.google.android.glass.timeline.LiveCard.PublishMode;
+import com.google.android.glass.widget.CardBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,7 @@ public class ExchangeRateService extends Service {
     private LiveCard liveCard;
     private List<ExchangeRateDTO> exchangeRates = new ArrayList<ExchangeRateDTO>();
     private boolean firstRates;
+    private String alphaCode;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -45,6 +46,8 @@ public class ExchangeRateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (liveCard == null) {
+            alphaCode = getResources().getString(R.string.alpha_code);
+
             this.firstRates = true;
             this.liveCard = new LiveCard(this, TAG);
 
@@ -55,7 +58,8 @@ public class ExchangeRateService extends Service {
             this.liveCard.publish(PublishMode.REVEAL);
 
             createAndStartScheduledTask();
-        } else {
+        }
+        else {
             this.liveCard.navigate();
         }
         return START_STICKY;
@@ -146,7 +150,6 @@ public class ExchangeRateService extends Service {
         this.task.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 try {
-                    String alphaCode = "UYU";
                     exchangeRates = ExchangeRateClient.instance().getExchangeRatesByAlpha3Code(alphaCode);
                     updateView();
 
