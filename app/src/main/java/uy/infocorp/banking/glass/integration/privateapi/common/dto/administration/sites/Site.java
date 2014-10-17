@@ -2,16 +2,16 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.administrati
 
 import java.util.Date;
 
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.administration.users.User;
 
 public class Site {
 
-    private final Date DATE_MIN_VALUE = new Date(Long.MIN_VALUE);
     private int siteId;
     private String name;
     //private SiteType siteType;
     //private SiteStatus siteStatus;
-    private Date creationDate = DATE_MIN_VALUE;
+    private Date creationDate = Constants.DATE_MIN_VALUE;
     private Date approvalDate = null;
     private Integer approverUserId = null;
     private String approverUserName;

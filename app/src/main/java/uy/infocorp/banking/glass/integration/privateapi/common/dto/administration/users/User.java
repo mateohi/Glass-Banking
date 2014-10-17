@@ -3,9 +3,9 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.administrati
 import java.util.Date;
 import java.util.List;
 
-public class User {
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
 
-    private static final Date DATE_MIN_VALUE = new Date(Long.MIN_VALUE);
+public class User {
 
     private int userId;
     private String userName;
@@ -20,8 +20,8 @@ public class User {
     private String countryId;
     private String cellPhone;
     private String workPhone;
-    private Date createdDate = DATE_MIN_VALUE;
-    private Date modifiedDate = DATE_MIN_VALUE;
+    private Date createdDate = Constants.DATE_MIN_VALUE;
+    private Date modifiedDate = Constants.DATE_MIN_VALUE;
     private Boolean canSaveDocuments = null;
     /*	private Infocorp.Framework.BusinessEntities.Security.SecurityDevice loginDevice;
         private java.util.ArrayList<Infocorp.Framework.BusinessEntities.Security.SecurityDevice> transactionDevices;
@@ -32,8 +32,8 @@ public class User {
     /*	private Infocorp.Framework.BusinessEntities.Common.Language language;
         private Infocorp.Framework.BusinessEntities.Common.ViewMode viewMode;
     */
-    private Date lastLoginDate = DATE_MIN_VALUE;
-    private Date lastPasswordChange = DATE_MIN_VALUE;
+    private Date lastLoginDate = Constants.DATE_MIN_VALUE;
+    private Date lastPasswordChange = Constants.DATE_MIN_VALUE;
 
     private int loginPasswordAttempts;
     private String lastAttemptQuestions;

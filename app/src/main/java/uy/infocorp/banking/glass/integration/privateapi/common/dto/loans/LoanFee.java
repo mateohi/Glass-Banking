@@ -2,11 +2,11 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.loans;
 
 import java.util.Date;
 
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.*;
 
 public class LoanFee{
 
-    private final Date DATE_MIN_VALUE = new Date(Long.MIN_VALUE);
     private int privateFeeNumber;
 	public final int getFeeNumber(){ return privateFeeNumber; }
 	public final void setFeeNumber(int value){ privateFeeNumber = value; }
@@ -15,7 +15,7 @@ public class LoanFee{
 	public final java.math.BigDecimal getPrincipalAmount(){ return privatePrincipalAmount; }
 	public final void setPrincipalAmount(java.math.BigDecimal value){ privatePrincipalAmount = value; }
 
-	private Date privateDueDate = DATE_MIN_VALUE;
+	private Date privateDueDate = Constants.DATE_MIN_VALUE;
 	public final Date getDueDate(){ return  privateDueDate; }
 	public final void setDueDate(Date value){ privateDueDate = value; }
 
