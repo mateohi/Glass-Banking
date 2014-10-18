@@ -3,8 +3,9 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.servicePayme
 import java.util.Date;
 
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.transactions.Transaction;
 
-public class ServicePayment //extends Transaction
+public class ServicePayment extends Transaction
 {
     private String serviceBillId;
     private int servicePaymentEntityId;
