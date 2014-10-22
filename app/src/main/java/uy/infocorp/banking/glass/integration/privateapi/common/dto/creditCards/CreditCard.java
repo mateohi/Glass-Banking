@@ -3,15 +3,14 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.creditCards;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Currency;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 
 public class CreditCard extends Product {
-    
-    private final Date DATE_MIN_VALUE = new Date(Long.MIN_VALUE);
 
-    private Date privateDueDate = DATE_MIN_VALUE;
-    private Date privateCloseDate = DATE_MIN_VALUE;
+    private Date privateDueDate = Constants.DATE_MIN_VALUE;
+    private Date privateCloseDate = Constants.DATE_MIN_VALUE;
     private int privateFatherCreditCardId;
     private int privateCreditCardId;
     private BigDecimal privateLocalBalance = new BigDecimal(0);

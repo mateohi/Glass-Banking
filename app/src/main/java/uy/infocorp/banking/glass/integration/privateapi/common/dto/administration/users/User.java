@@ -8,10 +8,9 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.aut
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Language;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ViewMode;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.security.SecurityDevice;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
 
 public class User {
-
-    private static final Date DATE_MIN_VALUE = new Date(Long.MIN_VALUE);
 
     private int userId;
     private String userName;
@@ -26,8 +25,8 @@ public class User {
     private String countryId;
     private String cellPhone;
     private String workPhone;
-    private Date createdDate = DATE_MIN_VALUE;
-    private Date modifiedDate = DATE_MIN_VALUE;
+    private Date createdDate = Constants.DATE_MIN_VALUE;
+    private Date modifiedDate = Constants.DATE_MIN_VALUE;
     private Boolean canSaveDocuments = null;
     private SecurityDevice loginDevice;
     private List<SecurityDevice> transactionDevices;
@@ -38,8 +37,8 @@ public class User {
     private Language language;
     private ViewMode viewMode;
 
-    private Date lastLoginDate = DATE_MIN_VALUE;
-    private Date lastPasswordChange = DATE_MIN_VALUE;
+    private Date lastLoginDate = Constants.DATE_MIN_VALUE;
+    private Date lastPasswordChange = Constants.DATE_MIN_VALUE;
 
     private int loginPasswordAttempts;
     private String lastAttemptQuestions;
