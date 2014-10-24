@@ -39,5 +39,9 @@ proguard/
 
 
 # Gradle files
+gradle-wrapper.jar
+gradle-wrapper.properties
+gradlew
+gradlew.bat
 .gradle/
 build/
