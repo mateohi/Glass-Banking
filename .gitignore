@@ -39,6 +39,7 @@ proguard/
 
 
 # Gradle files
+model_data.bin
 gradle-wrapper.jar
 gradle-wrapper.properties
 gradlew
