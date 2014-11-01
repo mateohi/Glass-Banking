@@ -1,5 +1,6 @@
 package uy.infocorp.banking.glass.util.date;
 
+import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
@@ -11,6 +12,11 @@ public class DateUtils {
 
     public static String dateToIsoString(Date date) {
         long dateInMillis = date.getTime();
+        return ISO_FORMAT.print(dateInMillis);
+    }
+
+    public static String dateTimeToIsoString(DateTime date) {
+        long dateInMillis = date.getMillis();
         return ISO_FORMAT.print(dateInMillis);
     }
 }
