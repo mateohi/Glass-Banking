@@ -1,15 +1,22 @@
 package uy.infocorp.banking.glass.integration.privateapi.transfersHistory;
 
-/**
- * Created by german on 16/10/2014.
- */
+import org.joda.time.DateTime;
+
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
+import uy.infocorp.banking.glass.model.transaction.Transaction;
+import uy.infocorp.banking.glass.util.date.DateUtils;
 import uy.infocorp.banking.glass.util.http.RestClient;
 
 public class TransferHistoryClient {
+
+    private static final int MAX_HISTORY_LENGTH = 10;
+    private static final int TRANSFER_HISTORY_HOURS = (int) TimeUnit.DAYS.toHours(2);
+
     private static TransferHistoryClient instance;
     private RestClient client;
 
@@ -24,8 +31,22 @@ public class TransferHistoryClient {
         return instance;
     }
 
-    public void getTransfersHistoryBetween(Date from, Date to) throws UnsupportedEncodingException {
-//        return this.client.get(PrivateUrls.GET_TRANSFERS_HISTORY_URL, Message.class);
+    public List<Transaction> getLastTransfers() {
+        DateTime now =  new DateTime();
+        DateTime twoDaysAgo = now.minusHours(TRANSFER_HISTORY_HOURS);
+
+        String fromDate = DateUtils.dateTimeToIsoString(twoDaysAgo);
+        String toDate = DateUtils.dateTimeToIsoString(now);
+
+        String formattedUrl = String.format(PrivateUrls.GET_TRANSFERS_HISTORY_URL, fromDate, toDate);
+
+        Transaction[] transactions = this.client.get(formattedUrl, Transaction[].class);
+
+        if (transactions.length > MAX_HISTORY_LENGTH) {
+            transactions = Arrays.copyOf(transactions, MAX_HISTORY_LENGTH);
+        }
+
+        return Arrays.asList(transactions);
     }
 
 }
