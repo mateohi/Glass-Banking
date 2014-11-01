@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import uy.infocorp.banking.glass.integration.privateapi.transfersHistory.TransferHistoryClient;
 import uy.infocorp.banking.glass.model.transaction.Transaction;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.async.SimpleAsyncTask;
@@ -19,8 +20,7 @@ public class GetLastTransactionsTask extends SimpleAsyncTask<List<Transaction>> 
     @Override
     protected List<Transaction> doInBackground(Object... params) {
         try {
-            // TODO pegarle al servicio de la api privada
-            throw new UnsupportedOperationException();
+             return TransferHistoryClient.instance().getLastTransfers();
         }
         catch (RuntimeException e) {
             Log.e(TAG, "Unable to get latest transactions -" + e.getMessage());
