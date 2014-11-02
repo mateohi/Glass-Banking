@@ -2,10 +2,7 @@ package uy.infocorp.banking.glass.controller.balance;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,14 +59,15 @@ public class ProductsBalanceActivity extends Activity {
                 finish();
                 return true;
             case R.id.action_get_directions:
-                startMapIntent();
+                startProductDetailIntent();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void startMapIntent() {
+    private void startProductDetailIntent() {
+            selectedProduct.getProductAlias();
 /*        String uri = getResources().getString(R.string.maps_intent_uri, selectedBranch.getLatitude(),
                 selectedBranch.getLongitude(), selectedBranch.getName());
 
@@ -89,7 +87,7 @@ public class ProductsBalanceActivity extends Activity {
         setContentView(initialView);
     }
 
-    private void showNoBranchesView() {
+    private void showNoProductsView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("No accounts registered yet")
                 .setTimestamp("No Balances")
@@ -117,7 +115,7 @@ public class ProductsBalanceActivity extends Activity {
                     showErrorView();
                 }
                 else if (products.isEmpty()) {
-                    showNoBranchesView();
+                    showNoProductsView();
                 }
                 else {
                     ProductsBalanceActivity.this.products = products;
@@ -153,17 +151,15 @@ public class ProductsBalanceActivity extends Activity {
     }
 
     private CardBuilder createCard(Product product) {
-        // TODO llenar bien los datos, incluyendo puntaje
         String text = product.getProductAlias();
         String footnote = product.getProductNumber();
-        String timestamp = "timestam[";//this.distanceFormat.format(branch.getDistance()) + "km";
-        Bitmap image = null;//product.getImage();
+        String timestamp = "just now";
 
         return new CardBuilder(this, CardBuilder.Layout.CAPTION)
                 .setText(text)
                 .setFootnote(footnote)
                 .setTimestamp(timestamp)
-                .addImage(image);
+                .setIcon(R.drawable.balance_money);
     }
 
     private class ProductCardScrollAdapter extends CardScrollAdapter {
