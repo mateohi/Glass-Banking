@@ -115,6 +115,24 @@
             android:enabled="true"
             android:immersive="true"/>
         <!-- /Rate branches -->
+
+        <!-- Products Balances -->
+        <activity
+            android:name=".controller.balance.ProductsBalanceActivity"
+            android:enabled="true"
+            android:icon="@drawable/logo_ic"
+            android:immersive="true"
+            android:label="@string/get_list_products">
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/balances_products_voice_trigger"/>
+        </activity>
+        <!-- /Products Balances -->
+
     </application>
 
 </manifest>

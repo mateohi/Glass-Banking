@@ -78,6 +78,10 @@
     <string name="action_get_directions">Get directions</string>
     <!-- /Closest branches -->
 
+    <!-- Products Balances -->
+    <string name="get_list_products">Products List</string>
+    <!-- /Products Balances -->
+
     <string name="title_activity_closest_atm">ClosestAtmActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

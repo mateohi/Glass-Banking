@@ -1,17 +1,26 @@
 package uy.infocorp.banking.glass.controller.balance;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 
+import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
+import com.google.android.glass.widget.CardScrollAdapter;
+import com.google.android.glass.widget.CardScrollView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
@@ -23,9 +32,20 @@ import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
  */
 public class ProductsBalanceActivity extends Activity {
 
+
+    private List<CardBuilder> cards = new ArrayList<CardBuilder>();
+    private List<Product> products = new ArrayList<Product>();
+    private Product selectedProduct;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        showInitialView();
+        createCards();
+
     }
 
     @Override
@@ -90,25 +110,46 @@ public class ProductsBalanceActivity extends Activity {
     }
 
     private void createCards() {
-/*        new GetClosestBranchesTask(new FinishedTaskListener<List<Branch>>() {
+        new GetProductsTask(new FinishedTaskListener<List<Product>>() {
             @Override
-            public void onResult(List<Branch> branches) {
-                if (branches == null) {
+            public void onResult(List<Product> products) {
+                if (products == null) {
                     showErrorView();
                 }
-                else if (branches.isEmpty()) {
+                else if (products.isEmpty()) {
                     showNoBranchesView();
                 }
                 else {
-                    ClosestBranchActivity.this.branches = branches;
+                    ProductsBalanceActivity.this.products = products;
 
-                    for (Branch branch : branches) {
-                        cards.add(createCard(branch));
+                    for (Product product : products) {
+                        cards.add(createCard(product));
                     }
                     updateCardScrollView();
                 }
             }
-        }).execute(getLastLocation());*/
+        }).execute();
+    }
+
+
+    private void updateCardScrollView() {
+        ProductCardScrollAdapter adapter = new ProductCardScrollAdapter();
+
+        CardScrollView cardScrollView = new CardScrollView(this);
+        cardScrollView.setAdapter(adapter);
+        cardScrollView.activate();
+        cardScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                am.playSoundEffect(Sounds.TAP);
+
+                selectedProduct = products.get(position);
+                openOptionsMenu();
+            }
+        });
+
+        setContentView(cardScrollView);
     }
 
     private CardBuilder createCard(Product product) {
@@ -123,6 +164,39 @@ public class ProductsBalanceActivity extends Activity {
                 .setFootnote(footnote)
                 .setTimestamp(timestamp)
                 .addImage(image);
+    }
+
+    private class ProductCardScrollAdapter extends CardScrollAdapter {
+
+        @Override
+        public int getPosition(Object item) {
+            return cards.indexOf(item);
+        }
+
+        @Override
+        public int getCount() {
+            return cards.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return cards.get(position);
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return CardBuilder.getViewTypeCount();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return cards.get(position).getItemViewType();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return cards.get(position).getView(convertView, parent);
+        }
     }
 
 }
