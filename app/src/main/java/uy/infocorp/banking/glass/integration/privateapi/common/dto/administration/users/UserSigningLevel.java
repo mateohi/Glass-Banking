@@ -1,8 +1,8 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.administration.users;
 
-public class UserSigningLevel{// extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable {
+public class UserSigningLevel {// extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable {
 /*
-	public static final UserSigningLevel Undefined = (UserSigningLevel)0;
+    public static final UserSigningLevel Undefined = (UserSigningLevel)0;
 
 	public static final UserSigningLevel LevelA = (UserSigningLevel)1;
 

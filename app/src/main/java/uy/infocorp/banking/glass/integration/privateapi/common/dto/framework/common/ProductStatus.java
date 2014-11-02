@@ -1,6 +1,6 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common;
 
-public class ProductStatus{/*} extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum
+public class ProductStatus {/*} extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum
 {
 
 	public static final ProductStatus Undefined = (ProductStatus)0;

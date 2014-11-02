@@ -5,14 +5,12 @@ import java.io.UnsupportedEncodingException;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.util.http.RestClient;
 
-/**
- * Created by german on 15/10/2014.
- */
 public class MessagingClient {
+
     private static MessagingClient instance;
     private RestClient client;
 
-    private MessagingClient () {
+    private MessagingClient() {
         client = new RestClient();
     }
 

@@ -1,14 +1,11 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication;
 
-/**
- * Created by german on 15/10/2014.
- */
 public class SecurityQuestionAnswer {
 
     private String securityQuestionId;
     private String answer;
 
-    public SecurityQuestionAnswer(String securityQuestionId, String answer){
+    public SecurityQuestionAnswer(String securityQuestionId, String answer) {
         this.securityQuestionId = securityQuestionId;
         this.answer = answer;
     }

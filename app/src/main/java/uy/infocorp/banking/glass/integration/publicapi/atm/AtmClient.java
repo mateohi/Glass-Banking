@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.util.Log;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -37,7 +38,7 @@ public class AtmClient {
     public List<Atm> getClosestAtms(Location location) {
         PublicInfoDTO publicInfo = PublicInfoClient.instance().getPublicInfo();
 
-        List<PointsOfInterestDTO> atms = new ArrayList<PointsOfInterestDTO>();
+        List<PointsOfInterestDTO> atms = Lists.newArrayList();
 
         for (PointsOfInterestDTO pointOfInterest : publicInfo.getPointsOfInterestDTO()) {
             String type = pointOfInterest.getType();
@@ -71,7 +72,7 @@ public class AtmClient {
 
     private static List<Atm> pointsOfInterestToAtms(List<PointsOfInterestDTO> atmsDTO,
                                                     Location location) {
-        List<Atm> atms = new ArrayList<Atm>();
+        List<Atm> atms = Lists.newArrayList();
 
         for (PointsOfInterestDTO atmDTO : atmsDTO) {
             try {

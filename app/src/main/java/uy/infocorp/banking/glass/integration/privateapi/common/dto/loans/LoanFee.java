@@ -1,45 +1,93 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.loans;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.*;
 
-public class LoanFee{
+public class LoanFee {
 
-    private int privateFeeNumber;
-	public final int getFeeNumber(){ return privateFeeNumber; }
-	public final void setFeeNumber(int value){ privateFeeNumber = value; }
+    private int feeNumber;
+    private BigDecimal principalAmount = new BigDecimal(0);
+    private Date dueDate = Constants.DATE_MIN_VALUE;
+    private BigDecimal interestAmount = new BigDecimal(0);
+    private BigDecimal overdueAmount = new BigDecimal(0);
+    private BigDecimal othersAmount = new BigDecimal(0);
+    private BigDecimal capitalBalance = new BigDecimal(0);
+    private Map<String, ExtendedPropertyValue> extendedProperties;
+    private LoanStatus privateFeeStatus;
 
-	private java.math.BigDecimal privatePrincipalAmount = new java.math.BigDecimal(0);
-	public final java.math.BigDecimal getPrincipalAmount(){ return privatePrincipalAmount; }
-	public final void setPrincipalAmount(java.math.BigDecimal value){ privatePrincipalAmount = value; }
+    public final int getFeeNumber() {
+        return feeNumber;
+    }
 
-	private Date privateDueDate = Constants.DATE_MIN_VALUE;
-	public final Date getDueDate(){ return  privateDueDate; }
-	public final void setDueDate(Date value){ privateDueDate = value; }
+    public final void setFeeNumber(int value) {
+        feeNumber = value;
+    }
 
-	private java.math.BigDecimal privateInterestAmount = new java.math.BigDecimal(0);
-	public final java.math.BigDecimal getInterestAmount(){ return  privateInterestAmount; }
-	public final void setInterestAmount(java.math.BigDecimal value){ privateInterestAmount = value; }
+    public final BigDecimal getPrincipalAmount() {
+        return principalAmount;
+    }
 
-	private java.math.BigDecimal privateOverdueAmount = new java.math.BigDecimal(0);
-	public final java.math.BigDecimal getOverdueAmount(){ return  privateOverdueAmount; }
-	public final void setOverdueAmount(java.math.BigDecimal value){ privateOverdueAmount = value; }
+    public final void setPrincipalAmount(BigDecimal value) {
+        principalAmount = value;
+    }
 
-	private java.math.BigDecimal privateOthersAmount = new java.math.BigDecimal(0);
-	public final java.math.BigDecimal getOthersAmount(){ return  privateOthersAmount; }
-	public final void setOthersAmount(java.math.BigDecimal value){privateOthersAmount = value; }
+    public final Date getDueDate() {
+        return dueDate;
+    }
 
-	private java.math.BigDecimal privateCapitalBalance = new java.math.BigDecimal(0);
-	public final java.math.BigDecimal getCapitalBalance(){ return  privateCapitalBalance; }
-	public final void setCapitalBalance(java.math.BigDecimal value){ privateCapitalBalance = value; }
+    public final void setDueDate(Date value) {
+        dueDate = value;
+    }
 
-	private java.util.HashMap<String, ExtendedPropertyValue> privateExtendedProperties;
-	public final java.util.HashMap<String, ExtendedPropertyValue> getExtendedProperties(){ return  privateExtendedProperties; }
-	public final void setExtendedProperties(java.util.HashMap<String, ExtendedPropertyValue> value){ privateExtendedProperties = value; }
+    public final BigDecimal getInterestAmount() {
+        return interestAmount;
+    }
 
-	/*private LoanFeeStatus privateFeeStatus;
-	public final LoanFeeStatus getFeeStatus(){ return  privateFeeStatus; }
-	public final void setFeeStatus(LoanFeeStatus value){ privateFeeStatus = value; }*/
+    public final void setInterestAmount(BigDecimal value) {
+        interestAmount = value;
+    }
+
+    public final BigDecimal getOverdueAmount() {
+        return overdueAmount;
+    }
+
+    public final void setOverdueAmount(BigDecimal value) {
+        overdueAmount = value;
+    }
+
+    public final BigDecimal getOthersAmount() {
+        return othersAmount;
+    }
+
+    public final void setOthersAmount(BigDecimal value) {
+        othersAmount = value;
+    }
+
+    public final BigDecimal getCapitalBalance() {
+        return capitalBalance;
+    }
+
+    public final void setCapitalBalance(BigDecimal value) {
+        capitalBalance = value;
+    }
+
+    public final Map<String, ExtendedPropertyValue> getExtendedProperties() {
+        return extendedProperties;
+    }
+
+    public final void setExtendedProperties(Map<String, ExtendedPropertyValue> value) {
+        extendedProperties = value;
+    }
+
+    public final LoanStatus getFeeStatus() {
+        return  privateFeeStatus;
+    }
+
+	public final void setFeeStatus(LoanStatus value) {
+        privateFeeStatus = value;
+    }
 }

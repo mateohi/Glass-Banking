@@ -1,7 +1,7 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.administration.users;
 
 
-public class UserStatus{// extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable
+public class UserStatus {// extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable
 
 
 /*	public static final UserStatus Undefined = (UserStatus)0;

@@ -1,6 +1,6 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.administration.users;
 
-public class UserType{ //extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable
+public class UserType { //extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable
 /*	public static final UserType Undefined = (UserType)0;
 
 

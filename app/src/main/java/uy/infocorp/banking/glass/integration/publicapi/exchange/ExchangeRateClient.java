@@ -1,8 +1,9 @@
 package uy.infocorp.banking.glass.integration.publicapi.exchange;
 
+import com.google.common.collect.Lists;
+
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ExchangeRateClient {
             return Collections.emptyList();
         }
 
-        List<ExchangeRateDTO> filteredRates = new ArrayList<ExchangeRateDTO>();
+        List<ExchangeRateDTO> filteredRates = Lists.newArrayList();
         for (ExchangeRateDTO exchangeRate : exchangeRates) {
             String sourceAlpha3Code = exchangeRate.getSourceCurrencyDTO().getCurrencyAlpha3Code();
             String destinationAlpha3Code = exchangeRate.getDestinationCurrencyDTO().getCurrencyAlpha3Code();

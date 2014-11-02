@@ -6,7 +6,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.com
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 
 public class Account extends Product {
-    
+
     private Bank accountBank;
     private String accountOfficerName;
     private BigDecimal accountCountableBalance = new BigDecimal(0);
@@ -26,12 +26,18 @@ public class Account extends Product {
     private int checksDrawn;
     private BigDecimal overdrafts = new BigDecimal(0);
 
-	public final Bank getAccountBank() { return accountBank; }
-    public final void setAccountBank(Bank value) { accountBank = value; }
+    public final Bank getAccountBank() {
+        return accountBank;
+    }
+
+    public final void setAccountBank(Bank value) {
+        accountBank = value;
+    }
 
     public final String getAccountOfficerName() {
         return accountOfficerName;
     }
+
     public final void setAccountOfficerName(String value) {
         accountOfficerName = value;
     }
@@ -39,29 +45,47 @@ public class Account extends Product {
     public final BigDecimal getAccountCountableBalance() {
         return accountCountableBalance;
     }
-    public final void setAccountCountableBalance(BigDecimal value) { accountCountableBalance = value; }
+
+    public final void setAccountCountableBalance(BigDecimal value) {
+        accountCountableBalance = value;
+    }
 
     public final BigDecimal getAccountAvailableBalance() {
         return accountAvailableBalance;
     }
-    public final void setAccountAvailableBalance(BigDecimal value) { accountAvailableBalance = value; }
+
+    public final void setAccountAvailableBalance(BigDecimal value) {
+        accountAvailableBalance = value;
+    }
 
     public final BigDecimal getAccountBalance24Hrs() {
         return accountBalance24Hrs;
     }
+
     public final void setAccountBalance24Hrs(BigDecimal value) {
         accountBalance24Hrs = value;
     }
 
-    public final BigDecimal getAccountBalance48Hrs() { return accountBalance48Hrs; }
-    public final void setAccountBalance48Hrs(BigDecimal value) { accountBalance48Hrs = value; }
+    public final BigDecimal getAccountBalance48Hrs() {
+        return accountBalance48Hrs;
+    }
 
-    public final BigDecimal getAccountBalance48MoreHrs() { return accountBalance48MoreHrs; }
-    public final void setAccountBalance48MoreHrs(BigDecimal value) { accountBalance48MoreHrs = value; }
+    public final void setAccountBalance48Hrs(BigDecimal value) {
+        accountBalance48Hrs = value;
+    }
+
+    public final BigDecimal getAccountBalance48MoreHrs() {
+        return accountBalance48MoreHrs;
+    }
+
+    public final void setAccountBalance48MoreHrs(BigDecimal value) {
+        accountBalance48MoreHrs = value;
+    }
 
     public final BigDecimal getMonthlyAverageBalance() {
         return monthlyAverageBalance;
     }
+
     public final void setMonthlyAverageBalance(BigDecimal value) {
         monthlyAverageBalance = value;
     }
@@ -69,6 +93,7 @@ public class Account extends Product {
     public final int getPendingChecks() {
         return pendingChecks;
     }
+
     public final void setPendingChecks(int value) {
         pendingChecks = value;
     }
@@ -76,6 +101,7 @@ public class Account extends Product {
     public final int getChecksToReleaseToday() {
         return checksToReleaseToday;
     }
+
     public final void setChecksToReleaseToday(int value) {
         checksToReleaseToday = value;
     }
@@ -83,6 +109,7 @@ public class Account extends Product {
     public final int getChecksToReleaseTomorrow() {
         return checksToReleaseTomorrow;
     }
+
     public final void setChecksToReleaseTomorrow(int value) {
         checksToReleaseTomorrow = value;
     }
@@ -90,6 +117,7 @@ public class Account extends Product {
     public final int getCancelledChecks() {
         return cancelledChecks;
     }
+
     public final void setCancelledChecks(int value) {
         cancelledChecks = value;
     }
@@ -97,6 +125,7 @@ public class Account extends Product {
     public final int getCertifiedChecks() {
         return certifiedChecks;
     }
+
     public final void setCertifiedChecks(int value) {
         certifiedChecks = value;
     }
@@ -104,6 +133,7 @@ public class Account extends Product {
     public final int getRejectedChecks() {
         return rejectedChecks;
     }
+
     public final void setRejectedChecks(int value) {
         rejectedChecks = value;
     }
@@ -111,6 +141,7 @@ public class Account extends Product {
     public final BigDecimal getBlockedAmount() {
         return blockedAmount;
     }
+
     public final void setBlockedAmount(BigDecimal value) {
         blockedAmount = value;
     }
@@ -118,6 +149,7 @@ public class Account extends Product {
     public final int getMovementsOfTheMonth() {
         return movementsOfTheMonth;
     }
+
     public final void setMovementsOfTheMonth(int value) {
         movementsOfTheMonth = value;
     }
@@ -125,6 +157,7 @@ public class Account extends Product {
     public final int getChecksDrawn() {
         return checksDrawn;
     }
+
     public final void setChecksDrawn(int value) {
         checksDrawn = value;
     }
@@ -132,6 +165,7 @@ public class Account extends Product {
     public final BigDecimal getOverdrafts() {
         return overdrafts;
     }
+
     public final void setOverdrafts(BigDecimal value) {
         overdrafts = value;
     }
