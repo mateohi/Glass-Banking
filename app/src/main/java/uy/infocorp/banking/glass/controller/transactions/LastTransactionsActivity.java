@@ -2,7 +2,6 @@ package uy.infocorp.banking.glass.controller.transactions;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,16 +18,20 @@ import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
 import com.google.common.collect.Lists;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.model.transaction.Transaction;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 
 public class LastTransactionsActivity extends Activity {
 
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/YYYY");
+
     private List<CardBuilder> cards = Lists.newArrayList();
-    private List<Transaction> transactions = Lists.newArrayList();
+    private List<Transfer> transfers = Lists.newArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,7 @@ public class LastTransactionsActivity extends Activity {
 
     private void showErrorView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Unable to get closest ATMs")
+                .setText("Unable to get last transactions")
                 .setFootnote("Check your internet connection")
                 .setIcon(R.drawable.ic_warning)
                 .getView();
@@ -87,20 +90,20 @@ public class LastTransactionsActivity extends Activity {
     }
 
     private void createCards() {
-        new GetLastTransactionsTask(new FinishedTaskListener<List<Transaction>>() {
+        new GetLastTransactionsTask(new FinishedTaskListener<List<Transfer>>() {
             @Override
-            public void onResult(List<Transaction> transactions) {
-                if (transactions == null) {
+            public void onResult(List<Transfer> transfers) {
+                if (transfers == null) {
                     showErrorView();
                 }
-                else if (transactions.isEmpty()) {
+                else if (transfers.isEmpty()) {
                     showNoTransactionsView();
                 }
                 else {
-                    LastTransactionsActivity.this.transactions = transactions;
+                    LastTransactionsActivity.this.transfers = transfers;
 
-                    for (Transaction transaction : transactions) {
-                        cards.add(createCard(transaction));
+                    for (Transfer transfer : transfers) {
+                        cards.add(createCard(transfer));
                     }
                     updateCardScrollView();
                 }
@@ -120,7 +123,7 @@ public class LastTransactionsActivity extends Activity {
                 AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
                 am.playSoundEffect(Sounds.TAP);
 
-                Transaction selected = transactions.get(position);
+                Transfer selected = transfers.get(position);
                 // openOptionsMenu(); y mostrale mas opciones como el de branches? o mas info de una ?
             }
         });
@@ -128,16 +131,25 @@ public class LastTransactionsActivity extends Activity {
         setContentView(cardScrollView);
     }
 
-    private CardBuilder createCard(Transaction transaction) {
+    private CardBuilder createCard(Transfer transfer) {
         // TODO llenar bien los datos
-        String text = "";
-        String footnote = "";
-        Bitmap image = null;
+        int icon = getIconFromTransferType(transfer);
+        String text = transfer.getDebitProduct().getProductAlias() + " - "
+                + transfer.getCreditProduct().getProductAlias();
+        String timestamp = DATE_FORMAT.format(transfer.getCreatedDate());
+        String footnote = transfer.getCurrency().getCurrencySymbol() + " "
+                + transfer.getAmount().toString();
 
-        return new CardBuilder(this, CardBuilder.Layout.CAPTION)
+        return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
+                .setIcon(icon)
                 .setText(text)
-                .setFootnote(footnote)
-                .addImage(image);
+                .setTimestamp(timestamp)
+                .setFootnote(footnote);
+    }
+
+    private int getIconFromTransferType(Transfer transfer) {
+        // TODO Agarrar el tipo de transferencia y mostrar diferentes iconos
+        return R.drawable.logo_ic;
     }
 
     private class TransactionCardScrollAdapter extends CardScrollAdapter {
