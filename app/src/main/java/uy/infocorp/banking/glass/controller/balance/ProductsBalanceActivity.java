@@ -67,15 +67,7 @@ public class ProductsBalanceActivity extends Activity {
     }
 
     private void startProductDetailIntent() {
-            selectedProduct.getProductAlias();
-/*        String uri = getResources().getString(R.string.maps_intent_uri, selectedBranch.getLatitude(),
-                selectedBranch.getLongitude(), selectedBranch.getName());
-
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW);
-        mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mapIntent.setData(Uri.parse(uri));
-
-        startActivity(mapIntent);*/
+            String alias = selectedProduct.getProductAlias();
     }
 
     private void showInitialView() {

@@ -35,8 +35,4 @@ public class ProductsClient {
         return new ArrayList(Arrays.asList(productList));
     }
 
-    public SecurityQuestionsAnswers validateSecurityDevice(SecurityQuestionsAnswers securityQuestionsAnswers) throws UnsupportedEncodingException {
-        return this.client.post(PrivateUrls.POST_VALIDATE_SECURITY_DEVICE_URL, SecurityQuestionsAnswers.class, securityQuestionsAnswers);
-    }
-
 }
