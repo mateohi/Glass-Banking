@@ -3,7 +3,8 @@ package uy.infocorp.banking.glass.integration.publicapi.benefits;
 import android.location.Location;
 import android.util.Log;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class BenefitsClient {
         PublicInfoDTO publicInfo = PublicInfoClient.instance().getPublicInfo();
         List<PointsOfInterestDTO> pointsOfInterest = Arrays.asList(publicInfo.getPointsOfInterestDTO());
 
-        List<Benefit> nearbyBenefits = new ArrayList<Benefit>();
+        List<Benefit> nearbyBenefits = Lists.newArrayList();
 
         for (BenefitDTO knownBenefit : publicInfo.getBenefits()) {
             for (AssociatedPointOfInterestDTO pointOfInterest : knownBenefit.getAssociatedPointsOfInterest()) {

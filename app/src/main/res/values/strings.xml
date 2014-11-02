@@ -63,6 +63,10 @@
     <!-- /Benefits -->
 
 
+    <!-- Last transactions -->
+    <string name="last_transactions">Find last transactions</string>
+    <!-- /Last transactions -->
+
     <!-- Glass Dialog -->
     <string name="action_dismiss">Dismiss</string>
     <!-- /Glass Dialog -->

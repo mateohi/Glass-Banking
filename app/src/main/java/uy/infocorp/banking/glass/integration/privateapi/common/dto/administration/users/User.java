@@ -45,9 +45,9 @@ public class User {
     private short questionAttempts;
     private String secretQuestion;
 
-    //	private java.util.HashMap<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> extendedProperties;
+    //	private Map<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> extendedProperties;
     private Date resetPasswordDate = null;
-    //	private UserSigningLevel userSigningLevel;
+    private UserSigningLevel userSigningLevel;
     private boolean canSignAlone;
 
     public final int getUserId() {
@@ -66,18 +66,34 @@ public class User {
         userName = value;
     }
 
-    public final UserType getUserType() { return userType; }
-    public final void setUserType(UserType value) {	userType = value; }
+    public final UserType getUserType() {
+        return userType;
+    }
 
-	public final UserStatus getUserStatus() { return userStatus; }
-	public final void setUserStatus(UserStatus value) { userStatus = value; }
+    public final void setUserType(UserType value) {
+        userType = value;
+    }
 
-	public final Site getSite() { return site; }
-	public final void setSite(Site value) { site = value; }
+    public final UserStatus getUserStatus() {
+        return userStatus;
+    }
+
+    public final void setUserStatus(UserStatus value) {
+        userStatus = value;
+    }
+
+    public final Site getSite() {
+        return site;
+    }
+
+    public final void setSite(Site value) {
+        site = value;
+    }
 
     public final String getName() {
         return name;
     }
+
     public final void setName(String value) {
         name = value;
     }
@@ -85,6 +101,7 @@ public class User {
     public final String getLastName() {
         return lastName;
     }
+
     public final void setLastName(String value) {
         lastName = value;
     }
@@ -92,6 +109,7 @@ public class User {
     public final String getMail() {
         return mail;
     }
+
     public final void setMail(String value) {
         mail = value;
     }
@@ -99,6 +117,7 @@ public class User {
     public final int getDocumentTypeId() {
         return documentTypeId;
     }
+
     public final void setDocumentTypeId(int value) {
         documentTypeId = value;
     }
@@ -106,6 +125,7 @@ public class User {
     public final String getDocumentNumber() {
         return documentNumber;
     }
+
     public final void setDocumentNumber(String value) {
         documentNumber = value;
     }
@@ -113,6 +133,7 @@ public class User {
     public final String getCountryId() {
         return countryId;
     }
+
     public final void setCountryId(String value) {
         countryId = value;
     }
@@ -120,6 +141,7 @@ public class User {
     public final String getCellPhone() {
         return cellPhone;
     }
+
     public final void setCellPhone(String value) {
         cellPhone = value;
     }
@@ -127,6 +149,7 @@ public class User {
     public final String getWorkPhone() {
         return workPhone;
     }
+
     public final void setWorkPhone(String value) {
         workPhone = value;
     }
@@ -134,6 +157,7 @@ public class User {
     public final Date getCreatedDate() {
         return createdDate;
     }
+
     public final void setCreatedDate(Date value) {
         createdDate = value;
     }
@@ -141,6 +165,7 @@ public class User {
     public final Date getModifiedDate() {
         return modifiedDate;
     }
+
     public final void setModifiedDate(Date value) {
         modifiedDate = value;
     }
@@ -148,15 +173,26 @@ public class User {
     public final Boolean getCanSaveDocuments() {
         return canSaveDocuments;
     }
+
     public final void setCanSaveDocuments(Boolean value) {
         canSaveDocuments = value;
     }
 
-    public final SecurityDevice getLoginDevice() { return loginDevice; }
-	public final void setLoginDevice(SecurityDevice value) { loginDevice = value; }
+    public final SecurityDevice getLoginDevice() {
+        return loginDevice;
+    }
 
-	public final List<SecurityDevice> getTransactionDevices() { return transactionDevices; }
-	public final void setTransactionDevices(List<SecurityDevice> value) { transactionDevices = value; }
+    public final void setLoginDevice(SecurityDevice value) {
+        loginDevice = value;
+    }
+
+    public final List<SecurityDevice> getTransactionDevices() {
+        return transactionDevices;
+    }
+
+    public final void setTransactionDevices(List<SecurityDevice> value) {
+        transactionDevices = value;
+    }
 
     public final Integer getSigningLevelId() {
         return signingLevelId;
@@ -166,25 +202,44 @@ public class User {
         signingLevelId = value;
     }
 
-    public final List<AuthorizedIpAddress> getAuthorizedIpAddresses() { return authorizedIpAddresses; }
-    public final void setAuthorizedIpAddresses(List<AuthorizedIpAddress> value) { authorizedIpAddresses = value; }
+    public final List<AuthorizedIpAddress> getAuthorizedIpAddresses() {
+        return authorizedIpAddresses;
+    }
+
+    public final void setAuthorizedIpAddresses(List<AuthorizedIpAddress> value) {
+        authorizedIpAddresses = value;
+    }
 
     @Deprecated
     public final List<Integer> getAdvertisingGroups() {
         return advertisingGroups;
     }
+
     @Deprecated
-    public final void setAdvertisingGroups(List<Integer> value) { advertisingGroups = value; }
+    public final void setAdvertisingGroups(List<Integer> value) {
+        advertisingGroups = value;
+    }
 
-    public final Language getLanguage() { return language; }
-    public final void setLanguage(Language value) { language = value; }
+    public final Language getLanguage() {
+        return language;
+    }
 
-    public final ViewMode getViewMode() { return viewMode; }
-    public final void setViewMode(ViewMode value) { viewMode = value; }
+    public final void setLanguage(Language value) {
+        language = value;
+    }
+
+    public final ViewMode getViewMode() {
+        return viewMode;
+    }
+
+    public final void setViewMode(ViewMode value) {
+        viewMode = value;
+    }
 
     public final Date getLastLoginDate() {
         return lastLoginDate;
     }
+
     public final void setLastLoginDate(Date value) {
         lastLoginDate = value;
     }
@@ -192,6 +247,7 @@ public class User {
     public final Date getLastPasswordChange() {
         return lastPasswordChange;
     }
+
     public final void setLastPasswordChange(Date value) {
         lastPasswordChange = value;
     }
@@ -199,6 +255,7 @@ public class User {
     public final int getLoginPasswordAttempts() {
         return loginPasswordAttempts;
     }
+
     public final void setLoginPasswordAttempts(int value) {
         loginPasswordAttempts = value;
     }
@@ -206,6 +263,7 @@ public class User {
     public final String getLastAttemptQuestions() {
         return lastAttemptQuestions;
     }
+
     public final void setLastAttemptQuestions(String value) {
         lastAttemptQuestions = value;
     }
@@ -213,6 +271,7 @@ public class User {
     public final short getQuestionAttempts() {
         return questionAttempts;
     }
+
     public final void setQuestionAttempts(short value) {
         questionAttempts = value;
     }
@@ -220,26 +279,34 @@ public class User {
     public final String getSecretQuestion() {
         return secretQuestion;
     }
+
     public final void setSecretQuestion(String value) {
         secretQuestion = value;
     }
 
-//	public final java.util.HashMap<String, ExtendedPropertyValue> getExtendedProperties() { return extendedProperties; }
-//	public final void setExtendedProperties(java.util.HashMap<String, ExtendedPropertyValue> value) { extendedProperties = value; }
+//	public final Map<String, ExtendedPropertyValue> getExtendedProperties() { return extendedProperties; }
+//	public final void setExtendedProperties(Map<String, ExtendedPropertyValue> value) { extendedProperties = value; }
 
     public final Date getResetPasswordDate() {
         return resetPasswordDate;
     }
+
     public final void setResetPasswordDate(Date value) {
         resetPasswordDate = value;
     }
 
-/*  public final UserSigningLevel getUserSigningLevel() { return userSigningLevel; }
-	public final void setUserSigningLevel(UserSigningLevel value) { userSigningLevel = value; } */
+    public final UserSigningLevel getUserSigningLevel() {
+        return userSigningLevel;
+    }
+
+    public final void setUserSigningLevel(UserSigningLevel value) {
+        userSigningLevel = value;
+    }
 
     public final boolean getCanSignAlone() {
         return canSignAlone;
     }
+
     public final void setCanSignAlone(boolean value) {
         canSignAlone = value;
     }

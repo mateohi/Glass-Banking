@@ -3,7 +3,7 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.se
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.authorization.*;
 
 
-public class SecurityDevice{/* extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable {
+public class SecurityDevice {/* extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable {
 
 	public static final SecurityDevice Undefined = (SecurityDevice)0;
 

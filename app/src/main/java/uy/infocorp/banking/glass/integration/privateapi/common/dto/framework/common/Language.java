@@ -1,6 +1,6 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common;
 
-public class Language{// extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable
+public class Language {// extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable
 
 /*	public static final Language Undefined = (Language)0;
 

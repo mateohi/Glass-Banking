@@ -24,9 +24,9 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import com.google.common.collect.Lists;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -39,8 +39,8 @@ public class ClosestAtmActivity extends Activity {
     private static final long METERS_BETWEEN_LOCATIONS = 2;
     private static final long MILLIS_BETWEEN_LOCATIONS = TimeUnit.SECONDS.toMillis(3);
 
-    private List<CardBuilder> cards = new ArrayList<CardBuilder>();
-    private List<Atm> atms = new ArrayList<Atm>();
+    private List<CardBuilder> cards = Lists.newArrayList();
+    private List<Atm> atms = Lists.newArrayList();
     private Atm selectedAtm;
     private LocationManager locationManager;
     private Location location;

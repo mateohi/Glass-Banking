@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.util.Log;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -37,7 +38,7 @@ public class BranchClient {
     public List<Branch> getClosestBranches(final Location location) {
         PublicInfoDTO publicInfo = PublicInfoClient.instance().getPublicInfo();
 
-        List<PointsOfInterestDTO> branches = new ArrayList<PointsOfInterestDTO>();
+        List<PointsOfInterestDTO> branches = Lists.newArrayList();
 
         for (PointsOfInterestDTO pointOfInterest : publicInfo.getPointsOfInterestDTO()) {
             String type = pointOfInterest.getType();
@@ -77,7 +78,7 @@ public class BranchClient {
     }
 
     private static List<Branch> pointsOfInterestToBranches(List<PointsOfInterestDTO> branchesDTO, Location location) {
-        List<Branch> branches = new ArrayList<Branch>();
+        List<Branch> branches = Lists.newArrayList();
 
         for (PointsOfInterestDTO branchDTO : branchesDTO) {
             try {

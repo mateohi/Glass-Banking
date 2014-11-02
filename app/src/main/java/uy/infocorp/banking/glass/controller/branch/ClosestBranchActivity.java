@@ -24,6 +24,7 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import com.google.common.collect.Lists;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -39,8 +40,8 @@ public class ClosestBranchActivity extends Activity {
     private static final long METERS_BETWEEN_LOCATIONS = 2;
     private static final long MILLIS_BETWEEN_LOCATIONS = TimeUnit.SECONDS.toMillis(3);
 
-    private List<CardBuilder> cards = new ArrayList<CardBuilder>();
-    private List<Branch> branches = new ArrayList<Branch>();
+    private List<CardBuilder> cards = Lists.newArrayList();
+    private List<Branch> branches = Lists.newArrayList();
     private Branch selectedBranch;
     private LocationManager locationManager;
     private Location location;
@@ -65,7 +66,7 @@ public class ClosestBranchActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.closest_branch, menu);
+        inflater.inflate(R.menu.last_transactions, menu);
         return true;
     }
 

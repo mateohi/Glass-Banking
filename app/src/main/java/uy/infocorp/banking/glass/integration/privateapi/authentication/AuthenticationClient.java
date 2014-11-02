@@ -7,9 +7,6 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.authenticatio
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInInformation;
 import uy.infocorp.banking.glass.util.http.RestClient;
 
-/**
- * Created by german on 14/10/2014.
- */
 public class AuthenticationClient {
 
     private static AuthenticationClient instance;
@@ -27,7 +24,8 @@ public class AuthenticationClient {
     }
 
     public SignInInformation logOn(String username, String password) throws UnsupportedEncodingException {
-        return this.client.post(PrivateUrls.POST_SIGN_IN_URL, SignInInformation.class, new SignInInformation(username, password));
+        SignInInformation signInInformation = new SignInInformation(username, password);
+        return this.client.post(PrivateUrls.POST_SIGN_IN_URL, SignInInformation.class, signInInformation);
     }
 
     public SecurityQuestionsAnswers validateSecurityDevice(SecurityQuestionsAnswers securityQuestionsAnswers) throws UnsupportedEncodingException {

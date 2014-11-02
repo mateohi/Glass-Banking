@@ -8,7 +8,6 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.com
 
 public class CreditLine extends Product {
 
-
     private Date dueDate = Constants.DATE_MIN_VALUE;
     private String revolving;
     private BigDecimal availableAmount = new BigDecimal(0);

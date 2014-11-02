@@ -115,6 +115,23 @@
             android:enabled="true"
             android:immersive="true"/>
         <!-- /Rate branches -->
+
+        <!-- Last transactions -->
+        <activity
+            android:name=".controller.transactions.LastTransactionsActivity"
+            android:enabled="true"
+            android:icon="@drawable/logo_ic"
+            android:immersive="true"
+            android:label="@string/last_transactions">
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/last_transactions_voice_trigger"/>
+        </activity>
+        <!-- /Last transactions -->
     </application>
 
 </manifest>
