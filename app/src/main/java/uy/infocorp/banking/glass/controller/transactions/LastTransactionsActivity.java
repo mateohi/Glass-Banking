@@ -28,7 +28,7 @@ import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 
 public class LastTransactionsActivity extends Activity {
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/YYYY");
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Transfer> transfers = Lists.newArrayList();
