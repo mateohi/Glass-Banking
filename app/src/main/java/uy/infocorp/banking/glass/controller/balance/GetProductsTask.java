@@ -5,9 +5,9 @@ import android.util.Log;
 import java.util.List;
 
 import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityQuestionAnswer;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityDeviceValidationResult;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityQuestionsAnswers;
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInInformation;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInResult;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.integration.privateapi.products.ProductsClient;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
@@ -26,11 +26,16 @@ public class GetProductsTask extends SimpleAsyncTask<List<Product>> {
     @Override
     protected List<Product> doInBackground(Object... params) {
         try {
-            SignInInformation signInInformation = AuthenticationClient.instance().logOn("prueba09","1234");
-            SecurityQuestionsAnswers securityQuestionsAnswers = new SecurityQuestionsAnswers();
-            SecurityQuestionAnswer securityQuestionAnswer = new SecurityQuestionAnswer("25", "1111");
-            //SecurityQuestionsAnswers securityQuestionsAnswers = AuthenticationClient.instance().validateSecurityDevice();
-            return ProductsClient.instance().getConsolidatedPosition();
+            //1- LogOn
+            SignInResult signInResult = AuthenticationClient.instance().logOn("prueba09","1234");
+            //ToDo: Validar success en respuesta a login
+            SecurityQuestionsAnswers questionAnswered = new SecurityQuestionsAnswers(25, "1111");
+            //2- Security Device Validation
+            SecurityDeviceValidationResult securityDeviceValidationResult =
+                    AuthenticationClient.instance().validateSecurityDevice(questionAnswered, signInResult.getAuthToken());
+            //ToDo: Validar success en respuesta a las preguntas de seguridad.
+            //3- Load Consolidate Position
+            return ProductsClient.instance().getConsolidatedPosition(securityDeviceValidationResult.getAuthToken());
         }
         catch (Exception e) {
             Log.e(TAG, "Unable to get list of Products -" + e.getMessage());

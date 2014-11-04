@@ -91,7 +91,7 @@ public class ProductsBalanceActivity extends Activity {
 
     private void showErrorView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Unable to get the Account Balances")
+                .setText("Unable to get the Accounts")
                 .setFootnote("Check your internet connection")
                 .setIcon(R.drawable.ic_warning)
                 .getView();

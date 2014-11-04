@@ -1,22 +1,32 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication;
 
-import java.util.ArrayList;
-
 /**
  * Created by german on 15/10/2014.
  */
 public class SecurityQuestionsAnswers {
 
-    private ArrayList<SecurityQuestionAnswer> securityQuestionAnswer;
+    private int securityQuestionId;
+    private String answer;
 
-    public SecurityQuestionsAnswers(){
+    public SecurityQuestionsAnswers(int securityQuestionId, String answer){
+        this.securityQuestionId = securityQuestionId;
+        this.answer = answer;
     }
 
-    public ArrayList<SecurityQuestionAnswer> getSecurityQuestionAnswer() {
-        return securityQuestionAnswer;
+    public int getSecurityQuestionId() {
+        return securityQuestionId;
     }
 
-    public void setSecurityQuestionAnswer(ArrayList<SecurityQuestionAnswer> securityQuestionAnswer) {
-        this.securityQuestionAnswer = securityQuestionAnswer;
+    public void setSecurityQuestionId(int securityQuestionId) {
+        this.securityQuestionId = securityQuestionId;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }
+

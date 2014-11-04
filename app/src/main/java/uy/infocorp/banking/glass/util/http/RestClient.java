@@ -1,9 +1,11 @@
 package uy.infocorp.banking.glass.util.http;
 
 import android.util.Log;
+import android.util.Pair;
 
 import com.google.gson.Gson;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -16,6 +18,7 @@ import org.apache.http.entity.StringEntity;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import uy.infocorp.banking.glass.exception.ConnectionException;
 import uy.infocorp.banking.glass.exception.ServerException;
@@ -44,6 +47,14 @@ public class RestClient {
         return execute(clazz, get);
     }
 
+    public <T> T get(String url, Class<T> clazz, List<Header> headers) {
+        HttpGet get = new HttpGet(url);
+        if(headers!=null){
+            get.setHeaders(headers.toArray(new Header[headers.size()]));
+        }
+        return execute(clazz, get);
+    }
+
     public <T> T post(String url, Class<T> clazz) {
         HttpPost post = new HttpPost(url);
         return execute(clazz, post);
@@ -66,6 +77,19 @@ public class RestClient {
         post.setEntity(entity);
 
         return execute(clazz, post);
+    }
+
+    public <T> Pair<T, List<Header>> post(String url, Class<T> clazz, Object body, List<Header> headers) throws UnsupportedEncodingException {
+        String jsonBody = gson.toJson(body);
+        StringEntity entity = new StringEntity(jsonBody);
+
+        HttpPost post = new HttpPost(url);
+        if(headers!=null){
+            post.setHeaders(headers.toArray(new Header[headers.size()]));
+        }
+        post.setEntity(entity);
+
+        return executeAndGetHeaders(clazz, post);
     }
 
     public <T> T put(String url, Class<T> clazz) {
@@ -100,6 +124,26 @@ public class RestClient {
 
             if (status == HttpStatus.SC_OK) {
                 return HttpUtils.typeFromResponse(response, clazz);
+            }
+            else {
+                Log.e(TAG, "Server response: " + status);
+                throw new ServerException(request.getURI().getHost(), response);
+            }
+        }
+        catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+            throw new ConnectionException(request.getURI().getHost());
+        }
+    }
+
+    private <T> Pair<T, List<Header>> executeAndGetHeaders(Class<T> clazz, HttpRequestBase request) {
+        request.addHeader(CONTENT_TYPE, APPLICATION_JSON);
+        try {
+            HttpResponse response = this.httpClient.execute(request);
+            int status = response.getStatusLine().getStatusCode();
+
+            if (status == HttpStatus.SC_OK) {
+                return HttpUtils.typeAndHeadersFromResponse(response, clazz);
             }
             else {
                 Log.e(TAG, "Server response: " + status);
