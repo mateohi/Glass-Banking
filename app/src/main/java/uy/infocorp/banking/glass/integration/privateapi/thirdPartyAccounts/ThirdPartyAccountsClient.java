@@ -5,14 +5,12 @@ import java.io.UnsupportedEncodingException;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.util.http.RestClient;
 
-/**
- * Created by german on 16/10/2014.
- */
 public class ThirdPartyAccountsClient {
+
     private static ThirdPartyAccountsClient instance;
     private RestClient client;
 
-    private ThirdPartyAccountsClient () {
+    private ThirdPartyAccountsClient() {
         client = new RestClient();
     }
 

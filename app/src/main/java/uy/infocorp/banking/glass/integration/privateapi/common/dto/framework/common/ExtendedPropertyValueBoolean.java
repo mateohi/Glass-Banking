@@ -2,6 +2,7 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.co
 
 
 public class ExtendedPropertyValueBoolean extends ExtendedPropertyValue {
+
     private boolean extendedPropertyValue;
 
     public final boolean getExtendedPropertyValue() {

@@ -100,7 +100,7 @@ public abstract class ExtendedPropertyValueBase {
 		return extendedPropertyValueBase.ToBoolean(null);
 	}
 *//*
-	public static boolean OpEquality(ExtendedPropertyValueBase extendedPropertyValueBaseA, ExtendedPropertyValueBase extendedPropertyValueBaseB)
+    public static boolean OpEquality(ExtendedPropertyValueBase extendedPropertyValueBaseA, ExtendedPropertyValueBase extendedPropertyValueBaseB)
 	{
 		boolean result;
 

@@ -1,6 +1,6 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common;
 
-public class ProductType{/*} extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable
+public class ProductType {/*} extends Infocorp.Framework.BusinessEntities.Common.ExtensibleEnum implements Serializable
 {
 	public static final ProductType Undefined = (ProductType)0;	public static final ProductType CurrentAccount = (ProductType)1;
 

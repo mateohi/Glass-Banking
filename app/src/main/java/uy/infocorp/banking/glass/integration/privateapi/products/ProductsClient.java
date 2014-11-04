@@ -1,11 +1,9 @@
 package uy.infocorp.banking.glass.integration.privateapi.products;
-import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

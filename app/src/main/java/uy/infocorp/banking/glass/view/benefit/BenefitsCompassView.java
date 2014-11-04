@@ -18,8 +18,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import com.google.common.collect.Lists;
+
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
@@ -102,7 +103,7 @@ public class BenefitsCompassView extends View {
         this.frontBenefitPaint.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
 
         this.textBounds = new Rect();
-        this.allBounds = new ArrayList<Rect>();
+        this.allBounds = Lists.newArrayList();
 
         this.distanceFormat = NumberFormat.getNumberInstance();
         this.distanceFormat.setMinimumFractionDigits(0);

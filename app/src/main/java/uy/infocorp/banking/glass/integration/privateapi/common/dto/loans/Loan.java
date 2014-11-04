@@ -6,7 +6,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.Acco
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 
 public class Loan extends Product {
-    
+
     private BigDecimal originalAmount = new BigDecimal(0);
     private BigDecimal payoffBalance = new BigDecimal(0);
     private BigDecimal currentRate = new BigDecimal(0);
@@ -14,7 +14,7 @@ public class Loan extends Product {
     private int paidFees;
     private Account account;
     private BigDecimal currentBalance = new BigDecimal(0);
-    //	private LoanFee nextFee;
+    private LoanFee nextFee;
     private BigDecimal prepaymentAmount = new BigDecimal(0);
     private int feesDue;
     private BigDecimal feesDuePrincipalAmount = new BigDecimal(0);
@@ -22,7 +22,7 @@ public class Loan extends Product {
     private BigDecimal feesDueOverdueAmount = new BigDecimal(0);
     private BigDecimal feesDueOthersAmount = new BigDecimal(0);
     private int overdueDays;
-    //	private LoanStatus loanStatus;
+    private LoanStatus loanStatus;
 
     public final BigDecimal getOriginalAmount() {
         return originalAmount;
@@ -80,9 +80,14 @@ public class Loan extends Product {
         currentBalance = value;
     }
 
-    /*	public final LoanFee getNextFee() { return nextFee; }
-        public final void setNextFee(LoanFee value) { nextFee = value; }
-    */
+    public final LoanFee getNextFee() {
+        return nextFee;
+    }
+
+    public final void setNextFee(LoanFee value) {
+        nextFee = value;
+    }
+
     public final BigDecimal getPrepaymentAmount() {
         return prepaymentAmount;
     }
@@ -139,7 +144,12 @@ public class Loan extends Product {
         overdueDays = value;
     }
 
-/*  public final LoanStatus getLoanStatus() { return loanStatus; }
-    public final void setLoanStatus(LoanStatus value) { loanStatus = value; }
-*/
+    public final LoanStatus getLoanStatus() {
+        return loanStatus;
+    }
+
+    public final void setLoanStatus(LoanStatus value) {
+        loanStatus = value;
+    }
+
 }
