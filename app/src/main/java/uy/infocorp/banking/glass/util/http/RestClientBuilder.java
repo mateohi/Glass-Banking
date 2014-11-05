@@ -85,7 +85,7 @@ public class RestClientBuilder {
 
 
     public RestClientBuilder put(String url) {
-        HttpPut put = new HttpPut(url);
+        this.requestBase = new HttpPut(url);
         return this;
     }
 
@@ -94,7 +94,7 @@ public class RestClientBuilder {
 
         HttpPut put = new HttpPut(url);
         put.setEntity(entity);
-
+        this.requestBase = put;
         return this;
     }
 
@@ -104,7 +104,7 @@ public class RestClientBuilder {
 
         HttpPut put = new HttpPut(url);
         put.setEntity(entity);
-
+        this.requestBase = put;
         return this;
     }
 
