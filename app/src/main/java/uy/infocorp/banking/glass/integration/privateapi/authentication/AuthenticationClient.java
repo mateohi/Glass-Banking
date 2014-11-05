@@ -1,15 +1,12 @@
 package uy.infocorp.banking.glass.integration.privateapi.authentication;
 
 import android.util.Log;
-import android.util.Pair;
 
-import com.google.gson.Gson;
-
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
@@ -18,8 +15,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.authenticatio
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityQuestionsAnswersList;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInInformation;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInResult;
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.OperationResult;
-import uy.infocorp.banking.glass.util.http.RestClient;
+import uy.infocorp.banking.glass.util.http.RestClientBuilder;
 
 /**
  * Created by german on 14/10/2014.
@@ -30,10 +26,10 @@ public class AuthenticationClient {
     private static final String X_AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
 
     private static AuthenticationClient instance;
-    private RestClient client;
+    private RestClientBuilder client;
 
     private AuthenticationClient() {
-        client = new RestClient();
+        client = new RestClientBuilder();
     }
 
     public static AuthenticationClient instance() {
@@ -45,10 +41,13 @@ public class AuthenticationClient {
 
     public SignInResult logOn(String username, String password) throws UnsupportedEncodingException {
         SignInInformation signInInformation = new SignInInformation(username, password);
-        Pair<SignInResult, List<Header>> data = this.client.post(PrivateUrls.POST_SIGN_IN_URL,
-                SignInResult.class, signInInformation, null);
-        SignInResult result = data.first;
-        List<Header> headers = data.second;
+        RestClientBuilder restClient = new RestClientBuilder();
+        //initialize and execute post
+        Pair<SignInResult, List<Header>> data = restClient.post(PrivateUrls.POST_SIGN_IN_URL, signInInformation).
+                                                executeAndGetHeaders(SignInResult.class);
+
+        SignInResult result = data.getLeft();
+        List<Header> headers = data.getRight();
         //gets the header x_auth_token
         Header authToken = null;
         for (int i = 0; i < headers.size(); i++) {
@@ -68,18 +67,17 @@ public class AuthenticationClient {
 
     public SecurityDeviceValidationResult validateSecurityDevice(SecurityQuestionsAnswers securityQuestionsAnswers, String signInAuthToken)
             throws UnsupportedEncodingException {
-        //add x_auth_token header
-        List<Header> requestHeaders = new ArrayList<Header>();
-        requestHeaders.add(new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, signInAuthToken));
-        Log.i(TAG, new Gson().toJson(securityQuestionsAnswers));
-        //do post
+
+        RestClientBuilder restClient = new RestClientBuilder();
         SecurityQuestionsAnswersList request = new SecurityQuestionsAnswersList();
         request.getSecurityQuestionsAnswers().add(securityQuestionsAnswers);
-        Pair<SecurityDeviceValidationResult, List<Header>> data = this.client.post(PrivateUrls.POST_VALIDATE_SECURITY_DEVICE_URL,
-                SecurityDeviceValidationResult.class, request, requestHeaders);
-        SecurityDeviceValidationResult result = data.first;
-        List<Header> responseHeaders = data.second;
-        //gets the header x_auth_token
+        //do post
+        Pair<SecurityDeviceValidationResult, List<Header>> data = restClient.post(PrivateUrls.POST_VALIDATE_SECURITY_DEVICE_URL, request).
+                                                appendHeader(new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, signInAuthToken)).
+                                                executeAndGetHeaders(SecurityDeviceValidationResult.class);
+        SecurityDeviceValidationResult result = data.getLeft();
+        List<Header> responseHeaders = data.getRight();
+        //gets the header corresponding to the x_auth_token
         Header authToken = null;
         for (int i = 0; i < responseHeaders.size(); i++) {
             if(responseHeaders.get(i).getName().equals(X_AUTH_TOKEN_HEADER_NAME)){
@@ -94,5 +92,4 @@ public class AuthenticationClient {
         }
         return result;
     }
-
 }

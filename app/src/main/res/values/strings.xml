@@ -13,6 +13,8 @@
     <string name="ic_api_port"></string>
     <string name="ic_api_exchange_rates_path"></string>
     <string name="ic_api_public_info_path"></string>
+    <string name="ic_security_question_id"></string>
+    <string name="ic_security_question_answer"></string>
     <!-- /Integration -->
 
 

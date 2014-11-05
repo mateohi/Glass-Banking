@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class SecurityQuestionsAnswersList {
 
-    private ArrayList<SecurityQuestionsAnswers> securityQuestionsAnswers;
+    private List<SecurityQuestionsAnswers> securityQuestionsAnswers;
 
     public SecurityQuestionsAnswersList(){
         securityQuestionsAnswers = new ArrayList<SecurityQuestionsAnswers>();
@@ -18,7 +18,7 @@ public class SecurityQuestionsAnswersList {
         return securityQuestionsAnswers;
     }
 
-    public void setSecurityQuestionsAnswers(ArrayList<SecurityQuestionsAnswers> securityQuestionsAnswers) {
+    public void setSecurityQuestionsAnswers(List<SecurityQuestionsAnswers> securityQuestionsAnswers) {
         this.securityQuestionsAnswers = securityQuestionsAnswers;
     }
 }

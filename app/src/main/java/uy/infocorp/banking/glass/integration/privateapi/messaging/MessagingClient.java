@@ -2,16 +2,15 @@ package uy.infocorp.banking.glass.integration.privateapi.messaging;
 
 import java.io.UnsupportedEncodingException;
 
-import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
-import uy.infocorp.banking.glass.util.http.RestClient;
+import uy.infocorp.banking.glass.util.http.RestClientBuilder;
 
 public class MessagingClient {
 
     private static MessagingClient instance;
-    private RestClient client;
+    private RestClientBuilder client;
 
     private MessagingClient() {
-        client = new RestClient();
+        client = new RestClientBuilder();
     }
 
     public static MessagingClient instance() {

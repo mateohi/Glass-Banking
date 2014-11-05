@@ -1,10 +1,9 @@
 package uy.infocorp.banking.glass.util.http;
 
 import android.util.Log;
-import android.util.Pair;
-
 import com.google.gson.Gson;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -18,108 +17,101 @@ import org.apache.http.entity.StringEntity;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import uy.infocorp.banking.glass.exception.ConnectionException;
 import uy.infocorp.banking.glass.exception.ServerException;
 
-public class RestClient {
+public class RestClientBuilder {
 
-    private static final String TAG = RestClient.class.getSimpleName();
+    private static final String TAG = RestClientBuilder.class.getSimpleName();
     private static final String CONTENT_TYPE = "Content-Type";
     private static final String APPLICATION_JSON = "application/json";
 
+    private HttpRequestBase requestBase;
     private HttpClient httpClient;
     private Gson gson;
 
-    public RestClient() {
+    public RestClientBuilder() {
         this.httpClient = HttpUtils.defaultHttpClient();
         this.gson = new Gson();
     }
 
-    public <T> T delete(String url, Class<T> clazz) {
-        HttpDelete delete = new HttpDelete(url);
-        return execute(clazz, delete);
+    public RestClientBuilder delete(String url) {
+        this.requestBase = new HttpDelete(url);
+        return this;
     }
 
-    public <T> T get(String url, Class<T> clazz) {
-        HttpGet get = new HttpGet(url);
-        return execute(clazz, get);
+    public RestClientBuilder get(String url) {
+        this.requestBase = new HttpGet(url);
+        return this;
     }
 
-    public <T> T get(String url, Class<T> clazz, List<Header> headers) {
-        HttpGet get = new HttpGet(url);
-        if(headers!=null){
-            get.setHeaders(headers.toArray(new Header[headers.size()]));
+    public RestClientBuilder appendHeader(Header header) throws ExceptionInInitializerError {
+        if(this.requestBase !=null){
+            this.requestBase.addHeader(header);
+        }else{
+            throw new ExceptionInInitializerError("The RestClientBuilder Was not instantiated yet");
         }
-        return execute(clazz, get);
+        return this;
     }
 
-    public <T> T post(String url, Class<T> clazz) {
+    public RestClientBuilder post(String url) {
         HttpPost post = new HttpPost(url);
-        return execute(clazz, post);
+        this.requestBase = post;
+        return this;
     }
 
-    public <T> T post(String url, Class<T> clazz, String body) throws UnsupportedEncodingException {
+    public RestClientBuilder post(String url, String body) throws UnsupportedEncodingException {
         StringEntity entity = new StringEntity(body);
 
         HttpPost post = new HttpPost(url);
         post.setEntity(entity);
-
-        return execute(clazz, post);
+        this.requestBase = post;
+        return this;
     }
 
-    public <T> T post(String url, Class<T> clazz, Object body) throws UnsupportedEncodingException {
+    public RestClientBuilder post(String url, Object body) throws UnsupportedEncodingException {
         String jsonBody = gson.toJson(body);
         StringEntity entity = new StringEntity(jsonBody);
 
         HttpPost post = new HttpPost(url);
         post.setEntity(entity);
-
-        return execute(clazz, post);
+        this.requestBase = post;
+        return this;
     }
 
-    public <T> Pair<T, List<Header>> post(String url, Class<T> clazz, Object body, List<Header> headers) throws UnsupportedEncodingException {
-        String jsonBody = gson.toJson(body);
-        StringEntity entity = new StringEntity(jsonBody);
 
-        HttpPost post = new HttpPost(url);
-        if(headers!=null){
-            post.setHeaders(headers.toArray(new Header[headers.size()]));
-        }
-        post.setEntity(entity);
-
-        return executeAndGetHeaders(clazz, post);
-    }
-
-    public <T> T put(String url, Class<T> clazz) {
+    public RestClientBuilder put(String url) {
         HttpPut put = new HttpPut(url);
-        return execute(clazz, put);
+        return this;
     }
 
-    public <T> T put(String url, Class<T> clazz, String body) throws UnsupportedEncodingException {
+    public RestClientBuilder put(String url, String body) throws UnsupportedEncodingException {
         StringEntity entity = new StringEntity(body);
 
         HttpPut put = new HttpPut(url);
         put.setEntity(entity);
 
-        return execute(clazz, put);
+        return this;
     }
 
-    public <T> T put(String url, Class<T> clazz, Object body) throws UnsupportedEncodingException {
+    public RestClientBuilder put(String url, Object body) throws UnsupportedEncodingException {
         String jsonBody = gson.toJson(body);
         StringEntity entity = new StringEntity(jsonBody);
 
         HttpPut put = new HttpPut(url);
         put.setEntity(entity);
 
-        return execute(clazz, put);
+        return this;
     }
 
-    private <T> T execute(Class<T> clazz, HttpRequestBase request) {
-        request.addHeader(CONTENT_TYPE, APPLICATION_JSON);
+    public <T> T execute(Class<T> clazz) {
+        this.requestBase.addHeader(CONTENT_TYPE, APPLICATION_JSON);
         try {
-            HttpResponse response = this.httpClient.execute(request);
+            HttpResponse response = this.httpClient.execute(this.requestBase);
             int status = response.getStatusLine().getStatusCode();
 
             if (status == HttpStatus.SC_OK) {
@@ -127,19 +119,19 @@ public class RestClient {
             }
             else {
                 Log.e(TAG, "Server response: " + status);
-                throw new ServerException(request.getURI().getHost(), response);
+                throw new ServerException(this.requestBase.getURI().getHost(), response);
             }
         }
         catch (IOException e) {
             Log.e(TAG, e.getMessage());
-            throw new ConnectionException(request.getURI().getHost());
+            throw new ConnectionException(this.requestBase.getURI().getHost());
         }
     }
 
-    private <T> Pair<T, List<Header>> executeAndGetHeaders(Class<T> clazz, HttpRequestBase request) {
-        request.addHeader(CONTENT_TYPE, APPLICATION_JSON);
+    public <T> Pair executeAndGetHeaders(Class<T> clazz) {
+        this.requestBase.addHeader(CONTENT_TYPE, APPLICATION_JSON);
         try {
-            HttpResponse response = this.httpClient.execute(request);
+            HttpResponse response = this.httpClient.execute(this.requestBase);
             int status = response.getStatusLine().getStatusCode();
 
             if (status == HttpStatus.SC_OK) {
@@ -147,12 +139,12 @@ public class RestClient {
             }
             else {
                 Log.e(TAG, "Server response: " + status);
-                throw new ServerException(request.getURI().getHost(), response);
+                throw new ServerException(this.requestBase.getURI().getHost(), response);
             }
         }
         catch (IOException e) {
             Log.e(TAG, e.getMessage());
-            throw new ConnectionException(request.getURI().getHost());
+            throw new ConnectionException(this.requestBase.getURI().getHost());
         }
     }
 }

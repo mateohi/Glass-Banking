@@ -7,15 +7,15 @@ import java.util.NoSuchElementException;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.image.dto.ImageDTO;
 import uy.infocorp.banking.glass.util.graphics.BitmapUtils;
-import uy.infocorp.banking.glass.util.http.RestClient;
+import uy.infocorp.banking.glass.util.http.RestClientBuilder;
 
 public class ImageDownloadClient {
 
     private static ImageDownloadClient instance;
-    private RestClient client;
+    private RestClientBuilder client;
 
     private ImageDownloadClient() {
-        this.client = new RestClient();
+        this.client = new RestClientBuilder();
     }
 
     public static ImageDownloadClient instance() {
@@ -27,7 +27,7 @@ public class ImageDownloadClient {
 
     public Bitmap getImage(int imageId) {
         String uri = String.format(PublicUrls.GET_IMAGE_URL, imageId);
-        ImageDTO[] images = this.client.get(uri, ImageDTO[].class);
+        ImageDTO[] images = this.client.get(uri).execute(ImageDTO[].class);
 
         if (images == null || images.length == 0) {
             throw new NoSuchElementException("No image with id " + imageId);

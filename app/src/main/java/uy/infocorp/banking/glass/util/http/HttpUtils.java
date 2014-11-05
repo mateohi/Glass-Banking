@@ -1,10 +1,10 @@
 package uy.infocorp.banking.glass.util.http;
 
-import android.util.Pair;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -41,6 +41,6 @@ public class HttpUtils {
         String data = EntityUtils.toString(response.getEntity());
         T result = GSON.fromJson(data, clazz);
         List<Header> headers = Arrays.asList(response.getAllHeaders());
-        return new Pair<T, List<Header>>(result, headers);
+        return Pair.of(result, headers);
     }
 }

@@ -1,5 +1,7 @@
 package uy.infocorp.banking.glass.integration.privateapi;
 
+import uy.infocorp.banking.glass.R;
+
 public class PrivateUrls {
 
     private static final String SERVICE_HOST = "http://66.231.249.217";

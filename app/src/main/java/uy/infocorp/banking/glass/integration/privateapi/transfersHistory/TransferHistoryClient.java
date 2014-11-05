@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.date.DateUtils;
-import uy.infocorp.banking.glass.util.http.RestClient;
+import uy.infocorp.banking.glass.util.http.RestClientBuilder;
 
 public class TransferHistoryClient {
 
@@ -17,10 +17,10 @@ public class TransferHistoryClient {
     private static final int TRANSFER_HISTORY_HOURS = (int) TimeUnit.DAYS.toHours(2);
 
     private static TransferHistoryClient instance;
-    private RestClient client;
+    private RestClientBuilder client;
 
     private TransferHistoryClient() {
-        client = new RestClient();
+        client = new RestClientBuilder();
     }
 
     public static TransferHistoryClient instance() {
@@ -39,7 +39,7 @@ public class TransferHistoryClient {
 
         String formattedUrl = String.format(PrivateUrls.GET_TRANSFERS_HISTORY_URL, fromDate, toDate);
 
-        Transfer[] transfers = this.client.get(formattedUrl, Transfer[].class);
+        Transfer[] transfers = this.client.get(formattedUrl).execute(Transfer[].class);
 
         if (transfers.length > MAX_HISTORY_LENGTH) {
             transfers = Arrays.copyOf(transfers, MAX_HISTORY_LENGTH);

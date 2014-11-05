@@ -147,7 +147,7 @@ public class ProductsBalanceActivity extends Activity {
         String footnote = product.getProductNumber();
         String timestamp = "just now";
 
-        return new CardBuilder(this, CardBuilder.Layout.CAPTION)
+        return new CardBuilder(this, CardBuilder.Layout.COLUMNS)
                 .setText(text)
                 .setFootnote(footnote)
                 .setTimestamp(timestamp)
