@@ -9,15 +9,15 @@ import java.util.List;
 
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
-import uy.infocorp.banking.glass.util.http.RestClientBuilder;
+import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 
 public class ExchangeRateClient {
 
     private static ExchangeRateClient instance;
-    private RestClientBuilder client;
+    private RestExecutionBuilder builder;
 
     private ExchangeRateClient() {
-        this.client = new RestClientBuilder();
+        this.builder = RestExecutionBuilder.get(PublicUrls.GET_EXCHANGE_RATES_URL);
     }
 
     public static ExchangeRateClient instance() {
@@ -28,7 +28,7 @@ public class ExchangeRateClient {
     }
 
     public List<ExchangeRateDTO> getExchangeRatesByAlpha3Code(String alpha3Code) {
-        ExchangeRateDTO[] exchangeRates = this.client.get(PublicUrls.GET_EXCHANGE_RATES_URL).execute(ExchangeRateDTO[].class);
+        ExchangeRateDTO[] exchangeRates = this.builder.execute(ExchangeRateDTO[].class);
 
         if (ArrayUtils.isEmpty(exchangeRates)) {
             return Collections.emptyList();

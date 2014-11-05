@@ -2,15 +2,16 @@ package uy.infocorp.banking.glass.integration.privateapi.messaging;
 
 import java.io.UnsupportedEncodingException;
 
-import uy.infocorp.banking.glass.util.http.RestClientBuilder;
+import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
+import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 
 public class MessagingClient {
 
     private static MessagingClient instance;
-    private RestClientBuilder client;
+    private RestExecutionBuilder builder;
 
     private MessagingClient() {
-        client = new RestClientBuilder();
+        builder = RestExecutionBuilder.get(PrivateUrls.GET_INBOX_MESSAGES_URL);
     }
 
     public static MessagingClient instance() {
@@ -21,7 +22,7 @@ public class MessagingClient {
     }
 
     public void getInboxMessages() throws UnsupportedEncodingException {
-//        return this.client.get(PrivateUrls.GET_INBOX_MESSAGES_URL, Message.class);
+//        return this.builder.execute(Message.class);
     }
 /*
     public SecurityQuestionsAnswers validateSecurityDevice(SecurityQuestionsAnswers securityQuestionsAnswers) throws UnsupportedEncodingException {

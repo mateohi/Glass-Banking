@@ -2,15 +2,15 @@ package uy.infocorp.banking.glass.integration.publicapi.info;
 
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
-import uy.infocorp.banking.glass.util.http.RestClientBuilder;
+import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 
 public class PublicInfoClient {
 
     private static PublicInfoClient instance;
-    private RestClientBuilder client;
+    private RestExecutionBuilder builder;
 
     private PublicInfoClient() {
-        this.client = new RestClientBuilder();
+        this.builder = RestExecutionBuilder.get(PublicUrls.GET_PUBLIC_INFO_URL);
     }
 
     public static PublicInfoClient instance() {
@@ -21,7 +21,7 @@ public class PublicInfoClient {
     }
 
     public PublicInfoDTO getPublicInfo() {
-        return this.client.get(PublicUrls.GET_PUBLIC_INFO_URL).execute(PublicInfoDTO.class);
+        return this.builder.execute(PublicInfoDTO.class);
     }
 
 }

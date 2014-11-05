@@ -2,20 +2,23 @@ package uy.infocorp.banking.glass.integration.publicapi.image;
 
 import android.graphics.Bitmap;
 
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.image.dto.ImageDTO;
 import uy.infocorp.banking.glass.util.graphics.BitmapUtils;
-import uy.infocorp.banking.glass.util.http.RestClientBuilder;
+import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 
 public class ImageDownloadClient {
 
     private static ImageDownloadClient instance;
-    private RestClientBuilder client;
+    private RestExecutionBuilder builder;
 
     private ImageDownloadClient() {
-        this.client = new RestClientBuilder();
+        this.builder = RestExecutionBuilder.get();
     }
 
     public static ImageDownloadClient instance() {
@@ -27,9 +30,9 @@ public class ImageDownloadClient {
 
     public Bitmap getImage(int imageId) {
         String uri = String.format(PublicUrls.GET_IMAGE_URL, imageId);
-        ImageDTO[] images = this.client.get(uri).execute(ImageDTO[].class);
+        ImageDTO[] images = this.builder.appendUrl(uri).execute(ImageDTO[].class);
 
-        if (images == null || images.length == 0) {
+        if (ArrayUtils.isEmpty(images)) {
             throw new NoSuchElementException("No image with id " + imageId);
         }
 

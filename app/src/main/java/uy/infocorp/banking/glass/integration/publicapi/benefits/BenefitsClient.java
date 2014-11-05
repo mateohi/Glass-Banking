@@ -14,7 +14,6 @@ import uy.infocorp.banking.glass.integration.publicapi.info.dto.BenefitDTO;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PointsOfInterestDTO;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
 import uy.infocorp.banking.glass.model.benefit.Benefit;
-import uy.infocorp.banking.glass.util.http.RestClientBuilder;
 import uy.infocorp.banking.glass.util.math.MathUtils;
 
 public class BenefitsClient {
@@ -23,10 +22,8 @@ public class BenefitsClient {
     private static final double MAX_DISTANCE_KM = 10;
 
     private static BenefitsClient instance;
-    private RestClientBuilder client;
 
     private BenefitsClient() {
-        this.client = new RestClientBuilder();
     }
 
     public static BenefitsClient instance() {

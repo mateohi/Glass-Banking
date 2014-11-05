@@ -2,15 +2,15 @@ package uy.infocorp.banking.glass.integration.privateapi.servicePayments;
 
 import java.io.UnsupportedEncodingException;
 
-import uy.infocorp.banking.glass.util.http.RestClientBuilder;
+import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 
 public class ServicePaymentsClient {
 
     private static ServicePaymentsClient instance;
-    private RestClientBuilder client;
+    private RestExecutionBuilder builder;
 
     private ServicePaymentsClient() {
-        client = new RestClientBuilder();
+        builder = RestExecutionBuilder.get();
     }
 
     public static ServicePaymentsClient instance() {
@@ -21,7 +21,7 @@ public class ServicePaymentsClient {
     }
 
     public void getServicePayments() throws UnsupportedEncodingException {
-//        return this.client.get(PrivateUrls.GET_SERVICE_PAYMENTS_URL, Message.class);
+//        return this.builder.appendUrl(PrivateUrls.GET_SERVICE_PAYMENTS_URL).execute(Message.class);
     }
 
 }
