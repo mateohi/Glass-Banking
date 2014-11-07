@@ -1,6 +1,5 @@
 package uy.infocorp.banking.glass.util.http;
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
