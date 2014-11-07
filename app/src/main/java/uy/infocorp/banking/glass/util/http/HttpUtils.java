@@ -38,8 +38,7 @@ public class HttpUtils {
     }
 
     public static <T> Pair<T, List<Header>> typeAndHeadersFromResponse(HttpResponse response, Class<T> clazz) throws IOException {
-        String data = EntityUtils.toString(response.getEntity());
-        T result = GSON.fromJson(data, clazz);
+        T result = typeFromResponse(response, clazz);
         List<Header> headers = Arrays.asList(response.getAllHeaders());
         return Pair.of(result, headers);
     }
