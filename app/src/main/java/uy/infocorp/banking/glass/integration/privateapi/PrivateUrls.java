@@ -1,7 +1,5 @@
 package uy.infocorp.banking.glass.integration.privateapi;
 
-import uy.infocorp.banking.glass.R;
-
 public class PrivateUrls {
 
     private static final String SERVICE_HOST = "http://66.231.249.217";
@@ -26,7 +24,7 @@ public class PrivateUrls {
      * Get Inbox Messages
      * parameter 'top':Corresponds with the quantity of messages we want to get
      */
-	 //ToDo:el numero corresponde a la cantidad de mensajes que se quiere obtener
+    //ToDo:el numero corresponde a la cantidad de mensajes que se quiere obtener
     public static final String GET_INBOX_MESSAGES_URL = BASE_URL + "/framework/messaging?$top=%d";
     /**
      * Get third party accounts within the same bank

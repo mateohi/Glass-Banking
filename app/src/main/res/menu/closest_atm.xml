@@ -1,13 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="uy.infocorp.banking.glass.controller.atm.ClosestAtmActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="uy.infocorp.banking.glass.controller.atm.ClosestAtmActivity">
     <item
         android:id="@+id/action_get_directions"
         android:title="@string/action_get_directions"
-        android:icon="@drawable/ic_directions"/>
+        android:icon="@drawable/ic_directions" />
 
     <item
         android:id="@+id/action_stop"
         android:title="@string/action_stop"
-        android:icon="@drawable/ic_stop"/>
+        android:icon="@drawable/ic_stop" />
 </menu>

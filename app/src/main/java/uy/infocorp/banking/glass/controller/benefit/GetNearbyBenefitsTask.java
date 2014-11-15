@@ -23,8 +23,7 @@ public class GetNearbyBenefitsTask extends SimpleAsyncTask<List<Benefit>> {
         try {
             Location location = (Location) params[0];
             return BenefitsClient.instance().getNearbyBenefits(location);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return null;
         }

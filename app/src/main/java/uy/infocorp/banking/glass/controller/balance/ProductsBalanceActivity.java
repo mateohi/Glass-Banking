@@ -67,7 +67,7 @@ public class ProductsBalanceActivity extends Activity {
     }
 
     private void startProductDetailIntent() {
-            String alias = selectedProduct.getProductAlias();
+        String alias = selectedProduct.getProductAlias();
     }
 
     private void showInitialView() {
@@ -105,11 +105,9 @@ public class ProductsBalanceActivity extends Activity {
             public void onResult(List<Product> products) {
                 if (products == null) {
                     showErrorView();
-                }
-                else if (products.isEmpty()) {
+                } else if (products.isEmpty()) {
                     showNoProductsView();
-                }
-                else {
+                } else {
                     ProductsBalanceActivity.this.products = products;
 
                     for (Product product : products) {

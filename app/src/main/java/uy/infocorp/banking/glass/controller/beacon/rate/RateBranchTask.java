@@ -20,8 +20,7 @@ public class RateBranchTask extends SimpleAsyncTask<Boolean> {
             Boolean positive = (Boolean) params[1];
             // TODO pegarle al servicio con el rating
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return false;
         }

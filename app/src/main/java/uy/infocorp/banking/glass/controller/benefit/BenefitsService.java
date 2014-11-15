@@ -67,8 +67,7 @@ public class BenefitsService extends Service {
             liveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
             liveCard.attach(this);
             liveCard.publish(PublishMode.REVEAL);
-        }
-        else {
+        } else {
             liveCard.navigate();
         }
 

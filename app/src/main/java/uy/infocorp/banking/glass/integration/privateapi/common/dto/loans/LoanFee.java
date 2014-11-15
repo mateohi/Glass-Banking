@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 import uy.infocorp.banking.glass.integration.Constants;
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.*;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ExtendedPropertyValue;
 
 public class LoanFee {
 
@@ -84,10 +84,10 @@ public class LoanFee {
     }
 
     public final LoanStatus getFeeStatus() {
-        return  privateFeeStatus;
+        return privateFeeStatus;
     }
 
-	public final void setFeeStatus(LoanStatus value) {
+    public final void setFeeStatus(LoanStatus value) {
         privateFeeStatus = value;
     }
 }

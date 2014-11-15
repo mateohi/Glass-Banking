@@ -10,7 +10,7 @@ public class SecurityQuestionsAnswersList {
 
     private List<SecurityQuestionsAnswers> securityQuestionsAnswers;
 
-    public SecurityQuestionsAnswersList(){
+    public SecurityQuestionsAnswersList() {
         securityQuestionsAnswers = new ArrayList<SecurityQuestionsAnswers>();
     }
 

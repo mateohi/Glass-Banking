@@ -21,8 +21,7 @@ public class GetLastTransactionsTask extends SimpleAsyncTask<List<Transfer>> {
     protected List<Transfer> doInBackground(Object... params) {
         try {
             return TransferHistoryClient.instance().getLastTransfers();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             Log.e(TAG, "Unable to get latest transactions -" + e.getMessage());
             return null;
         }

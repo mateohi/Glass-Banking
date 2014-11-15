@@ -102,8 +102,7 @@ public class BranchClient {
                 if (branches.size() == 3) {
                     break;
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Log.e(TAG, "No image found for id: " + branchDTO.getImageId());
                 // We do not add the branch and go on
             }

@@ -27,7 +27,6 @@ import com.google.android.glass.widget.CardScrollView;
 import com.google.common.collect.Lists;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -167,11 +166,9 @@ public class ClosestBranchActivity extends Activity {
             public void onResult(List<Branch> branches) {
                 if (branches == null) {
                     showErrorView();
-                }
-                else if (branches.isEmpty()) {
+                } else if (branches.isEmpty()) {
                     showNoBranchesView();
-                }
-                else {
+                } else {
                     ClosestBranchActivity.this.branches = branches;
 
                     for (Branch branch : branches) {
@@ -186,8 +183,7 @@ public class ClosestBranchActivity extends Activity {
     private Location getLastLocation() {
         if (this.location != null) {
             return this.location;
-        }
-        else {
+        } else {
             return locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         }
     }

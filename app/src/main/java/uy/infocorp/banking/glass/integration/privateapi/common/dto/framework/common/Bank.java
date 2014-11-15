@@ -36,7 +36,7 @@ public class Bank {
 	public final void setCountry(Country value){ privateCountry = value; }
 */
 /*	private List<BankBranch> privateBankBranches;
-	public final List<BankBranch> getBankBranches(){ return privateBankBranches; }
+    public final List<BankBranch> getBankBranches(){ return privateBankBranches; }
 	public final void setBankBranches(List<BankBranch> value){ privateBankBranches = value; }
 
 	private List<Subsidiary> privateSubsidairies;

@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;

@@ -71,8 +71,7 @@ public class HeadGestureDetector {
                         nodAngles.add(nodAngle);
                         headShakeAngles.add(headShakeAngle);
                         checkIfNodOrHeadShake();
-                    }
-                    catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         // Too bad
                     }
                 }

@@ -183,8 +183,7 @@ public class BenefitsCompassView extends View {
                 canvas.drawText(direction,
                         i * degreesPerTick * pixelsPerDegree - textBounds.width() / 2,
                         textBounds.height() / 2, paint);
-            }
-            else {
+            } else {
                 // Draw a tick mark for the odd indices.
                 canvas.drawLine(i * degreesPerTick * pixelsPerDegree, -TICK_HEIGHT / 2, i
                         * degreesPerTick * pixelsPerDegree, TICK_HEIGHT / 2, tickPaint);
@@ -329,8 +328,7 @@ public class BenefitsCompassView extends View {
                 // immediately instead of doing an animation.
                 animatedHeading = end;
                 invalidate();
-            }
-            else {
+            } else {
                 // For larger distances (i.e., if the compass "jumps" because of sensor calibration
                 // issues), we animate the effect to provide a more fluid user experience. The
                 // calculation below finds the shortest distance between the two angles, which may
@@ -339,11 +337,9 @@ public class BenefitsCompassView extends View {
 
                 if (distance < reverseDistance) {
                     goal = end;
-                }
-                else if (end < start) {
+                } else if (end < start) {
                     goal = end + 360.0f;
-                }
-                else {
+                } else {
                     goal = end - 360.0f;
                 }
 

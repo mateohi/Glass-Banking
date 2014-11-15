@@ -95,11 +95,9 @@ public class LastTransactionsActivity extends Activity {
             public void onResult(List<Transfer> transfers) {
                 if (transfers == null) {
                     showErrorView();
-                }
-                else if (transfers.isEmpty()) {
+                } else if (transfers.isEmpty()) {
                     showNoTransactionsView();
-                }
-                else {
+                } else {
                     LastTransactionsActivity.this.transfers = transfers;
 
                     for (Transfer transfer : transfers) {

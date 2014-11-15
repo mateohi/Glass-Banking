@@ -2,7 +2,6 @@ package uy.infocorp.banking.glass.integration.privateapi.thirdPartyAccounts;
 
 import java.io.UnsupportedEncodingException;
 
-import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 
 public class ThirdPartyAccountsClient {

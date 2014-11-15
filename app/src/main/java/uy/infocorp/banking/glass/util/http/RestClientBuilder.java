@@ -1,6 +1,7 @@
 package uy.infocorp.banking.glass.util.http;
 
 import android.util.Log;
+
 import com.google.gson.Gson;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -47,9 +48,9 @@ public class RestClientBuilder {
     }
 
     public RestClientBuilder appendHeader(Header header) throws ExceptionInInitializerError {
-        if(this.requestBase !=null){
+        if (this.requestBase != null) {
             this.requestBase.addHeader(header);
-        }else{
+        } else {
             throw new ExceptionInInitializerError("The RestClientBuilder Was not instantiated yet");
         }
         return this;
@@ -113,13 +114,11 @@ public class RestClientBuilder {
 
             if (status == HttpStatus.SC_OK) {
                 return HttpUtils.typeFromResponse(response, clazz);
-            }
-            else {
+            } else {
                 Log.e(TAG, "Server response: " + status);
                 throw new ServerException(this.requestBase.getURI().getHost(), response);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.e(TAG, e.getMessage());
             throw new ConnectionException(this.requestBase.getURI().getHost());
         }
@@ -133,13 +132,11 @@ public class RestClientBuilder {
 
             if (status == HttpStatus.SC_OK) {
                 return HttpUtils.typeAndHeadersFromResponse(response, clazz);
-            }
-            else {
+            } else {
                 Log.e(TAG, "Server response: " + status);
                 throw new ServerException(this.requestBase.getURI().getHost(), response);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.e(TAG, e.getMessage());
             throw new ConnectionException(this.requestBase.getURI().getHost());
         }

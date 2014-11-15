@@ -59,8 +59,7 @@ public class HeadGestureUtils {
                     }
                 }
                 simplifiedValues.add(max);
-            }
-            else {
+            } else {
                 // Si estoy en una bajada, agarro el menor de la bajada
                 float min = values[i];
                 for (int j = i; j < values.length - 1; j++, i++) {

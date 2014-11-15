@@ -166,11 +166,9 @@ public class ClosestAtmActivity extends Activity {
             public void onResult(List<Atm> atms) {
                 if (atms == null) {
                     showErrorView();
-                }
-                else if (atms.isEmpty()) {
+                } else if (atms.isEmpty()) {
                     showNoAtmsView();
-                }
-                else {
+                } else {
                     ClosestAtmActivity.this.atms = atms;
 
                     for (Atm atm : atms) {
@@ -185,8 +183,7 @@ public class ClosestAtmActivity extends Activity {
     private Location getLastLocation() {
         if (this.location != null) {
             return this.location;
-        }
-        else {
+        } else {
             return locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         }
     }

@@ -54,8 +54,7 @@ public class BenefitsClient {
                     if (distanceToBenefit <= MAX_DISTANCE_KM) {
                         nearbyBenefits.add(new Benefit(latitude, longitude, name, description));
                     }
-                }
-                else {
+                } else {
                     Log.w(TAG, "Unknown point of interest in benefit");
                 }
             }

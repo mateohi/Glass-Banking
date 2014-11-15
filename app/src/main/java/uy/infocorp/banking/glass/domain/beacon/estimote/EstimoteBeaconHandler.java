@@ -69,8 +69,7 @@ public class EstimoteBeaconHandler extends BeaconHandler {
                 try {
                     beaconManager.startMonitoring(ALL_BRANCHES_REGION);
                     Log.i(TAG, "Started monitoring");
-                }
-                catch (RemoteException e) {
+                } catch (RemoteException e) {
                     throw new BeaconMonitoringException("Unable to start monitoring beacon manager");
                 }
             }
@@ -82,8 +81,7 @@ public class EstimoteBeaconHandler extends BeaconHandler {
         try {
             this.beaconManager.stopMonitoring(ALL_BRANCHES_REGION);
             Log.i(TAG, "Stopped monitoring");
-        }
-        catch (RemoteException e) {
+        } catch (RemoteException e) {
             throw new BeaconMonitoringException("Unable to stop monitoring beacon manager");
         }
     }

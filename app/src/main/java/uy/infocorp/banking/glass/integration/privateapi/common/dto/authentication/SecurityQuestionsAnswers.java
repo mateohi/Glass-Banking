@@ -8,7 +8,7 @@ public class SecurityQuestionsAnswers {
     private int securityQuestionId;
     private String answer;
 
-    public SecurityQuestionsAnswers(int securityQuestionId, String answer){
+    public SecurityQuestionsAnswers(int securityQuestionId, String answer) {
         this.securityQuestionId = securityQuestionId;
         this.answer = answer;
     }

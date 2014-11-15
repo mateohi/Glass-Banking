@@ -94,8 +94,7 @@ public class AtmClient {
                 if (atms.size() == 3) {
                     break;
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Log.e(TAG, "No image found for id: " + atmDTO.getImageId());
             }
         }

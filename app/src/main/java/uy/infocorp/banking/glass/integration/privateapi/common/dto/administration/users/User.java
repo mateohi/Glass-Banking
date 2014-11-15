@@ -3,12 +3,12 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.administrati
 import java.util.Date;
 import java.util.List;
 
+import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.administration.sites.Site;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.authentication.AuthorizedIpAddress;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Language;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ViewMode;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.security.SecurityDevice;
-import uy.infocorp.banking.glass.integration.Constants;
 
 public class User {
 

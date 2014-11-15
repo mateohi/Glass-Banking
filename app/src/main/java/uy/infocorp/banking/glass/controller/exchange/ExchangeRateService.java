@@ -58,8 +58,7 @@ public class ExchangeRateService extends Service {
             this.liveCard.publish(PublishMode.REVEAL);
 
             createAndStartScheduledTask();
-        }
-        else {
+        } else {
             this.liveCard.navigate();
         }
         return START_STICKY;
@@ -154,8 +153,7 @@ public class ExchangeRateService extends Service {
                     updateView();
 
                     firstRates = false;
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     if (firstRates) {
                         loadErrorView();
                     }

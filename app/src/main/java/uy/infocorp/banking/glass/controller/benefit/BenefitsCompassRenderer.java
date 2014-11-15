@@ -149,8 +149,7 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
 
                 this.renderThread = new RenderThread();
                 this.renderThread.start();
-            }
-            else {
+            } else {
                 this.renderThread.quit();
                 this.renderThread = null;
 
@@ -169,8 +168,7 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
                     Log.i(TAG, "Updating nearby benefits");
                     benefitsCompassView.setNearbyPlaces(result);
                     serviceCalled = true;
-                }
-                else {
+                } else {
                     Log.e(TAG, "Unable te get benefits, stopping service...");
                     service.stopService();
                     GlassDialog.warning(service.getApplicationContext(), "Unable to get benefits", "Check your internet connection");
@@ -197,8 +195,7 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
 
         try {
             canvas = this.surfaceHolder.lockCanvas();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             Log.d(TAG, "lockCanvas failed", e);
         }
 
@@ -208,8 +205,7 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
             if (serviceCalled) {
                 updateFrontBenefits();
                 this.frameLayout.draw(canvas);
-            }
-            else {
+            } else {
                 View syncView = new CardBuilder(this.service, CardBuilder.Layout.ALERT)
                         .setText("Loading nearby benefits")
                         .setIcon(syncIcon)
@@ -223,8 +219,7 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
 
             try {
                 this.surfaceHolder.unlockCanvasAndPost(canvas);
-            }
-            catch (RuntimeException e) {
+            } catch (RuntimeException e) {
                 Log.d(TAG, "unlockCanvasAndPost failed", e);
             }
         }
@@ -246,12 +241,10 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
         if (this.isTooSteep) {
             this.tipsView.setText(R.string.pitch_too_steep);
             doLayout();
-        }
-        else if (this.hasMagneticInterference) {
+        } else if (this.hasMagneticInterference) {
             this.tipsView.setText(R.string.magnetic_interference);
             doLayout();
-        }
-        else {
+        } else {
             tipsAlpha = 0.0f;
             benefitsAlpha = 1.0f;
         }

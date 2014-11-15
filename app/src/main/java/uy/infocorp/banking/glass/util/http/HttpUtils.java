@@ -42,7 +42,7 @@ public class HttpUtils {
         return Pair.of(result, headers);
     }
 
-    public static <T> T typeFromStringData(String data, Class<T> clazz){
+    public static <T> T typeFromStringData(String data, Class<T> clazz) {
         return GSON.fromJson(data, clazz);
     }
 

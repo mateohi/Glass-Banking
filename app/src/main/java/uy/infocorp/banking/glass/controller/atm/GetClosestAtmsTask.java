@@ -23,8 +23,7 @@ public class GetClosestAtmsTask extends SimpleAsyncTask<List<Atm>> {
         try {
             Location location = (Location) params[0];
             return AtmClient.instance().getClosestAtms(location);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, "Unable to get closest atms -" + e.getMessage());
             return null;
         }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@android:color/black">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
 
     <uy.infocorp.banking.glass.view.benefit.BenefitsCompassView
         android:id="@+id/compass"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/tips_container"
@@ -27,7 +27,7 @@
             android:layout_marginBottom="@dimen/card_margin"
             android:singleLine="true"
             android:ellipsize="end"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
 
@@ -47,7 +47,7 @@
             android:layout_marginRight="10dp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/benefits_description"
@@ -57,7 +57,7 @@
             android:paddingTop="10dp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+            android:textAppearance="?android:attr/textAppearanceSmall" />
     </RelativeLayout>
 
 </FrameLayout>

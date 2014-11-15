@@ -9,7 +9,6 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -80,8 +79,8 @@ public class RestExecutionBuilder {
     }
 
     public RestExecutionBuilder appendHeader(Header header) throws ExceptionInInitializerError {
-        for (Header item: this.request.getAllHeaders()){
-            if (item.getName().equals(header.getName())){
+        for (Header item : this.request.getAllHeaders()) {
+            if (item.getName().equals(header.getName())) {
                 this.request.setHeader(header);
                 return this;
             }
