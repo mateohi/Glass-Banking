@@ -52,4 +52,5 @@ public class SignInResult {
     public String getAuthToken() {
         return authToken;
     }
+
 }

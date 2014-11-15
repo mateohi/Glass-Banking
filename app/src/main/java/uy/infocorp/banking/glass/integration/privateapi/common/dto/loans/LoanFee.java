@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
+import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.*;
 
 public class LoanFee {

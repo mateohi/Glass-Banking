@@ -26,18 +26,20 @@ public class GetProductsTask extends SimpleAsyncTask<List<Product>> {
     @Override
     protected List<Product> doInBackground(Object... params) {
         try {
+//            AccountManager accountManager = AccountManager.
             //1- LogOn
-            SignInResult signInResult = AuthenticationClient.instance().logOn("prueba09","1234");
+            SignInResult signInResult = AuthenticationClient.instance().logOn("prueba09", "1234");
             //ToDo: Validar success en respuesta a login
-            SecurityQuestionsAnswers questionAnswered = new SecurityQuestionsAnswers(25, "1111");
+            Integer secretQuestionId = Integer.parseInt(signInResult.getSignInInformation().getSecurityQuestionsToAnswerForLoginDevice().get(0).getSecurityQuestionId());
+            SecurityQuestionsAnswers questionAnswered = new SecurityQuestionsAnswers(secretQuestionId, "1111");
             //2- Security Device Validation
             SecurityDeviceValidationResult securityDeviceValidationResult =
-                    AuthenticationClient.instance().validateSecurityDevice(questionAnswered, signInResult.getAuthToken());
+                    AuthenticationClient.instance().validateSecurityDevice(questionAnswered,
+                            signInResult.getAuthToken());
             //ToDo: Validar success en respuesta a las preguntas de seguridad.
             //3- Load Consolidate Position
             return ProductsClient.instance().getConsolidatedPosition(securityDeviceValidationResult.getAuthToken());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, "Unable to get list of Products -" + e.getMessage());
             return null;
         }

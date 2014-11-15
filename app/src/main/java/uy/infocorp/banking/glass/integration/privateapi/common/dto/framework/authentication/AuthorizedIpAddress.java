@@ -2,7 +2,7 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.au
 
 import java.util.Date;
 
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
+import uy.infocorp.banking.glass.integration.Constants;
 
 public class AuthorizedIpAddress {
 

@@ -17,9 +17,6 @@ import org.apache.http.entity.StringEntity;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import uy.infocorp.banking.glass.exception.ConnectionException;
 import uy.infocorp.banking.glass.exception.ServerException;

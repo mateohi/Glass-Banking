@@ -3,7 +3,7 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.me
 import java.util.Date;
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
+import uy.infocorp.banking.glass.integration.Constants;
 
 public class Message {
 

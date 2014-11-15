@@ -2,7 +2,7 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.administrati
 
 import java.util.Date;
 
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
+import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.administration.users.User;
 
 public class Site {

@@ -80,12 +80,19 @@ public class RestExecutionBuilder {
     }
 
     public RestExecutionBuilder appendHeader(Header header) throws ExceptionInInitializerError {
+        for (Header item: this.request.getAllHeaders()){
+            if (item.getName().equals(header.getName())){
+                this.request.setHeader(header);
+                return this;
+            }
+        }
+        //add the new header
         this.request.addHeader(header);
         return this;
     }
 
     public <T> T execute(Class<T> clazz) {
-        this.request.addHeader(CONTENT_TYPE, APPLICATION_JSON);
+        this.request.setHeader(CONTENT_TYPE, APPLICATION_JSON);
         try {
             HttpResponse response = this.httpClient.execute(this.request);
             int status = response.getStatusLine().getStatusCode();
@@ -103,7 +110,7 @@ public class RestExecutionBuilder {
     }
 
     public <T> Pair executeAndGetHeaders(Class<T> clazz) {
-        this.request.addHeader(CONTENT_TYPE, APPLICATION_JSON);
+        this.request.setHeader(CONTENT_TYPE, APPLICATION_JSON);
         try {
             HttpResponse response = this.httpClient.execute(this.request);
             int status = response.getStatusLine().getStatusCode();

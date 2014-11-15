@@ -41,4 +41,9 @@ public class HttpUtils {
         List<Header> headers = Arrays.asList(response.getAllHeaders());
         return Pair.of(result, headers);
     }
+
+    public static <T> T typeFromStringData(String data, Class<T> clazz){
+        return GSON.fromJson(data, clazz);
+    }
+
 }

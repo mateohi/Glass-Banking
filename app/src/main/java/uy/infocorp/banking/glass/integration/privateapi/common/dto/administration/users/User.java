@@ -8,7 +8,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.aut
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Language;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ViewMode;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.security.SecurityDevice;
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
+import uy.infocorp.banking.glass.integration.Constants;
 
 public class User {
 

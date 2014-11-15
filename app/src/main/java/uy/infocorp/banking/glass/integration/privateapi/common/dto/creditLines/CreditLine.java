@@ -3,7 +3,7 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.creditLines;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.Constants;
+import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 
 public class CreditLine extends Product {
