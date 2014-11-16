@@ -9,94 +9,94 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.com
 
 public class CreditCard extends Product {
 
-    private Date privateDueDate = Constants.DATE_MIN_VALUE;
-    private Date privateCloseDate = Constants.DATE_MIN_VALUE;
-    private int privateFatherCreditCardId;
-    private int privateCreditCardId;
-    private BigDecimal privateLocalBalance = new BigDecimal(0);
-    private BigDecimal privateDollarBalance = new BigDecimal(0);
-    private BigDecimal privateLocalCreditLimit = new BigDecimal(0);
-    private BigDecimal privateDollarCreditLimit = new BigDecimal(0);
-    private Currency privateInternationalCurrency;
-    private boolean privateHasInternationalCurrency;
+    private Date dueDate = Constants.DATE_MIN_VALUE;
+    private Date closeDate = Constants.DATE_MIN_VALUE;
+    private int fatherCreditCardId;
+    private int creditCardId;
+    private BigDecimal localBalance = new BigDecimal(0);
+    private BigDecimal dollarBalance = new BigDecimal(0);
+    private BigDecimal localCreditLimit = new BigDecimal(0);
+    private BigDecimal dollarCreditLimit = new BigDecimal(0);
+    private Currency internationalCurrency;
+    private boolean hasInternationalCurrency;
 
     public final Date getDueDate() {
-        return privateDueDate;
+        return dueDate;
     }
 
     public final void setDueDate(Date value) {
-        privateDueDate = value;
+        dueDate = value;
     }
 
     public final Date getCloseDate() {
-        return privateCloseDate;
+        return closeDate;
     }
 
     public final void setCloseDate(Date value) {
-        privateCloseDate = value;
+        closeDate = value;
     }
 
     public final int getFatherCreditCardId() {
-        return privateFatherCreditCardId;
+        return fatherCreditCardId;
     }
 
     public final void setFatherCreditCardId(int value) {
-        privateFatherCreditCardId = value;
+        fatherCreditCardId = value;
     }
 
     public final int getCreditCardId() {
-        return privateCreditCardId;
+        return creditCardId;
     }
 
     public final void setCreditCardId(int value) {
-        privateCreditCardId = value;
+        creditCardId = value;
     }
 
     public final BigDecimal getLocalBalance() {
-        return privateLocalBalance;
+        return localBalance;
     }
 
     public final void setLocalBalance(BigDecimal value) {
-        privateLocalBalance = value;
+        localBalance = value;
     }
 
     public final BigDecimal getDollarBalance() {
-        return privateDollarBalance;
+        return dollarBalance;
     }
 
     public final void setDollarBalance(BigDecimal value) {
-        privateDollarBalance = value;
+        dollarBalance = value;
     }
 
     public final BigDecimal getLocalCreditLimit() {
-        return privateLocalCreditLimit;
+        return localCreditLimit;
     }
 
     public final void setLocalCreditLimit(BigDecimal value) {
-        privateLocalCreditLimit = value;
+        localCreditLimit = value;
     }
 
     public final BigDecimal getDollarCreditLimit() {
-        return privateDollarCreditLimit;
+        return dollarCreditLimit;
     }
 
     public final void setDollarCreditLimit(BigDecimal value) {
-        privateDollarCreditLimit = value;
+        dollarCreditLimit = value;
     }
 
     public final Currency getInternationalCurrency() {
-        return privateInternationalCurrency;
+        return internationalCurrency;
     }
 
     public final void setInternationalCurrency(Currency value) {
-        privateInternationalCurrency = value;
+        internationalCurrency = value;
     }
 
     public final boolean getHasInternationalCurrency() {
-        return privateHasInternationalCurrency;
+        return hasInternationalCurrency;
     }
 
     public final void setHasInternationalCurrency(boolean value) {
-        privateHasInternationalCurrency = value;
+        hasInternationalCurrency = value;
     }
 }

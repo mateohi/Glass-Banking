@@ -3,7 +3,12 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.co
 import java.util.List;
 import java.util.Map;
 
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.Account;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditCards.CreditCard;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditLines.CreditLine;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.fixedDeposits.FixedTermDeposit;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.authorization.Feature;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.loans.Loan;
 
 public class Product {
 
@@ -150,5 +155,71 @@ public class Product {
 
     public final void setBackendId(int value) {
         backendId = value;
+    }
+
+    public final String getProductTypeDescription(){
+        String description = "";
+        switch (productType){
+            case currentAccount:
+                description = "Current Account";
+                break;
+            case savingsAccount:
+                description = "Savings Account";
+                break;
+            case investment:
+                description = "Investment";
+                break;
+            case creditLine:
+                description = "Credit Line";
+                break;
+            case fixedTermDeposit:
+                description = "Fixed Deposit";
+                break;
+            case creditCard:
+                description = "Credit Card";
+                break;
+            case loan:
+                description = "Loan";
+                break;
+            case undefined://Undefined is mapped with Mortgage
+                description = "Mortgage";
+                break;
+            default:
+                throw new IllegalStateException("No se pudo parsear el ProductType del producto");
+        }
+        return description;
+    }
+
+    public final String getConsolidatedPositionBalance(){
+        String balance = "";
+        switch (productType){
+            case currentAccount:
+                balance = ((Account)this).getAccountCountableBalance().toString();
+                break;
+            case savingsAccount:
+                balance = ((Account)this).getAccountCountableBalance().toString();
+                break;
+            case investment:
+                balance = ((Account)this).getAccountCountableBalance().toString();
+                break;
+            case creditLine:
+                balance = ((CreditLine)this).getAvailableAmount().toString();
+                break;
+            case fixedTermDeposit:
+                balance = this.getExtendedProperties().get("originalAmount").toString();
+                break;
+            case creditCard:
+                balance = ((CreditCard)this).getDollarBalance().toString();
+                break;
+            case loan:
+                balance = ((Loan)this).getCurrentBalance().toString();
+                break;
+            case undefined://Undefined is mapped with Mortgage and instantiated with Loan
+                balance = ((Loan)this).getCurrentBalance().toString();
+                break;
+            default:
+                throw new IllegalStateException("No se pudo parsear el ProductType del producto");
+        }
+        return balance;
     }
 }

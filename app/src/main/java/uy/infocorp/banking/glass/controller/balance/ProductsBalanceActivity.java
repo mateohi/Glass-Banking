@@ -141,13 +141,15 @@ public class ProductsBalanceActivity extends Activity {
     }
 
     private CardBuilder createCard(Product product) {
-        String text = product.getProductAlias();
-
+        String alias = product.getProductAlias();
+        String balance = product.getConsolidatedPositionBalance();
         String footnote = product.getProductNumber();
+        String accountDescription = product.getProductTypeDescription();
+
         String timestamp = "just now";
 
         return new CardBuilder(this, CardBuilder.Layout.COLUMNS)
-                .setText(text)
+                .setText(accountDescription + "\n" + alias + "\n" + balance)
                 .setFootnote(footnote)
                 .setTimestamp(timestamp)
                 .setIcon(R.drawable.balance_money);

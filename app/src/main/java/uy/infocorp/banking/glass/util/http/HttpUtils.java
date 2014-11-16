@@ -18,10 +18,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
+
 public class HttpUtils {
 
     private static final int DEFAULT_TIMEOUT = (int) TimeUnit.SECONDS.toMillis(300);
-    private static final Gson GSON = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
+    private static final Gson GSON = new GsonBuilder()
+            .registerTypeAdapter(Product.class, new ProductHierarchyAdapter())
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
 
     public static HttpClient defaultHttpClient() {
         HttpParams httpParams = new BasicHttpParams();
@@ -45,5 +49,4 @@ public class HttpUtils {
     public static <T> T typeFromStringData(String data, Class<T> clazz) {
         return GSON.fromJson(data, clazz);
     }
-
 }
