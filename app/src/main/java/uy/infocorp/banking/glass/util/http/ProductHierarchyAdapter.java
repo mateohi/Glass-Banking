@@ -1,5 +1,7 @@
 package uy.infocorp.banking.glass.util.http;
 
+import android.util.Log;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -13,27 +15,31 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.Account;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditCards.CreditCard;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditLines.CreditLine;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.fixedDeposits.FixedTermDeposit;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.loans.Loan;
 
-/**
- * Created by german on 16/11/2014.
- */
 public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
+
+    private static final String TAG = ProductHierarchyAdapter.class.getSimpleName();
 
     private Map<String, String> productTypeMap = initializeProductTypeMap();
 
     private Map<String, String> initializeProductTypeMap() {
         productTypeMap = new HashMap<String, String>(10);
         productTypeMap.put("Infocorp.UIProcess.Entities.Accounts.Accounts.Account, Infocorp.UIProcess.Entities",
-                "uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.Account");
+                Account.class.getName());
         productTypeMap.put("Infocorp.UIProcess.Entities.CreditLines.CreditLines.CreditLine, Infocorp.UIProcess.Entities",
-                "uy.infocorp.banking.glass.integration.privateapi.common.dto.creditLines.CreditLine");
+                CreditLine.class.getName());
         productTypeMap.put("Infocorp.UIProcess.Entities.FixedTermDeposits.FixedTermDeposits.FixedTermDeposit, Infocorp.UIProcess.Entities",
-                "uy.infocorp.banking.glass.integration.privateapi.common.dto.fixedDeposits.FixedTermDeposit");
+                FixedTermDeposit.class.getName());
         productTypeMap.put("Infocorp.UIProcess.Entities.CreditCards.CreditCards.CreditCard, Infocorp.UIProcess.Entities",
-                "uy.infocorp.banking.glass.integration.privateapi.common.dto.creditCards.CreditCard");
+                CreditCard.class.getName());
         productTypeMap.put("Infocorp.UIProcess.Entities.Loans.Loans.Loan, Infocorp.UIProcess.Entities",
-                "uy.infocorp.banking.glass.integration.privateapi.common.dto.loans.Loan");
+                Loan.class.getName());
         productTypeMap.put("Infocorp.UIProcess.Entities.Mortgages.Mortgages.Mortgage, Infocorp.UIProcess.Entities",
                 "uy.infocorp.banking.glass.integration.privateapi.common.dto.mortgages.Mortgage");
         return productTypeMap;
@@ -60,7 +66,7 @@ public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
         try {
             clazz = Class.forName(clientSideMappedClassName);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage(), e);
             throw new JsonParseException(e.getMessage());
         }
         return context.deserialize(jsonObject, clazz);
