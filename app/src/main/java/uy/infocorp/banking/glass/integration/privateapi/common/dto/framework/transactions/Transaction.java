@@ -3,6 +3,7 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.tr
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.authorization.Feature;
@@ -26,7 +27,7 @@ public class Transaction {
     private String description;
     private String notifyTo;
     //	private NotificationChannel notificationChannel;
-    //   private TransactionStatus transactionStatus;
+    private TransactionStatus transactionStatus;
     //   private TransactionType transactionType;
     //   private SubTransactionType subTransactionType;
     private Currency currency;
@@ -47,7 +48,7 @@ public class Transaction {
 
     private byte channelId;
     private int siteId;
-//	private Map<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> extendedProperties;
+    private Map<String, Object> extendedProperties;
 
     public final int getTransactionId() {
         return transactionId;
@@ -156,9 +157,13 @@ public class Transaction {
 //    public final NotificationChannel getNotificationChannel() { return notificationChannel; }
 //    public final void setNotificationChannel(NotificationChannel value) { notificationChannel = value; }
 
-//    public final TransactionStatus getTransactionStatus() { return transactionStatus; }
-//    public final void setTransactionStatus(TransactionStatus value) { transactionStatus = value; }
+    public TransactionStatus getTransactionStatus() {
+        return transactionStatus;
+    }
 
+    public void setTransactionStatus(TransactionStatus transactionStatus) {
+        this.transactionStatus = transactionStatus;
+    }
 //    public final TransactionType getTransactionType() { return transactionType; }
 //    public final void setTransactionType(TransactionType value) { transactionType = value; }
 
@@ -291,6 +296,11 @@ public class Transaction {
         siteId = value;
     }
 
-//    public final Map<String, ExtendedPropertyValue> getExtendedProperties() { return extendedProperties; }
-//    public final void setExtendedProperties(Map<String, ExtendedPropertyValue> value) { extendedProperties = value; }
+    public final Map<String, Object> getExtendedProperties() {
+        return extendedProperties;
+    }
+
+    public final void setExtendedProperties(Map<String, Object> value) {
+        extendedProperties = value;
+    }
 }

@@ -16,7 +16,6 @@ import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 public class ProductsClient {
 
     private static final String TAG = ProductsClient.class.getSimpleName();
-    private static final String X_AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
 
     private static ProductsClient instance;
     private RestExecutionBuilder builder;
@@ -39,7 +38,7 @@ public class ProductsClient {
             return Arrays.asList(productList);
         }
 
-        Header tokenHeader = new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, authToken);
+        Header tokenHeader = new BasicHeader(Constants.X_AUTH_TOKEN_HEADER_NAME, authToken);
         Product[] productList = builder.appendHeader(tokenHeader).execute(Product[].class);
 
         return Arrays.asList(productList);

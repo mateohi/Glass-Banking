@@ -1,13 +1,15 @@
 package uy.infocorp.banking.glass.util.http;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
-
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -19,6 +21,14 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.com
  * Created by german on 16/11/2014.
  */
 public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
+
+    private static final String TAG = ProductHierarchyAdapter.class.getSimpleName();
+
+    /*
+    * Another instance of Serializer to give an external context
+    */
+    private static final Gson GSON = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
 
     private Map<String, String> productTypeMap = initializeProductTypeMap();
 
@@ -54,13 +64,16 @@ public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
     public Product deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
+        if (prim == null) {//json does not have the property type => Map super Class
+            return GSON.fromJson(jsonObject, Product.class);
+        }
         String clientSideMappedClassName = productTypeMap.get(prim.getAsString());
 
         Class<?> clazz = null;
         try {
             clazz = Class.forName(clientSideMappedClassName);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.e(TAG, "RuntimeException: Unable to get latest transactions -" + e.getMessage());
             throw new JsonParseException(e.getMessage());
         }
         return context.deserialize(jsonObject, clazz);
