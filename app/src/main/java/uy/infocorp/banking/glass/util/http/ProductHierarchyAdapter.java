@@ -2,6 +2,7 @@ package uy.infocorp.banking.glass.util.http;
 
 import android.util.Log;
 
+import com.google.common.collect.Maps;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -9,10 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.Map;
 
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.Account;
@@ -25,11 +23,11 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.loans.Loan;
 public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
 
     private static final String TAG = ProductHierarchyAdapter.class.getSimpleName();
+    private static final String CLASSNAME = "$type";
 
-    private Map<String, String> productTypeMap = initializeProductTypeMap();
+    private static Map<String, String> productTypeMap = Maps.newHashMap();
 
-    private Map<String, String> initializeProductTypeMap() {
-        productTypeMap = new HashMap<String, String>(10);
+    static {
         productTypeMap.put("Infocorp.UIProcess.Entities.Accounts.Accounts.Account, Infocorp.UIProcess.Entities",
                 Account.class.getName());
         productTypeMap.put("Infocorp.UIProcess.Entities.CreditLines.CreditLines.CreditLine, Infocorp.UIProcess.Entities",
@@ -42,10 +40,7 @@ public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
                 Loan.class.getName());
         productTypeMap.put("Infocorp.UIProcess.Entities.Mortgages.Mortgages.Mortgage, Infocorp.UIProcess.Entities",
                 "uy.infocorp.banking.glass.integration.privateapi.common.dto.mortgages.Mortgage");
-        return productTypeMap;
     }
-
-    private static final String CLASSNAME = "$type";
 
     /**
      * Deserealizes the Product to its corresponding subclass
