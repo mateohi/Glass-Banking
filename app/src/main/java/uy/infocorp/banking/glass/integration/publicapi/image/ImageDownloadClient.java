@@ -6,6 +6,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.NoSuchElementException;
 
+import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.image.dto.ImageDTO;
 import uy.infocorp.banking.glass.util.graphics.BitmapUtils;
@@ -28,6 +29,10 @@ public class ImageDownloadClient {
     }
 
     public Bitmap getImage(int imageId) {
+        if (Constants.OFFLINE_MODE) {
+            OfflineImageDownloadClient.getImage();
+        }
+
         String uri = String.format(PublicUrls.GET_IMAGE_URL, imageId);
         ImageDTO[] images = this.builder.appendUrl(uri).execute(ImageDTO[].class);
 
