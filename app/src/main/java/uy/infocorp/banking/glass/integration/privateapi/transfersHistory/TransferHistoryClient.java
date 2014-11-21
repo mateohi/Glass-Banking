@@ -23,8 +23,6 @@ import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 public class TransferHistoryClient {
 
     private static final String TAG = TransferHistoryClient.class.getSimpleName();
-    private static final int MAX_HISTORY_LENGTH = 10;
-    private static final int TRANSFER_HISTORY_HOURS = (int) TimeUnit.DAYS.toHours(2);
 
     private static TransferHistoryClient instance;
     private RestExecutionBuilder builder;
@@ -46,7 +44,7 @@ public class TransferHistoryClient {
         }
 
         DateTime now = new DateTime();
-        DateTime twoDaysAgo = now.minusHours(TRANSFER_HISTORY_HOURS);
+        DateTime twoDaysAgo = now.minusHours(Constants.TRANSFER_HISTORY_HOURS);
 
         String fromDate = DateUtils.dateTimeToIsoString(twoDaysAgo);
         String toDate = DateUtils.dateTimeToIsoString(now);
@@ -57,13 +55,12 @@ public class TransferHistoryClient {
         TransferHistoryResponseDTO response = this.builder.appendUrl(formattedUrl).appendHeader(tokenHeader).execute(TransferHistoryResponseDTO.class);
         Transfer[] transfers = response.getItems();
 
-        if (transfers.length > MAX_HISTORY_LENGTH) {
-            transfers = Arrays.copyOf(transfers, MAX_HISTORY_LENGTH);
+        if (transfers.length > Constants.TRANSFER_MAX_HISTORY_LENGTH) {
+            transfers = Arrays.copyOf(transfers, Constants.TRANSFER_MAX_HISTORY_LENGTH);
         }
 
         return Arrays.asList(transfers);
     }
-
 
 
 }

@@ -13,7 +13,7 @@ public class PrivateUrls {
     /**
      * Validate Security Device (Sign in second factor of validation)
      */
-    public static final String POST_VALIDATE_SECURITY_DEVICE_URL = BASE_URL + "/framework/authentication/validateSecurityDevice";
+    public static final String POST_VALIDATE_SECURITY_DEVICE_URL = BASE_URL + "/framework/authentication/validateSecurityDeviceSecondStep";
 
     /**
      * Get Consolidated Position Data
