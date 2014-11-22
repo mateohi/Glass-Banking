@@ -2,6 +2,7 @@ package uy.infocorp.banking.glass.integration.privateapi.thirdPartyAccounts;
 
 import java.io.UnsupportedEncodingException;
 
+import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 
 public class ThirdPartyAccountsClient {
@@ -21,10 +22,18 @@ public class ThirdPartyAccountsClient {
     }
 
     public void getThirdPartyAccountsLocal() throws UnsupportedEncodingException {
+        if (Constants.OFFLINE_MODE) {
+            OfflineThirdPartyAccountsClient.getThirdPartyAccountsLocal();
+        }
+
         //return this.builder.appendUrl(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_LOCAL_URL).execute(Message.class);
     }
 
     public void getThirdPartyAccountsInCountry() throws UnsupportedEncodingException {
+        if (Constants.OFFLINE_MODE) {
+            OfflineThirdPartyAccountsClient.getThirdPartyAccountsInCountry();
+        }
+
         //return this.builder.appendUrl(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_INCOUNTRY_URL).execute(Message.class);
     }
 
