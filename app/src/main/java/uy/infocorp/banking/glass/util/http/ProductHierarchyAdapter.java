@@ -29,15 +29,15 @@ public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
 
     static {
         productTypeMap.put("Infocorp.UIProcess.Entities.Accounts.Accounts.Account, Infocorp.UIProcess.Entities",
-                Account.class.getName());
+                Account.class.getCanonicalName());
         productTypeMap.put("Infocorp.UIProcess.Entities.CreditLines.CreditLines.CreditLine, Infocorp.UIProcess.Entities",
-                CreditLine.class.getName());
+                CreditLine.class.getCanonicalName());
         productTypeMap.put("Infocorp.UIProcess.Entities.FixedTermDeposits.FixedTermDeposits.FixedTermDeposit, Infocorp.UIProcess.Entities",
-                FixedTermDeposit.class.getName());
+                FixedTermDeposit.class.getCanonicalName());
         productTypeMap.put("Infocorp.UIProcess.Entities.CreditCards.CreditCards.CreditCard, Infocorp.UIProcess.Entities",
-                CreditCard.class.getName());
+                CreditCard.class.getCanonicalName());
         productTypeMap.put("Infocorp.UIProcess.Entities.Loans.Loans.Loan, Infocorp.UIProcess.Entities",
-                Loan.class.getName());
+                Loan.class.getCanonicalName());
         productTypeMap.put("Infocorp.UIProcess.Entities.Mortgages.Mortgages.Mortgage, Infocorp.UIProcess.Entities",
                 "uy.infocorp.banking.glass.integration.privateapi.common.dto.mortgages.Mortgage");
     }
@@ -54,17 +54,16 @@ public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
     @Override
     public Product deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
-        JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
-        String clientSideMappedClassName = productTypeMap.get(prim.getAsString());
+        JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonObject.get(CLASSNAME);
+        String clientSideMappedClassName = productTypeMap.get(jsonPrimitive.getAsString());
 
-        Class<?> clazz = null;
         try {
-            clazz = Class.forName(clientSideMappedClassName);
+            Class<?> clazz = Class.forName(clientSideMappedClassName);
+            return context.deserialize(jsonObject, clazz);
         } catch (ClassNotFoundException e) {
             Log.e(TAG, e.getMessage(), e);
             throw new JsonParseException(e.getMessage());
         }
-        return context.deserialize(jsonObject, clazz);
     }
 
 }

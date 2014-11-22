@@ -85,7 +85,6 @@ public class RestExecutionBuilder {
                 return this;
             }
         }
-        //add the new header
         this.request.addHeader(header);
         return this;
     }
