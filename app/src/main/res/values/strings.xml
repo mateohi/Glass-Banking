@@ -89,6 +89,7 @@
     <!-- Closest branches -->
     <string name="find_place_branch">Branch</string>
     <string name="action_get_directions">Get directions</string>
+    <string name="action_call_branch">Call</string>
     <!-- /Closest branches -->
 
 
