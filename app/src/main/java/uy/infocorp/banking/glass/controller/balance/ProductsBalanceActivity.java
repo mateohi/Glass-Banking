@@ -24,9 +24,6 @@ import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 
-/**
- * Created by german on 02/11/2014.
- */
 public class ProductsBalanceActivity extends Activity {
 
     private List<CardBuilder> cards = Lists.newArrayList();
