@@ -16,8 +16,8 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
@@ -29,9 +29,8 @@ import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
  */
 public class ProductsBalanceActivity extends Activity {
 
-
-    private List<CardBuilder> cards = new ArrayList<CardBuilder>();
-    private List<Product> products = new ArrayList<Product>();
+    private List<CardBuilder> cards = Lists.newArrayList();
+    private List<Product> products = Lists.newArrayList();
     private Product selectedProduct;
 
     @Override
@@ -42,7 +41,6 @@ public class ProductsBalanceActivity extends Activity {
 
         showInitialView();
         createCards();
-
     }
 
     @Override

@@ -1,6 +1,7 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class SecurityQuestionsAnswersList {
     private List<SecurityQuestionsAnswers> securityQuestionsAnswers;
 
     public SecurityQuestionsAnswersList() {
-        securityQuestionsAnswers = new ArrayList<SecurityQuestionsAnswers>();
+        securityQuestionsAnswers = Lists.newArrayList();
     }
 
     public List<SecurityQuestionsAnswers> getSecurityQuestionsAnswers() {

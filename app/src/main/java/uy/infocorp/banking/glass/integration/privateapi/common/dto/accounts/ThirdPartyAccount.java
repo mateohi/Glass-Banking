@@ -115,7 +115,7 @@ public class ThirdPartyAccount {
     }
 
 //	public final Map<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> getExtendedProperties() { return extendedProperties; }
-//	public final void setExtendedProperties(java.util.HashMap<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> value){ extendedProperties = value; }
+//	public final void setExtendedProperties(Map<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> value){ extendedProperties = value; }
 
 //	public final Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType getThirdPartyAccountType() { return thirdPartyAccountType; }
 //	public final void setThirdPartyAccountType(Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType value) { thirdPartyAccountType = value; }

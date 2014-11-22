@@ -10,8 +10,8 @@ public enum ExtendedPropertyValueType {
 	ExtensibleEnum(TypeCode.Object);
 
 	private int intValue;
-	private static java.util.HashMap<Integer, ExtendedPropertyValueType> mappings;
-	private static java.util.HashMap<Integer, ExtendedPropertyValueType> getMappings()
+	private static Map<Integer, ExtendedPropertyValueType> mappings;
+	private static Map<Integer, ExtendedPropertyValueType> getMappings()
 	{
 		if (mappings == null)
 		{
@@ -19,7 +19,7 @@ public enum ExtendedPropertyValueType {
 			{
 				if (mappings == null)
 				{
-					mappings = new java.util.HashMap<Integer, ExtendedPropertyValueType>();
+					mappings = new Map<Integer, ExtendedPropertyValueType>();
 				}
 			}
 		}
