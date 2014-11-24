@@ -15,13 +15,14 @@ import uy.infocorp.banking.glass.domain.beacon.BeaconHandler;
 import uy.infocorp.banking.glass.domain.beacon.PlaceListener;
 import uy.infocorp.banking.glass.exception.BeaconMonitoringException;
 import uy.infocorp.banking.glass.exception.BluetoothException;
+import uy.infocorp.banking.glass.integration.Constants;
 
 public class EstimoteBeaconHandler extends BeaconHandler {
 
     private static final String TAG = EstimoteBeaconHandler.class.getSimpleName();
 
-    // FIXME cambiar el proximity id por uno de IC, el major por uno del banco
-    private static final Region ALL_BRANCHES_REGION = new Region("rid", null, null, null);
+    private static final Region ALL_BRANCHES_REGION = new Region(Constants.BEACONS_IDENTIFIER_ID,
+            Constants.BEACONS_PROXIMITYUID, Constants.BEACONS_MAJOR, Constants.BEACONS_MINOR);
 
     private BeaconManager beaconManager;
     private final PlaceListener listener;
