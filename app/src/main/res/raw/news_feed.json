@@ -1,0 +1,42 @@
+{
+    "timestamp": "2014-06-04T04:00:00.000Z",
+    "newsFeed": [
+        {
+            "availableUntilDate": "2015-02-03T23:59:59Z",
+            "backgroundColor": "#ffd966",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis leo lorem, ac interdum quam malesuada ut. Cras iaculis, turpis non venenatis ornare, sapien diam facilisis tortor, ac auctor lorem erat at lorem. Proin aliquet posuere augue, et vestibulum massa vulputate a. Aliquam est est, vehicula ut tempus vitae, iaculis iaculis purus. Integer dictum magna vel urna ornare iaculis.\nFusce felis nulla, suscipit et velit nec, auctor tincidunt libero. Quisque eget orci condimentum, aliquam risus non, cursus orci. Proin id eros sem. Maecenas fermentum tellus ut nunc venenatis sollicitudin. Aenean sagittis quam at turpis congue, vitae iaculis lacus eleifend. Aliquam aliquam sit amet elit sit amet ultrices. Morbi accumsan mi tristique urna bibendum interdum.\nDonec ullamcorper metus sit amet erat cursus, vitae hendrerit lacus semper. Morbi iaculis dapibus pharetra. Donec nunc enim, aliquet vitae lobortis id, condimentum eget neque. Mauris feugiat convallis erat nec consectetur. Praesent commodo ut eros in bibendum. Nunc semper pulvinar nisl, accumsan pharetra dolor egestas vel.\nEtiam feugiat posuere fringilla. Nunc tristique dolor nulla, a pharetra nunc commodo sit amet. Curabitur eu sodales velit, in lacinia metus. Fusce eu velit quis orci ullamcorper scelerisque. ",
+            "creationDate": "2014-07-03T15:42:44.997Z",
+            "date": "2014-04-04T00:00:00Z",
+            "detailFormat": "text",
+            "id": 11,
+            "isDeleted": false,
+            "listFormat": "textAndLeftImage",
+            "listImageId": 2111,
+            "modifiedDate": "2014-07-03T15:42:44.997Z",
+            "moreInformationUrl": "http://www.lugaresdeviaje.com/nota/5-playas-uruguayas-que-hay-que-conocer",
+            "publishedDate": "2014-04-04T00:00:00Z",
+            "subtitle": "Este verano visitamos en las mejores playas",
+            "textColor": "#000000",
+            "title": "IC-Banking After Beach"
+        },
+        {
+            "availableUntilDate": "2015-02-03T23:59:59Z",
+            "backgroundColor": "#ffd966",
+            "body": "Aliquam iaculis tristique nibh et sagittis. Pellentesque porta vehicula leo, sed vehicula ipsum interdum sit amet. Donec vehicula neque non placerat commodo. Vivamus convallis auctor turpis sed interdum. Mauris eu tortor posuere, cursus risus eget, volutpat nibh. Etiam posuere mi vel felis porttitor, at vehicula neque hendrerit.\nAenean dolor lacus, aliquet pulvinar ultrices eu, egestas vel libero. Pellentesque sed adipiscing felis. Aliquam arcu metus, dignissim non vestibulum sed, lobortis eget tellus. Morbi lacinia vulputate mauris at consectetur. Nullam eget pharetra eros. Curabitur sit amet felis at nunc feugiat tristique nec vitae massa. Aliquam semper nunc nibh, id molestie velit luctus sed.",
+            "creationDate": "2014-07-03T15:42:44.997Z",
+            "date": "2014-04-03T00:00:00Z",
+            "detailFormat": "textAndImage",
+            "detailImageId": 2102,
+            "id": 10,
+            "isDeleted": false,
+            "listFormat": "textAndRightImage",
+            "listImageId": 2101,
+            "modifiedDate": "2014-07-03T15:42:44.997Z",
+            "moreInformationUrl": "http://www.apple.com/ipad-air",
+            "publishedDate": "2014-04-03T00:00:00Z",
+            "subtitle": "",
+            "textColor": "#000000",
+            "title": "Ganate tu iPad Air"
+        }
+    ]
+}
