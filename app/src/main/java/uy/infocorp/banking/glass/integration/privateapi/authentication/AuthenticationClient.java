@@ -145,3 +145,4 @@ public class AuthenticationClient extends BaseClient {
     public String completeLogOn() throws UnsupportedEncodingException {
         return (String) (this.execute());
     }
+}
