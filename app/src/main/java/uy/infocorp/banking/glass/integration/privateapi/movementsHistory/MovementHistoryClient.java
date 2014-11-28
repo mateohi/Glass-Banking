@@ -35,8 +35,9 @@ public class MovementHistoryClient {
 
     public List<Movement> getLastMovements(String authToken) throws Exception {
         if (OfflineResourceUtils.offline()) {
-            // TODO
-            throw new UnsupportedOperationException("Not implemented yet");
+            Movement[] movements = OfflineResourceUtils.jsonToObject(R.raw.movements,
+                    Movement[].class);
+            return Arrays.asList(movements);
         }
 
         String formattedUrl = MovementHistoryUtils.buildFormattedUrl();
