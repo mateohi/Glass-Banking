@@ -9,7 +9,7 @@ import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
+import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
 public class ExchangeRateClient {
 
@@ -43,8 +43,8 @@ public class ExchangeRateClient {
     }
 
     public List<ExchangeRateDTO> getExchangeRates() {
-        if (OfflineResourceUtils.offline()) {
-            ExchangeRateDTO[] exchangeRates = OfflineResourceUtils.jsonToObject(R.raw.exchange_rates,
+        if (ResourceUtils.offline()) {
+            ExchangeRateDTO[] exchangeRates = ResourceUtils.jsonToObject(R.raw.exchange_rates,
                     ExchangeRateDTO[].class);
             return Arrays.asList(exchangeRates);
         }

@@ -9,7 +9,7 @@ import android.content.Context;
 * NO usar para otras cosas como inflar un layout o mostrar un toast. (No va a funcionar)
 * */
 
- public class BankingApplication extends Application {
+public class BankingApplication extends Application {
 
     private static Context context;
 

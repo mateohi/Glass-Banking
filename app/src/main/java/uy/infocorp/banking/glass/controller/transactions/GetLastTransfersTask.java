@@ -26,7 +26,7 @@ public class GetLastTransfersTask extends SimpleAsyncTask<List<Transfer>> {
         } catch (RuntimeException e) {
             Log.e(TAG, "RuntimeException: Unable to get latest transactions -" + e.getMessage());
             return null;
-        } catch (Exception exc){
+        } catch (Exception exc) {
             Log.e(TAG, "Unable to get latest transactions -" + exc.getMessage());
             return null;
         }

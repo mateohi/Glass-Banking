@@ -11,7 +11,7 @@ import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.image.dto.ImageDTO;
 import uy.infocorp.banking.glass.util.graphics.BitmapUtils;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
+import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
 public class ImageDownloadClient {
 
@@ -30,8 +30,8 @@ public class ImageDownloadClient {
     }
 
     public Bitmap getImage(int imageId) {
-        if (OfflineResourceUtils.offline()) {
-            ImageDTO image = OfflineResourceUtils.jsonToObject(R.raw.image_1, ImageDTO.class);
+        if (ResourceUtils.offline()) {
+            ImageDTO image = ResourceUtils.jsonToObject(R.raw.image_1, ImageDTO.class);
             return BitmapUtils.base64ToBitmap(image.getImagePicture());
         }
 

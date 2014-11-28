@@ -12,9 +12,9 @@ import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.servicePayments.ServicePayment;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
+import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
-public class ServicePaymentsClient extends BaseClient{
+public class ServicePaymentsClient extends BaseClient {
 
     private static ServicePaymentsClient instance;
     private RestExecutionBuilder builder;
@@ -33,17 +33,17 @@ public class ServicePaymentsClient extends BaseClient{
 
     public List<ServicePayment> getServicePayments(String authToken) throws UnsupportedEncodingException {
         this.authToken = authToken;
-        return (List<ServicePayment>)this.execute();
+        return (List<ServicePayment>) this.execute();
     }
 
     @Override
     public Object getOffline() {
-        return OfflineResourceUtils.jsonToObject(R.raw.service_payments, ServicePayment.class);
+        return ResourceUtils.jsonToObject(R.raw.service_payments, ServicePayment.class);
     }
 
     @Override
     public Object getOnline() {
-        String xAuthTokenHeaderName = OfflineResourceUtils.getString(R.string.x_auth_header);
+        String xAuthTokenHeaderName = ResourceUtils.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         ServicePayment[] servicePaymentList = builder.appendHeader(tokenHeader).execute(ServicePayment[].class);
         return Arrays.asList(servicePaymentList);

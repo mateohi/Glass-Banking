@@ -156,9 +156,9 @@ public class Product {
         backendId = value;
     }
 
-    public final String getProductTypeDescription(){
+    public final String getProductTypeDescription() {
         String description = "";
-        switch (productType){
+        switch (productType) {
             case currentAccount:
                 description = "Current Account";
                 break;
@@ -189,10 +189,10 @@ public class Product {
         return description;
     }
 
-    public final String getConsolidatedPositionBalance(){
+    public final String getConsolidatedPositionBalance() {
         StringBuilder balanceSb = new StringBuilder();
         balanceSb.append(this.getCurrency().getCurrencyDescription()).append(" ");
-        switch (productType){
+        switch (productType) {
             case currentAccount:
                 balanceSb.append(((Account) this).getAccountCountableBalance());
                 break;

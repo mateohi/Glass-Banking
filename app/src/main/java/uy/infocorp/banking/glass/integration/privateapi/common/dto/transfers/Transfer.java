@@ -1,6 +1,5 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers;
 
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.transactions.Transaction;
 
 public class Transfer extends Transaction {

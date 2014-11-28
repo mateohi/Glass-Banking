@@ -2,13 +2,9 @@ package uy.infocorp.banking.glass.controller.balance;
 
 import android.util.Log;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityDeviceValidationResult;
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityQuestionsAnswers;
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInResult;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.integration.privateapi.products.ProductsClient;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;

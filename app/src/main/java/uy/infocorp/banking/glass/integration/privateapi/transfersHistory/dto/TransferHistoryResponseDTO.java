@@ -1,7 +1,5 @@
 package uy.infocorp.banking.glass.integration.privateapi.transfersHistory.dto;
 
-import java.util.List;
-
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 
 /**

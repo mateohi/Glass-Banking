@@ -2,20 +2,18 @@ package uy.infocorp.banking.glass.integration.privateapi.movementsHistory;
 
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
-import org.joda.time.DateTime;
 
 import java.util.Arrays;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.integration.privateapi.movementsHistory.dto.MovementHistoryResponseDTO;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
+import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
-public class MovementHistoryClient extends BaseClient{
+public class MovementHistoryClient extends BaseClient {
 
     private static final String TAG = MovementHistoryClient.class.getSimpleName();
 
@@ -36,13 +34,13 @@ public class MovementHistoryClient extends BaseClient{
 
     public List<Movement> getLastMovements(String authToken) throws Exception {
         this.authToken = authToken;
-        return (List<Movement>)this.execute();
+        return (List<Movement>) this.execute();
     }
 
 
     @Override
     public Object getOffline() {
-        Movement[] movements = OfflineResourceUtils.jsonToObject(R.raw.movements,
+        Movement[] movements = ResourceUtils.jsonToObject(R.raw.movements,
                 Movement[].class);
         return Arrays.asList(movements);
     }
@@ -50,7 +48,7 @@ public class MovementHistoryClient extends BaseClient{
     @Override
     public Object getOnline() {
         String formattedUrl = MovementHistoryUtils.buildFormattedUrl();
-        String xAuthTokenHeaderName = OfflineResourceUtils.getString(R.string.x_auth_header);
+        String xAuthTokenHeaderName = ResourceUtils.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
 
         MovementHistoryResponseDTO response = this.builder

@@ -1,10 +1,7 @@
 package uy.infocorp.banking.glass.util.http;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.Header;
@@ -50,6 +47,6 @@ public class HttpUtils {
     }
 
     public static <T> T typeFromStringData(String data, Class<T> clazz) {
-            return GSON.fromJson(data, clazz);
+        return GSON.fromJson(data, clazz);
     }
 }

@@ -4,7 +4,7 @@ import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.news.dto.NewsDTO;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
+import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
 public class NewsClient {
 
@@ -23,8 +23,8 @@ public class NewsClient {
     }
 
     public NewsDTO getNewsFeed() {
-        if (OfflineResourceUtils.offline()) {
-            return OfflineResourceUtils.jsonToObject(R.raw.news_feed, NewsDTO.class);
+        if (ResourceUtils.offline()) {
+            return ResourceUtils.jsonToObject(R.raw.news_feed, NewsDTO.class);
         }
 
         return this.builder.execute(NewsDTO.class);

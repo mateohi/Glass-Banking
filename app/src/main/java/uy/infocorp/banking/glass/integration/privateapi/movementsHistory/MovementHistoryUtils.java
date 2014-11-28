@@ -10,13 +10,14 @@ import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.util.date.DateUtils;
-import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
+import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
 public class MovementHistoryUtils {
 
-    private static final int MOVEMENT_HISTORY_DAYS = OfflineResourceUtils.getInteger(R.integer.movement_history_days);
+    private static final int MOVEMENT_HISTORY_DAYS = ResourceUtils.getInteger(R.integer.movement_history_days);
     private static final int MOVEMENT_HISTORY_HOURS = (int) TimeUnit.DAYS.toHours(MOVEMENT_HISTORY_DAYS);
-    private static final int MAX_MOVEMENT_LENGTH = OfflineResourceUtils.getInteger(R.integer.movement_max_history_length);;
+    private static final int MAX_MOVEMENT_LENGTH = ResourceUtils.getInteger(R.integer.movement_max_history_length);
+    ;
 
     public static String buildFormattedUrl() {
         DateTime now = new DateTime();

@@ -11,9 +11,9 @@ import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
+import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
-public class ThirdPartyAccountsClient extends BaseClient{
+public class ThirdPartyAccountsClient extends BaseClient {
 
     private static ThirdPartyAccountsClient instance;
     private RestExecutionBuilder builder;
@@ -34,33 +34,33 @@ public class ThirdPartyAccountsClient extends BaseClient{
     public List<ThirdPartyAccount> getThirdPartyAccountsLocal(String authToken) throws UnsupportedEncodingException {
         this.authToken = authToken;
         localThirdPartyAccounts = true;
-        return (List<ThirdPartyAccount>)this.execute();
+        return (List<ThirdPartyAccount>) this.execute();
     }
 
     public List<ThirdPartyAccount> getThirdPartyAccountsInCountry(String authToken) throws UnsupportedEncodingException {
         this.authToken = authToken;
         localThirdPartyAccounts = false;
-        return (List<ThirdPartyAccount>)this.execute();
+        return (List<ThirdPartyAccount>) this.execute();
     }
 
     @Override
     public Object getOffline() {
-        if(localThirdPartyAccounts){
-            return OfflineResourceUtils.jsonToObject(R.raw.accounts_local, Object.class);
-        }else{
-            return OfflineResourceUtils.jsonToObject(R.raw.accounts_in_country, Object.class);
+        if (localThirdPartyAccounts) {
+            return ResourceUtils.jsonToObject(R.raw.accounts_local, Object.class);
+        } else {
+            return ResourceUtils.jsonToObject(R.raw.accounts_in_country, Object.class);
         }
     }
 
     @Override
     public Object getOnline() {
-        String xAuthTokenHeaderName = OfflineResourceUtils.getString(R.string.x_auth_header);
+        String xAuthTokenHeaderName = ResourceUtils.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         ThirdPartyAccount[] servicePaymentList;
-        if(localThirdPartyAccounts){
+        if (localThirdPartyAccounts) {
             builder = RestExecutionBuilder.get(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_LOCAL_URL);
             servicePaymentList = builder.appendHeader(tokenHeader).execute(ThirdPartyAccount[].class);
-        }else{
+        } else {
             builder = RestExecutionBuilder.get(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_INCOUNTRY_URL);
             servicePaymentList = builder.appendHeader(tokenHeader).execute(ThirdPartyAccount[].class);
         }
