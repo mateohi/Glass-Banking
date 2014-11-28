@@ -144,7 +144,6 @@ public class ClosestBranchActivity extends Activity {
     private void showNoBranchesView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("No branch found nearby")
-                .setTimestamp("Try again later")
                 .setIcon(R.drawable.ic_help)
                 .getView();
 

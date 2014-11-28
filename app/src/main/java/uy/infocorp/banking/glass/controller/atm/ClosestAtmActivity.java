@@ -143,7 +143,6 @@ public class ClosestAtmActivity extends Activity {
     private void showNoAtmsView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("No ATM found nearby")
-                .setTimestamp("Try again later")
                 .setIcon(R.drawable.ic_help)
                 .getView();
 
