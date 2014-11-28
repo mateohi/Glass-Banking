@@ -97,8 +97,10 @@
     <string name="get_list_products">Products List</string>
     <!-- /Products Balances -->
 
+    <!-- TODO cambiar -->
+    <string name="beacons_proximity_uuid">UUID</string>
+
     <string name="title_activity_closest_atm">ClosestAtmActivity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
 </resources>

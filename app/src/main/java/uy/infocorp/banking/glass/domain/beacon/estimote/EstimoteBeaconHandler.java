@@ -11,18 +11,20 @@ import com.estimote.sdk.Region;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.domain.beacon.BeaconHandler;
 import uy.infocorp.banking.glass.domain.beacon.PlaceListener;
 import uy.infocorp.banking.glass.exception.BeaconMonitoringException;
 import uy.infocorp.banking.glass.exception.BluetoothException;
-import uy.infocorp.banking.glass.integration.Constants;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class EstimoteBeaconHandler extends BeaconHandler {
 
     private static final String TAG = EstimoteBeaconHandler.class.getSimpleName();
 
-    private static final Region ALL_BRANCHES_REGION = new Region(Constants.BEACONS_IDENTIFIER_ID,
-            Constants.BEACONS_PROXIMITYUID, Constants.BEACONS_MAJOR, Constants.BEACONS_MINOR);
+    private static final String BEACONS_PROXIMITYUID = OfflineResourceUtils.getString(R.string.beacons_proximity_uuid);
+    private static final Integer BEACONS_MAJOR = OfflineResourceUtils.getInteger(R.integer.beacons_major);
+    private static final Region ALL_BRANCHES_REGION = new Region("rid", null, null, null);
 
     private BeaconManager beaconManager;
     private final PlaceListener listener;

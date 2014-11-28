@@ -7,4 +7,7 @@
     <!-- Movements history -->
     <integer name="movement_max_history_length">10</integer>
     <integer name="movement_history_days">2</integer>
+
+    <!-- Beacons TODO cambiar-->
+    <integer name="beacons_major">10</integer>
 </resources>
