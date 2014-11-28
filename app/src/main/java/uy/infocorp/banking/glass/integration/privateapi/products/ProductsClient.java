@@ -15,7 +15,7 @@ import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class ProductsClient {
 
-    private static final String X_AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
+    private static final String X_AUTH_TOKEN_HEADER_NAME = OfflineResourceUtils.getString(R.string.x_auth_header);
 
     private static ProductsClient instance;
     private RestExecutionBuilder builder;

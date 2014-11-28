@@ -9,6 +9,7 @@ import org.apache.http.message.BasicHeader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityDeviceValidationResult;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityQuestionsAnswers;
@@ -21,7 +22,7 @@ import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 public class AuthenticationClient {
 
     private static final String TAG = AuthenticationClient.class.getSimpleName();
-    private static final String X_AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
+    private static final String X_AUTH_TOKEN_HEADER_NAME = OfflineResourceUtils.getString(R.string.x_auth_header);
 
     private static AuthenticationClient instance;
     private RestExecutionBuilder builder;
@@ -102,7 +103,7 @@ public class AuthenticationClient {
      * @throws java.io.UnsupportedEncodingException
      */
     public String completeLogOn() throws UnsupportedEncodingException {
-        if(OfflineResourceUtils.offline()){//test
+        if(OfflineResourceUtils.offline()){
             return "test";
         }
         //1- LogOn
