@@ -9,7 +9,6 @@ import org.apache.http.message.BasicHeader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityDeviceValidationResult;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityQuestionsAnswers;
@@ -17,6 +16,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.authenticatio
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInInformation;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInResult;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class AuthenticationClient {
 
@@ -102,7 +102,7 @@ public class AuthenticationClient {
      * @throws java.io.UnsupportedEncodingException
      */
     public String completeLogOn() throws UnsupportedEncodingException {
-        if(Constants.OFFLINE_MODE){//test
+        if(OfflineResourceUtils.offline()){//test
             return "test";
         }
         //1- LogOn

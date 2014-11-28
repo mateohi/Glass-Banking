@@ -3,6 +3,8 @@ package uy.infocorp.banking.glass.util.http;
 import android.util.Log;
 
 import com.google.common.collect.Maps;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -29,6 +31,8 @@ public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
     */
     private static final Gson GSON = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
+
+    private static final String CLASSNAME = "$type";
 
     private static Map<String, String> productTypeMap = Maps.newHashMap();
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Transfer history -->
+    <integer name="transfer_max_history_length">10</integer>
+    <integer name="transfer_history_days">2</integer>
+
+    <!-- Movements history -->
+    <integer name="movement_max_history_length">10</integer>
+    <integer name="movement_history_days">2</integer>
+</resources>
