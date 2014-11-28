@@ -10,15 +10,16 @@ import java.util.List;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
+import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
-public class ProductsClient {
-
-    private static final String X_AUTH_TOKEN_HEADER_NAME = OfflineResourceUtils.getString(R.string.x_auth_header);
+public class ProductsClient extends BaseClient{
 
     private static ProductsClient instance;
     private RestExecutionBuilder builder;
+    private String authToken;
+
 
     private ProductsClient() {
         builder = RestExecutionBuilder.get(PrivateUrls.GET_CONSOLIDATED_POSITION_URL);
@@ -32,15 +33,22 @@ public class ProductsClient {
     }
 
     public List<Product> getConsolidatedPosition(String authToken) throws UnsupportedEncodingException {
-        if (OfflineResourceUtils.offline()) {
-            Product[] products = OfflineResourceUtils.jsonToObject(R.raw.products, Product[].class);
-            return Arrays.asList(products);
-        }
+        this.authToken = authToken;
+        return (List<Product>)this.execute();
+    }
 
-        Header tokenHeader = new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, authToken);
+    @Override
+    public Object getOffline() {
+        Product[] products = OfflineResourceUtils.jsonToObject(R.raw.products, Product[].class);
+        return Arrays.asList(products);
+    }
+
+    @Override
+    public Object getOnline() {
+        String xAuthTokenHeaderName = OfflineResourceUtils.getString(R.string.x_auth_header);
+        Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, authToken);
         Product[] products = builder.appendHeader(tokenHeader).execute(Product[].class);
 
         return Arrays.asList(products);
     }
-
 }

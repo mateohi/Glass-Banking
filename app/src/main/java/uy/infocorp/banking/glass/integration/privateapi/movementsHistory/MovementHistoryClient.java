@@ -11,16 +11,17 @@ import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.integration.privateapi.movementsHistory.dto.MovementHistoryResponseDTO;
+import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
-public class MovementHistoryClient {
+public class MovementHistoryClient extends BaseClient{
 
     private static final String TAG = MovementHistoryClient.class.getSimpleName();
-    private static final String X_AUTH_TOKEN_HEADER_NAME = OfflineResourceUtils.getString(R.string.x_auth_header);
 
     private static MovementHistoryClient instance;
     private RestExecutionBuilder builder;
+    private String authToken;
 
     private MovementHistoryClient() {
         builder = RestExecutionBuilder.get();
@@ -34,24 +35,31 @@ public class MovementHistoryClient {
     }
 
     public List<Movement> getLastMovements(String authToken) throws Exception {
-        if (OfflineResourceUtils.offline()) {
-            Movement[] movements = OfflineResourceUtils.jsonToObject(R.raw.movements,
-                    Movement[].class);
-            return Arrays.asList(movements);
-        }
+        this.authToken = authToken;
+        return (List<Movement>)this.execute();
+    }
 
+
+    @Override
+    public Object getOffline() {
+        Movement[] movements = OfflineResourceUtils.jsonToObject(R.raw.movements,
+                Movement[].class);
+        return Arrays.asList(movements);
+    }
+
+    @Override
+    public Object getOnline() {
         String formattedUrl = MovementHistoryUtils.buildFormattedUrl();
-        Header tokenHeader = new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, authToken);
+        String xAuthTokenHeaderName = OfflineResourceUtils.getString(R.string.x_auth_header);
+        Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
 
         MovementHistoryResponseDTO response = this.builder
                 .appendUrl(formattedUrl)
                 .appendHeader(tokenHeader)
                 .execute(MovementHistoryResponseDTO.class);
-        
+
         Movement[] movements = response.getItems();
 
         return MovementHistoryUtils.getCorrectedMovements(movements);
     }
-
-
 }

@@ -9,15 +9,15 @@ import java.util.List;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.integration.privateapi.transfersHistory.dto.TransferHistoryResponseDTO;
+import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
-public class TransferHistoryClient {
-
-    private static final String X_AUTH_TOKEN_HEADER_NAME = OfflineResourceUtils.getString(R.string.x_auth_header);
+public class TransferHistoryClient extends BaseClient{
 
     private static TransferHistoryClient instance;
     private RestExecutionBuilder builder;
+    private String authToken;
 
     private TransferHistoryClient() {
         builder = RestExecutionBuilder.get();
@@ -31,15 +31,23 @@ public class TransferHistoryClient {
     }
 
     public List<Transfer> getLastTransfers(String authToken) {
-        if (OfflineResourceUtils.offline()) {
-            Transfer[] transfers = OfflineResourceUtils.jsonToObject(R.raw.transfers,
-                    Transfer[].class);
-            return Arrays.asList(transfers);
-        }
+        this.authToken = authToken;
+        return (List<Transfer>)this.execute();
+    }
 
+
+    @Override
+    public Object getOffline() {
+        Transfer[] transfers = OfflineResourceUtils.jsonToObject(R.raw.transfers,
+                Transfer[].class);
+        return Arrays.asList(transfers);
+    }
+
+    @Override
+    public Object getOnline() {
+        String xAuthTokenHeaderName = OfflineResourceUtils.getString(R.string.x_auth_header);
+        Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         String formattedUrl = TransferHistoryUtils.buildFormattedUrl();
-        Header tokenHeader = new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, authToken);
-
         TransferHistoryResponseDTO transferResponse = this.builder
                 .appendUrl(formattedUrl)
                 .appendHeader(tokenHeader)
@@ -49,6 +57,4 @@ public class TransferHistoryClient {
 
         return TransferHistoryUtils.getCorrectedTransfers(transfers);
     }
-
-
 }

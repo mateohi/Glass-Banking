@@ -1,15 +1,24 @@
 package uy.infocorp.banking.glass.integration.privateapi.thirdPartyAccounts;
 
+import org.apache.http.Header;
+import org.apache.http.message.BasicHeader;
+
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
+import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
-public class ThirdPartyAccountsClient {
+public class ThirdPartyAccountsClient extends BaseClient{
 
     private static ThirdPartyAccountsClient instance;
     private RestExecutionBuilder builder;
+    private boolean localThirdPartyAccounts;
+    private String authToken;
 
     private ThirdPartyAccountsClient() {
         builder = RestExecutionBuilder.get();
@@ -22,22 +31,39 @@ public class ThirdPartyAccountsClient {
         return instance;
     }
 
-    public void getThirdPartyAccountsLocal() throws UnsupportedEncodingException {
-        if (OfflineResourceUtils.offline()) {
-            // TODO cambiar
-            OfflineResourceUtils.jsonToObject(R.raw.accounts_local, Object.class);
-        }
-
-        //return this.builder.appendUrl(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_LOCAL_URL).execute(Message.class);
+    public List<ThirdPartyAccount> getThirdPartyAccountsLocal(String authToken) throws UnsupportedEncodingException {
+        this.authToken = authToken;
+        localThirdPartyAccounts = true;
+        return (List<ThirdPartyAccount>)this.execute();
     }
 
-    public void getThirdPartyAccountsInCountry() throws UnsupportedEncodingException {
-        if (OfflineResourceUtils.offline()) {
-            // TODO cambiar
-            OfflineResourceUtils.jsonToObject(R.raw.accounts_in_country, Object.class);
-        }
-
-        //return this.builder.appendUrl(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_INCOUNTRY_URL).execute(Message.class);
+    public List<ThirdPartyAccount> getThirdPartyAccountsInCountry(String authToken) throws UnsupportedEncodingException {
+        this.authToken = authToken;
+        localThirdPartyAccounts = false;
+        return (List<ThirdPartyAccount>)this.execute();
     }
 
+    @Override
+    public Object getOffline() {
+        if(localThirdPartyAccounts){
+            return OfflineResourceUtils.jsonToObject(R.raw.accounts_local, Object.class);
+        }else{
+            return OfflineResourceUtils.jsonToObject(R.raw.accounts_in_country, Object.class);
+        }
+    }
+
+    @Override
+    public Object getOnline() {
+        String xAuthTokenHeaderName = OfflineResourceUtils.getString(R.string.x_auth_header);
+        Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
+        ThirdPartyAccount[] servicePaymentList;
+        if(localThirdPartyAccounts){
+            builder = RestExecutionBuilder.get(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_LOCAL_URL);
+            servicePaymentList = builder.appendHeader(tokenHeader).execute(ThirdPartyAccount[].class);
+        }else{
+            builder = RestExecutionBuilder.get(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_INCOUNTRY_URL);
+            servicePaymentList = builder.appendHeader(tokenHeader).execute(ThirdPartyAccount[].class);
+        }
+        return servicePaymentList;
+    }
 }
