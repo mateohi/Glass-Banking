@@ -7,10 +7,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.Constants;
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class ProductsClient {
 
@@ -31,14 +32,15 @@ public class ProductsClient {
     }
 
     public List<Product> getConsolidatedPosition(String authToken) throws UnsupportedEncodingException {
-        if (Constants.OFFLINE_MODE) {
-            return OfflineProductsClient.getConsolidatedPosition();
+        if (OfflineResourceUtils.offline()) {
+            Product[] products = OfflineResourceUtils.jsonToObject(R.raw.products, Product[].class);
+            return Arrays.asList(products);
         }
 
         Header tokenHeader = new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, authToken);
-        Product[] productList = builder.appendHeader(tokenHeader).execute(Product[].class);
+        Product[] products = builder.appendHeader(tokenHeader).execute(Product[].class);
 
-        return Arrays.asList(productList);
+        return Arrays.asList(products);
     }
 
 

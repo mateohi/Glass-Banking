@@ -48,11 +48,12 @@ public class BenefitsClient {
                     String description = knownBenefit.getTitle();
                     double latitude = point.getLatitude();
                     double longitude = point.getLongitude();
+                    String type = knownBenefit.getType();
 
                     float distanceToBenefit = getDistance(location, latitude, longitude);
 
                     if (distanceToBenefit <= MAX_DISTANCE_KM) {
-                        nearbyBenefits.add(new Benefit(latitude, longitude, name, description));
+                        nearbyBenefits.add(new Benefit(latitude, longitude, name, description, type));
                     }
                 } else {
                     Log.w(TAG, "Unknown point of interest in benefit");

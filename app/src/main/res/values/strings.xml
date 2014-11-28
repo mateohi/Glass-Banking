@@ -5,9 +5,6 @@
     <string name="alpha_code">UYU</string>
     <string name="bank_name">Bank</string>
 
-
-    <bool name="mock">false</bool>
-
     <!-- Integration -->
     <string name="ic_api_host"></string>
     <string name="ic_api_port"></string>

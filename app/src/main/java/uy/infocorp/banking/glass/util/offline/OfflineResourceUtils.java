@@ -10,18 +10,36 @@ import java.io.InputStreamReader;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.exception.ResourceParsingException;
+import uy.infocorp.banking.glass.util.BankingApplication;
 import uy.infocorp.banking.glass.util.http.HttpUtils;
 
 public class OfflineResourceUtils {
 
     private static final String TAG = OfflineResourceUtils.class.getSimpleName();
+    private static Context context = BankingApplication.getContext();
 
-    public static <T> T jsonResourceToObject(Context context, int resourceId, Class<T> clazz) {
-        String json = readLandmarksResource(context, resourceId);
+    public static String getString(int id) {
+        return context.getResources().getString(id);
+    }
+
+    public static int getInteger(int id) {
+        return context.getResources().getInteger(id);
+    }
+
+    public static boolean getBoolean(int id) {
+        return context.getResources().getBoolean(id);
+    }
+
+    public static boolean offline() {
+        return getBoolean(R.bool.offline_mode);
+    }
+
+    public static <T> T jsonToObject(int resourceId, Class<T> clazz) {
+        String json = readResource(context, resourceId);
         return HttpUtils.typeFromStringData(json, clazz);
     }
 
-    private static String readLandmarksResource(Context context, int resourceId) {
+    private static String readResource(Context context, int resourceId) {
         InputStream is = context.getResources().openRawResource(resourceId);
         StringBuffer buffer = new StringBuffer();
 

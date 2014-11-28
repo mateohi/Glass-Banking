@@ -2,9 +2,6 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.authenticati
 
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.administration.users.User;
 
-/**
- * Created by german on 04/11/2014.
- */
 public class SignInResult {
 
     private String loginDevice;

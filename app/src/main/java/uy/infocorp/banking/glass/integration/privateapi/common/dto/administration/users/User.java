@@ -3,7 +3,6 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.administrati
 import java.util.Date;
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.administration.sites.Site;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.authentication.AuthorizedIpAddress;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Language;
@@ -25,8 +24,8 @@ public class User {
     private String countryId;
     private String cellPhone;
     private String workPhone;
-    private Date createdDate = Constants.DATE_MIN_VALUE;
-    private Date modifiedDate = Constants.DATE_MIN_VALUE;
+    private Date createdDate = new Date(Long.MIN_VALUE);
+    private Date modifiedDate = new Date(Long.MIN_VALUE);
     private Boolean canSaveDocuments = null;
     private SecurityDevice loginDevice;
     private List<SecurityDevice> transactionDevices;
@@ -37,8 +36,8 @@ public class User {
     private Language language;
     private ViewMode viewMode;
 
-    private Date lastLoginDate = Constants.DATE_MIN_VALUE;
-    private Date lastPasswordChange = Constants.DATE_MIN_VALUE;
+    private Date lastLoginDate = new Date(Long.MIN_VALUE);
+    private Date lastPasswordChange = new Date(Long.MIN_VALUE);
 
     private int loginPasswordAttempts;
     private String lastAttemptQuestions;

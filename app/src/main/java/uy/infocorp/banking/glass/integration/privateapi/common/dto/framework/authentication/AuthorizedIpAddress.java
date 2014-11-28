@@ -2,14 +2,12 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.au
 
 import java.util.Date;
 
-import uy.infocorp.banking.glass.integration.Constants;
-
 public class AuthorizedIpAddress {
 
     private String ipAddress;
     private String description;
     private int createdByUserId;
-    private Date creationDate = Constants.DATE_MIN_VALUE;
+    private Date creationDate = new Date(Long.MIN_VALUE);
     //private Map<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> extendedProperties;
 
     public final String getIpAddress() {

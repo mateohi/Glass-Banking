@@ -1,0 +1,12 @@
+{
+    "result": "success",
+    "signInInformation": {},
+    "user": {
+        "name": "Mathías",
+        "lastName": "Rodríguez",
+        "mail": "mathiasr@infocorp.com.uy",
+        "lastLoginDate": "2014-08-19T18:30:25.230Z",
+        "lastPasswordChange": "2014-07-25T15:09:25.230Z",
+        "secretQuestion": "¿Cuál es el nombre de la primer compañía en donde trabajó? / What is the name of the first company you worked for?"
+    }
+}

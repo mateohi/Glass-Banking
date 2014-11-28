@@ -4,13 +4,15 @@ import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.Constants;
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.messaging.Message;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class MessagingClient {
 
@@ -32,8 +34,9 @@ public class MessagingClient {
     }
 
     public List<Message> getInboxMessages(String authToken) throws UnsupportedEncodingException {
-        if (Constants.OFFLINE_MODE) {
-            return OfflineMessagingClient.getInboxMessages();
+        if (OfflineResourceUtils.offline()) {
+            Message[] messages = OfflineResourceUtils.jsonToObject(R.raw.messages, Message[].class);
+            return Arrays.asList(messages);
         }
 
         Header tokenHeader = new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, authToken);

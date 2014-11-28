@@ -2,11 +2,9 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.co
 
 import java.util.Date;
 
-import uy.infocorp.banking.glass.integration.Constants;
-
 public class ExtendedPropertyValueDateTime extends ExtendedPropertyValue {
 
-    private Date extendedPropertyValue = Constants.DATE_MIN_VALUE;
+    private Date extendedPropertyValue = new Date(Long.MIN_VALUE);
 
     public final Date getExtendedPropertyValue() {
         return extendedPropertyValue;

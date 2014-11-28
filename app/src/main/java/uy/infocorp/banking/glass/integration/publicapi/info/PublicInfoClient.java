@@ -1,9 +1,10 @@
 package uy.infocorp.banking.glass.integration.publicapi.info;
 
-import uy.infocorp.banking.glass.integration.Constants;
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class PublicInfoClient {
 
@@ -22,8 +23,8 @@ public class PublicInfoClient {
     }
 
     public PublicInfoDTO getPublicInfo() {
-        if (Constants.OFFLINE_MODE) {
-            return OfflinePublicInfoClient.getPublicInfo();
+        if (OfflineResourceUtils.offline()) {
+            return OfflineResourceUtils.jsonToObject(R.raw.public_info, PublicInfoDTO.class);
         }
 
         return this.builder.execute(PublicInfoDTO.class);

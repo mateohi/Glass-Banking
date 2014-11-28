@@ -4,14 +4,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
-import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ExtendedPropertyValue;
 
 public class LoanFee {
 
     private int feeNumber;
     private BigDecimal principalAmount = new BigDecimal(0);
-    private Date dueDate = Constants.DATE_MIN_VALUE;
+    private Date dueDate = new Date(Long.MIN_VALUE);
     private BigDecimal interestAmount = new BigDecimal(0);
     private BigDecimal overdueAmount = new BigDecimal(0);
     private BigDecimal othersAmount = new BigDecimal(0);

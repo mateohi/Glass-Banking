@@ -3,7 +3,6 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.servicePayme
 import java.math.BigDecimal;
 import java.util.Date;
 
-import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.transactions.Transaction;
 
 public class ServicePayment extends Transaction {
@@ -11,7 +10,7 @@ public class ServicePayment extends Transaction {
     private String serviceBillId;
     private int servicePaymentEntityId;
     private String accountIdentifier;
-    private Date serviceBillDueDate = Constants.DATE_MIN_VALUE;
+    private Date serviceBillDueDate = new Date(Long.MIN_VALUE);
     private String serviceBillDescription;
     private boolean allowsPartialPayment;
     // private Frequency frequency;

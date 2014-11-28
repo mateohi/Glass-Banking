@@ -1,10 +1,12 @@
 package uy.infocorp.banking.glass.integration.privateapi.transfersHistory;
 
+import java.util.Arrays;
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.Constants;
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class TransferHistoryClient {
 
@@ -23,8 +25,10 @@ public class TransferHistoryClient {
     }
 
     public List<Transfer> getLastTransfers() {
-        if (Constants.OFFLINE_MODE) {
-            return OfflineTransferHistoryClient.getLastTransfers();
+        if (OfflineResourceUtils.offline()) {
+            Transfer[] transfers = OfflineResourceUtils.jsonToObject(R.raw.transfers,
+                    Transfer[].class);
+            return Arrays.asList(transfers);
         }
 
         String formattedUrl = TransferHistoryUtils.buildFormattedUrl();

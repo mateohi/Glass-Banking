@@ -3,15 +3,13 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.me
 import java.util.Date;
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.Constants;
-
 public class Message {
 
     private long messageId;
     private String userIdentifier;
     private boolean isImportant;
     private String templateName;
-    private Date expirationDate = Constants.DATE_MIN_VALUE;
+    private Date expirationDate = new Date(Long.MIN_VALUE);
 
     public final long getMessageId() {
         return messageId;
@@ -140,7 +138,7 @@ public class Message {
     /**
      * Message creation date.
      */
-    private Date privateCreationDate = Constants.DATE_MIN_VALUE;
+    private Date privateCreationDate = new Date(Long.MIN_VALUE);
 
     public final Date getCreationDate() {
         return privateCreationDate;

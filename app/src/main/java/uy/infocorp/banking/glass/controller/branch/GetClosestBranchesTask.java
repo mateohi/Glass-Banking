@@ -24,7 +24,7 @@ public class GetClosestBranchesTask extends SimpleAsyncTask<List<Branch>> {
             Location location = (Location) params[0];
             return BranchClient.instance().getClosestBranches(location);
         } catch (RuntimeException e) {
-            Log.e(TAG, "Unable to get closest branches -" + e.getMessage());
+            Log.e(TAG, "Unable to get closest branches - " + e.getMessage());
             return null;
         }
     }

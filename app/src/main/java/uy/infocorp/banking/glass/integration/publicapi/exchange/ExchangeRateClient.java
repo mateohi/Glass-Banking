@@ -2,16 +2,14 @@ package uy.infocorp.banking.glass.integration.publicapi.exchange;
 
 import com.google.common.collect.Lists;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.Constants;
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class ExchangeRateClient {
 
@@ -45,8 +43,10 @@ public class ExchangeRateClient {
     }
 
     public List<ExchangeRateDTO> getExchangeRates() {
-        if (Constants.OFFLINE_MODE) {
-            return OfflineExchangeRateClient.getExchangeRates();
+        if (OfflineResourceUtils.offline()) {
+            ExchangeRateDTO[] exchangeRates = OfflineResourceUtils.jsonToObject(R.raw.exchange_rates,
+                    ExchangeRateDTO[].class);
+            return Arrays.asList(exchangeRates);
         }
 
         ExchangeRateDTO[] exchangeRates = this.builder.execute(ExchangeRateDTO[].class);

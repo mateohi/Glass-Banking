@@ -1,0 +1,28 @@
+[
+    {
+        "thirdPartyAccountId": -1840967584,
+        "thirdPartyAccountNumber": "343345545",
+        "ownerName": "Marlene Hernandez",
+        "bank": {
+            "bankId": 5,
+            "description": "Banco Popular de Puerto Rico"
+        },
+        "extendedProperties": {
+            "productBankIdentifier": "1|343345545"
+        },
+        "productType": "currentAccount"
+    },
+    {
+        "thirdPartyAccountId": 841363181,
+        "thirdPartyAccountNumber": "3070017391",
+        "ownerName": "Marlene Hernandez",
+        "bank": {
+            "bankId": 9,
+            "description": "Doral Bank"
+        },
+        "extendedProperties": {
+            "productBankIdentifier": "2|3070017391"
+        },
+        "productType": "savingsAccount"
+    }
+]
