@@ -11,13 +11,15 @@ import java.util.List;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.messaging.Message;
+import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
-public class MessagingClient {
+public class MessagingClient extends BaseClient{
 
     private static final String TAG = MessagingClient.class.getSimpleName();
-    private static final String X_AUTH_TOKEN_HEADER_NAME = OfflineResourceUtils.getString(R.string.x_auth_header);
+
+    private static String authToken;
 
     private static MessagingClient instance;
     private RestExecutionBuilder builder;
@@ -34,14 +36,21 @@ public class MessagingClient {
     }
 
     public List<Message> getInboxMessages(String authToken) throws UnsupportedEncodingException {
-        if (OfflineResourceUtils.offline()) {
-            Message[] messages = OfflineResourceUtils.jsonToObject(R.raw.messages, Message[].class);
-            return Arrays.asList(messages);
-        }
+        this.authToken = authToken;
+        return (List<Message>)this.execute();
+    }
 
-        Header tokenHeader = new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, authToken);
+    @Override
+    public Object getOffline() {
+        Message[] messages = OfflineResourceUtils.jsonToObject(R.raw.messages, Message[].class);
+        return Arrays.asList(messages);
+    }
+
+    @Override
+    public Object getOnline() {
+        String xAuthTokenHeaderName = OfflineResourceUtils.getString(R.string.x_auth_header);
+        Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         Message[] messageList = builder.appendHeader(tokenHeader).execute(Message[].class);
-
         return Arrays.asList(messageList);
     }
 }
