@@ -190,35 +190,36 @@ public class Product {
     }
 
     public final String getConsolidatedPositionBalance(){
-        String balance = "";
+        StringBuilder balanceSb = new StringBuilder();
+        balanceSb.append(this.getCurrency().getCurrencyDescription()).append(" ");
         switch (productType){
             case currentAccount:
-                balance = ((Account)this).getAccountCountableBalance().toString();
+                balanceSb.append(((Account) this).getAccountCountableBalance());
                 break;
             case savingsAccount:
-                balance = ((Account)this).getAccountCountableBalance().toString();
+                balanceSb.append(((Account) this).getAccountCountableBalance());
                 break;
             case investment:
-                balance = ((Account)this).getAccountCountableBalance().toString();
+                balanceSb.append(((Account) this).getAccountCountableBalance());
                 break;
             case creditLine:
-                balance = ((CreditLine)this).getAvailableAmount().toString();
+                balanceSb.append(((CreditLine) this).getAvailableAmount());
                 break;
             case fixedTermDeposit:
-                balance = this.getExtendedProperties().get("originalAmount").toString();
+                balanceSb.append(this.getExtendedProperties().get("originalAmount"));
                 break;
             case creditCard:
-                balance = ((CreditCard)this).getDollarBalance().toString();
+                balanceSb.append(((CreditCard) this).getDollarBalance());
                 break;
             case loan:
-                balance = ((Loan)this).getCurrentBalance().toString();
+                balanceSb.append(((Loan) this).getCurrentBalance());
                 break;
             case undefined://Undefined is mapped with Mortgage and instantiated with Loan
-                balance = ((Loan)this).getCurrentBalance().toString();
+                balanceSb.append(((Loan) this).getCurrentBalance());
                 break;
             default:
                 throw new IllegalStateException("No se pudo parsear el ProductType del producto");
         }
-        return balance;
+        return balanceSb.toString();
     }
 }

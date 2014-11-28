@@ -43,6 +43,4 @@ public class ProductsClient {
         return Arrays.asList(products);
     }
 
-
-
 }

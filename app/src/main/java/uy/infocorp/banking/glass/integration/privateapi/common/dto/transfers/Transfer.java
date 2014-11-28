@@ -5,7 +5,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.tra
 
 public class Transfer extends Transaction {
 
-    private int frequencyId;
+    /*private int frequencyId;
     private int scheduledTransferStatusId;
     private boolean containsNewBeneficiary;
     private ThirdPartyAccount newThirdPartyAccount;
@@ -49,5 +49,5 @@ public class Transfer extends Transaction {
 
     public final void setCostsChargedToTheBeneficiary(boolean value) {
         costsChargedToTheBeneficiary = value;
-    }
+    }*/
 }

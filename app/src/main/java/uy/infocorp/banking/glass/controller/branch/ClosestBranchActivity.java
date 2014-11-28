@@ -79,6 +79,12 @@ public class ClosestBranchActivity extends Activity {
             case R.id.action_get_directions:
                 startMapIntent();
                 return true;
+            case R.id.action_call_branch:
+                Intent localIntent = new Intent();
+                localIntent.putExtra("com.google.glass.extra.PHONE_NUMBER", selectedBranch.getTelephone());
+                localIntent.setAction("com.google.glass.action.CALL_DIAL");
+                sendBroadcast(localIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

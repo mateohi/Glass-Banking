@@ -26,7 +26,7 @@ import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 
-public class LastTransactionsActivity extends Activity {
+public class LastTransfersActivity extends Activity {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -72,7 +72,7 @@ public class LastTransactionsActivity extends Activity {
 
     private void showNoTransactionsView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("No transactions found")
+                .setText("No transfers found")
                 .setIcon(R.drawable.ic_help)
                 .getView();
 
@@ -81,7 +81,7 @@ public class LastTransactionsActivity extends Activity {
 
     private void showErrorView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Unable to get last transactions")
+                .setText("Unable to get last transfers")
                 .setFootnote("Check your internet connection")
                 .setIcon(R.drawable.ic_warning)
                 .getView();
@@ -90,7 +90,7 @@ public class LastTransactionsActivity extends Activity {
     }
 
     private void createCards() {
-        new GetLastTransactionsTask(new FinishedTaskListener<List<Transfer>>() {
+        new GetLastTransfersTask(new FinishedTaskListener<List<Transfer>>() {
             @Override
             public void onResult(List<Transfer> transfers) {
                 if (transfers == null) {
@@ -98,7 +98,7 @@ public class LastTransactionsActivity extends Activity {
                 } else if (transfers.isEmpty()) {
                     showNoTransactionsView();
                 } else {
-                    LastTransactionsActivity.this.transfers = transfers;
+                    LastTransfersActivity.this.transfers = transfers;
 
                     for (Transfer transfer : transfers) {
                         cards.add(createCard(transfer));

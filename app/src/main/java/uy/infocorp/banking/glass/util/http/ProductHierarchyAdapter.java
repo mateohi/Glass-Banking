@@ -23,7 +23,12 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.loans.Loan;
 public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
 
     private static final String TAG = ProductHierarchyAdapter.class.getSimpleName();
-    private static final String CLASSNAME = "$type";
+
+    /*
+    * Another instance of Serializer to give an external context
+    */
+    private static final Gson GSON = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
 
     private static Map<String, String> productTypeMap = Maps.newHashMap();
 
@@ -55,6 +60,9 @@ public class ProductHierarchyAdapter implements JsonDeserializer<Product> {
     public Product deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
         JsonPrimitive jsonPrimitive = (JsonPrimitive) jsonObject.get(CLASSNAME);
+        if (jsonPrimitive == null) {//json does not have the property type => Map super Class
+            return GSON.fromJson(jsonObject, Product.class);
+        }
         String clientSideMappedClassName = productTypeMap.get(jsonPrimitive.getAsString());
 
         try {

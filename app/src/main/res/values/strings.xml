@@ -66,6 +66,14 @@
     <string name="last_transactions">Find last transactions</string>
     <!-- /Last transactions -->
 
+    <!-- Last transfers -->
+    <string name="transfer">Transfer</string>
+    <!-- /Last transfers -->
+
+    <!-- Last movements -->
+    <string name="movement">Movement</string>
+    <!-- /Last movements -->
+
     <!-- Glass Dialog -->
     <string name="action_dismiss">Dismiss</string>
     <!-- /Glass Dialog -->
@@ -79,7 +87,9 @@
     <!-- Closest branches -->
     <string name="find_place_branch">Branch</string>
     <string name="action_get_directions">Get directions</string>
+    <string name="action_call_branch">Call</string>
     <!-- /Closest branches -->
+
 
     <!-- Products Balances -->
     <string name="get_list_products">Products List</string>

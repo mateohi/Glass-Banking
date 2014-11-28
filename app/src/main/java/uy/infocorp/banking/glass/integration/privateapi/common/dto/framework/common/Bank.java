@@ -43,7 +43,13 @@ public class Bank {
 	public final List<Subsidiary> getSubsidairies(){ return privateSubsidairies; }
 	public final void setSubsidairies(List<Subsidiary> value){ privateSubsidairies = value; }*/
 
-    private Map<String, ExtendedPropertyValue> privateExtendedProperties;
-//	public final Map<String, ExtendedPropertyValue> getExtendedProperties(){ return privateExtendedProperties; }
-//	public final void setExtendedProperties(Map<String, ExtendedPropertyValue> value){ privateExtendedProperties = value; }
+    private Map<String, Object> extendedProperties;
+
+    public Map<String, Object> getExtendedProperties() {
+        return extendedProperties;
+    }
+
+    public void setExtendedProperties(Map<String, Object> extendedProperties) {
+        this.extendedProperties = extendedProperties;
+    }
 }
