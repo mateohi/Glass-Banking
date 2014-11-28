@@ -5,7 +5,6 @@ import android.util.Log;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityDeviceValidationResult;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityQuestionsAnswers;
@@ -15,10 +14,8 @@ import uy.infocorp.banking.glass.integration.privateapi.products.ProductsClient;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.async.SimpleAsyncTask;
 
-/**
- * Created by german on 02/11/2014.
- */
 public class GetProductsTask extends SimpleAsyncTask<List<Product>> {
+
     private static final String TAG = GetProductsTask.class.getSimpleName();
 
     public GetProductsTask(FinishedTaskListener<List<Product>> listener) {

@@ -25,7 +25,7 @@ public class PrivateUrls {
      * parameter 'top':Corresponds with the quantity of messages we want to get
      */
     //ToDo:el numero corresponde a la cantidad de mensajes que se quiere obtener
-    public static final String GET_INBOX_MESSAGES_URL = BASE_URL + "/framework/messaging?$top=%d";
+    public static final String GET_INBOX_MESSAGES_URL = BASE_URL + "/framework/messages?$top=%d";
     /**
      * Get third party accounts within the same bank
      */

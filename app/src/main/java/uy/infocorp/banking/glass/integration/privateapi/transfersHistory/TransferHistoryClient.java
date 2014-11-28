@@ -1,28 +1,20 @@
 package uy.infocorp.banking.glass.integration.privateapi.transfersHistory;
 
-import android.util.Log;
-
-import com.google.gson.JsonSyntaxException;
-
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
-import org.joda.time.DateTime;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import uy.infocorp.banking.glass.integration.Constants;
-import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.integration.privateapi.transfersHistory.dto.TransferHistoryResponseDTO;
-import uy.infocorp.banking.glass.util.date.DateUtils;
-import uy.infocorp.banking.glass.util.http.HttpUtils;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class TransferHistoryClient {
 
-    private static final String TAG = TransferHistoryClient.class.getSimpleName();
+    private static final String X_AUTH_TOKEN_HEADER_NAME = OfflineResourceUtils.getString(R.string.x_auth_header);
 
     private static TransferHistoryClient instance;
     private RestExecutionBuilder builder;
@@ -38,28 +30,24 @@ public class TransferHistoryClient {
         return instance;
     }
 
-    public List<Transfer> getLastTransfers(String authToken) throws Exception {
-        if (Constants.OFFLINE_MODE) {//test
-            return OfflineTransferHistoryClient.getLastTransfers();
+    public List<Transfer> getLastTransfers(String authToken) {
+        if (OfflineResourceUtils.offline()) {
+            Transfer[] transfers = OfflineResourceUtils.jsonToObject(R.raw.transfers,
+                    Transfer[].class);
+            return Arrays.asList(transfers);
         }
 
-        DateTime now = new DateTime();
-        DateTime twoDaysAgo = now.minusHours(Constants.TRANSFER_HISTORY_HOURS);
+        String formattedUrl = TransferHistoryUtils.buildFormattedUrl();
+        Header tokenHeader = new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, authToken);
 
-        String fromDate = DateUtils.dateTimeToIsoString(twoDaysAgo);
-        String toDate = DateUtils.dateTimeToIsoString(now);
+        TransferHistoryResponseDTO transferResponse = this.builder
+                .appendUrl(formattedUrl)
+                .appendHeader(tokenHeader)
+                .execute(TransferHistoryResponseDTO.class);
 
-        String formattedUrl = String.format(PrivateUrls.GET_TRANSFERS_HISTORY_URL, fromDate, toDate);
+        Transfer[] transfers = transferResponse.getItems();
 
-        Header tokenHeader = new BasicHeader(Constants.X_AUTH_TOKEN_HEADER_NAME, authToken);
-        TransferHistoryResponseDTO response = this.builder.appendUrl(formattedUrl).appendHeader(tokenHeader).execute(TransferHistoryResponseDTO.class);
-        Transfer[] transfers = response.getItems();
-
-        if (transfers.length > Constants.TRANSFER_MAX_HISTORY_LENGTH) {
-            transfers = Arrays.copyOf(transfers, Constants.TRANSFER_MAX_HISTORY_LENGTH);
-        }
-
-        return Arrays.asList(transfers);
+        return TransferHistoryUtils.getCorrectedTransfers(transfers);
     }
 
 

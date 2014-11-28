@@ -5,16 +5,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
-import uy.infocorp.banking.glass.integration.Constants;
-
-/**
- * Created by german on 21/11/2014.
- */
 public class Movement {
 
     private int id;
     private int accountId;
-    private Date movementDate = Constants.DATE_MIN_VALUE;
+    private Date movementDate = new Date(Long.MIN_VALUE);
     private BigDecimal amount;
     private boolean isDebit;
     private BigDecimal balance;

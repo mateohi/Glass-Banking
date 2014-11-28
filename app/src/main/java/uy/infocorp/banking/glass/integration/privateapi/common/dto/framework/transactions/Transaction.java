@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.authorization.Feature;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Currency;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
@@ -20,7 +19,7 @@ public class Transaction {
     private Product debitProduct;
     private Product creditProduct;
     private Integer creditThirdPartyAccountId;
-    private Date createdDate = Constants.DATE_MIN_VALUE;
+    private Date createdDate = new Date(Long.MIN_VALUE);
     private Date valueDate;
     private Date executionDate;
     private BigDecimal amount;

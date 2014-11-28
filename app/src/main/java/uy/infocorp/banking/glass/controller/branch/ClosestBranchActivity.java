@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -149,7 +150,6 @@ public class ClosestBranchActivity extends Activity {
     private void showNoBranchesView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("No branch found nearby")
-                .setTimestamp("Try again later")
                 .setIcon(R.drawable.ic_help)
                 .getView();
 

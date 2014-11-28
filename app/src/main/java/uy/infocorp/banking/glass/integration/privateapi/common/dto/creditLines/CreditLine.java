@@ -3,12 +3,11 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.creditLines;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 
 public class CreditLine extends Product {
 
-    private Date dueDate = Constants.DATE_MIN_VALUE;
+    private Date dueDate = new Date(Long.MIN_VALUE);
     private String revolving;
     private BigDecimal availableAmount = new BigDecimal(0);
     private BigDecimal totalAmount = new BigDecimal(0);

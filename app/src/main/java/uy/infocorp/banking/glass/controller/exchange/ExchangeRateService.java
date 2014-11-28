@@ -12,8 +12,8 @@ import android.widget.RemoteViews;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 import com.google.android.glass.widget.CardBuilder;
+import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -34,7 +34,7 @@ public class ExchangeRateService extends Service {
     private ScheduledExecutorService task;
 
     private LiveCard liveCard;
-    private List<ExchangeRateDTO> exchangeRates = new ArrayList<ExchangeRateDTO>();
+    private List<ExchangeRateDTO> exchangeRates = Lists.newArrayList();
     private boolean firstRates;
     private String alphaCode;
 

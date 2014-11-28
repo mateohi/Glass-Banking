@@ -49,7 +49,7 @@ public class TransactionBackendResponse {
     }
 
 //	public final Map<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> getExtendedProperties() { return extendedProperties; }
-//	public final void setExtendedProperties(java.util.HashMap<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> value) { extendedProperties = value; }
+//	public final void setExtendedProperties(Map<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> value) { extendedProperties = value; }
 
     public final int getTransactionId() {
         return transactionId;

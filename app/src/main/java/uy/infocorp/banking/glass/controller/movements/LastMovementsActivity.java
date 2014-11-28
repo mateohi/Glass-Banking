@@ -24,10 +24,10 @@ import java.util.List;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.transactions.GetLastTransfersTask;
-import uy.infocorp.banking.glass.integration.Constants;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class LastMovementsActivity extends Activity {
 
@@ -137,7 +137,7 @@ public class LastMovementsActivity extends Activity {
         int icon = getIconFromMovement(movement);
         String text = (String)(movement.getExtendedProperties().get("productCode"));
         String timestamp = DATE_FORMAT.format(movement.getMovementDate());
-        String footnote = Constants.MOVEMENT_CURRENCY_SYMBOL + movement.getAmount().toString();
+        String footnote = OfflineResourceUtils.getString(R.string.alpha_code) + movement.getAmount().toString();
 
         return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
                 .setIcon(icon)

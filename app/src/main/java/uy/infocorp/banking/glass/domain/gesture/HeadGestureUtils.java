@@ -1,6 +1,7 @@
 package uy.infocorp.banking.glass.domain.gesture;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 public class HeadGestureUtils {
@@ -32,7 +33,7 @@ public class HeadGestureUtils {
     }
 
     private static List<Float> differenciateValues(List<Float> values) {
-        List<Float> differences = new ArrayList<Float>();
+        List<Float> differences = Lists.newArrayList();
         Float[] angles = values.toArray(new Float[values.size()]);
 
         for (int i = 0; i < angles.length - 1; i++) {
@@ -43,7 +44,7 @@ public class HeadGestureUtils {
     }
 
     private static List<Float> simplifiedValues(Float[] values) {
-        List<Float> simplifiedValues = new ArrayList<Float>();
+        List<Float> simplifiedValues = Lists.newArrayList();
         for (int i = 0; i < values.length - 1; i++) {
             if (values[i] <= values[i + 1]) {
                 // Si estoy en una subida, agarro el mas alto de la subida

@@ -9,10 +9,8 @@ import uy.infocorp.banking.glass.integration.privateapi.messaging.MessagingClien
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.async.SimpleAsyncTask;
 
-/**
- * Created by german on 13/11/2014.
- */
 public class GetMessagesTask extends SimpleAsyncTask<List<Message>> {
+
     private static final String TAG = GetMessagesTask.class.getSimpleName();
 
     public GetMessagesTask(FinishedTaskListener<List<Message>> listener) {

@@ -1,0 +1,10 @@
+[
+    {
+        "thirdPartyAccountId": 1725588170,
+        "thirdPartyAccountNumber": "4007463516",
+        "extendedProperties": {
+            "productBankIdentifier": "2|4007463516"
+        },
+        "productType": "savingsAccount"
+    }
+]

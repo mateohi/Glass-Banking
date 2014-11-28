@@ -1,0 +1,101 @@
+[
+  {
+      "siteServicePaymentEntityId": 0,
+      "siteId": 0,
+      "accountIdentifier": "C515619516",
+      "creationDate": "1900-01-01T02:00:00Z",
+      "description": "ABC Electronics Security Systems",
+      "extendedProperties": {
+          "specialId": "442",
+          "merchantId": "2719"
+      }
+  },
+  {
+      "siteServicePaymentEntityId": 0,
+      "siteId": 0,
+      "accountIdentifier": "9",
+      "creationDate": "1900-01-01T02:00:00Z",
+      "description": "ABC Electronics Security Systems",
+      "extendedProperties": {
+          "specialId": "443",
+          "merchantId": "2719"
+      }
+  },
+  {
+      "siteServicePaymentEntityId": 0,
+      "siteId": 0,
+      "accountIdentifier": "15",
+      "creationDate": "1900-01-01T02:00:00Z",
+      "description": "AMEX",
+      "extendedProperties": {
+          "specialId": "449",
+          "merchantId": "32"
+      }
+  },
+  {
+      "siteServicePaymentEntityId": 0,
+      "siteId": 0,
+      "accountIdentifier": "02",
+      "creationDate": "1900-01-01T02:00:00Z",
+      "description": "ASUME",
+      "extendedProperties": {
+          "specialId": "451",
+          "merchantId": "33"
+      }
+  },
+  {
+      "siteServicePaymentEntityId": 0,
+      "siteId": 0,
+      "accountIdentifier": "0170000012",
+      "creationDate": "1900-01-01T02:00:00Z",
+      "description": "Comercio ACH Cie",
+      "extendedProperties": {
+          "specialId": "447",
+          "merchantId": "11"
+      }
+  },
+  {
+      "siteServicePaymentEntityId": 0,
+      "siteId": 0,
+      "accountIdentifier": "0145181981",
+      "creationDate": "1900-01-01T02:00:00Z",
+      "description": "Comercio ACH Cie",
+      "extendedProperties": {
+          "specialId": "444",
+          "merchantId": "11"
+      }
+  },
+  {
+      "siteServicePaymentEntityId": 0,
+      "siteId": 0,
+      "accountIdentifier": "501132185",
+      "creationDate": "1900-01-01T02:00:00Z",
+      "description": "Comercio ACH regular",
+      "extendedProperties": {
+          "specialId": "446",
+          "merchantId": "12"
+      }
+  },
+  {
+      "siteServicePaymentEntityId": 0,
+      "siteId": 0,
+      "accountIdentifier": "15612000122218189",
+      "creationDate": "1900-01-01T02:00:00Z",
+      "description": "Comercio con prefijos",
+      "extendedProperties": {
+          "specialId": "448",
+          "merchantId": "34"
+      }
+  },
+  {
+      "siteServicePaymentEntityId": 0,
+      "siteId": 0,
+      "accountIdentifier": "0051891869",
+      "creationDate": "1900-01-01T02:00:00Z",
+      "description": "JC Penny",
+      "extendedProperties": {
+          "specialId": "450",
+          "merchantId": "40"
+      }
+  }
+]

@@ -5,7 +5,7 @@
     <string name="alpha_code">UYU</string>
     <string name="bank_name">Bank</string>
 
-    <bool name="mock">false</bool>
+    <string name="x_auth_header">X-Auth-Token</string>
 
     <!-- Integration -->
     <string name="ic_api_host"></string>

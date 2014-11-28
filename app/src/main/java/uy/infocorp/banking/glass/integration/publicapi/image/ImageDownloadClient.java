@@ -6,10 +6,12 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.NoSuchElementException;
 
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.image.dto.ImageDTO;
 import uy.infocorp.banking.glass.util.graphics.BitmapUtils;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
+import uy.infocorp.banking.glass.util.offline.OfflineResourceUtils;
 
 public class ImageDownloadClient {
 
@@ -28,6 +30,11 @@ public class ImageDownloadClient {
     }
 
     public Bitmap getImage(int imageId) {
+        if (OfflineResourceUtils.offline()) {
+            ImageDTO image = OfflineResourceUtils.jsonToObject(R.raw.image_1, ImageDTO.class);
+            return BitmapUtils.base64ToBitmap(image.getImagePicture());
+        }
+
         String uri = String.format(PublicUrls.GET_IMAGE_URL, imageId);
         ImageDTO[] images = this.builder.appendUrl(uri).execute(ImageDTO[].class);
 

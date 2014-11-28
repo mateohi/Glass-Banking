@@ -6,7 +6,6 @@ import java.util.Map;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.Account;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditCards.CreditCard;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditLines.CreditLine;
-import uy.infocorp.banking.glass.integration.privateapi.common.dto.fixedDeposits.FixedTermDeposit;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.authorization.Feature;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.loans.Loan;
 
