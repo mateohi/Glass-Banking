@@ -18,12 +18,12 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.authenticatio
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInResult;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class AuthenticationClient extends BaseClient {
 
     private static final String TAG = AuthenticationClient.class.getSimpleName();
-    private static final String X_AUTH_TOKEN_HEADER_NAME = ResourceUtils.getString(R.string.x_auth_header);
+    private static final String X_AUTH_TOKEN_HEADER_NAME = Resources.getString(R.string.x_auth_header);
 
     private static AuthenticationClient instance;
     private RestExecutionBuilder builder;

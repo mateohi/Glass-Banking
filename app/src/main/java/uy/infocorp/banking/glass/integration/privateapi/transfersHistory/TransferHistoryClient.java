@@ -11,7 +11,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Tra
 import uy.infocorp.banking.glass.integration.privateapi.transfersHistory.dto.TransferHistoryResponseDTO;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class TransferHistoryClient extends BaseClient {
 
@@ -38,14 +38,14 @@ public class TransferHistoryClient extends BaseClient {
 
     @Override
     public Object getOffline() {
-        Transfer[] transfers = ResourceUtils.jsonToObject(R.raw.transfers,
+        Transfer[] transfers = Resources.jsonToObject(R.raw.transfers,
                 Transfer[].class);
         return Arrays.asList(transfers);
     }
 
     @Override
     public Object getOnline() {
-        String xAuthTokenHeaderName = ResourceUtils.getString(R.string.x_auth_header);
+        String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         String formattedUrl = TransferHistoryUtils.buildFormattedUrl();
         TransferHistoryResponseDTO transferResponse = this.builder

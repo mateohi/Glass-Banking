@@ -10,7 +10,7 @@ import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class ExchangeRateClient extends BaseClient{
 
@@ -48,14 +48,14 @@ public class ExchangeRateClient extends BaseClient{
     }
 
     @Override
-    public Object getOffline() {
+    protected Object getOffline() {
         ExchangeRateDTO[] exchangeRates = ResourceUtils.jsonToObject(R.raw.exchange_rates,
                 ExchangeRateDTO[].class);
         return Arrays.asList(exchangeRates);
     }
 
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         ExchangeRateDTO[] exchangeRates = this.builder.execute(ExchangeRateDTO[].class);
         return Arrays.asList(exchangeRates);
     }

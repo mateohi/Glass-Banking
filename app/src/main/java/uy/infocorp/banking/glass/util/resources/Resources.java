@@ -13,9 +13,9 @@ import uy.infocorp.banking.glass.exception.ResourceParsingException;
 import uy.infocorp.banking.glass.util.BankingApplication;
 import uy.infocorp.banking.glass.util.http.HttpUtils;
 
-public class ResourceUtils {
+public class Resources {
 
-    private static final String TAG = ResourceUtils.class.getSimpleName();
+    private static final String TAG = Resources.class.getSimpleName();
     private static Context context = BankingApplication.getContext();
 
     public static String getString(int id) {

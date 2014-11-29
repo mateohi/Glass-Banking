@@ -16,14 +16,14 @@ import uy.infocorp.banking.glass.domain.beacon.BeaconHandler;
 import uy.infocorp.banking.glass.domain.beacon.PlaceListener;
 import uy.infocorp.banking.glass.exception.BeaconMonitoringException;
 import uy.infocorp.banking.glass.exception.BluetoothException;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class EstimoteBeaconHandler extends BeaconHandler {
 
     private static final String TAG = EstimoteBeaconHandler.class.getSimpleName();
 
-    private static final String BEACONS_PROXIMITYUID = ResourceUtils.getString(R.string.beacons_proximity_uuid);
-    private static final Integer BEACONS_MAJOR = ResourceUtils.getInteger(R.integer.beacons_major);
+    private static final String BEACONS_PROXIMITYUID = Resources.getString(R.string.beacons_proximity_uuid);
+    private static final Integer BEACONS_MAJOR = Resources.getInteger(R.integer.beacons_major);
     private static final Region ALL_BRANCHES_REGION = new Region("rid", null, null, null);
 
     private BeaconManager beaconManager;

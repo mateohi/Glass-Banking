@@ -11,7 +11,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Mov
 import uy.infocorp.banking.glass.integration.privateapi.movementsHistory.dto.MovementHistoryResponseDTO;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class MovementHistoryClient extends BaseClient {
 
@@ -40,7 +40,7 @@ public class MovementHistoryClient extends BaseClient {
 
     @Override
     public Object getOffline() {
-        Movement[] movements = ResourceUtils.jsonToObject(R.raw.movements,
+        Movement[] movements = Resources.jsonToObject(R.raw.movements,
                 Movement[].class);
         return Arrays.asList(movements);
     }
@@ -48,7 +48,7 @@ public class MovementHistoryClient extends BaseClient {
     @Override
     public Object getOnline() {
         String formattedUrl = MovementHistoryUtils.buildFormattedUrl();
-        String xAuthTokenHeaderName = ResourceUtils.getString(R.string.x_auth_header);
+        String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
 
         MovementHistoryResponseDTO response = this.builder

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Enable offline mode -->
+    <bool name="offline_mode">true</bool>
+
+    <!-- Currency code and bank name -->
+    <string name="alpha_code">UYU</string>
+    <string name="bank_name">Bank</string>
+
+    <!-- Auth token header name -->
+    <string name="x_auth_header">X-Auth-Token</string>
+
+    <!-- Atms -->
+    <string name="interest_point_atm">atm</string>
+    <integer name="max_atms_to_show">3</integer>
+    <integer name="max_distance_atm">10</integer>
+
+    <!-- Branches -->
+    <string name="interest_point_branch">branch</string>
+    <integer name="max_branches_to_show">3</integer>
+    <integer name="max_distance_branch">10</integer>
+
+    <!-- Benefits -->
+    <integer name="max_distance_benefits">10</integer>
+
+    <!-- Transfer history -->
+    <integer name="transfer_max_history_length">10</integer>
+    <integer name="transfer_history_days">2</integer>
+
+    <!-- Movements history -->
+    <integer name="movement_max_history_length">10</integer>
+    <integer name="movement_history_days">2</integer>
+
+    <!-- Beacons TODO cambiar-->
+    <string name="beacons_proximity_uuid">UUID</string>
+    <integer name="beacons_major">10</integer>
+
+</resources>

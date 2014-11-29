@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import java.util.Arrays;
 import java.util.List;
 
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.info.PublicInfoClient;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.AssociatedPointOfInterestDTO;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.BenefitDTO;
@@ -15,11 +16,12 @@ import uy.infocorp.banking.glass.integration.publicapi.info.dto.PointsOfInterest
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
 import uy.infocorp.banking.glass.model.benefit.Benefit;
 import uy.infocorp.banking.glass.util.math.MathUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class BenefitsClient {
 
     private static final String TAG = BenefitsClient.class.getSimpleName();
-    private static final double MAX_DISTANCE_KM = 10;
+    private static final double MAX_DISTANCE_KM = Resources.getInteger(R.integer.max_distance_benefits);
 
     private static BenefitsClient instance;
 

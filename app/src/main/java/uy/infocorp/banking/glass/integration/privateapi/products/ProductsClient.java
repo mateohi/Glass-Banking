@@ -12,7 +12,7 @@ import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class ProductsClient extends BaseClient {
 
@@ -39,13 +39,13 @@ public class ProductsClient extends BaseClient {
 
     @Override
     public Object getOffline() {
-        Product[] products = ResourceUtils.jsonToObject(R.raw.products, Product[].class);
+        Product[] products = Resources.jsonToObject(R.raw.products, Product[].class);
         return Arrays.asList(products);
     }
 
     @Override
     public Object getOnline() {
-        String xAuthTokenHeaderName = ResourceUtils.getString(R.string.x_auth_header);
+        String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, authToken);
         Product[] products = builder.appendHeader(tokenHeader).execute(Product[].class);
 

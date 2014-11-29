@@ -12,7 +12,7 @@ import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.servicePayments.ServicePayment;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class ServicePaymentsClient extends BaseClient {
 
@@ -38,12 +38,12 @@ public class ServicePaymentsClient extends BaseClient {
 
     @Override
     public Object getOffline() {
-        return ResourceUtils.jsonToObject(R.raw.service_payments, ServicePayment.class);
+        return Resources.jsonToObject(R.raw.service_payments, ServicePayment.class);
     }
 
     @Override
     public Object getOnline() {
-        String xAuthTokenHeaderName = ResourceUtils.getString(R.string.x_auth_header);
+        String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         ServicePayment[] servicePaymentList = builder.appendHeader(tokenHeader).execute(ServicePayment[].class);
         return Arrays.asList(servicePaymentList);
