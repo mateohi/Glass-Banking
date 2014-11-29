@@ -433,6 +433,78 @@
                 "stateId": 6
             },
             "telephone": "4523 1571",
+            "type": "atm",
+            "workingHours": "Atención al público: Lunes a Viernes de 13:00 a 17:00 hs. | Autoservicio: 24 hs."
+        },
+        {
+            "address": "Av. Gorlero y 25",
+            "city": {
+                "cityId": 1,
+                "name": "Punta del Este"
+            },
+            "creationDate": "2014-07-07T21:11:58.703Z",
+            "email": "",
+            "id": 1775,
+            "imageId": 42,
+            "isDeleted": false,
+            "latitude": -34.96225,
+            "longitude": -54.94363,
+            "modifiedDate": "2014-07-07T21:11:58.703Z",
+            "name": "79 | Península",
+            "notes": "",
+            "state": {
+                "name": "Maldonado",
+                "stateId": 1
+            },
+            "telephone": "42444050",
+            "type": "atm",
+            "workingHours": "Atención al público: 13 - 17 hs. | Horario de Buzonera: 24 hs."
+        },
+        {
+            "address": "Calle 50 y 53, Ave. Nicanor de Obarrio Campo Alegre, Edificio St. Georges Bank. (al lado de antigua Mansión Danté)",
+            "city": {
+                "cityId": 22,
+                "name": "Obarrio"
+            },
+            "creationDate": "2014-07-07T21:11:58.703Z",
+            "email": "",
+            "id": 1904,
+            "imageId": 670,
+            "isDeleted": false,
+            "latitude": 9.010501,
+            "longitude": -79.57317,
+            "modifiedDate": "2014-07-07T21:11:58.703Z",
+            "name": "Casa Matriz",
+            "notes": "",
+            "state": {
+                "name": "Panamá",
+                "stateId": 33
+            },
+            "telephone": "3669773",
+            "type": "atm",
+            "workingHours": "Lunes a Viernes 8:30 a.m. a 4:00 p.m.\nSábados 9:00 a.m a 12:00 p.m."
+        },
+        {
+            "address": "Av. Gral. Flores 544",
+            "city": {
+                "cityId": 26,
+                "name": "Colonia"
+            },
+            "creationDate": "2014-07-07T21:11:58.703Z",
+            "email": "",
+            "id": 1774,
+            "imageId": 41,
+            "isDeleted": false,
+            "latitude": -34.470516,
+            "longitude": -57.84721,
+            "modifiedDate": "2014-07-07T21:11:58.703Z",
+            "name": "80 | Banca Preferencial Van Gogh Colonia",
+            "notes": "Fax: 4523 0812",
+            "state": {
+                "name": "Colonia",
+                "stateId": 6
+            },
+            "telephone": "4523 1571",
             "type": "branchWithExtendedHours",
             "workingHours": "Atención al público: Lunes a Viernes de 13:00 a 17:00 hs. | Autoservicio: 24 hs."
         },

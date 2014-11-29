@@ -43,7 +43,7 @@ public class EstimoteBeaconHandler extends BeaconHandler {
             throw new BluetoothException("Bluetooth not enabled");
         }
 
-        beaconManager.setBackgroundScanPeriod(TimeUnit.SECONDS.toMillis(1), 0);
+        beaconManager.setBackgroundScanPeriod(TimeUnit.SECONDS.toMillis(30), 0);
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> beacons) {

@@ -65,7 +65,7 @@ public class ClosestAtmActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.closest_branch, menu);
+        inflater.inflate(R.menu.closest_atm, menu);
         return true;
     }
 
