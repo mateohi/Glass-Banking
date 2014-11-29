@@ -3,10 +3,11 @@ package uy.infocorp.banking.glass.integration.publicapi.news;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.news.dto.NewsDTO;
+import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
-public class NewsClient {
+public class NewsClient extends BaseClient{
 
     private static NewsClient instance;
     private RestExecutionBuilder builder;
@@ -23,10 +24,16 @@ public class NewsClient {
     }
 
     public NewsDTO getNewsFeed() {
-        if (ResourceUtils.offline()) {
-            return ResourceUtils.jsonToObject(R.raw.news_feed, NewsDTO.class);
-        }
+        return (NewsDTO)this.execute();
+    }
 
+    @Override
+    public Object getOffline() {
+        return ResourceUtils.jsonToObject(R.raw.news_feed, NewsDTO.class);
+    }
+
+    @Override
+    public Object getOnline() {
         return this.builder.execute(NewsDTO.class);
     }
 }

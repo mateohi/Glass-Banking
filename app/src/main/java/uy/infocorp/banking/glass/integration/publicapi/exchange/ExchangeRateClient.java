@@ -8,10 +8,11 @@ import java.util.List;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
+import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
-public class ExchangeRateClient {
+public class ExchangeRateClient extends BaseClient{
 
     private static ExchangeRateClient instance;
     private RestExecutionBuilder builder;
@@ -43,14 +44,19 @@ public class ExchangeRateClient {
     }
 
     public List<ExchangeRateDTO> getExchangeRates() {
-        if (ResourceUtils.offline()) {
-            ExchangeRateDTO[] exchangeRates = ResourceUtils.jsonToObject(R.raw.exchange_rates,
-                    ExchangeRateDTO[].class);
-            return Arrays.asList(exchangeRates);
-        }
+        return (List<ExchangeRateDTO>)this.execute();
+    }
 
+    @Override
+    public Object getOffline() {
+        ExchangeRateDTO[] exchangeRates = ResourceUtils.jsonToObject(R.raw.exchange_rates,
+                ExchangeRateDTO[].class);
+        return Arrays.asList(exchangeRates);
+    }
+
+    @Override
+    public Object getOnline() {
         ExchangeRateDTO[] exchangeRates = this.builder.execute(ExchangeRateDTO[].class);
-
         return Arrays.asList(exchangeRates);
     }
 }

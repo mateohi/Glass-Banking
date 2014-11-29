@@ -3,10 +3,11 @@ package uy.infocorp.banking.glass.integration.publicapi.info;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
+import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.ResourceUtils;
 
-public class PublicInfoClient {
+public class PublicInfoClient extends BaseClient{
 
     private static PublicInfoClient instance;
     private RestExecutionBuilder builder;
@@ -23,11 +24,16 @@ public class PublicInfoClient {
     }
 
     public PublicInfoDTO getPublicInfo() {
-        if (ResourceUtils.offline()) {
-            return ResourceUtils.jsonToObject(R.raw.public_info, PublicInfoDTO.class);
-        }
-
-        return this.builder.execute(PublicInfoDTO.class);
+        return (PublicInfoDTO)this.execute();
     }
 
+    @Override
+    public Object getOffline() {
+        return ResourceUtils.jsonToObject(R.raw.public_info, PublicInfoDTO.class);
+    }
+
+    @Override
+    public Object getOnline() {
+        return this.builder.execute(PublicInfoDTO.class);
+    }
 }
