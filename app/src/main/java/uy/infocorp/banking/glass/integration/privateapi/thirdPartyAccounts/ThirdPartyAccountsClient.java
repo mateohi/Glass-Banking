@@ -44,7 +44,7 @@ public class ThirdPartyAccountsClient extends BaseClient {
     }
 
     @Override
-    public Object getOffline() {
+    protected Object getOffline() {
         if (localThirdPartyAccounts) {
             return Resources.jsonToObject(R.raw.accounts_local, Object.class);
         } else {
@@ -53,7 +53,7 @@ public class ThirdPartyAccountsClient extends BaseClient {
     }
 
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         ThirdPartyAccount[] servicePaymentList;

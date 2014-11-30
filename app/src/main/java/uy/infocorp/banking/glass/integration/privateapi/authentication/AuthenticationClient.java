@@ -99,7 +99,7 @@ public class AuthenticationClient extends BaseClient {
     }
 
     @Override
-    public Object getOffline() {
+    protected Object getOffline() {
         return "test";
     }
 
@@ -107,12 +107,11 @@ public class AuthenticationClient extends BaseClient {
      * Try to login and get the Authentication Token (executes both authentication steps)
      *
      * @return
-     * @throws java.io.UnsupportedEncodingException
      */
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         //1- LogOn
-        SignInResult signInResult = null;
+        SignInResult signInResult;
         try {
             signInResult = AuthenticationClient.instance().logOnFirstStep("prueba09", "1234");
         } catch (UnsupportedEncodingException e) {
@@ -123,8 +122,7 @@ public class AuthenticationClient extends BaseClient {
         Integer secretQuestionId = Integer.parseInt(signInResult.getSignInInformation().getSecurityQuestionsToAnswerForLoginDevice().get(0).getSecurityQuestionId());
         SecurityQuestionsAnswers questionAnswered = new SecurityQuestionsAnswers(secretQuestionId, "1111");
         //2- Security Device Validation
-        SecurityDeviceValidationResult securityDeviceValidationResult =
-                null;
+        SecurityDeviceValidationResult securityDeviceValidationResult;
         try {
             securityDeviceValidationResult = AuthenticationClient.instance().validateSecurityDeviceSecondStep(questionAnswered,
                     signInResult.getAuthToken());
@@ -140,9 +138,8 @@ public class AuthenticationClient extends BaseClient {
      * Try to login and get the Authentication Token (executes both authentication steps)
      *
      * @return
-     * @throws java.io.UnsupportedEncodingException
      */
-    public String completeLogOn() throws UnsupportedEncodingException {
+    public String completeLogOn() {
         return (String) (this.execute());
     }
 }

@@ -39,14 +39,14 @@ public class MovementHistoryClient extends BaseClient {
 
 
     @Override
-    public Object getOffline() {
+    protected Object getOffline() {
         Movement[] movements = Resources.jsonToObject(R.raw.movements,
                 Movement[].class);
         return Arrays.asList(movements);
     }
 
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         String formattedUrl = MovementHistoryUtils.buildFormattedUrl();
         String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);

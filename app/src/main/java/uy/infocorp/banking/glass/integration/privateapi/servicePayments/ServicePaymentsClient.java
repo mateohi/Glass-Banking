@@ -37,12 +37,12 @@ public class ServicePaymentsClient extends BaseClient {
     }
 
     @Override
-    public Object getOffline() {
+    protected Object getOffline() {
         return Resources.jsonToObject(R.raw.service_payments, ServicePayment.class);
     }
 
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         ServicePayment[] servicePaymentList = builder.appendHeader(tokenHeader).execute(ServicePayment[].class);

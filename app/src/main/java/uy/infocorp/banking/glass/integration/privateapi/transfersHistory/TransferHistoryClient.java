@@ -37,14 +37,14 @@ public class TransferHistoryClient extends BaseClient {
 
 
     @Override
-    public Object getOffline() {
+    protected Object getOffline() {
         Transfer[] transfers = Resources.jsonToObject(R.raw.transfers,
                 Transfer[].class);
         return Arrays.asList(transfers);
     }
 
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         String formattedUrl = TransferHistoryUtils.buildFormattedUrl();

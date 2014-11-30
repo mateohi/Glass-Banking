@@ -40,13 +40,13 @@ public class MessagingClient extends BaseClient {
     }
 
     @Override
-    public Object getOffline() {
+    protected Object getOffline() {
         Message[] messages = Resources.jsonToObject(R.raw.messages, Message[].class);
         return Arrays.asList(messages);
     }
 
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         Message[] messageList = builder.appendHeader(tokenHeader).execute(Message[].class);

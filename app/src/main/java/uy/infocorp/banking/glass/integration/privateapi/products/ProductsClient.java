@@ -38,13 +38,13 @@ public class ProductsClient extends BaseClient {
     }
 
     @Override
-    public Object getOffline() {
+    protected Object getOffline() {
         Product[] products = Resources.jsonToObject(R.raw.products, Product[].class);
         return Arrays.asList(products);
     }
 
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, authToken);
         Product[] products = builder.appendHeader(tokenHeader).execute(Product[].class);
