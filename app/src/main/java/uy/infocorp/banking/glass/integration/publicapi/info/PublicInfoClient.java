@@ -29,7 +29,7 @@ public class PublicInfoClient extends BaseClient{
 
     @Override
     protected Object getOffline() {
-        return ResourceUtils.jsonToObject(R.raw.public_info, PublicInfoDTO.class);
+        return Resources.jsonToObject(R.raw.public_info, PublicInfoDTO.class);
     }
 
     @Override

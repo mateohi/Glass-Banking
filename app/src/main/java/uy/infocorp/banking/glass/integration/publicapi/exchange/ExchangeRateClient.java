@@ -49,7 +49,7 @@ public class ExchangeRateClient extends BaseClient{
 
     @Override
     protected Object getOffline() {
-        ExchangeRateDTO[] exchangeRates = ResourceUtils.jsonToObject(R.raw.exchange_rates,
+        ExchangeRateDTO[] exchangeRates = Resources.jsonToObject(R.raw.exchange_rates,
                 ExchangeRateDTO[].class);
         return Arrays.asList(exchangeRates);
     }

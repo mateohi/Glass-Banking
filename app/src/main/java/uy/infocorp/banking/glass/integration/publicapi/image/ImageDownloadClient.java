@@ -38,7 +38,7 @@ public class ImageDownloadClient extends BaseClient{
 
     @Override
     protected Object getOffline() {
-        ImageDTO image = ResourceUtils.jsonToObject(R.raw.image_1, ImageDTO.class);
+        ImageDTO image = Resources.jsonToObject(R.raw.image_1, ImageDTO.class);
         return BitmapUtils.base64ToBitmap(image.getImagePicture());
     }
 

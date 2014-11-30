@@ -71,7 +71,7 @@ public class LastMovementsActivity extends Activity {
         setContentView(initialView);
     }
 
-    private void showNoTransactionsView() {
+    private void showNoMovementsView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("No movements found")
                 .setIcon(R.drawable.ic_help)
@@ -97,7 +97,7 @@ public class LastMovementsActivity extends Activity {
                 if (movements == null) {
                     showErrorView();
                 } else if (movements.isEmpty()) {
-                    showNoTransactionsView();
+                    showNoMovementsView();
                 } else {
                     LastMovementsActivity.this.movements = movements;
 

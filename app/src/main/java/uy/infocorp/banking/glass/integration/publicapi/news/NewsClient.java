@@ -29,7 +29,7 @@ public class NewsClient extends BaseClient{
 
     @Override
     protected Object getOffline() {
-        return ResourceUtils.jsonToObject(R.raw.news_feed, NewsDTO.class);
+        return Resources.jsonToObject(R.raw.news_feed, NewsDTO.class);
     }
 
     @Override
