@@ -103,6 +103,24 @@
         <!-- /Closest branches -->
 
 
+        <!-- Convert price -->
+        <activity
+            android:name=".controller.convertion.ConvertPriceActivity"
+            android:enabled="true"
+            android:icon="@drawable/logo_ic"
+            android:immersive="true"
+            android:label="@string/convert_price">
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/convert_price_voice_trigger" />
+        </activity>
+        <!-- /Convert price -->
+
+
         <!-- Beacon listener (rating && welcome) -->
         <receiver android:name=".controller.boot.BootCompletedReceiver">
             <intent-filter>

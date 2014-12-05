@@ -74,6 +74,10 @@
     <string name="action_call_branch">Call</string>
     <!-- /Closest branches -->
 
+    <!-- Convert prices -->
+    <string name="convert_price">Convert price</string>
+    <!-- /Convert prices -->
+
     <!-- Products Balances -->
     <string name="get_list_products">Products List</string>
     <!-- /Products Balances -->
