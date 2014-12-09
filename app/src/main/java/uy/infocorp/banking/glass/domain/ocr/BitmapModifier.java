@@ -7,7 +7,6 @@ import android.graphics.Paint;
 
 public class BitmapModifier {
 
-
     public static Bitmap byFour(Bitmap original) {
         int oldWidth = original.getWidth();
         int oldHeight = original.getHeight();

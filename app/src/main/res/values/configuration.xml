@@ -10,6 +10,10 @@
     <!-- Auth token header name -->
     <string name="x_auth_header">X-Auth-Token</string>
 
+    <!-- Price convertion / Tesseract -->
+    <string name="tess_data_path">/DCIM/tesseract-ocr</string>
+    <string name="tess_data_lang">eng</string>
+
     <!-- Atms -->
     <string name="interest_point_atm">atm</string>
     <integer name="max_atms_to_show">3</integer>
