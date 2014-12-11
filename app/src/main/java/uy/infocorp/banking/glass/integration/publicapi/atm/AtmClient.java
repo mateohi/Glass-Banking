@@ -49,7 +49,7 @@ public class AtmClient {
             float distanceToAtm = getDistance(location, pointOfInterest.getLatitude(),
                     pointOfInterest.getLongitude());
 
-            if (INTEREST_POINT_ATM.equals(type) && MAX_DISTANCE_KM <= distanceToAtm) {
+            if (INTEREST_POINT_ATM.equals(type) && distanceToAtm < MAX_DISTANCE_KM) {
                 atms.add(pointOfInterest);
             }
         }

@@ -24,6 +24,7 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import com.google.android.glass.widget.Slider;
 import com.google.common.collect.Lists;
 
 import java.text.NumberFormat;
@@ -41,6 +42,7 @@ public class ClosestAtmActivity extends Activity {
 
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Atm> atms = Lists.newArrayList();
+    private Slider.Indeterminate slider;
     private Atm selectedAtm;
     private LocationManager locationManager;
     private Location location;
@@ -133,9 +135,11 @@ public class ClosestAtmActivity extends Activity {
 
     private void showInitialView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Loading...")
+                .setText("Getting closest ATMs")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
+
+        this.slider = Slider.from(initialView).startIndeterminate();
 
         setContentView(initialView);
     }
@@ -163,6 +167,9 @@ public class ClosestAtmActivity extends Activity {
         new GetClosestAtmsTask(new FinishedTaskListener<List<Atm>>() {
             @Override
             public void onResult(List<Atm> atms) {
+                slider.hide();
+                slider = null;
+
                 if (atms == null) {
                     showErrorView();
                 } else if (atms.isEmpty()) {
