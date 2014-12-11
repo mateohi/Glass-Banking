@@ -24,6 +24,7 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import com.google.android.glass.widget.Slider;
 import com.google.common.collect.Lists;
 
 import java.text.NumberFormat;
@@ -41,6 +42,7 @@ public class ClosestBranchActivity extends Activity {
 
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Branch> branches = Lists.newArrayList();
+    private Slider.Indeterminate slider;
     private Branch selectedBranch;
     private LocationManager locationManager;
     private Location location;
@@ -144,9 +146,11 @@ public class ClosestBranchActivity extends Activity {
 
     private void showInitialView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Loading...")
+                .setText("Getting closest branches")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
+
+        this.slider = Slider.from(initialView).startIndeterminate();
 
         setContentView(initialView);
     }
@@ -174,6 +178,9 @@ public class ClosestBranchActivity extends Activity {
         new GetClosestBranchesTask(new FinishedTaskListener<List<Branch>>() {
             @Override
             public void onResult(List<Branch> branches) {
+                slider.hide();
+                slider = null;
+
                 if (branches == null) {
                     showErrorView();
                 } else if (branches.isEmpty()) {
