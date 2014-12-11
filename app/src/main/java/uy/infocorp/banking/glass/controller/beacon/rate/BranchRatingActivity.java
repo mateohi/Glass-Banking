@@ -58,7 +58,7 @@ public class BranchRatingActivity extends Activity {
     private View buildLoadingView() {
         return new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Submitting review")
-                .setIcon(R.drawable.loading_candy)
+                .setIcon(R.drawable.ic_sync)
                 .getView();
     }
 

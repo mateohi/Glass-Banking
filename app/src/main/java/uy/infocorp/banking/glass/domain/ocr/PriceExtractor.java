@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class PriceExtractor {
 
-    public static String extractPrice(String text, List<String> symbols) {
+    public static Pair<String, Double> extractPrice(String text, List<String> symbols) {
         Set<Pair<String, Double>> possiblePrices = extractPossiblePrices(text, symbols);
 
         int matches = possiblePrices.size();
@@ -18,8 +18,7 @@ public class PriceExtractor {
         if (matches == 0) {
             return null;
         } else if (matches == 1) {
-            Pair<String, Double> pair = possiblePrices.iterator().next();
-            return pair.first + " " + pair.second;
+            return possiblePrices.iterator().next();
         } else {
             throw new RuntimeException("Unable to identify between several possible prices");
         }
