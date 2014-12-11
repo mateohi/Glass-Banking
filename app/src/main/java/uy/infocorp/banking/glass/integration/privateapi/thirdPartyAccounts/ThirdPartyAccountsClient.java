@@ -11,7 +11,7 @@ import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class ThirdPartyAccountsClient extends BaseClient {
 
@@ -44,17 +44,17 @@ public class ThirdPartyAccountsClient extends BaseClient {
     }
 
     @Override
-    public Object getOffline() {
+    protected Object getOffline() {
         if (localThirdPartyAccounts) {
-            return ResourceUtils.jsonToObject(R.raw.accounts_local, Object.class);
+            return Resources.jsonToObject(R.raw.accounts_local, Object.class);
         } else {
-            return ResourceUtils.jsonToObject(R.raw.accounts_in_country, Object.class);
+            return Resources.jsonToObject(R.raw.accounts_in_country, Object.class);
         }
     }
 
     @Override
-    public Object getOnline() {
-        String xAuthTokenHeaderName = ResourceUtils.getString(R.string.x_auth_header);
+    protected Object getOnline() {
+        String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         ThirdPartyAccount[] servicePaymentList;
         if (localThirdPartyAccounts) {

@@ -6,10 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.glass.permission.DEVELOPMENT" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".util.BankingApplication"
@@ -101,6 +101,24 @@
                 android:resource="@xml/find_place_voice_trigger" />
         </activity>
         <!-- /Closest branches -->
+
+
+        <!-- Convert price -->
+        <activity
+            android:name=".controller.convertion.ConvertPriceActivity"
+            android:enabled="true"
+            android:icon="@drawable/logo_ic"
+            android:immersive="true"
+            android:label="@string/convert_price">
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/convert_price_voice_trigger" />
+        </activity>
+        <!-- /Convert price -->
 
 
         <!-- Beacon listener (rating && welcome) -->

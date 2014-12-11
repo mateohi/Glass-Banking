@@ -12,7 +12,7 @@ import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.messaging.Message;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class MessagingClient extends BaseClient {
 
@@ -40,14 +40,14 @@ public class MessagingClient extends BaseClient {
     }
 
     @Override
-    public Object getOffline() {
-        Message[] messages = ResourceUtils.jsonToObject(R.raw.messages, Message[].class);
+    protected Object getOffline() {
+        Message[] messages = Resources.jsonToObject(R.raw.messages, Message[].class);
         return Arrays.asList(messages);
     }
 
     @Override
-    public Object getOnline() {
-        String xAuthTokenHeaderName = ResourceUtils.getString(R.string.x_auth_header);
+    protected Object getOnline() {
+        String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
         Message[] messageList = builder.appendHeader(tokenHeader).execute(Message[].class);
         return Arrays.asList(messageList);

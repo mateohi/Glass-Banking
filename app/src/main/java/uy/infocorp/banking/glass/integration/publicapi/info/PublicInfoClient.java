@@ -5,7 +5,7 @@ import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class PublicInfoClient extends BaseClient{
 
@@ -28,12 +28,12 @@ public class PublicInfoClient extends BaseClient{
     }
 
     @Override
-    public Object getOffline() {
-        return ResourceUtils.jsonToObject(R.raw.public_info, PublicInfoDTO.class);
+    protected Object getOffline() {
+        return Resources.jsonToObject(R.raw.public_info, PublicInfoDTO.class);
     }
 
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         return this.builder.execute(PublicInfoDTO.class);
     }
 }

@@ -25,7 +25,7 @@ import java.util.List;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class LastMovementsActivity extends Activity {
 
@@ -71,7 +71,7 @@ public class LastMovementsActivity extends Activity {
         setContentView(initialView);
     }
 
-    private void showNoTransactionsView() {
+    private void showNoMovementsView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("No movements found")
                 .setIcon(R.drawable.ic_help)
@@ -97,7 +97,7 @@ public class LastMovementsActivity extends Activity {
                 if (movements == null) {
                     showErrorView();
                 } else if (movements.isEmpty()) {
-                    showNoTransactionsView();
+                    showNoMovementsView();
                 } else {
                     LastMovementsActivity.this.movements = movements;
 
@@ -135,7 +135,7 @@ public class LastMovementsActivity extends Activity {
         int icon = getIconFromMovement(movement);
         String text = (String) (movement.getExtendedProperties().get("productCode"));
         String timestamp = DATE_FORMAT.format(movement.getMovementDate());
-        String footnote = ResourceUtils.getString(R.string.alpha_code) + movement.getAmount().toString();
+        String footnote = Resources.getString(R.string.alpha_code) + movement.getAmount().toString();
 
         return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
                 .setIcon(icon)

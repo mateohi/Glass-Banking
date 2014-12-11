@@ -294,7 +294,7 @@
             "latitude": -34.90589,
             "longitude": -56.1947,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "71 | Banca Preferencial Van Gogh Centro",
+            "name": "Van Gogh Centro",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -322,7 +322,7 @@
             "latitude": -34.92201,
             "longitude": -56.16189,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "70 | Golf",
+            "name": "Golf",
             "notes": "Red Banred.\r\nOtros teléfonos: 2711 9862 - 2711 0893\r\nFax: 2711 2467",
             "state": {
                 "name": "Montevideo",
@@ -350,7 +350,7 @@
             "latitude": -34.72697,
             "longitude": -56.21727,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "34 | Las Piedras",
+            "name": "Banred Las Piedras",
             "notes": "Red Banred",
             "state": {
                 "name": "Canelones",
@@ -374,7 +374,7 @@
             "latitude": -34.72633,
             "longitude": -55.95781,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "15 | Pando",
+            "name": "Banred Pando",
             "notes": "Red Banred",
             "state": {
                 "name": "Canelones",
@@ -761,7 +761,7 @@
             "latitude": -34.89146,
             "longitude": -56.18496,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "10% de descuento en repuestos",
+            "name": "Mecanico pepe",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -788,7 +788,7 @@
             "latitude": -34.88041,
             "longitude": -56.143932,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "2x1 en calzado infantil",
+            "name": "GAP",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -815,7 +815,7 @@
             "latitude": -34.89653,
             "longitude": -56.127796,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "Refresco gratis con tu entrada al cine",
+            "name": "Moviecenter",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -842,7 +842,7 @@
             "latitude": -34.919548,
             "longitude": -56.153545,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "Te ahorras la matrícula de inscripción al gym",
+            "name": "Bethel spa",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -869,7 +869,7 @@
             "latitude": -34.91117,
             "longitude": -56.18934,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "50% de descuento en el segundo juego de sábanas",
+            "name": "Divino",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -896,7 +896,7 @@
             "latitude": -34.867027,
             "longitude": -56.120155,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "Envío gratuito del arreglo floral",
+            "name": "Gabriel flores",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -923,7 +923,7 @@
             "latitude": -34.890194,
             "longitude": -56.10574,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "15% de descuento en tu cena",
+            "name": "Man vs Food",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -950,7 +950,7 @@
             "latitude": -34.850407,
             "longitude": -56.16659,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "10% de descuento en tu primer semestre",
+            "name": "Universidad ORT",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -977,7 +977,7 @@
             "latitude": -34.889137,
             "longitude": -56.06943,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "5% en productos alimenticios",
+            "name": "Tiend Inglesa",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -1004,7 +1004,7 @@
             "latitude": -34.881184,
             "longitude": -56.04557,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "Un pendrive gratis con tu compra",
+            "name": "Net PC",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -1031,7 +1031,7 @@
             "latitude": -34.8366,
             "longitude": -56.224873,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "Seguro de viaje incluído en el pasaje",
+            "name": "Despegar.com",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -1070,7 +1070,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "20% de descuento en llantas",
             "type": "automobiles"
         },
         {
@@ -1096,7 +1096,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "2 por 1 en ropa de mujer",
             "type": "clothesAndFootwear"
         },
         {
@@ -1122,7 +1122,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "10% de descuento los martes",
             "type": "entertainment"
         },
         {
@@ -1148,7 +1148,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "2 por 1 los viernes",
             "type": "healthAndSport"
         },
         {
@@ -1174,7 +1174,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "20% de descuento",
             "type": "home"
         },
         {
@@ -1200,7 +1200,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "2 por uno todos los dias",
             "type": "others"
         },
         {
@@ -1226,7 +1226,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "Postre de regalo",
             "type": "restaurants"
         },
         {
@@ -1252,7 +1252,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "10% de descuento",
             "type": "services"
         },
         {
@@ -1278,7 +1278,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "Jugo de regalo",
             "type": "supermarketsAndStores"
         },
         {
@@ -1304,7 +1304,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "35% de descuento",
             "type": "technology"
         },
         {
@@ -1330,7 +1330,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "",
+            "title": "100 millas por cada compra",
             "type": "travelAndTourism"
         }
     ],

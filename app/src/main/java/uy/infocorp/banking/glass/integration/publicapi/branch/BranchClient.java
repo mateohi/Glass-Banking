@@ -10,18 +10,22 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.image.ImageDownloadClient;
 import uy.infocorp.banking.glass.integration.publicapi.info.PublicInfoClient;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PointsOfInterestDTO;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
 import uy.infocorp.banking.glass.model.benefit.Branch;
 import uy.infocorp.banking.glass.util.math.MathUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class BranchClient {
 
     private static final String TAG = BranchClient.class.getSimpleName();
-    private static final String INTEREST_POINT_BRANCH = "branch";
-    private static final double MAX_DISTANCE_KM = 10;
+
+    private static final String INTEREST_POINT_BRANCH = Resources.getString(R.string.interest_point_branch);
+    private static final double MAX_DISTANCE_KM = Resources.getInteger(R.integer.max_distance_branch);
+    private static final int MAX_BRANCHES_TO_SHOW = Resources.getInteger(R.integer.max_atms_to_show);
 
     private static BranchClient instance;
 
@@ -99,7 +103,7 @@ public class BranchClient {
 
                 branches.add(branch);
 
-                if (branches.size() == 3) {
+                if (branches.size() == MAX_BRANCHES_TO_SHOW) {
                     break;
                 }
             } catch (Exception e) {

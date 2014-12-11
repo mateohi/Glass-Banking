@@ -10,18 +10,22 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.image.ImageDownloadClient;
 import uy.infocorp.banking.glass.integration.publicapi.info.PublicInfoClient;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PointsOfInterestDTO;
 import uy.infocorp.banking.glass.integration.publicapi.info.dto.PublicInfoDTO;
 import uy.infocorp.banking.glass.model.benefit.Atm;
 import uy.infocorp.banking.glass.util.math.MathUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class AtmClient {
 
     private static final String TAG = AtmClient.class.getSimpleName();
-    private static final String INTEREST_POINT_ATM = "atm";
-    private static final double MAX_DISTANCE_KM = 10;
+
+    private static final String INTEREST_POINT_ATM = Resources.getString(R.string.interest_point_atm);
+    private static final double MAX_DISTANCE_KM = Resources.getInteger(R.integer.max_distance_atm);
+    private static final int MAX_ATMS_TO_SHOW = Resources.getInteger(R.integer.max_atms_to_show);
 
     private static AtmClient instance;
 
@@ -91,7 +95,7 @@ public class AtmClient {
 
                 atms.add(atm);
 
-                if (atms.size() == 3) {
+                if (atms.size() == MAX_ATMS_TO_SHOW) {
                     break;
                 }
             } catch (Exception e) {

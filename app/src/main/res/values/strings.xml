@@ -2,20 +2,6 @@
 <resources>
 
     <string name="app_name">ICBankingGlass</string>
-    <string name="alpha_code">UYU</string>
-    <string name="bank_name">Bank</string>
-
-    <string name="x_auth_header">X-Auth-Token</string>
-
-    <!-- Integration -->
-    <string name="ic_api_host"></string>
-    <string name="ic_api_port"></string>
-    <string name="ic_api_exchange_rates_path"></string>
-    <string name="ic_api_public_info_path"></string>
-    <string name="ic_security_question_id"></string>
-    <string name="ic_security_question_answer"></string>
-    <!-- /Integration -->
-
 
     <!-- Exchange rates -->
     <string name="title_activity_exchange_rate_service">Exchange rates</string>
@@ -25,7 +11,6 @@
     <string name="buy_header">Buy</string>
     <string name="sell_header">Sell</string>
     <!-- /Exchange rates -->
-
 
     <!-- Benefits -->
     <string name="maps_intent_uri" formatted="false">google.navigation:ll=%s,%s&amp;mode=w&amp;title=%s</string>
@@ -63,7 +48,6 @@
     <string name="show_me_benefits">Show me benefits</string>
     <!-- /Benefits -->
 
-
     <!-- Last transactions -->
     <string name="last_transactions">Find last transactions</string>
     <!-- /Last transactions -->
@@ -80,11 +64,9 @@
     <string name="action_dismiss">Dismiss</string>
     <!-- /Glass Dialog -->
 
-
     <!-- Closest ATMs -->
     <string name="find_place_atm">ATM</string>
     <!-- /Closest ATMs -->
-
 
     <!-- Closest branches -->
     <string name="find_place_branch">Branch</string>
@@ -92,13 +74,13 @@
     <string name="action_call_branch">Call</string>
     <!-- /Closest branches -->
 
+    <!-- Convert prices -->
+    <string name="convert_price">Convert price</string>
+    <!-- /Convert prices -->
 
     <!-- Products Balances -->
     <string name="get_list_products">Products List</string>
     <!-- /Products Balances -->
-
-    <!-- TODO cambiar -->
-    <string name="beacons_proximity_uuid">UUID</string>
 
     <string name="title_activity_closest_atm">ClosestAtmActivity</string>
     <string name="action_settings">Settings</string>

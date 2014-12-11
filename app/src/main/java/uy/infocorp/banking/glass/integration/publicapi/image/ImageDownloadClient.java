@@ -12,7 +12,7 @@ import uy.infocorp.banking.glass.integration.publicapi.image.dto.ImageDTO;
 import uy.infocorp.banking.glass.util.graphics.BitmapUtils;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.ResourceUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class ImageDownloadClient extends BaseClient{
 
@@ -37,13 +37,13 @@ public class ImageDownloadClient extends BaseClient{
     }
 
     @Override
-    public Object getOffline() {
-        ImageDTO image = ResourceUtils.jsonToObject(R.raw.image_1, ImageDTO.class);
+    protected Object getOffline() {
+        ImageDTO image = Resources.jsonToObject(R.raw.image_1, ImageDTO.class);
         return BitmapUtils.base64ToBitmap(image.getImagePicture());
     }
 
     @Override
-    public Object getOnline() {
+    protected Object getOnline() {
         String uri = String.format(PublicUrls.GET_IMAGE_URL, this.imageId);
         ImageDTO[] images = this.builder.appendUrl(uri).execute(ImageDTO[].class);
 
