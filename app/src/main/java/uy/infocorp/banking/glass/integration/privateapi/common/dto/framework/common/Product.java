@@ -3,6 +3,7 @@ package uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.co
 import java.util.List;
 import java.util.Map;
 
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.Account;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditCards.CreditCard;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditLines.CreditLine;
@@ -191,7 +192,7 @@ public class Product {
 
     public final String getConsolidatedPositionBalance() {
         StringBuilder balanceSb = new StringBuilder();
-        balanceSb.append(this.getCurrency().getCurrencyDescription()).append(" ");
+        balanceSb.append("USD ");
         switch (productType) {
             case currentAccount:
                 balanceSb.append(((Account) this).getAccountCountableBalance());
@@ -221,5 +222,28 @@ public class Product {
                 throw new IllegalStateException("No se pudo parsear el ProductType del producto");
         }
         return balanceSb.toString();
+    }
+
+    public int getProductIconId() {
+        switch (productType) {
+            case currentAccount:
+                return R.drawable.current_account;
+            case savingsAccount:
+                return R.drawable.savings_account;
+            case investment:
+                return R.drawable.current_account;
+            case creditLine:
+                return R.drawable.credit_line;
+            case fixedTermDeposit:
+                return R.drawable.fixed_deposit;
+            case creditCard:
+                return R.drawable.credit_card;
+            case loan:
+                return R.drawable.loan;
+            case undefined://Undefined is mapped with Mortgage and instantiated with Loan
+                return R.drawable.current_account;
+            default:
+                throw new IllegalStateException("No se pudo encontrar el iconId del producto");
+        }
     }
 }
