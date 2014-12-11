@@ -21,6 +21,7 @@ public class GetProductsTask extends SimpleAsyncTask<List<Product>> {
     @Override
     protected List<Product> doInBackground(Object... params) {
         try {
+            Thread.sleep(1000);
             String authToken = AuthenticationClient.instance().completeLogOn();
             // Load Consolidate Position
             return ProductsClient.instance().getConsolidatedPosition(authToken);

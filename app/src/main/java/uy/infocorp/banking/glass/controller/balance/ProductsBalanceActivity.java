@@ -16,6 +16,7 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import com.google.android.glass.widget.Slider;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -70,8 +71,9 @@ public class ProductsBalanceActivity extends Activity {
                 .setText("Loading...")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
-
         setContentView(initialView);
+        Slider.Indeterminate indeterminate = Slider.from(initialView).startIndeterminate();
+        indeterminate.show();
     }
 
     private void showNoProductsView() {
@@ -140,14 +142,14 @@ public class ProductsBalanceActivity extends Activity {
         String balance = product.getConsolidatedPositionBalance();
         String footnote = product.getProductNumber();
         String accountDescription = product.getProductTypeDescription();
-
+        int iconId = product.getProductIconId();
         String timestamp = "just now";
 
         return new CardBuilder(this, CardBuilder.Layout.COLUMNS)
                 .setText(accountDescription + "\n" + alias + "\n" + balance)
                 .setFootnote(footnote)
                 .setTimestamp(timestamp)
-                .setIcon(R.drawable.balance_money);
+                .setIcon(iconId);
     }
 
     private class ProductCardScrollAdapter extends CardScrollAdapter {
