@@ -231,7 +231,7 @@ public class Product {
             case savingsAccount:
                 return R.drawable.savings_account;
             case investment:
-                return R.drawable.current_account;
+                return R.drawable.investment;
             case creditLine:
                 return R.drawable.credit_line;
             case fixedTermDeposit:
@@ -241,7 +241,7 @@ public class Product {
             case loan:
                 return R.drawable.loan;
             case undefined://Undefined is mapped with Mortgage and instantiated with Loan
-                return R.drawable.current_account;
+                return R.drawable.mortgage;
             default:
                 throw new IllegalStateException("No se pudo encontrar el iconId del producto");
         }
