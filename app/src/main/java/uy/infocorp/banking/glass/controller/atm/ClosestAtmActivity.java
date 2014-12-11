@@ -150,13 +150,13 @@ public class ClosestAtmActivity extends Activity {
     }
 
     private void showErrorView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+        View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get closest ATMs")
                 .setFootnote("Check your internet connection")
                 .setIcon(R.drawable.ic_warning)
                 .getView();
 
-        setContentView(initialView);
+        setContentView(errorView);
     }
 
     private void createCards() {
