@@ -1,31 +1,16 @@
 package uy.infocorp.banking.glass.domain.ocr;
 
-import android.util.Pair;
-
 import com.google.common.collect.Sets;
 
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import uy.infocorp.banking.glass.model.common.Price;
+
 public class PriceExtractor {
 
-    public static Pair<String, Double> extractPrice(String text, List<String> symbols) {
-        Set<Pair<String, Double>> possiblePrices = extractPossiblePrices(text, symbols);
-
-        int matches = possiblePrices.size();
-
-        if (matches == 0) {
-            return null;
-        } else if (matches == 1) {
-            return possiblePrices.iterator().next();
-        } else {
-            throw new RuntimeException("Unable to identify between several possible prices");
-        }
-    }
-
-    private static Set<Pair<String, Double>> extractPossiblePrices(String text, List<String> symbols) {
-        Set<Pair<String, Double>> values = Sets.newHashSet();
+    public static Set<Price> extractPossiblePrices(String text, Set<String> symbols) {
+        Set<Price> prices = Sets.newHashSet();
 
         for (String symbol : symbols) {
             if (text.contains(symbol)) {
@@ -35,12 +20,18 @@ public class PriceExtractor {
                     String value = subText.trim().split(Pattern.quote(" "))[0];
 
                     if (isNumber(value)) {
-                        values.add(Pair.create(symbol, Double.parseDouble(value)));
+                        double amount = Double.parseDouble(value);
+
+                        Price price = new Price();
+                        price.setAmount(amount);
+                        price.setSymbol(symbol);
+
+                        prices.add(price);
                     }
                 }
             }
         }
-        return values;
+        return prices;
     }
 
     private static boolean isNumber(String value) {

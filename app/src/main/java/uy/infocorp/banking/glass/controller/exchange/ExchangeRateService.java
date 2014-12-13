@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.ExchangeRateClient;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
+import uy.infocorp.banking.glass.util.format.PriceFormat;
 import uy.infocorp.banking.glass.util.view.dialog.GlassDialog;
 
 public class ExchangeRateService extends Service {
@@ -122,10 +123,10 @@ public class ExchangeRateService extends Service {
     private RemoteViews createRowRemoteView(int position) {
         ExchangeRateDTO exchangeRate = this.exchangeRates.get(position);
 
-        String description = exchangeRate.getDestinationCurrencyDTO().getCurrencyDescription();
-        String alphaCode = exchangeRate.getDestinationCurrencyDTO().getCurrencyAlpha3Code();
-        String buy = exchangeRate.getBuyRate();
-        String sell = exchangeRate.getSellRate();
+        String description = exchangeRate.getDestinationCurrency().getCurrencyDescription();
+        String alphaCode = exchangeRate.getDestinationCurrency().getCurrencyAlpha3Code();
+        String buy = PriceFormat.parseDefault(exchangeRate.getBuyRate());
+        String sell = PriceFormat.parseDefault(exchangeRate.getSellRate());
 
         int color = position % 2 == 0 ? Color.GRAY : Color.WHITE;
 

@@ -7,29 +7,31 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.google.android.glass.content.Intents;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.Slider;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.domain.convertion.PriceConvertor;
+import uy.infocorp.banking.glass.domain.convertion.SymbolExtractor;
 import uy.infocorp.banking.glass.domain.ocr.PriceExtractor;
 import uy.infocorp.banking.glass.domain.ocr.TesseractManager;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
+import uy.infocorp.banking.glass.model.common.Price;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.format.PriceFormat;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class ConvertPriceActivity extends Activity {
 
@@ -55,6 +57,7 @@ public class ConvertPriceActivity extends Activity {
                 if (result == null) {
                     showNoConnectivityView();
                 } else {
+                    exchangeRates = result;
                     takePicture();
                 }
             }
@@ -128,37 +131,41 @@ public class ConvertPriceActivity extends Activity {
 
     private void processPicture(String path) {
         String result = TesseractManager.optimizeAndRecognizeText(path);
+        Set<String> symbols = SymbolExtractor.availableSymbols(this.exchangeRates);
 
-        List<String> symbols = Arrays.asList("$"); // FIXME dejar generico, usar exchangeRates
-        Pair<String, Double> price = PriceExtractor.extractPrice(result, symbols);
+        Set<Price> prices = PriceExtractor.extractPossiblePrices(result, symbols);
 
         // Hide and discard slider
         this.slider.hide();
         this.slider = null;
 
-        if (price == null) {
+        if (prices.isEmpty()) {
             showNoPriceView();
         } else {
-            Pair<String, Double> convertedPrice = convertPrice(price);
-            showPriceConvertion(price, convertedPrice);
+            String convertionCode = "USD";//Resources.getString(R.string.alpha_code);
+            List<Pair<Price, Price>> convertions = PriceConvertor.convertPrices(prices, this.exchangeRates, convertionCode);
+
+            showPriceConvertion(convertions);
         }
     }
 
-    private Pair<String, Double> convertPrice(Pair<String, Double> price) {
-        return Pair.create("U$S", price.second/23.0); //FIXME dejar generico
-    }
+    private void showPriceConvertion(List<Pair<Price, Price>> convertions) {
+        // TODO BORRAR
+        Pair<Price, Price> first = convertions.get(0); // FIXME poner todos en una lista
+        Price from = first.first;
+        Price to = first.second;
+        // TODO BORRAR
 
-    private void showPriceConvertion(Pair<String, Double> price, Pair<String, Double> convertedPrice) {
         View convertionView = new CardBuilder(this, CardBuilder.Layout.EMBED_INSIDE)
                 .setEmbeddedLayout(R.layout.price_convertion)
-                .setFootnote("UYU > USD") // FIXME sacar posta
+                .setFootnote(PriceFormat.convertion(from, to))
                 .getView();
 
         TextView fromView = (TextView) convertionView.findViewById(R.id.from_price);
         TextView convertedView = (TextView) convertionView.findViewById(R.id.converted_price);
 
-        fromView.setText(price.first + PriceFormat.parseDefault(price.second));
-        convertedView.setText(convertedPrice.first + PriceFormat.parseDefault(convertedPrice.second));
+        fromView.setText(PriceFormat.readable(from));
+        convertedView.setText(PriceFormat.readable(to));
 
         setContentView(convertionView);
     }

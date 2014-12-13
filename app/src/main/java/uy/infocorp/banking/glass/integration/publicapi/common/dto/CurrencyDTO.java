@@ -1,6 +1,6 @@
 package uy.infocorp.banking.glass.integration.publicapi.common.dto;
 
-public class DestinationCurrencyDTO {
+public class CurrencyDTO {
 
     private String currencySymbol;
     private String currencyAlpha3Code;
@@ -39,4 +39,5 @@ public class DestinationCurrencyDTO {
         this.currencyDescription = currencyDescription;
     }
 }
+
 

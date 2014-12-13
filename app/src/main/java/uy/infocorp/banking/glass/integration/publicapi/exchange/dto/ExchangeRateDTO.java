@@ -1,55 +1,56 @@
 package uy.infocorp.banking.glass.integration.publicapi.exchange.dto;
 
 
-import uy.infocorp.banking.glass.integration.publicapi.common.dto.DestinationCurrencyDTO;
-import uy.infocorp.banking.glass.integration.publicapi.common.dto.SourceCurrencyDTO;
+import uy.infocorp.banking.glass.integration.publicapi.common.dto.CurrencyDTO;
 
 public class ExchangeRateDTO {
 
-    private SourceCurrencyDTO sourceCurrency;
-    private String buyRate;
-    private String sellRate;
-    private DestinationCurrencyDTO destinationCurrency;
-    private String official;
+    private CurrencyDTO sourceCurrency;
+    private CurrencyDTO destinationCurrency;
 
-    public SourceCurrencyDTO getSourceCurrencyDTO() {
-        return sourceCurrency;
-    }
+    private double buyRate;
+    private double sellRate;
+    private double official;
 
-    public void setSourceCurrencyDTO(SourceCurrencyDTO sourceCurrency) {
-        this.sourceCurrency = sourceCurrency;
-    }
-
-    public String getBuyRate() {
-        return buyRate;
-    }
-
-    public void setBuyRate(String buyRate) {
-        this.buyRate = buyRate;
-    }
-
-    public String getSellRate() {
-        return sellRate;
-    }
-
-    public void setSellRate(String sellRate) {
-        this.sellRate = sellRate;
-    }
-
-    public DestinationCurrencyDTO getDestinationCurrencyDTO() {
-        return destinationCurrency;
-    }
-
-    public void setDestinationCurrencyDTO(DestinationCurrencyDTO destinationCurrency) {
-        this.destinationCurrency = destinationCurrency;
-    }
-
-    public String getOfficial() {
+    public double getOfficial() {
         return official;
     }
 
-    public void setOfficial(String official) {
+    public void setOfficial(double official) {
         this.official = official;
     }
+
+    public double getSellRate() {
+        return sellRate;
+    }
+
+    public void setSellRate(double sellRate) {
+        this.sellRate = sellRate;
+    }
+
+    public double getBuyRate() {
+        return buyRate;
+    }
+
+    public void setBuyRate(double buyRate) {
+        this.buyRate = buyRate;
+    }
+
+    public CurrencyDTO getDestinationCurrency() {
+        return destinationCurrency;
+    }
+
+    public void setDestinationCurrency(CurrencyDTO destinationCurrency) {
+        this.destinationCurrency = destinationCurrency;
+    }
+
+    public CurrencyDTO getSourceCurrency() {
+        return sourceCurrency;
+    }
+
+    public void setSourceCurrency(CurrencyDTO sourceCurrency) {
+        this.sourceCurrency = sourceCurrency;
+    }
+
 }
 
