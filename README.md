@@ -1,19 +1,15 @@
 uy-infocorp-banking-glass
 =========================
 
-Banking Google Glass app
+#Banking Google Glass app
 
-Features
-
-Private Features
-
-Public Features
+##Public Features
 - Show Benefits
 - Show Exchange Rates
 - Nearest ATM's and Branches
 - Qualify a Branch
  
-Private Features
+##Private Features
 - Secure Authentication
 - Make a Transaction
 - Check Account Balance
