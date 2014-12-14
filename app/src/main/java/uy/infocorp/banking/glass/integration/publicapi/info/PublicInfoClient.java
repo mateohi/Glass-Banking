@@ -7,7 +7,7 @@ import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
-public class PublicInfoClient extends BaseClient{
+public class PublicInfoClient extends BaseClient {
 
     private static PublicInfoClient instance;
     private RestExecutionBuilder builder;
@@ -24,7 +24,7 @@ public class PublicInfoClient extends BaseClient{
     }
 
     public PublicInfoDTO getPublicInfo() {
-        return (PublicInfoDTO)this.execute();
+        return (PublicInfoDTO) this.execute();
     }
 
     @Override

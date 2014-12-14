@@ -1,7 +1,6 @@
 package uy.infocorp.banking.glass.integration.publicapi.image;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -18,7 +17,7 @@ import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
-public class ImageDownloadClient extends BaseClient{
+public class ImageDownloadClient extends BaseClient {
 
     private static ImageDownloadClient instance;
     private RestExecutionBuilder builder;
@@ -37,7 +36,7 @@ public class ImageDownloadClient extends BaseClient{
 
     public Bitmap getImage(int imageId) {
         this.imageId = imageId;
-        return (Bitmap)this.execute();
+        return (Bitmap) this.execute();
     }
 
     @Override

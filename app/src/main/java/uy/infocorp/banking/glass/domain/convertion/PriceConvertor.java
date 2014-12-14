@@ -14,7 +14,7 @@ import uy.infocorp.banking.glass.model.common.Price;
 public class PriceConvertor {
 
     public static List<Pair<Price, Price>> convertPrices(Set<Price> prices, List<ExchangeRateDTO> rates,
-                                                   String convertionCode) {
+                                                         String convertionCode) {
         List<Pair<Price, Price>> convertions = Lists.newArrayList();
         for (Price price : prices) {
             String priceSymbol = price.getSymbol();
@@ -45,7 +45,7 @@ public class PriceConvertor {
     }
 
     private static ExchangeRateDTO getAppliedRate(List<ExchangeRateDTO> rates, String priceSymbol,
-                                           String convertionCode) {
+                                                  String convertionCode) {
         for (ExchangeRateDTO rate : rates) {
             String sourceSymbol = rate.getSourceCurrency().getCurrencySymbol();
             String destinationCode = rate.getDestinationCurrency().getCurrencyAlpha3Code();

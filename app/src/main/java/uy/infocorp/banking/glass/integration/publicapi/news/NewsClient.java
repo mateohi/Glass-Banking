@@ -7,7 +7,7 @@ import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
-public class NewsClient extends BaseClient{
+public class NewsClient extends BaseClient {
 
     private static NewsClient instance;
     private RestExecutionBuilder builder;
@@ -24,7 +24,7 @@ public class NewsClient extends BaseClient{
     }
 
     public NewsDTO getNewsFeed() {
-        return (NewsDTO)this.execute();
+        return (NewsDTO) this.execute();
     }
 
     @Override

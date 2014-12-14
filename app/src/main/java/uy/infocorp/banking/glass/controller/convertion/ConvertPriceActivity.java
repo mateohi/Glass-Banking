@@ -14,8 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.RemoteViews;
-import android.widget.TextView;
 
 import com.google.android.glass.content.Intents;
 import com.google.android.glass.widget.CardBuilder;
