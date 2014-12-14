@@ -174,27 +174,43 @@ public class ClosestBranchActivity extends Activity {
         setContentView(initialView);
     }
 
+    private void showNoLocationView() {
+        View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+                .setText("Unable to get current location")
+                .setFootnote("Try connecting Glass to your phone")
+                .setIcon(R.drawable.ic_warning)
+                .getView();
+
+        setContentView(errorView);
+    }
+
     private void createCards() {
-        new GetClosestBranchesTask(new FinishedTaskListener<List<Branch>>() {
-            @Override
-            public void onResult(List<Branch> branches) {
-                slider.hide();
-                slider = null;
+        Location lastKnownLocation = getLastLocation();
 
-                if (branches == null) {
-                    showErrorView();
-                } else if (branches.isEmpty()) {
-                    showNoBranchesView();
-                } else {
-                    ClosestBranchActivity.this.branches = branches;
+        if (lastKnownLocation == null) {
+            showNoLocationView();
+        } else {
+            new GetClosestBranchesTask(new FinishedTaskListener<List<Branch>>() {
+                @Override
+                public void onResult(List<Branch> branches) {
+                    slider.hide();
+                    slider = null;
 
-                    for (Branch branch : branches) {
-                        cards.add(createCard(branch));
+                    if (branches == null) {
+                        showErrorView();
+                    } else if (branches.isEmpty()) {
+                        showNoBranchesView();
+                    } else {
+                        ClosestBranchActivity.this.branches = branches;
+
+                        for (Branch branch : branches) {
+                            cards.add(createCard(branch));
+                        }
+                        updateCardScrollView();
                     }
-                    updateCardScrollView();
                 }
-            }
-        }).execute(getLastLocation());
+            }).execute(lastKnownLocation);
+        }
     }
 
     private Location getLastLocation() {
