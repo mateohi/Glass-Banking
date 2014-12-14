@@ -30,6 +30,7 @@ public class ProductsBalanceActivity extends Activity {
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Product> products = Lists.newArrayList();
     private Product selectedProduct;
+    private Slider.Indeterminate slider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +68,13 @@ public class ProductsBalanceActivity extends Activity {
     }
 
     private void showInitialView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Loading...")
+        View initialView = new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText("Loading account ...")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
         setContentView(initialView);
-        Slider.Indeterminate indeterminate = Slider.from(initialView).startIndeterminate();
-        indeterminate.show();
+
+        this.slider = Slider.from(initialView).startIndeterminate();
     }
 
     private void showNoProductsView() {
@@ -100,6 +101,9 @@ public class ProductsBalanceActivity extends Activity {
         new GetProductsTask(new FinishedTaskListener<List<Product>>() {
             @Override
             public void onResult(List<Product> products) {
+                slider.hide();
+                slider = null;
+
                 if (products == null) {
                     showErrorView();
                 } else if (products.isEmpty()) {

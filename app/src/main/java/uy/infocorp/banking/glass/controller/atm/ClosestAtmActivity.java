@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.model.benefit.Atm;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.format.DistanceFormat;
 
 public class ClosestAtmActivity extends Activity {
 
@@ -46,7 +47,6 @@ public class ClosestAtmActivity extends Activity {
     private Atm selectedAtm;
     private LocationManager locationManager;
     private Location location;
-    private NumberFormat distanceFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +54,7 @@ public class ClosestAtmActivity extends Activity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        this.distanceFormat = NumberFormat.getNumberInstance();
-        this.distanceFormat.setMinimumFractionDigits(0);
-        this.distanceFormat.setMaximumFractionDigits(1);
-
         startLocationUpdates();
-
         showInitialView();
         createCards();
     }
@@ -134,7 +129,7 @@ public class ClosestAtmActivity extends Activity {
     }
 
     private void showInitialView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+        View initialView = new CardBuilder(this, CardBuilder.Layout.MENU)
                 .setText("Getting closest ATMs")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
@@ -233,7 +228,7 @@ public class ClosestAtmActivity extends Activity {
     private CardBuilder createCard(Atm atm) {
         // TODO llenar bien los datos, incluyendo puntaje
         String text = atm.getName();
-        String timestamp = this.distanceFormat.format(atm.getDistance()) + "km";
+        String timestamp = DistanceFormat.from(atm.getDistance()) + "km";
         Bitmap image = atm.getImage();
 
         return new CardBuilder(this, CardBuilder.Layout.CAPTION)

@@ -27,13 +27,13 @@ import com.google.android.glass.widget.CardScrollView;
 import com.google.android.glass.widget.Slider;
 import com.google.common.collect.Lists;
 
-import java.text.NumberFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.model.benefit.Branch;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.format.DistanceFormat;
 
 public class ClosestBranchActivity extends Activity {
 
@@ -46,7 +46,6 @@ public class ClosestBranchActivity extends Activity {
     private Branch selectedBranch;
     private LocationManager locationManager;
     private Location location;
-    private NumberFormat distanceFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +53,7 @@ public class ClosestBranchActivity extends Activity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        this.distanceFormat = NumberFormat.getNumberInstance();
-        this.distanceFormat.setMinimumFractionDigits(0);
-        this.distanceFormat.setMaximumFractionDigits(1);
-
         startLocationUpdates();
-
         showInitialView();
         createCards();
     }
@@ -145,7 +139,7 @@ public class ClosestBranchActivity extends Activity {
     }
 
     private void showInitialView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+        View initialView = new CardBuilder(this, CardBuilder.Layout.MENU)
                 .setText("Getting closest branches")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
@@ -245,7 +239,7 @@ public class ClosestBranchActivity extends Activity {
         // TODO llenar bien los datos, incluyendo puntaje
         String text = branch.getName();
         String footnote = branch.getTelephone();
-        String timestamp = this.distanceFormat.format(branch.getDistance()) + "km";
+        String timestamp = DistanceFormat.from(branch.getDistance()) + "km";
         Bitmap image = branch.getImage();
 
         return new CardBuilder(this, CardBuilder.Layout.CAPTION)

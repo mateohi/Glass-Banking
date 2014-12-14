@@ -16,22 +16,21 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import com.google.android.glass.widget.Slider;
 import com.google.common.collect.Lists;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.date.DateUtils;
 
 public class LastTransfersActivity extends Activity {
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Transfer> transfers = Lists.newArrayList();
+    private Slider.Indeterminate slider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,37 +61,42 @@ public class LastTransfersActivity extends Activity {
     }
 
     private void showInitialView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Loading...")
+        View initialView = new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText("Loading transfers ...")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
+
+        this.slider = Slider.from(initialView).startIndeterminate();
 
         setContentView(initialView);
     }
 
     private void showNoTransactionsView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+        View noTransactionsView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("No transfers found")
                 .setIcon(R.drawable.ic_help)
                 .getView();
 
-        setContentView(initialView);
+        setContentView(noTransactionsView);
     }
 
     private void showErrorView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+        View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get last transfers")
                 .setFootnote("Check your internet connection")
                 .setIcon(R.drawable.ic_warning)
                 .getView();
 
-        setContentView(initialView);
+        setContentView(errorView);
     }
 
     private void createCards() {
         new GetLastTransfersTask(new FinishedTaskListener<List<Transfer>>() {
             @Override
             public void onResult(List<Transfer> transfers) {
+                slider.hide();
+                slider = null;
+
                 if (transfers == null) {
                     showErrorView();
                 } else if (transfers.isEmpty()) {
@@ -134,7 +138,7 @@ public class LastTransfersActivity extends Activity {
         int icon = getIconFromTransferType(transfer);
         String text = transfer.getDebitProduct().getProductAlias() + " - "
                 + transfer.getCreditProduct().getProductAlias();
-        String timestamp = DATE_FORMAT.format(transfer.getCreatedDate());
+        String timestamp = DateUtils.simpleDateFormat(transfer.getCreatedDate());
         String footnote = transfer.getCurrency().getCurrencySymbol() + " "
                 + transfer.getAmount().toString();
 

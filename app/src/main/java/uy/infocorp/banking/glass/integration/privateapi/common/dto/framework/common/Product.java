@@ -243,7 +243,7 @@ public class Product {
             case undefined://Undefined is mapped with Mortgage and instantiated with Loan
                 return R.drawable.mortgage;
             default:
-                throw new IllegalStateException("No se pudo encontrar el iconId del producto");
+                throw new IllegalStateException("Undefined product id");
         }
     }
 }
