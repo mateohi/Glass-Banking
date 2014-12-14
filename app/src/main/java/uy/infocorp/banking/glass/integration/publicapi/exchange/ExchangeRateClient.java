@@ -34,8 +34,8 @@ public class ExchangeRateClient extends BaseClient {
         return filterRates(new Predicate<ExchangeRateDTO>() {
             @Override
             public boolean apply(ExchangeRateDTO input) {
-                String sourceAlpha3Code = input.getSourceCurrencyDTO().getCurrencyAlpha3Code();
-                String destinationAlpha3Code = input.getDestinationCurrencyDTO().getCurrencyAlpha3Code();
+                String sourceAlpha3Code = input.getSourceCurrency().getCurrencyAlpha3Code();
+                String destinationAlpha3Code = input.getDestinationCurrency().getCurrencyAlpha3Code();
 
                 return sourceAlpha3Code.equals(alpha3Code) && !sourceAlpha3Code.equals(destinationAlpha3Code);
             }
@@ -46,7 +46,7 @@ public class ExchangeRateClient extends BaseClient {
         return filterRates(new Predicate<ExchangeRateDTO>() {
             @Override
             public boolean apply(ExchangeRateDTO input) {
-                return symbol.equals(input.getSourceCurrencyDTO().getCurrencySymbol());
+                return symbol.equals(input.getSourceCurrency().getCurrencySymbol());
             }
         });
     }

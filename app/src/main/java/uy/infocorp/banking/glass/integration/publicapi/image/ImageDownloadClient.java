@@ -1,10 +1,14 @@
 package uy.infocorp.banking.glass.integration.publicapi.image;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
@@ -38,7 +42,7 @@ public class ImageDownloadClient extends BaseClient{
 
     @Override
     protected Object getOffline() {
-        ImageDTO image = Resources.jsonToObject(R.raw.image_1, ImageDTO.class);
+        ImageDTO image = Resources.jsonToObject(randomImage(), ImageDTO.class);
         return BitmapUtils.base64ToBitmap(image.getImagePicture());
     }
 
@@ -54,6 +58,14 @@ public class ImageDownloadClient extends BaseClient{
         String imageBase64 = images[0].getImagePicture();
 
         return BitmapUtils.base64ToBitmap(imageBase64);
+    }
+
+    private int randomImage() {
+        List<Integer> images = Arrays.asList(R.raw.image_1, R.raw.image_2, /*R.raw.image_3,crucero*/
+                /*R.raw.image_4, es una de masajes*/ R.raw.image_5);
+        int random = new Random().nextInt(images.size());
+
+        return images.get(random);
     }
 }
 

@@ -7,35 +7,44 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.google.android.glass.content.Intents;
 import com.google.android.glass.widget.CardBuilder;
+import com.google.android.glass.widget.CardScrollAdapter;
+import com.google.android.glass.widget.CardScrollView;
 import com.google.android.glass.widget.Slider;
+import com.google.common.collect.Lists;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.domain.convertion.PriceConvertor;
+import uy.infocorp.banking.glass.domain.convertion.SymbolExtractor;
 import uy.infocorp.banking.glass.domain.ocr.PriceExtractor;
 import uy.infocorp.banking.glass.domain.ocr.TesseractManager;
 import uy.infocorp.banking.glass.integration.publicapi.exchange.dto.ExchangeRateDTO;
+import uy.infocorp.banking.glass.model.common.Price;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.format.PriceFormat;
+import uy.infocorp.banking.glass.util.resources.Resources;
+import uy.infocorp.banking.glass.util.view.ViewUtils;
 
 public class ConvertPriceActivity extends Activity {
 
     private static final int TAKE_PICTURE_REQUEST = 1;
     private static final String TAG = ConvertPriceActivity.class.getSimpleName();
 
+    private List<View> cards;
     private List<ExchangeRateDTO> exchangeRates;
     private Slider.Indeterminate slider;
 
@@ -55,6 +64,7 @@ public class ConvertPriceActivity extends Activity {
                 if (result == null) {
                     showNoConnectivityView();
                 } else {
+                    exchangeRates = result;
                     takePicture();
                 }
             }
@@ -103,6 +113,8 @@ public class ConvertPriceActivity extends Activity {
                     processPicture(thumbnailPath);
                 }
             });
+        } else {
+            // TODO no acepta la imagen
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -128,39 +140,57 @@ public class ConvertPriceActivity extends Activity {
 
     private void processPicture(String path) {
         String result = TesseractManager.optimizeAndRecognizeText(path);
+        Set<String> symbols = SymbolExtractor.availableSymbols(this.exchangeRates);
 
-        List<String> symbols = Arrays.asList("$"); // FIXME dejar generico, usar exchangeRates
-        Pair<String, Double> price = PriceExtractor.extractPrice(result, symbols);
+        Set<Price> prices = PriceExtractor.extractPossiblePrices(result, symbols);
 
         // Hide and discard slider
         this.slider.hide();
         this.slider = null;
 
-        if (price == null) {
+        if (prices.isEmpty()) {
             showNoPriceView();
         } else {
-            Pair<String, Double> convertedPrice = convertPrice(price);
-            showPriceConvertion(price, convertedPrice);
+            String convertionCode = Resources.getString(R.string.alpha_code);
+            List<Pair<Price, Price>> convertions = PriceConvertor.convertPrices(prices, this.exchangeRates, convertionCode);
+
+            showPriceConvertions(convertions);
         }
     }
 
-    private Pair<String, Double> convertPrice(Pair<String, Double> price) {
-        return Pair.create("U$S", price.second/23.0); //FIXME dejar generico
+    private void showPriceConvertions(List<Pair<Price, Price>> convertions) {
+        this.cards = buildConvertionViews(convertions);
+
+        CardScrollAdapter adapter = new ConvertionCardScrollAdapter();
+
+        CardScrollView cardScrollView = new CardScrollView(this);
+        cardScrollView.setAdapter(adapter);
+        cardScrollView.activate();
+
+        setContentView(cardScrollView);
     }
 
-    private void showPriceConvertion(Pair<String, Double> price, Pair<String, Double> convertedPrice) {
-        View convertionView = new CardBuilder(this, CardBuilder.Layout.EMBED_INSIDE)
-                .setEmbeddedLayout(R.layout.price_convertion)
-                .setFootnote("UYU > USD") // FIXME sacar posta
-                .getView();
+    private List<View> buildConvertionViews(List<Pair<Price, Price>> convertions) {
+        List<View> views = Lists.newArrayList();
 
-        TextView fromView = (TextView) convertionView.findViewById(R.id.from_price);
-        TextView convertedView = (TextView) convertionView.findViewById(R.id.converted_price);
+        for (Pair<Price, Price> convertion : convertions) {
+            Price from = convertion.first;
+            Price to = convertion.second;
 
-        fromView.setText(price.first + PriceFormat.parseDefault(price.second));
-        convertedView.setText(convertedPrice.first + PriceFormat.parseDefault(convertedPrice.second));
+            CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.EMBED_INSIDE)
+                    .setEmbeddedLayout(R.layout.price_convertion);
+            View convertionView = cardBuilder.getView();
 
-        setContentView(convertionView);
+            ViewUtils.setTextViewText(convertionView, R.id.from_code, from.getAlpha3Code());
+            ViewUtils.setTextViewText(convertionView, R.id.to_code, to.getAlpha3Code());
+
+            ViewUtils.setTextViewText(convertionView, R.id.from_price, PriceFormat.readable(from));
+            ViewUtils.setTextViewText(convertionView, R.id.converted_price, PriceFormat.readable(to));
+
+            views.add(convertionView);
+        }
+
+        return views;
     }
 
     private void showNoPriceView() {
@@ -170,6 +200,29 @@ public class ConvertPriceActivity extends Activity {
                 .getView();
 
         setContentView(noPriceView);
+    }
+
+    private class ConvertionCardScrollAdapter extends CardScrollAdapter {
+
+        @Override
+        public int getPosition(Object item) {
+            return cards.indexOf(item);
+        }
+
+        @Override
+        public int getCount() {
+            return cards.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return cards.get(position);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return cards.get(position);
+        }
     }
 
 }

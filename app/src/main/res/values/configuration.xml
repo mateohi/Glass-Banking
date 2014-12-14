@@ -2,6 +2,7 @@
 <resources>
     <!-- Enable offline mode -->
     <bool name="offline_mode">true</bool>
+    <bool name="beacon_scanning">false</bool>
 
     <!-- Currency code and bank name -->
     <string name="alpha_code">UYU</string>
