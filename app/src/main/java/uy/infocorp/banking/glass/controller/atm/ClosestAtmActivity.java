@@ -187,15 +187,23 @@ public class ClosestAtmActivity extends Activity {
     }
 
     private Location getLastLocation() {
+        Location lastGpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location lastNetworkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        Location lastPassiveLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
         if (this.location != null) {
             return this.location;
+        } else if (lastGpsLocation != null) {
+            return lastGpsLocation;
+        } else if (lastNetworkLocation != null) {
+            return lastNetworkLocation;
         } else {
-            return locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            return lastPassiveLocation;
         }
     }
 
     private void updateCardScrollView() {
-        BranchCardScrollAdapter adapter = new BranchCardScrollAdapter();
+        CardScrollAdapter adapter = new AtmCardScrollAdapter();
 
         CardScrollView cardScrollView = new CardScrollView(this);
         cardScrollView.setAdapter(adapter);
@@ -226,7 +234,7 @@ public class ClosestAtmActivity extends Activity {
                 .addImage(image);
     }
 
-    private class BranchCardScrollAdapter extends CardScrollAdapter {
+    private class AtmCardScrollAdapter extends CardScrollAdapter {
 
         @Override
         public int getPosition(Object item) {

@@ -12,12 +12,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.google.android.glass.content.Intents;
 import com.google.android.glass.widget.CardBuilder;
+import com.google.android.glass.widget.CardScrollAdapter;
+import com.google.android.glass.widget.CardScrollView;
 import com.google.android.glass.widget.Slider;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 import java.util.Set;
@@ -32,12 +37,14 @@ import uy.infocorp.banking.glass.model.common.Price;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.format.PriceFormat;
 import uy.infocorp.banking.glass.util.resources.Resources;
+import uy.infocorp.banking.glass.util.view.ViewUtils;
 
 public class ConvertPriceActivity extends Activity {
 
     private static final int TAKE_PICTURE_REQUEST = 1;
     private static final String TAG = ConvertPriceActivity.class.getSimpleName();
 
+    private List<View> cards;
     private List<ExchangeRateDTO> exchangeRates;
     private Slider.Indeterminate slider;
 
@@ -106,6 +113,8 @@ public class ConvertPriceActivity extends Activity {
                     processPicture(thumbnailPath);
                 }
             });
+        } else {
+            // TODO no acepta la imagen
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -142,32 +151,46 @@ public class ConvertPriceActivity extends Activity {
         if (prices.isEmpty()) {
             showNoPriceView();
         } else {
-            String convertionCode = "USD";//Resources.getString(R.string.alpha_code);
+            String convertionCode = Resources.getString(R.string.alpha_code);
             List<Pair<Price, Price>> convertions = PriceConvertor.convertPrices(prices, this.exchangeRates, convertionCode);
 
-            showPriceConvertion(convertions);
+            showPriceConvertions(convertions);
         }
     }
 
-    private void showPriceConvertion(List<Pair<Price, Price>> convertions) {
-        // TODO BORRAR
-        Pair<Price, Price> first = convertions.get(0); // FIXME poner todos en una lista
-        Price from = first.first;
-        Price to = first.second;
-        // TODO BORRAR
+    private void showPriceConvertions(List<Pair<Price, Price>> convertions) {
+        this.cards = buildConvertionViews(convertions);
 
-        View convertionView = new CardBuilder(this, CardBuilder.Layout.EMBED_INSIDE)
-                .setEmbeddedLayout(R.layout.price_convertion)
-                .setFootnote(PriceFormat.convertion(from, to))
-                .getView();
+        CardScrollAdapter adapter = new ConvertionCardScrollAdapter();
 
-        TextView fromView = (TextView) convertionView.findViewById(R.id.from_price);
-        TextView convertedView = (TextView) convertionView.findViewById(R.id.converted_price);
+        CardScrollView cardScrollView = new CardScrollView(this);
+        cardScrollView.setAdapter(adapter);
+        cardScrollView.activate();
 
-        fromView.setText(PriceFormat.readable(from));
-        convertedView.setText(PriceFormat.readable(to));
+        setContentView(cardScrollView);
+    }
 
-        setContentView(convertionView);
+    private List<View> buildConvertionViews(List<Pair<Price, Price>> convertions) {
+        List<View> views = Lists.newArrayList();
+
+        for (Pair<Price, Price> convertion : convertions) {
+            Price from = convertion.first;
+            Price to = convertion.second;
+
+            CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.EMBED_INSIDE)
+                    .setEmbeddedLayout(R.layout.price_convertion);
+            View convertionView = cardBuilder.getView();
+
+            ViewUtils.setTextViewText(convertionView, R.id.from_code, from.getAlpha3Code());
+            ViewUtils.setTextViewText(convertionView, R.id.to_code, to.getAlpha3Code());
+
+            ViewUtils.setTextViewText(convertionView, R.id.from_price, PriceFormat.readable(from));
+            ViewUtils.setTextViewText(convertionView, R.id.converted_price, PriceFormat.readable(to));
+
+            views.add(convertionView);
+        }
+
+        return views;
     }
 
     private void showNoPriceView() {
@@ -177,6 +200,29 @@ public class ConvertPriceActivity extends Activity {
                 .getView();
 
         setContentView(noPriceView);
+    }
+
+    private class ConvertionCardScrollAdapter extends CardScrollAdapter {
+
+        @Override
+        public int getPosition(Object item) {
+            return cards.indexOf(item);
+        }
+
+        @Override
+        public int getCount() {
+            return cards.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return cards.get(position);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return cards.get(position);
+        }
     }
 
 }

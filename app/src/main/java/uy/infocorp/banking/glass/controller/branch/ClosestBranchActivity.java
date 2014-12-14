@@ -206,7 +206,7 @@ public class ClosestBranchActivity extends Activity {
     }
 
     private void updateCardScrollView() {
-        BranchCardScrollAdapter adapter = new BranchCardScrollAdapter();
+        CardScrollAdapter adapter = new BranchCardScrollAdapter();
 
         CardScrollView cardScrollView = new CardScrollView(this);
         cardScrollView.setAdapter(adapter);
