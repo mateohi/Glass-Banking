@@ -30,6 +30,7 @@ public class ProductsBalanceActivity extends Activity {
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Product> products = Lists.newArrayList();
     private Product selectedProduct;
+    private Slider.Indeterminate slider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +68,13 @@ public class ProductsBalanceActivity extends Activity {
     }
 
     private void showInitialView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Loading...")
+        View initialView = new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText("Loading account ...")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
         setContentView(initialView);
-        Slider.Indeterminate indeterminate = Slider.from(initialView).startIndeterminate();
-        indeterminate.show();
+
+        this.slider = Slider.from(initialView).startIndeterminate();
     }
 
     private void showNoProductsView() {
@@ -86,11 +87,11 @@ public class ProductsBalanceActivity extends Activity {
         setContentView(initialView);
     }
 
-    private void showErrorView() {
+    private void showNoConnectivityView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get the Accounts")
                 .setFootnote("Check your internet connection")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_cloud_sad_150)
                 .getView();
 
         setContentView(initialView);
@@ -100,8 +101,11 @@ public class ProductsBalanceActivity extends Activity {
         new GetProductsTask(new FinishedTaskListener<List<Product>>() {
             @Override
             public void onResult(List<Product> products) {
+                slider.hide();
+                slider = null;
+
                 if (products == null) {
-                    showErrorView();
+                    showNoConnectivityView();
                 } else if (products.isEmpty()) {
                     showNoProductsView();
                 } else {

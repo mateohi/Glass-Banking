@@ -191,6 +191,7 @@ public class Product {
     }
 
     public final String getConsolidatedPositionBalance() {
+        // TODO revisar esto!
         StringBuilder balanceSb = new StringBuilder();
         balanceSb.append("USD ");
         switch (productType) {
@@ -243,7 +244,7 @@ public class Product {
             case undefined://Undefined is mapped with Mortgage and instantiated with Loan
                 return R.drawable.mortgage;
             default:
-                throw new IllegalStateException("No se pudo encontrar el iconId del producto");
+                throw new IllegalArgumentException("Undefined product id");
         }
     }
 }

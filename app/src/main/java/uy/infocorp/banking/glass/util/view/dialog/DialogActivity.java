@@ -53,11 +53,11 @@ public class DialogActivity extends Activity {
         }
 
         if (INFO.equals(type)) {
-            return createNotice(message, tip, R.drawable.ic_question);
+            return createNotice(message, tip, R.drawable.ic_help);
         } else if (WARNING.equals(type)) {
-            return createNotice(message, tip, R.drawable.ic_warning);
+            return createNotice(message, tip, R.drawable.ic_warning_150);
         } else if (DONE.equals(type)) {
-            return createNotice(message, tip, R.drawable.ic_done);
+            return createNotice(message, tip, R.drawable.ic_done_150);
         } else {
             throw new IllegalArgumentException(String.format(UNDEFINED_TYPE, type));
         }

@@ -16,23 +16,22 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import com.google.android.glass.widget.Slider;
 import com.google.common.collect.Lists;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.date.DateUtils;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class LastMovementsActivity extends Activity {
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Movement> movements = Lists.newArrayList();
+    private Slider.Indeterminate slider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,39 +62,44 @@ public class LastMovementsActivity extends Activity {
     }
 
     private void showInitialView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Loading...")
+        View initialView = new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText("Loading movements...")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
+
+        this.slider = Slider.from(initialView).startIndeterminate();
 
         setContentView(initialView);
     }
 
     private void showNoMovementsView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+        View noMovementsView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("No movements found")
                 .setIcon(R.drawable.ic_help)
                 .getView();
 
-        setContentView(initialView);
+        setContentView(noMovementsView);
     }
 
-    private void showErrorView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+    private void showNoConnectivityView() {
+        View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get last movements")
                 .setFootnote("Check your internet connection")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_cloud_sad_150)
                 .getView();
 
-        setContentView(initialView);
+        setContentView(errorView);
     }
 
     private void createCards() {
         new GetLastMovementsTask(new FinishedTaskListener<List<Movement>>() {
             @Override
             public void onResult(List<Movement> movements) {
+                slider.hide();
+                slider = null;
+
                 if (movements == null) {
-                    showErrorView();
+                    showNoConnectivityView();
                 } else if (movements.isEmpty()) {
                     showNoMovementsView();
                 } else {
@@ -134,7 +138,7 @@ public class LastMovementsActivity extends Activity {
         // TODO llenar bien los datos
         int icon = getIconFromMovement(movement);
         String text = (String) (movement.getExtendedProperties().get("productCode"));
-        String timestamp = DATE_FORMAT.format(movement.getMovementDate());
+        String timestamp = DateUtils.simpleDateFormat(movement.getMovementDate());
         String footnote = Resources.getString(R.string.alpha_code) + movement.getAmount().toString();
 
         return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)

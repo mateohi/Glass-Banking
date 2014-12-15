@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.model.benefit.Atm;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.format.DistanceFormat;
 
 public class ClosestAtmActivity extends Activity {
 
@@ -46,7 +47,6 @@ public class ClosestAtmActivity extends Activity {
     private Atm selectedAtm;
     private LocationManager locationManager;
     private Location location;
-    private NumberFormat distanceFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +54,7 @@ public class ClosestAtmActivity extends Activity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        this.distanceFormat = NumberFormat.getNumberInstance();
-        this.distanceFormat.setMinimumFractionDigits(0);
-        this.distanceFormat.setMaximumFractionDigits(1);
-
         startLocationUpdates();
-
         showInitialView();
         createCards();
     }
@@ -134,7 +129,7 @@ public class ClosestAtmActivity extends Activity {
     }
 
     private void showInitialView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+        View initialView = new CardBuilder(this, CardBuilder.Layout.MENU)
                 .setText("Getting closest ATMs")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
@@ -153,52 +148,60 @@ public class ClosestAtmActivity extends Activity {
         setContentView(initialView);
     }
 
-    private void showErrorView() {
+    private void showNoConnectivityView() {
         View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get closest ATMs")
                 .setFootnote("Check your internet connection")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_cloud_sad_150)
+                .getView();
+
+        setContentView(errorView);
+    }
+
+    private void showNoLocationView() {
+        View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+                .setText("Unable to get current location")
+                .setFootnote("Try connecting Glass to your phone")
+                .setIcon(R.drawable.ic_warning_150)
                 .getView();
 
         setContentView(errorView);
     }
 
     private void createCards() {
-        new GetClosestAtmsTask(new FinishedTaskListener<List<Atm>>() {
-            @Override
-            public void onResult(List<Atm> atms) {
-                slider.hide();
-                slider = null;
+        Location lastKnownLocation = getLastLocation();
 
-                if (atms == null) {
-                    showErrorView();
-                } else if (atms.isEmpty()) {
-                    showNoAtmsView();
-                } else {
-                    ClosestAtmActivity.this.atms = atms;
+        if (lastKnownLocation == null) {
+            showNoLocationView();
+        } else {
+            new GetClosestAtmsTask(new FinishedTaskListener<List<Atm>>() {
+                @Override
+                public void onResult(List<Atm> atms) {
+                    slider.hide();
+                    slider = null;
 
-                    for (Atm atm : atms) {
-                        cards.add(createCard(atm));
+                    if (atms == null) {
+                        showNoConnectivityView();
+                    } else if (atms.isEmpty()) {
+                        showNoAtmsView();
+                    } else {
+                        ClosestAtmActivity.this.atms = atms;
+
+                        for (Atm atm : atms) {
+                            cards.add(createCard(atm));
+                        }
+                        updateCardScrollView();
                     }
-                    updateCardScrollView();
                 }
-            }
-        }).execute(getLastLocation());
+            }).execute(lastKnownLocation);
+        }
     }
 
     private Location getLastLocation() {
-        Location lastGpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Location lastNetworkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        Location lastPassiveLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-
         if (this.location != null) {
             return this.location;
-        } else if (lastGpsLocation != null) {
-            return lastGpsLocation;
-        } else if (lastNetworkLocation != null) {
-            return lastNetworkLocation;
         } else {
-            return lastPassiveLocation;
+            return locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         }
     }
 
@@ -225,7 +228,7 @@ public class ClosestAtmActivity extends Activity {
     private CardBuilder createCard(Atm atm) {
         // TODO llenar bien los datos, incluyendo puntaje
         String text = atm.getName();
-        String timestamp = this.distanceFormat.format(atm.getDistance()) + "km";
+        String timestamp = DistanceFormat.from(atm.getDistance()) + "km";
         Bitmap image = atm.getImage();
 
         return new CardBuilder(this, CardBuilder.Layout.CAPTION)
