@@ -81,11 +81,11 @@ public class LastMovementsActivity extends Activity {
         setContentView(noMovementsView);
     }
 
-    private void showErrorView() {
+    private void showNoConnectivityView() {
         View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get last movements")
                 .setFootnote("Check your internet connection")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_cloud_sad_150)
                 .getView();
 
         setContentView(errorView);
@@ -99,7 +99,7 @@ public class LastMovementsActivity extends Activity {
                 slider = null;
 
                 if (movements == null) {
-                    showErrorView();
+                    showNoConnectivityView();
                 } else if (movements.isEmpty()) {
                     showNoMovementsView();
                 } else {

@@ -243,7 +243,7 @@ public class Product {
             case undefined://Undefined is mapped with Mortgage and instantiated with Loan
                 return R.drawable.mortgage;
             default:
-                throw new IllegalStateException("Undefined product id");
+                throw new IllegalArgumentException("Undefined product id");
         }
     }
 }

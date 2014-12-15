@@ -148,11 +148,11 @@ public class ClosestAtmActivity extends Activity {
         setContentView(initialView);
     }
 
-    private void showErrorView() {
+    private void showNoConnectivityView() {
         View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get closest ATMs")
                 .setFootnote("Check your internet connection")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_cloud_sad_150)
                 .getView();
 
         setContentView(errorView);
@@ -162,7 +162,7 @@ public class ClosestAtmActivity extends Activity {
         View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get current location")
                 .setFootnote("Try connecting Glass to your phone")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_warning_150)
                 .getView();
 
         setContentView(errorView);
@@ -181,7 +181,7 @@ public class ClosestAtmActivity extends Activity {
                     slider = null;
 
                     if (atms == null) {
-                        showErrorView();
+                        showNoConnectivityView();
                     } else if (atms.isEmpty()) {
                         showNoAtmsView();
                     } else {

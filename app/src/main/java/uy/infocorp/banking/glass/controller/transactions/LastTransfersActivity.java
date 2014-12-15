@@ -80,11 +80,11 @@ public class LastTransfersActivity extends Activity {
         setContentView(noTransactionsView);
     }
 
-    private void showErrorView() {
+    private void showNoConnectivityView() {
         View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get last transfers")
                 .setFootnote("Check your internet connection")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_cloud_sad_150)
                 .getView();
 
         setContentView(errorView);
@@ -98,7 +98,7 @@ public class LastTransfersActivity extends Activity {
                 slider = null;
 
                 if (transfers == null) {
-                    showErrorView();
+                    showNoConnectivityView();
                 } else if (transfers.isEmpty()) {
                     showNoTransactionsView();
                 } else {

@@ -158,21 +158,21 @@ public class ClosestBranchActivity extends Activity {
         setContentView(initialView);
     }
 
-    private void showErrorView() {
-        View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+    private void showNoConnectivityView() {
+        View noConnectivityView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get closest ATMs")
                 .setFootnote("Check your internet connection")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_cloud_sad_150)
                 .getView();
 
-        setContentView(initialView);
+        setContentView(noConnectivityView);
     }
 
     private void showNoLocationView() {
         View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get current location")
                 .setFootnote("Try connecting Glass to your phone")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_warning_150)
                 .getView();
 
         setContentView(errorView);
@@ -191,7 +191,7 @@ public class ClosestBranchActivity extends Activity {
                     slider = null;
 
                     if (branches == null) {
-                        showErrorView();
+                        showNoConnectivityView();
                     } else if (branches.isEmpty()) {
                         showNoBranchesView();
                     } else {

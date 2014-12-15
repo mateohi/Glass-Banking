@@ -87,11 +87,11 @@ public class ProductsBalanceActivity extends Activity {
         setContentView(initialView);
     }
 
-    private void showErrorView() {
+    private void showNoConnectivityView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Unable to get the Accounts")
                 .setFootnote("Check your internet connection")
-                .setIcon(R.drawable.ic_warning)
+                .setIcon(R.drawable.ic_cloud_sad_150)
                 .getView();
 
         setContentView(initialView);
@@ -105,7 +105,7 @@ public class ProductsBalanceActivity extends Activity {
                 slider = null;
 
                 if (products == null) {
-                    showErrorView();
+                    showNoConnectivityView();
                 } else if (products.isEmpty()) {
                     showNoProductsView();
                 } else {

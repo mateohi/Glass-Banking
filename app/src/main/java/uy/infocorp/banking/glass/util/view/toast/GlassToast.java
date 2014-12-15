@@ -26,7 +26,7 @@ public class GlassToast {
     }
 
     public static Toast done(Context context, String message, int duration) {
-        return create(context, message, duration, R.drawable.ic_done);
+        return create(context, message, duration, R.drawable.ic_done_150);
     }
 
     public static Toast warn(Context context, String message, int duration) {
