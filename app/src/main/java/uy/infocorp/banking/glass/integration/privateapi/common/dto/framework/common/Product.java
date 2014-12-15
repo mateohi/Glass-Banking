@@ -191,6 +191,7 @@ public class Product {
     }
 
     public final String getConsolidatedPositionBalance() {
+        // TODO revisar esto!
         StringBuilder balanceSb = new StringBuilder();
         balanceSb.append("USD ");
         switch (productType) {
