@@ -3,9 +3,9 @@ package uy.infocorp.banking.glass.controller.beacon;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 import uy.infocorp.banking.glass.controller.beacon.rate.BranchRatingActivity;
+import uy.infocorp.banking.glass.controller.beacon.rate.InformArrivalTask;
 import uy.infocorp.banking.glass.domain.beacon.BeaconHandler;
 import uy.infocorp.banking.glass.domain.beacon.PlaceListener;
 import uy.infocorp.banking.glass.domain.beacon.estimote.EstimoteBeaconHandler;
@@ -20,8 +20,7 @@ public class BeaconListenerService extends Service {
         this.beaconHandler = new EstimoteBeaconHandler(this.getApplicationContext(), new PlaceListener() {
             @Override
             public void onEntered(String placeId) {
-                Log.i(TAG, "Entered " + placeId);
-                // show welcome message, inform bank branch, etc..
+                informArrival(placeId);
             }
 
             @Override
@@ -42,6 +41,11 @@ public class BeaconListenerService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    private void informArrival(String placeId) {
+        String userId = ""; //FIXME obtener de algun lado
+        new InformArrivalTask().execute(userId, placeId);
     }
 
     private void startRatingActivity(String branchId) {

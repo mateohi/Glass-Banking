@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
+import com.google.android.glass.widget.Slider;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.domain.gesture.HeadGestureDetector;
@@ -23,8 +24,11 @@ public class BranchRatingActivity extends Activity {
     public static final String BRANCH_ID = "branch_id";
 
     private static final String TAG = BranchRatingActivity.class.getSimpleName();
+    public static final int MAX_SLIDER_POS = 10;
 
+    private Slider.Determinate slider;
     private HeadGestureDetector headGestureDetector;
+
     private String branchId;
     private String bankName;
 
@@ -49,14 +53,15 @@ public class BranchRatingActivity extends Activity {
     }
 
     private View buildView() {
-        return new CardBuilder(this, CardBuilder.Layout.TEXT)
+        return new CardBuilder(this, CardBuilder.Layout.COLUMNS)
+                .setIcon(R.drawable.column_help)
                 .setText("Rate your experience at " + bankName)
                 .setTimestamp("Nod or shake your head")
                 .getView();
     }
 
     private View buildLoadingView() {
-        return new CardBuilder(this, CardBuilder.Layout.ALERT)
+        return new CardBuilder(this, CardBuilder.Layout.MENU)
                 .setText("Submitting review")
                 .setIcon(R.drawable.ic_sync)
                 .getView();
@@ -92,25 +97,30 @@ public class BranchRatingActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                setContentView(buildLoadingView());
+                View loadingView = buildLoadingView();
+                slider = Slider.from(loadingView).startDeterminate(MAX_SLIDER_POS, 0);
+                setContentView(loadingView);
             }
         });
 
         new RateBranchTask(new FinishedTaskListener<Boolean>() {
             @Override
             public void onResult(Boolean resultOk) {
+                slider.hide();
+                slider = null;
+
                 showResultAndFinish(resultOk ? "Review posted" : "Unable to post review");
             }
         }).execute(branchId, positive);
     }
 
     private void showResultAndFinish(final String message) {
-        playSound();
+        playSuccessSound();
         GlassToast.done(this, message, Toast.LENGTH_LONG).show();
         finish();
     }
 
-    private void playSound() {
+    private void playSuccessSound() {
         AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         audioManager.playSoundEffect(Sounds.SUCCESS);
     }
