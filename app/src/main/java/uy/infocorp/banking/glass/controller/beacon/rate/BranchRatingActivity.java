@@ -24,7 +24,7 @@ public class BranchRatingActivity extends Activity {
     public static final String BRANCH_ID = "branch_id";
 
     private static final String TAG = BranchRatingActivity.class.getSimpleName();
-    public static final int MAX_SLIDER_POS = 10;
+    public static final int MAX_SLIDER_POS = 100;
 
     private Slider.Determinate slider;
     private HeadGestureDetector headGestureDetector;
