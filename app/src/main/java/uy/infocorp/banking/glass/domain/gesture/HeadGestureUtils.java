@@ -7,7 +7,7 @@ import java.util.List;
 public class HeadGestureUtils {
 
     private static final int ANGLE_DIFFERENCE_AMOUNT = 4;
-    private static final Float ANGLE_DEGREES = new Float(20);
+    private static final Float ANGLE_DEGREES = 20.0f;
 
     public static boolean isNod(Float[] values) {
         return check(values, ANGLE_DEGREES, ANGLE_DIFFERENCE_AMOUNT);
