@@ -10,7 +10,7 @@ public class InformArrivalTask extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... params) {
         String id = params[0];
-        String placeId = params[1];
+        Integer placeId = Integer.parseInt(params[1]);
 
         try {
 

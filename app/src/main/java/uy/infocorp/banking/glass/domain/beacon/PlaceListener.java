@@ -2,7 +2,7 @@ package uy.infocorp.banking.glass.domain.beacon;
 
 public interface PlaceListener {
 
-    public void onEntered(String placeId);
+    public void onEntered(int placeId);
 
-    public void onExit(String placeId);
+    public void onExit(int placeId);
 }

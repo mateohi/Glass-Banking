@@ -2,6 +2,7 @@ package uy.infocorp.banking.glass.controller.balance;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,13 +23,21 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.controller.movements.LastMovementsActivity;
+import uy.infocorp.banking.glass.controller.transactions.LastTransfersActivity;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.serialization.EnumUtil;
 
 public class ProductsBalanceActivity extends Activity {
 
+    public static final String PRODUCT_BANK_IDENTIFIER = "productBankIdentifier";
+    public static final String PRODUCT_ALIAS = "alias";
+
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Product> products = Lists.newArrayList();
+
     private Product selectedProduct;
     private Slider.Indeterminate slider;
 
@@ -45,26 +54,52 @@ public class ProductsBalanceActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.account_balance, menu);
-        return true;
+
+        switch (selectedProduct.getProductType()) {
+            case creditCard:
+                inflater.inflate(R.menu.credit_card_transaction_detail, menu);
+                return true;
+            case currentAccount:
+                inflater.inflate(R.menu.account_transaction_detail, menu);
+                return true;
+            case savingsAccount:
+                inflater.inflate(R.menu.account_transaction_detail, menu);
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_stop:
-                finish();
+            case R.id.get_last_movement:
+                startLastMovementIntent();
                 return true;
-            case R.id.action_get_directions:
-                startProductDetailIntent();
+            case R.id.get_last_transfer:
+                startLastTransferIntent();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void startProductDetailIntent() {
-        String alias = selectedProduct.getProductAlias();
+    private void startLastMovementIntent() {
+        Intent intent = new Intent(this, LastMovementsActivity.class);
+        intent.putExtra(PRODUCT_BANK_IDENTIFIER, selectedProduct.getProductBankIdentifier());
+        intent.putExtra(PRODUCT_ALIAS, selectedProduct.getProductAlias());
+        EnumUtil.serialize(selectedProduct.getProductType()).to(intent);
+
+        startActivity(intent);
+    }
+
+    private void startLastTransferIntent() {
+        Intent intent = new Intent(this, LastTransfersActivity.class);
+        intent.putExtra(PRODUCT_BANK_IDENTIFIER, selectedProduct.getProductBankIdentifier());
+        intent.putExtra(PRODUCT_ALIAS, selectedProduct.getProductAlias());
+        EnumUtil.serialize(selectedProduct.getProductType()).to(intent);
+
+        startActivity(intent);
     }
 
     private void showInitialView() {
@@ -134,6 +169,9 @@ public class ProductsBalanceActivity extends Activity {
                 am.playSoundEffect(Sounds.TAP);
 
                 selectedProduct = products.get(position);
+                //this is due to the dependence of the menu options to the Product Type
+                // of the selected product
+                invalidateOptionsMenu();
                 openOptionsMenu();
             }
         });
@@ -149,11 +187,17 @@ public class ProductsBalanceActivity extends Activity {
         int iconId = product.getProductIconId();
         String timestamp = "just now";
 
-        return new CardBuilder(this, CardBuilder.Layout.COLUMNS)
+        CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.COLUMNS)
                 .setText(accountDescription + "\n" + alias + "\n" + balance)
                 .setFootnote(footnote)
                 .setTimestamp(timestamp)
                 .setIcon(iconId);
+        if (product.getProductType() == ProductType.creditCard ||
+                product.getProductType() == ProductType.currentAccount ||
+                product.getProductType() == ProductType.savingsAccount) {
+            cardBuilder.showStackIndicator(true);
+        }
+        return cardBuilder;
     }
 
     private class ProductCardScrollAdapter extends CardScrollAdapter {

@@ -1,5 +1,6 @@
 package uy.infocorp.banking.glass.util.resources;
 
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.util.Log;
 
@@ -17,6 +18,15 @@ public class Resources {
 
     private static final String TAG = Resources.class.getSimpleName();
     private static Context context = BankingApplication.getContext();
+    private static String authToken;
+
+    public static String getAuthToken() {
+        return authToken;
+    }
+
+    public static void setAuthToken(String authToken) {
+        Resources.authToken = authToken;
+    }
 
     public static String getString(int id) {
         return context.getResources().getString(id);

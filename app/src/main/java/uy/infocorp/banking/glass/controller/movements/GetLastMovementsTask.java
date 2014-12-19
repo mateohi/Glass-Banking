@@ -5,10 +5,12 @@ import android.util.Log;
 import java.util.List;
 
 import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.integration.privateapi.movementsHistory.MovementHistoryClient;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.async.SimpleAsyncTask;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class GetLastMovementsTask extends SimpleAsyncTask<List<Movement>> {
 
@@ -21,8 +23,10 @@ public class GetLastMovementsTask extends SimpleAsyncTask<List<Movement>> {
     @Override
     protected List<Movement> doInBackground(Object... params) {
         try {
-            String authToken = AuthenticationClient.instance().completeLogOn();
-            return MovementHistoryClient.instance().getLastMovements(authToken);
+            String productBankIdentifier = (String) params[0];
+            ProductType productType = (ProductType) params[1];
+            return MovementHistoryClient.instance().getLastMovements(productType,
+                                                                    productBankIdentifier);
         } catch (RuntimeException e) {
             Log.e(TAG, "RuntimeException: Unable to get latest transactions -" + e.getMessage());
             return null;

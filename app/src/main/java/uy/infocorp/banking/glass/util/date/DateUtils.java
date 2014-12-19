@@ -11,6 +11,7 @@ import java.util.Date;
 public class DateUtils {
 
     private static final DateFormat SIMPLE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    private static final DateFormat SIMPLE_MONTH_DATE_FORMAT = new SimpleDateFormat("MMM dd");
     private static final DateTimeFormatter ISO_FORMAT = ISODateTimeFormat.dateTime();
 
     public static String dateToIsoString(Date date) {
@@ -25,5 +26,9 @@ public class DateUtils {
 
     public static String simpleDateFormat(Date date) {
         return SIMPLE_FORMAT.format(date);
+    }
+
+    public static String simpleMonthDateFormat(Date date){
+        return SIMPLE_MONTH_DATE_FORMAT.format(date);
     }
 }

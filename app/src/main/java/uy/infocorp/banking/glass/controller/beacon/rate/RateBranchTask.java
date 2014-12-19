@@ -16,7 +16,7 @@ public class RateBranchTask extends SimpleAsyncTask<Boolean> {
     @Override
     protected Boolean doInBackground(Object... params) {
         try {
-            String branchId = (String) params[0];
+            int branchId = (Integer) params[0];
             Boolean positive = (Boolean) params[1];
             // TODO pegarle al servicio con el rating
             return true;

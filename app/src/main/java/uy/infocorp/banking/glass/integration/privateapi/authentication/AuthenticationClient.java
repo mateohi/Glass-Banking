@@ -140,6 +140,8 @@ public class AuthenticationClient extends BaseClient {
      * @return
      */
     public String completeLogOn() {
-        return (String) (this.execute());
+        String authToken = (String) (this.execute());
+        Resources.setAuthToken(authToken);
+        return authToken;
     }
 }

@@ -6,6 +6,7 @@
 
     <!-- Currency code and bank name -->
     <string name="alpha_code">UYU</string>
+    <string name="alpha_symbol">$</string>
     <string name="bank_name">Bank</string>
 
     <!-- Auth token header name -->
