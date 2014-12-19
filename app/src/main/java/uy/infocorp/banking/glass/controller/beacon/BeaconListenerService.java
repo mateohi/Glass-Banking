@@ -19,12 +19,12 @@ public class BeaconListenerService extends Service {
     public void onCreate() {
         this.beaconHandler = new EstimoteBeaconHandler(this.getApplicationContext(), new PlaceListener() {
             @Override
-            public void onEntered(String placeId) {
+            public void onEntered(int placeId) {
                 informArrival(placeId);
             }
 
             @Override
-            public void onExit(String placeId) {
+            public void onExit(int placeId) {
                 startRatingActivity(placeId);
             }
         });
@@ -43,12 +43,12 @@ public class BeaconListenerService extends Service {
         return null;
     }
 
-    private void informArrival(String placeId) {
+    private void informArrival(int placeId) {
         String userId = ""; //FIXME obtener de algun lado
-        new InformArrivalTask().execute(userId, placeId);
+        new InformArrivalTask().execute(userId, Integer.toString(placeId));
     }
 
-    private void startRatingActivity(String branchId) {
+    private void startRatingActivity(int branchId) {
         Intent ratingIntent = new Intent(this, BranchRatingActivity.class);
         ratingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ratingIntent.putExtra(BranchRatingActivity.BRANCH_ID, branchId);

@@ -4,32 +4,33 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.Slider;
 
+import java.util.concurrent.TimeUnit;
+
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.domain.gesture.HeadGestureDetector;
 import uy.infocorp.banking.glass.domain.gesture.HeadGestureListener;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
-import uy.infocorp.banking.glass.util.view.toast.GlassToast;
 
 public class BranchRatingActivity extends Activity {
 
     public static final String BRANCH_ID = "branch_id";
 
     private static final String TAG = BranchRatingActivity.class.getSimpleName();
-    public static final int MAX_SLIDER_POS = 100;
+    private static final int MILLIS_TO_END = (int) TimeUnit.SECONDS.toMillis(3);
 
-    private Slider.Determinate slider;
+    private Slider.Indeterminate slider;
     private HeadGestureDetector headGestureDetector;
 
-    private String branchId;
+    private int branchId;
     private String bankName;
 
     @Override
@@ -39,7 +40,7 @@ public class BranchRatingActivity extends Activity {
         this.bankName = getResources().getString(R.string.bank_name);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        this.branchId = getIntent().getStringExtra(BRANCH_ID);
+        this.branchId = getIntent().getIntExtra(BRANCH_ID, -1);
 
         createHeadGestureDetector();
         this.headGestureDetector.startListening();
@@ -61,6 +62,11 @@ public class BranchRatingActivity extends Activity {
     }
 
     private View buildLoadingView() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return new CardBuilder(this, CardBuilder.Layout.MENU)
                 .setText("Submitting review")
                 .setIcon(R.drawable.ic_sync)
@@ -98,7 +104,7 @@ public class BranchRatingActivity extends Activity {
             @Override
             public void run() {
                 View loadingView = buildLoadingView();
-                slider = Slider.from(loadingView).startDeterminate(MAX_SLIDER_POS, 0);
+                slider = Slider.from(loadingView).startIndeterminate();
                 setContentView(loadingView);
             }
         });
@@ -109,19 +115,43 @@ public class BranchRatingActivity extends Activity {
                 slider.hide();
                 slider = null;
 
-                showResultAndFinish(resultOk ? "Review posted" : "Unable to post review");
+                showResultAndFinish(resultOk);
             }
         }).execute(branchId, positive);
     }
 
-    private void showResultAndFinish(final String message) {
-        playSuccessSound();
-        GlassToast.done(this, message, Toast.LENGTH_LONG).show();
-        finish();
+    private void showResultAndFinish(boolean resultOk) {
+        View result = resultOk ? buildSuccessView() : buildFailureView();
+        int sound = resultOk ? Sounds.SUCCESS : Sounds.ERROR;
+
+        setContentView(result);
+        playSound(sound);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, MILLIS_TO_END);
     }
 
-    private void playSuccessSound() {
+    private void playSound(int sound) {
         AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        audioManager.playSoundEffect(Sounds.SUCCESS);
+        audioManager.playSoundEffect(sound);
+    }
+
+    private View buildSuccessView() {
+        return new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText("Review posted")
+                .setIcon(R.drawable.ic_done_50)
+                .getView();
+    }
+
+    private View buildFailureView() {
+        return new CardBuilder(this, CardBuilder.Layout.ALERT)
+                .setText("Unable to post review")
+                .setFootnote("Check your internet connection")
+                .setIcon(R.drawable.ic_cloud_sad_150)
+                .getView();
     }
 }

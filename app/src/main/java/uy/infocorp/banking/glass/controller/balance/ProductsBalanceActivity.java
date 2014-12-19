@@ -34,8 +34,10 @@ public class ProductsBalanceActivity extends Activity {
 
     public static final String PRODUCT_BANK_IDENTIFIER = "productBankIdentifier";
     public static final String PRODUCT_ALIAS = "alias";
+
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Product> products = Lists.newArrayList();
+
     private Product selectedProduct;
     private Slider.Indeterminate slider;
 
@@ -52,15 +54,19 @@ public class ProductsBalanceActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        if (selectedProduct.getProductType() == ProductType.creditCard) {
-            inflater.inflate(R.menu.credit_card_transaction_detail, menu);
-            return true;
-        } else if (selectedProduct.getProductType() == ProductType.currentAccount ||
-                selectedProduct.getProductType() == ProductType.savingsAccount) {
-            inflater.inflate(R.menu.account_transaction_detail, menu);
-            return true;
-        } else {
-            return false;
+
+        switch (selectedProduct.getProductType()) {
+            case creditCard:
+                inflater.inflate(R.menu.credit_card_transaction_detail, menu);
+                return true;
+            case currentAccount:
+                inflater.inflate(R.menu.account_transaction_detail, menu);
+                return true;
+            case savingsAccount:
+                inflater.inflate(R.menu.account_transaction_detail, menu);
+                return true;
+            default:
+                return false;
         }
     }
 
@@ -83,6 +89,7 @@ public class ProductsBalanceActivity extends Activity {
         intent.putExtra(PRODUCT_BANK_IDENTIFIER, selectedProduct.getProductBankIdentifier());
         intent.putExtra(PRODUCT_ALIAS, selectedProduct.getProductAlias());
         EnumUtil.serialize(selectedProduct.getProductType()).to(intent);
+
         startActivity(intent);
     }
 
@@ -91,6 +98,7 @@ public class ProductsBalanceActivity extends Activity {
         intent.putExtra(PRODUCT_BANK_IDENTIFIER, selectedProduct.getProductBankIdentifier());
         intent.putExtra(PRODUCT_ALIAS, selectedProduct.getProductAlias());
         EnumUtil.serialize(selectedProduct.getProductType()).to(intent);
+
         startActivity(intent);
     }
 
