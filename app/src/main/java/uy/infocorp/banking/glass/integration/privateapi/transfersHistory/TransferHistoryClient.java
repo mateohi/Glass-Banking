@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.integration.privateapi.transfersHistory.dto.TransferHistoryResponseDTO;
 import uy.infocorp.banking.glass.util.http.BaseClient;
@@ -15,9 +16,13 @@ import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class TransferHistoryClient extends BaseClient {
 
+    private static final int MAX_TRANSFERS_TO_SHOW = Resources.getInteger(R.integer.max_atms_to_show);
+
     private static TransferHistoryClient instance;
     private RestExecutionBuilder builder;
     private String authToken;
+    private String productBankIdentifier;
+    private ProductType productType;
 
     private TransferHistoryClient() {
         builder = RestExecutionBuilder.get();
@@ -30,8 +35,11 @@ public class TransferHistoryClient extends BaseClient {
         return instance;
     }
 
-    public List<Transfer> getLastTransfers(String authToken) {
+    public List<Transfer> getLastTransfers(String authToken, ProductType productType,
+                                           String productBankIdentifier) throws Exception {
         this.authToken = authToken;
+        this.productType = productType;
+        this.productBankIdentifier = productBankIdentifier;
         return (List<Transfer>) this.execute();
     }
 
@@ -40,7 +48,7 @@ public class TransferHistoryClient extends BaseClient {
     protected Object getOffline() {
         Transfer[] transfers = Resources.jsonToObject(R.raw.transfers,
                 Transfer[].class);
-        return Arrays.asList(transfers);
+        return TransferHistoryUtils.getCorrectedTransfers(transfers);
     }
 
     @Override
