@@ -8,7 +8,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Muevo 8",
+        "description": "Giro para Asado",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -37,7 +37,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "1",
+        "description": "Transfiero monto garage",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -67,7 +67,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "test",
+        "description": "Transferencia bancaria",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -97,7 +97,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "1",
+        "description": "Transferencia santander",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -128,7 +128,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Prueba",
+        "description": "Transferencia tercero",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -158,7 +158,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "--",
+        "description": "Transferencia mensual",
         "debitProduct": {
             "productId": 0,
             "productNumber": "5521960700018116",
@@ -187,7 +187,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "prueba gm",
+        "description": "transferencia gym",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -218,7 +218,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "--",
+        "description": "primer transferencia",
         "debitProduct": {
             "productId": 0,
             "productNumber": "5521960700018116",
@@ -248,7 +248,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "--",
+        "description": "giro para Carlos",
         "debitProduct": {
             "productId": 0,
             "productNumber": "5521960700018116",
@@ -277,7 +277,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "1",
+        "description": "Giro para Ceci",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -1027,7 +1027,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "pruebagm",
+        "description": "transferencia gym",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003106853222",

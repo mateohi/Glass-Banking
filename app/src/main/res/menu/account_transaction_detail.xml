@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/get_last_movement"
+        android:title="@string/movements"
+        android:icon="@drawable/movements_menu_icon" />
+    <item
+        android:id="@+id/get_last_transfer"
+        android:title="@string/transfers"
+        android:icon="@drawable/transfers_menu_icon" />
+</menu>

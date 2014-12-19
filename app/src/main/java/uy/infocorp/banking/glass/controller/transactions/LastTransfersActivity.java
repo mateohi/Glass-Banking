@@ -2,8 +2,10 @@ package uy.infocorp.banking.glass.controller.transactions;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
@@ -22,20 +25,30 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.controller.balance.ProductsBalanceActivity;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.date.DateUtils;
+import uy.infocorp.banking.glass.util.resources.Resources;
+import uy.infocorp.banking.glass.util.serialization.EnumUtil;
 
 public class LastTransfersActivity extends Activity {
 
-    private List<CardBuilder> cards = Lists.newArrayList();
+    private List<View> views = Lists.newArrayList();
     private List<Transfer> transfers = Lists.newArrayList();
     private Slider.Indeterminate slider;
+    private String productBankIdentifier;
+    private String sourceAccountAlias;
+    private ProductType productType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intent = getIntent();
+        this.productBankIdentifier = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_BANK_IDENTIFIER);
+        this.sourceAccountAlias = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_ALIAS);
+        this.productType = EnumUtil.deserialize(ProductType.class).from(intent);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         showInitialView();
@@ -105,12 +118,12 @@ public class LastTransfersActivity extends Activity {
                     LastTransfersActivity.this.transfers = transfers;
 
                     for (Transfer transfer : transfers) {
-                        cards.add(createCard(transfer));
+                        views.add(createView(transfer));
                     }
                     updateCardScrollView();
                 }
             }
-        }).execute();
+        }).execute(this.productBankIdentifier, this.productType);
     }
 
     private void updateCardScrollView() {
@@ -133,20 +146,21 @@ public class LastTransfersActivity extends Activity {
         setContentView(cardScrollView);
     }
 
-    private CardBuilder createCard(Transfer transfer) {
-        // TODO llenar bien los datos
-        int icon = getIconFromTransferType(transfer);
-        String text = transfer.getDebitProduct().getProductAlias() + " - "
-                + transfer.getCreditProduct().getProductAlias();
-        String timestamp = DateUtils.simpleDateFormat(transfer.getCreatedDate());
-        String footnote = transfer.getCurrency().getCurrencySymbol() + " "
-                + transfer.getAmount().toString();
-
-        return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
-                .setIcon(icon)
-                .setText(text)
-                .setTimestamp(timestamp)
-                .setFootnote(footnote);
+    private View createView(Transfer transfer) {
+        String transferDate = DateUtils.simpleMonthDateFormat(transfer.getCreatedDate());
+        View convertView = getLayoutInflater().inflate(R.layout.transaction_history_item, null);
+        TextView timestampTextView = (TextView)convertView.findViewById(R.id.timestamp);
+        timestampTextView.setText(transferDate);
+        TextView textViewTopLeft = (TextView) convertView.findViewById(R.id.text_view_top_left_title);
+        textViewTopLeft.setText(sourceAccountAlias);
+        TextView textViewBottomLeft = (TextView) convertView.findViewById(R.id.text_view_bottom_left_title);
+        textViewBottomLeft.setText(transfer.getCreditProduct().getProductNumber());
+        TextView textViewRight = (TextView) convertView.findViewById(R.id.text_view_right_title);
+        String amount = Resources.getString(R.string.alpha_symbol) + " " + transfer.getAmount().toString();
+        textViewRight.setText(amount);
+        TextView textViewTopRight = (TextView) convertView.findViewById(R.id.text_view_top_right_title);
+        textViewTopRight.setText(transfer.getDescription());
+        return convertView;
     }
 
     private int getIconFromTransferType(Transfer transfer) {
@@ -158,17 +172,17 @@ public class LastTransfersActivity extends Activity {
 
         @Override
         public int getPosition(Object item) {
-            return cards.indexOf(item);
+            return views.indexOf(item);
         }
 
         @Override
         public int getCount() {
-            return cards.size();
+            return views.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return cards.get(position);
+            return views.get(position);
         }
 
         @Override
@@ -178,12 +192,12 @@ public class LastTransfersActivity extends Activity {
 
         @Override
         public int getItemViewType(int position) {
-            return cards.get(position).getItemViewType();
+            return 1;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return cards.get(position).getView(convertView, parent);
+            return views.get(position);
         }
     }
 }

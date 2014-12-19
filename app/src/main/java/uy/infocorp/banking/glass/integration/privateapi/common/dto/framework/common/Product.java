@@ -9,6 +9,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditCards.C
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.creditLines.CreditLine;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.authorization.Feature;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.loans.Loan;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class Product {
 
@@ -191,9 +192,9 @@ public class Product {
     }
 
     public final String getConsolidatedPositionBalance() {
-        // TODO revisar esto!
+        // TODO verificar el mapeo de los montos con el documento de Infocorp!
         StringBuilder balanceSb = new StringBuilder();
-        balanceSb.append("USD ");
+        balanceSb.append(Resources.getString(R.string.alpha_symbol)).append(" ");
         switch (productType) {
             case currentAccount:
                 balanceSb.append(((Account) this).getAccountCountableBalance());

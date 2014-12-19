@@ -2,6 +2,7 @@ package uy.infocorp.banking.glass.controller.movements;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
@@ -22,21 +24,32 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.controller.balance.ProductsBalanceActivity;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.date.DateUtils;
 import uy.infocorp.banking.glass.util.resources.Resources;
+import uy.infocorp.banking.glass.util.serialization.EnumUtil;
 
 public class LastMovementsActivity extends Activity {
 
-    private List<CardBuilder> cards = Lists.newArrayList();
-    private List<Movement> movements = Lists.newArrayList();
+    //    private List<CardBuilder> cards = Lists.newArrayList();
+    private List<View> views = Lists.newArrayList();
     private Slider.Indeterminate slider;
+    private String productBankIdentifier;
+    private String sourceAccountNumber;
+    private String sourceAccountAlias;
+    private ProductType productType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intent = getIntent();
+        this.productBankIdentifier = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_BANK_IDENTIFIER);
+        this.sourceAccountAlias = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_ALIAS);
+        this.sourceAccountNumber = productBankIdentifier.split("\\|")[1];
+        this.productType = EnumUtil.deserialize(ProductType.class).from(intent);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         showInitialView();
@@ -103,15 +116,14 @@ public class LastMovementsActivity extends Activity {
                 } else if (movements.isEmpty()) {
                     showNoMovementsView();
                 } else {
-                    LastMovementsActivity.this.movements = movements;
 
                     for (Movement movement : movements) {
-                        cards.add(createCard(movement));
+                        views.add(createView(movement));
                     }
                     updateCardScrollView();
                 }
             }
-        }).execute();
+        }).execute(this.productBankIdentifier, this.productType);
     }
 
     private void updateCardScrollView() {
@@ -125,27 +137,28 @@ public class LastMovementsActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
                 am.playSoundEffect(Sounds.TAP);
-
-                Movement selected = movements.get(position);
-                // openOptionsMenu(); y mostrale mas opciones como el de branches? o mas info de una ?
             }
         });
 
         setContentView(cardScrollView);
     }
 
-    private CardBuilder createCard(Movement movement) {
-        // TODO llenar bien los datos
-        int icon = getIconFromMovement(movement);
-        String text = (String) (movement.getExtendedProperties().get("productCode"));
-        String timestamp = DateUtils.simpleDateFormat(movement.getMovementDate());
-        String footnote = Resources.getString(R.string.alpha_code) + movement.getAmount().toString();
-
-        return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
-                .setIcon(icon)
-                .setText(text)
-                .setTimestamp(timestamp)
-                .setFootnote(footnote);
+    private View createView(Movement movement) {
+        String productCode = (String) (movement.getExtendedProperties().get("productCode"));
+        String movDate = DateUtils.simpleMonthDateFormat(movement.getMovementDate());
+        View convertView = getLayoutInflater().inflate(R.layout.transaction_history_item, null);
+        TextView timestampTextView = (TextView)convertView.findViewById(R.id.timestamp);
+        timestampTextView.setText(movDate);
+        TextView textViewTopLeft = (TextView) convertView.findViewById(R.id.text_view_top_left_title);
+        textViewTopLeft.setText(sourceAccountAlias);
+        TextView textViewBottomLeft = (TextView) convertView.findViewById(R.id.text_view_bottom_left_title);
+        textViewBottomLeft.setText(productCode);
+        TextView textViewRight = (TextView) convertView.findViewById(R.id.text_view_right_title);
+        String amount = Resources.getString(R.string.alpha_symbol) + " " + movement.getAmount().toString();
+        textViewRight.setText(amount);
+        TextView textViewTopRight = (TextView) convertView.findViewById(R.id.text_view_top_right_title);
+        textViewTopRight.setText((String)movement.getExtendedProperties().get("observations"));
+        return convertView;
     }
 
     private int getIconFromMovement(Movement movement) {
@@ -157,17 +170,17 @@ public class LastMovementsActivity extends Activity {
 
         @Override
         public int getPosition(Object item) {
-            return cards.indexOf(item);
+            return views.indexOf(item);
         }
 
         @Override
         public int getCount() {
-            return cards.size();
+            return views.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return cards.get(position);
+            return views.get(position);
         }
 
         @Override
@@ -177,12 +190,12 @@ public class LastMovementsActivity extends Activity {
 
         @Override
         public int getItemViewType(int position) {
-            return cards.get(position).getItemViewType();
+            return 1;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return cards.get(position).getView(convertView, parent);
+            return views.get(position);
         }
     }
 }
