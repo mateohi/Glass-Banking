@@ -1,6 +1,5 @@
-package uy.infocorp.banking.glass.controller.balance;
+package uy.infocorp.banking.glass.controller.account;
 
-import android.accounts.AccountManager;
 import android.util.Log;
 
 import java.util.List;
@@ -10,7 +9,6 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.com
 import uy.infocorp.banking.glass.integration.privateapi.products.ProductsClient;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.async.SimpleAsyncTask;
-import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class GetProductsTask extends SimpleAsyncTask<List<Product>> {
 

@@ -1,4 +1,4 @@
-package uy.infocorp.banking.glass.controller.movements;
+package uy.infocorp.banking.glass.controller.account.movements;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,7 +24,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.controller.balance.ProductsBalanceActivity;
+import uy.infocorp.banking.glass.controller.account.ProductsBalanceActivity;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;

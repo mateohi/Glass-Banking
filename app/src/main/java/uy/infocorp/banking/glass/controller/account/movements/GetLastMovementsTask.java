@@ -1,16 +1,14 @@
-package uy.infocorp.banking.glass.controller.movements;
+package uy.infocorp.banking.glass.controller.account.movements;
 
 import android.util.Log;
 
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.integration.privateapi.movementsHistory.MovementHistoryClient;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.async.SimpleAsyncTask;
-import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class GetLastMovementsTask extends SimpleAsyncTask<List<Movement>> {
 

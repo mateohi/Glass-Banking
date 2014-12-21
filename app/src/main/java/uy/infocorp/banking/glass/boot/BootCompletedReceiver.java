@@ -1,4 +1,4 @@
-package uy.infocorp.banking.glass.controller.boot;
+package uy.infocorp.banking.glass.boot;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

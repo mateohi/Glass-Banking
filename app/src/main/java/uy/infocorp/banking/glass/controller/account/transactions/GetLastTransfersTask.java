@@ -1,4 +1,4 @@
-package uy.infocorp.banking.glass.controller.transactions;
+package uy.infocorp.banking.glass.controller.account.transactions;
 
 import android.util.Log;
 

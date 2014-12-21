@@ -122,7 +122,7 @@
 
 
         <!-- Beacon listener (rating && welcome) -->
-        <receiver android:name=".controller.boot.BootCompletedReceiver">
+        <receiver android:name=".boot.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -144,41 +144,27 @@
 
         <!-- Last transfers -->
         <activity
-            android:name=".controller.transactions.LastTransfersActivity"
+            android:name=".controller.account.transactions.LastTransfersActivity"
             android:enabled="true"
             android:icon="@drawable/logo_ic"
             android:immersive="true"
             android:label="@string/transfer">
-            <intent-filter>
-                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.google.android.glass.VoiceTrigger"
-                android:resource="@xml/last_transactions_voice_trigger" />
         </activity>
         <!-- /Last transfers -->
 
         <!-- Last movements -->
         <activity
-            android:name=".controller.movements.LastMovementsActivity"
+            android:name=".controller.account.movements.LastMovementsActivity"
             android:enabled="true"
             android:icon="@drawable/logo_ic"
             android:immersive="true"
             android:label="@string/movement">
-            <intent-filter>
-                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.google.android.glass.VoiceTrigger"
-                android:resource="@xml/last_transactions_voice_trigger" />
         </activity>
         <!-- /Last movements -->
 
         <!-- Products Balances -->
         <activity
-            android:name=".controller.balance.ProductsBalanceActivity"
+            android:name=".controller.account.ProductsBalanceActivity"
             android:enabled="true"
             android:icon="@drawable/logo_ic"
             android:immersive="true"

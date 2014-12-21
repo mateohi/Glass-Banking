@@ -1,11 +1,10 @@
-package uy.infocorp.banking.glass.controller.transactions;
+package uy.infocorp.banking.glass.controller.account.transactions;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +24,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.controller.balance.ProductsBalanceActivity;
+import uy.infocorp.banking.glass.controller.account.ProductsBalanceActivity;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
