@@ -2,9 +2,6 @@ package uy.infocorp.banking.glass.util.serialization;
 
 import android.content.Intent;
 
-/**
- * Created by germanc on 18/12/14.
- */
 public final class EnumUtil {
 
     /**
@@ -36,7 +33,10 @@ public final class EnumUtil {
         }
 
         public T from(Intent intent) {
-            if (!intent.hasExtra(name)) throw new IllegalStateException();
+            if (!intent.hasExtra(name)) {
+                throw new IllegalStateException();
+            }
+
             return victimType.getEnumConstants()[intent.getIntExtra(name, -1)];
         }
     }

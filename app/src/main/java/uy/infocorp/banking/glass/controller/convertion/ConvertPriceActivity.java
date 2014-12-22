@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.controller.common.EditableActivity;
 import uy.infocorp.banking.glass.domain.convertion.PriceConvertor;
 import uy.infocorp.banking.glass.domain.convertion.SymbolExtractor;
 import uy.infocorp.banking.glass.domain.ocr.PriceExtractor;
@@ -35,9 +36,8 @@ import uy.infocorp.banking.glass.model.common.Price;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.format.PriceFormat;
 import uy.infocorp.banking.glass.util.resources.Resources;
-import uy.infocorp.banking.glass.util.view.ViewUtils;
 
-public class ConvertPriceActivity extends Activity {
+public class ConvertPriceActivity extends EditableActivity {
 
     private static final int TAKE_PICTURE_REQUEST = 1;
     private static final String TAG = ConvertPriceActivity.class.getSimpleName();
@@ -177,13 +177,14 @@ public class ConvertPriceActivity extends Activity {
 
             CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.EMBED_INSIDE)
                     .setEmbeddedLayout(R.layout.price_convertion);
+
             View convertionView = cardBuilder.getView();
 
-            ViewUtils.setTextViewText(convertionView, R.id.from_code, from.getAlpha3Code());
-            ViewUtils.setTextViewText(convertionView, R.id.to_code, to.getAlpha3Code());
+            setTextViewText(convertionView, R.id.from_code, from.getAlpha3Code());
+            setTextViewText(convertionView, R.id.to_code, to.getAlpha3Code());
 
-            ViewUtils.setTextViewText(convertionView, R.id.from_price, PriceFormat.readable(from));
-            ViewUtils.setTextViewText(convertionView, R.id.converted_price, PriceFormat.readable(to));
+            setTextViewText(convertionView, R.id.from_price, PriceFormat.readable(from));
+            setTextViewText(convertionView, R.id.converted_price, PriceFormat.readable(to));
 
             views.add(convertionView);
         }

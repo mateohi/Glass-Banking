@@ -1,6 +1,5 @@
 package uy.infocorp.banking.glass.controller.account.transactions;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.TextView;
 
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
@@ -25,6 +23,7 @@ import java.util.List;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.account.ProductsBalanceActivity;
+import uy.infocorp.banking.glass.controller.common.EditableActivity;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
@@ -32,7 +31,7 @@ import uy.infocorp.banking.glass.util.date.DateUtils;
 import uy.infocorp.banking.glass.util.resources.Resources;
 import uy.infocorp.banking.glass.util.serialization.EnumUtil;
 
-public class LastTransfersActivity extends Activity {
+public class LastTransfersActivity extends EditableActivity {
 
     private List<View> views = Lists.newArrayList();
     private List<Transfer> transfers = Lists.newArrayList();
@@ -147,18 +146,16 @@ public class LastTransfersActivity extends Activity {
 
     private View createView(Transfer transfer) {
         String transferDate = DateUtils.simpleMonthDateFormat(transfer.getCreatedDate());
-        View convertView = getLayoutInflater().inflate(R.layout.transaction_history_item, null);
-        TextView timestampTextView = (TextView)convertView.findViewById(R.id.timestamp);
-        timestampTextView.setText(transferDate);
-        TextView textViewTopLeft = (TextView) convertView.findViewById(R.id.text_view_top_left_title);
-        textViewTopLeft.setText(sourceAccountAlias);
-        TextView textViewBottomLeft = (TextView) convertView.findViewById(R.id.text_view_bottom_left_title);
-        textViewBottomLeft.setText(transfer.getCreditProduct().getProductNumber());
-        TextView textViewRight = (TextView) convertView.findViewById(R.id.text_view_right_title);
         String amount = Resources.getString(R.string.alpha_symbol) + " " + transfer.getAmount().toString();
-        textViewRight.setText(amount);
-        TextView textViewTopRight = (TextView) convertView.findViewById(R.id.text_view_top_right_title);
-        textViewTopRight.setText(transfer.getDescription());
+
+        View convertView = getLayoutInflater().inflate(R.layout.transaction_history_item, null);
+
+        setTextViewText(convertView, R.id.timestamp, transferDate);
+        setTextViewText(convertView, R.id.text_view_top_left_title, sourceAccountAlias);
+        setTextViewText(convertView, R.id.text_view_bottom_left_title, transfer.getCreditProduct().getProductNumber());
+        setTextViewText(convertView, R.id.text_view_right_title, amount);
+        setTextViewText(convertView, R.id.text_view_top_right_title, transfer.getDescription());
+
         return convertView;
     }
 
@@ -182,16 +179,6 @@ public class LastTransfersActivity extends Activity {
         @Override
         public Object getItem(int position) {
             return views.get(position);
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return CardBuilder.getViewTypeCount();
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return 1;
         }
 
         @Override

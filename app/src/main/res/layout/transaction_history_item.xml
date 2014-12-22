@@ -6,20 +6,24 @@
 
     <RelativeLayout
         android:id="@+id/left_column"
+        android:layout_marginStart="@dimen/card_two_column_margin"
         android:layout_width="@dimen/card_left_column_width"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:background="@color/dark_gray">
 
         <TextView
             android:id="@+id/text_view_top_left_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:textSize="25sp" />
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/text_view_left_icon"
-            android:layout_width="100px"
-            android:layout_height="100px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/card_margin"
@@ -30,7 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/card_margin"
-            android:textSize="23sp"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/card_footer_margin"/>
 
     </RelativeLayout>
@@ -38,12 +43,12 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/card_body_height"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="@dimen/card_two_column_margin"
-        android:layout_marginRight="@dimen/card_margin"
+        android:layout_marginStart="@dimen/card_two_column_margin"
+        android:layout_marginEnd="@dimen/card_margin"
         android:layout_marginTop="@dimen/card_margin"
-        android:layout_toRightOf="@+id/left_column"
+        android:layout_toEndOf="@+id/left_column"
         tools:ignore="UselessLeaf">
 
         <TextView
@@ -68,12 +73,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|left"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|start"
         android:layout_marginBottom="@dimen/card_footer_margin"
-        android:layout_marginLeft="@dimen/card_two_column_margin"
-        android:layout_marginRight="@dimen/card_margin"
-        android:layout_toRightOf="@+id/left_column"
+        android:layout_marginStart="@dimen/card_two_column_margin"
+        android:layout_marginEnd="@dimen/card_margin"
+        android:layout_toEndOf="@+id/left_column"
         android:orientation="horizontal">
 
         <!--
@@ -95,7 +100,7 @@
             android:id="@+id/timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/card_margin"
+            android:layout_marginStart="@dimen/card_margin"
             android:ellipsize="end"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceSmall" />

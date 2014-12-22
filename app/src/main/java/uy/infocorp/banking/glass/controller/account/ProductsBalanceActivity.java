@@ -35,6 +35,9 @@ public class ProductsBalanceActivity extends Activity {
     public static final String PRODUCT_BANK_IDENTIFIER = "productBankIdentifier";
     public static final String PRODUCT_ALIAS = "alias";
 
+    private static final List<ProductType> STACKED_PRODUCTS =
+            Lists.newArrayList(ProductType.currentAccount, ProductType.creditCard, ProductType.savingsAccount);
+
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Product> products = Lists.newArrayList();
 
@@ -115,7 +118,6 @@ public class ProductsBalanceActivity extends Activity {
     private void showNoProductsView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("No accounts registered yet")
-                .setTimestamp("No Balances")
                 .setIcon(R.drawable.ic_help)
                 .getView();
 
@@ -124,7 +126,7 @@ public class ProductsBalanceActivity extends Activity {
 
     private void showNoConnectivityView() {
         View initialView = new CardBuilder(this, CardBuilder.Layout.ALERT)
-                .setText("Unable to get the Accounts")
+                .setText("Unable to get your accounts")
                 .setFootnote("Check your internet connection")
                 .setIcon(R.drawable.ic_cloud_sad_150)
                 .getView();
@@ -185,18 +187,16 @@ public class ProductsBalanceActivity extends Activity {
         String footnote = product.getProductNumber();
         String accountDescription = product.getProductTypeDescription();
         int iconId = product.getProductIconId();
-        String timestamp = "just now";
 
         CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.COLUMNS)
                 .setText(accountDescription + "\n" + alias + "\n" + balance)
                 .setFootnote(footnote)
-                .setTimestamp(timestamp)
                 .setIcon(iconId);
-        if (product.getProductType() == ProductType.creditCard ||
-                product.getProductType() == ProductType.currentAccount ||
-                product.getProductType() == ProductType.savingsAccount) {
+
+        if (STACKED_PRODUCTS.contains(product.getProductType())) {
             cardBuilder.showStackIndicator(true);
         }
+
         return cardBuilder;
     }
 

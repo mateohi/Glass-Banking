@@ -1,6 +1,5 @@
 package uy.infocorp.banking.glass.controller.account.movements;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.TextView;
 
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
@@ -25,6 +23,7 @@ import java.util.List;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.account.ProductsBalanceActivity;
+import uy.infocorp.banking.glass.controller.common.EditableActivity;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
@@ -32,9 +31,8 @@ import uy.infocorp.banking.glass.util.date.DateUtils;
 import uy.infocorp.banking.glass.util.resources.Resources;
 import uy.infocorp.banking.glass.util.serialization.EnumUtil;
 
-public class LastMovementsActivity extends Activity {
+public class LastMovementsActivity extends EditableActivity {
 
-    //    private List<CardBuilder> cards = Lists.newArrayList();
     private List<View> views = Lists.newArrayList();
     private Slider.Indeterminate slider;
     private String productBankIdentifier;
@@ -45,11 +43,13 @@ public class LastMovementsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Intent intent = getIntent();
         this.productBankIdentifier = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_BANK_IDENTIFIER);
         this.sourceAccountAlias = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_ALIAS);
         this.sourceAccountNumber = productBankIdentifier.split("\\|")[1];
         this.productType = EnumUtil.deserialize(ProductType.class).from(intent);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         showInitialView();
@@ -144,20 +144,19 @@ public class LastMovementsActivity extends Activity {
     }
 
     private View createView(Movement movement) {
-        String productCode = (String) (movement.getExtendedProperties().get("productCode"));
-        String movDate = DateUtils.simpleMonthDateFormat(movement.getMovementDate());
-        View convertView = getLayoutInflater().inflate(R.layout.transaction_history_item, null);
-        TextView timestampTextView = (TextView)convertView.findViewById(R.id.timestamp);
-        timestampTextView.setText(movDate);
-        TextView textViewTopLeft = (TextView) convertView.findViewById(R.id.text_view_top_left_title);
-        textViewTopLeft.setText(sourceAccountAlias);
-        TextView textViewBottomLeft = (TextView) convertView.findViewById(R.id.text_view_bottom_left_title);
-        textViewBottomLeft.setText(productCode);
-        TextView textViewRight = (TextView) convertView.findViewById(R.id.text_view_right_title);
+        String productCode = (String) movement.getExtendedProperties().get("productCode");
+        String movementDate = DateUtils.simpleMonthDateFormat(movement.getMovementDate());
         String amount = Resources.getString(R.string.alpha_symbol) + " " + movement.getAmount().toString();
-        textViewRight.setText(amount);
-        TextView textViewTopRight = (TextView) convertView.findViewById(R.id.text_view_top_right_title);
-        textViewTopRight.setText((String)movement.getExtendedProperties().get("observations"));
+        String observations = (String) movement.getExtendedProperties().get("observations");
+
+        View convertView = getLayoutInflater().inflate(R.layout.transaction_history_item, null);
+
+        setTextViewText(convertView, R.id.timestamp, movementDate);
+        setTextViewText(convertView, R.id.text_view_top_left_title, sourceAccountAlias);
+        setTextViewText(convertView, R.id.text_view_bottom_left_title, productCode);
+        setTextViewText(convertView, R.id.text_view_right_title, amount);
+        setTextViewText(convertView, R.id.text_view_top_right_title, observations);
+
         return convertView;
     }
 
@@ -181,16 +180,6 @@ public class LastMovementsActivity extends Activity {
         @Override
         public Object getItem(int position) {
             return views.get(position);
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return CardBuilder.getViewTypeCount();
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return 1;
         }
 
         @Override

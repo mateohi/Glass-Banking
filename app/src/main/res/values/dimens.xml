@@ -12,7 +12,7 @@
     <dimen name="card_footer_margin">33px</dimen>
 
     <!-- The recommended margin for the left column of the two-column card. -->
-    <dimen name="card_two_column_margin">30px</dimen>
+    <dimen name="card_two_column_margin">10px</dimen>
 
     <!-- The maximum height of the body content inside a card. -->
     <dimen name="card_body_height">240px</dimen>
