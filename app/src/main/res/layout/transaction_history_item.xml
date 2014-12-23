@@ -10,11 +10,14 @@
         android:layout_width="@dimen/card_left_column_width"
         android:layout_height="match_parent"
         android:padding="10dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:background="@color/dark_gray">
 
         <TextView
+            android:text="cuenta"
             android:id="@+id/text_view_top_left_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -26,17 +29,16 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/card_margin"
-            android:background="@drawable/ic_arrow_right" />
+            android:background="@drawable/ic_forward" />
+
         <TextView
+            android:text="12345"
             android:id="@+id/text_view_bottom_left_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/card_margin"
             android:textSize="20sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/card_footer_margin"/>
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
@@ -47,18 +49,20 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/card_two_column_margin"
         android:layout_marginEnd="@dimen/card_margin"
-        android:layout_marginTop="@dimen/card_margin"
         android:layout_toEndOf="@+id/left_column"
         tools:ignore="UselessLeaf">
 
         <TextView
+            android:text="holis"
             android:id="@+id/text_view_top_right_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:textSize="25sp"/>
+            android:textColor="@color/gray"
+            android:textSize="22sp"/>
 
         <TextView
+            android:text="$ 500"
             android:id="@+id/text_view_right_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

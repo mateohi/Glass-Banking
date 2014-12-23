@@ -15,7 +15,7 @@
     <dimen name="card_two_column_margin">10px</dimen>
 
     <!-- The maximum height of the body content inside a card. -->
-    <dimen name="card_body_height">240px</dimen>
+    <dimen name="card_body_height">260px</dimen>
 
     <!-- The width of the left column in the two-column layout. -->
     <dimen name="card_left_column_width">240px</dimen>
