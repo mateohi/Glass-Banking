@@ -15,12 +15,13 @@
         android:background="@color/dark_gray">
 
         <TextView
-            android:text="cuenta"
             android:id="@+id/text_view_top_left_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:textSize="20sp" />
 
         <ImageView
@@ -32,13 +33,14 @@
             android:background="@drawable/ic_forward" />
 
         <TextView
-            android:text="12345"
             android:id="@+id/text_view_bottom_left_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+        android:ellipsize="start"
+        android:singleLine="true"
+        android:textSize="20sp" />
 
     </RelativeLayout>
 

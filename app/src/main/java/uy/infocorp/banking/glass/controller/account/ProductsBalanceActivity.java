@@ -188,7 +188,7 @@ public class ProductsBalanceActivity extends Activity {
         String accountDescription = product.getProductTypeDescription();
         int iconId = product.getProductIconId();
 
-        CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.COLUMNS)
+        CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
                 .setText(accountDescription + "\n" + alias + "\n" + balance)
                 .setFootnote(footnote)
                 .setIcon(iconId);
