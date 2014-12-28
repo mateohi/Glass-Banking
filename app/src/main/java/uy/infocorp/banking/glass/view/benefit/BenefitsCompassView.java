@@ -33,8 +33,9 @@ public class BenefitsCompassView extends View {
     private static final float TICK_WIDTH = 2;
     private static final float TICK_HEIGHT = 10;
     private static final float DIRECTION_TEXT_HEIGHT = 40.0f;
-    private static final float PLACE_TEXT_HEIGHT = 25.0f;
-    private static final float NEAR_PLACE_TEXT_HEIGHT = 30.0f;
+
+    private static final float PLACE_TEXT_HEIGHT = 50.0f;
+    private static final float NEAR_PLACE_TEXT_HEIGHT = 70.0f;
     private static final float PLACE_PIN_WIDTH = 20.0f;
     private static final float PLACE_TEXT_LEADING = 4.0f;
     private static final float PLACE_TEXT_MARGIN = 8.0f;
@@ -47,6 +48,7 @@ public class BenefitsCompassView extends View {
     // Direction currently displayed
     private float animatedHeading;
 
+    private Context context;
     private OrientationManager orientationManager;
     private List<Benefit> nearbyBenefits;
     private Benefit frontBenefit;
@@ -55,7 +57,6 @@ public class BenefitsCompassView extends View {
     private final Paint tickPaint;
     private final TextPaint benefitPaint;
     private final TextPaint frontBenefitPaint;
-    private final Bitmap placeBitmap;
     private final Rect textBounds;
     private final List<Rect> allBounds;
     private final NumberFormat distanceFormat;
@@ -72,6 +73,8 @@ public class BenefitsCompassView extends View {
 
     public BenefitsCompassView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
+        this.context = context;
 
         this.paint = new Paint();
         this.paint.setStyle(Paint.Style.FILL);
@@ -106,8 +109,6 @@ public class BenefitsCompassView extends View {
         this.distanceFormat = NumberFormat.getNumberInstance();
         this.distanceFormat.setMinimumFractionDigits(0);
         this.distanceFormat.setMaximumFractionDigits(1);
-
-        this.placeBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.place_mark);
 
         // We use NaN to indicate that the compass is being drawn for the first
         // time, so that we can jump directly to the starting orientation
@@ -212,6 +213,7 @@ public class BenefitsCompassView extends View {
                             longitude2);
 
                     String name = benefit.getName();
+                    Bitmap benefitType = BitmapFactory.decodeResource(context.getResources(), benefit.getIconId());
                     double distanceKm = MathUtils.getDistance(latitude1, longitude1, latitude2,
                             longitude2);
                     String text = getContext().getResources().getString(
@@ -235,7 +237,7 @@ public class BenefitsCompassView extends View {
                     if (!intersects(textBounds)) {
                         allBounds.add(textBounds);
 
-                        canvas.drawBitmap(placeBitmap, offset + bearing * pixelsPerDegree
+                        canvas.drawBitmap(benefitType, offset + bearing * pixelsPerDegree
                                 - PLACE_PIN_WIDTH / 2, textBounds.top + 2, paint);
                         canvas.drawText(text,
                                 offset + bearing * pixelsPerDegree + PLACE_PIN_WIDTH / 2

@@ -1,5 +1,7 @@
 package uy.infocorp.banking.glass.model.benefit;
 
+import uy.infocorp.banking.glass.R;
+
 public class Benefit {
 
     private final double latitude;
@@ -44,5 +46,33 @@ public class Benefit {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getIconId() {
+        if (Type.AUTOMOBILES.equals(type)) {
+            return R.drawable.benefit_automobile;
+        } else if (Type.CLOTHES_AND_FOOTWEAR.equals(type)) {
+            return R.drawable.benefit_shop;
+        } else if (Type.ENTERTAINMENT.equals(type)) {
+            return R.drawable.benefit_entertainment;
+        } else if (Type.HEALTH_AND_SPORT.equals(type)) {
+            return R.drawable.benefit_health_and_sport;
+        } else if (Type.HOME.equals(type)) {
+            return R.drawable.benefit_home;
+        } else if (Type.OTHERS.equals(type)) {
+            return R.drawable.benefit_other;
+        } else if (Type.RESTAURANTS.equals(type)) {
+            return R.drawable.benefit_shop;
+        } else if (Type.SERVICES.equals(type)) {
+            return R.drawable.benefit_shop;
+        } else if (Type.SUPERMARKETS_AND_STORES.equals(type)) {
+            return R.drawable.benefit_shop;
+        } else if (Type.TECHNOLOGY.equals(type)) {
+            return R.drawable.benefit_technology;
+        } else if (Type.TRAVEL.equals(type)) {
+            return R.drawable.benefit_travel;
+        } else {
+            return R.drawable.benefit_other;
+        }
     }
 }
