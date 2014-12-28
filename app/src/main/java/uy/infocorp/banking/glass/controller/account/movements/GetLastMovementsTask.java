@@ -24,7 +24,7 @@ public class GetLastMovementsTask extends SimpleAsyncTask<List<Movement>> {
             String productBankIdentifier = (String) params[0];
             ProductType productType = (ProductType) params[1];
             return MovementHistoryClient.instance().getLastMovements(productType,
-                                                                    productBankIdentifier);
+                    productBankIdentifier);
         } catch (RuntimeException e) {
             Log.e(TAG, "RuntimeException: Unable to get latest transactions -" + e.getMessage());
             return null;

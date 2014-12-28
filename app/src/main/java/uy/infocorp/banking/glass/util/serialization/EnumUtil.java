@@ -7,6 +7,7 @@ public final class EnumUtil {
     /**
      * This both inner classes allow to pass an enum object through an intent
      * (generic, reusable, and decoupled from the enum solution)
+     *
      * @param <T>
      */
     public static class Serializer<T extends Enum<T>> extends Deserializer<T> {

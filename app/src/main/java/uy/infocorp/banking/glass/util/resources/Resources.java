@@ -1,6 +1,5 @@
 package uy.infocorp.banking.glass.util.resources;
 
-import android.accounts.AccountManager;
 import android.content.Context;
 import android.util.Log;
 

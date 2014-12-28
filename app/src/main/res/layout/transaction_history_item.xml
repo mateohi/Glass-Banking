@@ -38,9 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-        android:ellipsize="start"
-        android:singleLine="true"
-        android:textSize="20sp" />
+            android:ellipsize="start"
+            android:singleLine="true"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -55,7 +55,6 @@
         tools:ignore="UselessLeaf">
 
         <TextView
-            android:text="holis"
             android:id="@+id/text_view_top_right_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +63,6 @@
             android:textSize="22sp"/>
 
         <TextView
-            android:text="$ 500"
             android:id="@+id/text_view_right_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

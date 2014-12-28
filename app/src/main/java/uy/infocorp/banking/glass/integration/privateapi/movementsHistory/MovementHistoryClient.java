@@ -3,7 +3,6 @@ package uy.infocorp.banking.glass.integration.privateapi.movementsHistory;
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 
-import java.util.Arrays;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;

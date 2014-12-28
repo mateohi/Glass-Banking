@@ -27,7 +27,6 @@ import com.google.android.glass.widget.CardScrollView;
 import com.google.android.glass.widget.Slider;
 import com.google.common.collect.Lists;
 
-import java.text.NumberFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

@@ -39,8 +39,6 @@ public class BenefitsCompassView extends View {
     private static final float PLACE_TEXT_LEADING = 4.0f;
     private static final float PLACE_TEXT_MARGIN = 8.0f;
 
-    private static final int MAX_OVERLAPPING_PLACE_NAMES = 4;
-
     private static final float MIN_DISTANCE_TO_ANIMATE = 15.0f;
 
     // Direction that the user is facing
@@ -232,31 +230,9 @@ public class BenefitsCompassView extends View {
                     textBounds.left -= PLACE_PIN_WIDTH + PLACE_TEXT_MARGIN;
                     textBounds.right += PLACE_TEXT_MARGIN;
 
-                    // This loop attempts to find the best vertical position for the string by
-                    // starting at the bottom of the display and checking to see if it overlaps
-                    // with any other labels that were already drawn. If there is an overlap, we
-                    // move up and check again, repeating this process until we find a vertical
-                    // position where there is no overlap, or when we reach the limit on
-                    // overlapping place names.
-                    boolean intersects;
-                    int numberOfTries = 0;
-                    do {
-                        intersects = false;
-                        numberOfTries++;
-                        textBounds.offset(0, (int) -(PLACE_TEXT_HEIGHT + PLACE_TEXT_LEADING));
-
-                        for (Rect existing : this.allBounds) {
-                            if (Rect.intersects(existing, textBounds)) {
-                                intersects = true;
-                                break;
-                            }
-                        }
-                    }
-                    while (intersects && numberOfTries <= MAX_OVERLAPPING_PLACE_NAMES);
-
                     // Only draw the string if it would not go high enough to overlap the compass
                     // directions. This means some places may not be drawn, even if they're nearby.
-                    if (numberOfTries <= MAX_OVERLAPPING_PLACE_NAMES) {
+                    if (!intersects(textBounds)) {
                         allBounds.add(textBounds);
 
                         canvas.drawBitmap(placeBitmap, offset + bearing * pixelsPerDegree
@@ -276,6 +252,19 @@ public class BenefitsCompassView extends View {
                 this.frontBenefit = front;
             }
         }
+    }
+
+    // Returns true if there is another benefit drawn on there
+    private boolean intersects(Rect textBounds) {
+        textBounds.offset(0, (int) -(PLACE_TEXT_HEIGHT + PLACE_TEXT_LEADING));
+
+        for (Rect existing : this.allBounds) {
+            if (Rect.intersects(existing, textBounds)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void setupAnimator() {

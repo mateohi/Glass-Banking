@@ -28,7 +28,7 @@ public class DateUtils {
         return SIMPLE_FORMAT.format(date);
     }
 
-    public static String simpleMonthDateFormat(Date date){
+    public static String simpleMonthDateFormat(Date date) {
         return SIMPLE_MONTH_DATE_FORMAT.format(date);
     }
 }

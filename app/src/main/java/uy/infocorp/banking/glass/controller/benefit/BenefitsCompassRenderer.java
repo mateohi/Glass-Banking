@@ -34,8 +34,6 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
     private static final int REFRESH_RATE_FPS = 45;
     private static final long FRAME_TIME_MILLIS = TimeUnit.SECONDS.toMillis(1) / REFRESH_RATE_FPS;
 
-    private Bitmap syncIcon;
-
     private BenefitsService service;
     private final TextView benefitNameView;
 
@@ -87,8 +85,6 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
         this.service = service;
         this.frameLayout = (FrameLayout) inflater.inflate(R.layout.benefits, null);
         this.frameLayout.setWillNotDraw(false);
-
-        this.syncIcon = BitmapFactory.decodeResource(service.getResources(), R.drawable.ic_sync);
 
         this.benefitsCompassView = (BenefitsCompassView) this.frameLayout.findViewById(R.id.compass);
         this.tipsContainer = (RelativeLayout) this.frameLayout.findViewById(R.id.tips_container);
@@ -206,12 +202,12 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
                 updateFrontBenefits();
                 this.frameLayout.draw(canvas);
             } else {
-                View syncView = new CardBuilder(this.service, CardBuilder.Layout.ALERT)
+                View syncView = new CardBuilder(this.service, CardBuilder.Layout.MENU)
                         .setText("Loading nearby benefits")
-                        .setIcon(syncIcon)
+                        .setIcon(R.drawable.ic_sync)
                         .getView();
 
-                syncView.measure(640, 320);
+                syncView.measure(syncView.getWidth(), syncView.getHeight());
                 syncView.layout(0, 0, 0, 0);
 
                 syncView.draw(canvas);
