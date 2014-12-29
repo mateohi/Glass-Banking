@@ -35,10 +35,12 @@ public class BenefitsCompassView extends View {
     private static final float DIRECTION_TEXT_HEIGHT = 40.0f;
 
     private static final float PLACE_TEXT_HEIGHT = 50.0f;
+    private static final float PLACE_DISTANCE_TEXT_HEIGHT = 30.0f;
     private static final float NEAR_PLACE_TEXT_HEIGHT = 70.0f;
-    private static final float PLACE_PIN_WIDTH = 20.0f;
+
+    private static final float PLACE_PIN_WIDTH = 50.0f;
     private static final float PLACE_TEXT_LEADING = 4.0f;
-    private static final float PLACE_TEXT_MARGIN = 8.0f;
+    private static final float PLACE_TEXT_MARGIN = 10.0f;
 
     private static final float MIN_DISTANCE_TO_ANIMATE = 15.0f;
 
@@ -55,6 +57,7 @@ public class BenefitsCompassView extends View {
 
     private final Paint paint;
     private final Paint tickPaint;
+    private final TextPaint benefitDistancePaint;
     private final TextPaint benefitPaint;
     private final TextPaint frontBenefitPaint;
     private final Rect textBounds;
@@ -88,6 +91,13 @@ public class BenefitsCompassView extends View {
         this.tickPaint.setStrokeWidth(TICK_WIDTH);
         this.tickPaint.setAntiAlias(true);
         this.tickPaint.setColor(Color.GRAY);
+
+        this.benefitDistancePaint = new TextPaint();
+        this.benefitDistancePaint.setStyle(Paint.Style.FILL);
+        this.benefitDistancePaint.setAntiAlias(true);
+        this.benefitDistancePaint.setColor(Color.GRAY);
+        this.benefitDistancePaint.setTextSize(PLACE_DISTANCE_TEXT_HEIGHT);
+        this.benefitDistancePaint.setTypeface(Typeface.create("sans-serif-light", Typeface.BOLD));
 
         this.benefitPaint = new TextPaint();
         this.benefitPaint.setStyle(Paint.Style.FILL);
@@ -216,13 +226,12 @@ public class BenefitsCompassView extends View {
                     Bitmap benefitType = BitmapFactory.decodeResource(context.getResources(), benefit.getIconId());
                     double distanceKm = MathUtils.getDistance(latitude1, longitude1, latitude2,
                             longitude2);
-                    String text = getContext().getResources().getString(
-                            R.string.place_text_format, name, distanceFormat.format(distanceKm));
+                    String distance = "(" + distanceFormat.format(distanceKm) + " km)";
 
                     // Measure the text and offset the text bounds to the location where the text
                     // will finally be drawn.
                     Rect textBounds = new Rect();
-                    this.benefitPaint.getTextBounds(text, 0, text.length(), textBounds);
+                    this.benefitPaint.getTextBounds(name + distance, 0, name.length() + distance.length(), textBounds);
                     textBounds.offsetTo((int) (offset + bearing * pixelsPerDegree
                             + PLACE_PIN_WIDTH / 2 + PLACE_TEXT_MARGIN), canvas.getHeight() / 2
                             - (int) PLACE_TEXT_HEIGHT + (int) (distanceKm * 5.0));
@@ -232,23 +241,25 @@ public class BenefitsCompassView extends View {
                     textBounds.left -= PLACE_PIN_WIDTH + PLACE_TEXT_MARGIN;
                     textBounds.right += PLACE_TEXT_MARGIN;
 
-                    // Only draw the string if it would not go high enough to overlap the compass
-                    // directions. This means some places may not be drawn, even if they're nearby.
+                    // Only draw the benefits that do not intersect any previously drawn one
                     if (!intersects(textBounds)) {
                         allBounds.add(textBounds);
 
+                        float x = offset + bearing * pixelsPerDegree + PLACE_PIN_WIDTH / 2
+                                + PLACE_TEXT_MARGIN;
+                        float y = textBounds.top + PLACE_TEXT_HEIGHT;
+
                         canvas.drawBitmap(benefitType, offset + bearing * pixelsPerDegree
                                 - PLACE_PIN_WIDTH / 2, textBounds.top + 2, paint);
-                        canvas.drawText(text,
-                                offset + bearing * pixelsPerDegree + PLACE_PIN_WIDTH / 2
-                                        + PLACE_TEXT_MARGIN, textBounds.top + PLACE_TEXT_HEIGHT,
-                                benefitPaint);
-                    }
+                        canvas.drawText(name, x, y, benefitPaint);
+                        canvas.drawText(distance, x + name.length() * 25, y, benefitDistancePaint);
 
-                    double difference = MathUtils.getAngleDifference(bearing, this.heading);
-                    if (difference < smallestDifference) {
-                        smallestDifference = difference;
-                        front = benefit;
+                        // Update front benefit
+                        double difference = MathUtils.getAngleDifference(bearing, this.heading);
+                        if (difference < smallestDifference) {
+                            smallestDifference = difference;
+                            front = benefit;
+                        }
                     }
                 }
                 this.frontBenefit = front;
