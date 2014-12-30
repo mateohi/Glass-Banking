@@ -20,6 +20,8 @@ import android.view.animation.LinearInterpolator;
 
 import com.google.common.collect.Lists;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.NumberFormat;
 import java.util.List;
 
@@ -36,7 +38,6 @@ public class BenefitsCompassView extends View {
 
     private static final float PLACE_TEXT_HEIGHT = 50.0f;
     private static final float PLACE_DISTANCE_TEXT_HEIGHT = 30.0f;
-    private static final float NEAR_PLACE_TEXT_HEIGHT = 70.0f;
 
     private static final float PLACE_PIN_WIDTH = 50.0f;
     private static final float PLACE_TEXT_LEADING = 4.0f;
@@ -59,7 +60,6 @@ public class BenefitsCompassView extends View {
     private final Paint tickPaint;
     private final TextPaint benefitDistancePaint;
     private final TextPaint benefitPaint;
-    private final TextPaint frontBenefitPaint;
     private final Rect textBounds;
     private final List<Rect> allBounds;
     private final NumberFormat distanceFormat;
@@ -105,13 +105,6 @@ public class BenefitsCompassView extends View {
         this.benefitPaint.setColor(Color.WHITE);
         this.benefitPaint.setTextSize(PLACE_TEXT_HEIGHT);
         this.benefitPaint.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-
-        this.frontBenefitPaint = new TextPaint();
-        this.frontBenefitPaint.setStyle(Paint.Style.FILL);
-        this.frontBenefitPaint.setAntiAlias(true);
-        this.frontBenefitPaint.setColor(Color.CYAN);
-        this.frontBenefitPaint.setTextSize(NEAR_PLACE_TEXT_HEIGHT);
-        this.frontBenefitPaint.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
 
         this.textBounds = new Rect();
         this.allBounds = Lists.newArrayList();
@@ -205,8 +198,6 @@ public class BenefitsCompassView extends View {
         if (orientationManager.hasLocation() && nearbyBenefits != null) {
             synchronized (nearbyBenefits) {
                 Location userLocation = orientationManager.getLocation();
-                double latitude1 = userLocation.getLatitude();
-                double longitude1 = userLocation.getLongitude();
 
                 this.allBounds.clear();
 
@@ -217,15 +208,11 @@ public class BenefitsCompassView extends View {
                 Benefit front = this.nearbyBenefits.get(0);
                 double smallestDifference = 360;
                 for (Benefit benefit : this.nearbyBenefits) {
-                    double latitude2 = benefit.getLatitude();
-                    double longitude2 = benefit.getLongitude();
-                    float bearing = MathUtils.getBearing(latitude1, longitude1, latitude2,
-                            longitude2);
+                    float bearing = bearing(userLocation, benefit);
 
-                    String name = benefit.getName();
+                    String name = StringUtils.abbreviate(benefit.getName(), 15);
                     Bitmap benefitType = BitmapFactory.decodeResource(context.getResources(), benefit.getIconId());
-                    double distanceKm = MathUtils.getDistance(latitude1, longitude1, latitude2,
-                            longitude2);
+                    double distanceKm = distance(userLocation, benefit);
                     String distance = "(" + distanceFormat.format(distanceKm) + " km)";
 
                     // Measure the text and offset the text bounds to the location where the text
@@ -265,6 +252,26 @@ public class BenefitsCompassView extends View {
                 this.frontBenefit = front;
             }
         }
+    }
+
+    private float distance(Location userLocation, Benefit benefit) {
+        double userLatitude = userLocation.getLatitude();
+        double userLongitude = userLocation.getLongitude();
+
+        double benefitLatitude = benefit.getLatitude();
+        double benefitLongitude = benefit.getLongitude();
+
+        return MathUtils.getDistance(userLatitude, userLongitude, benefitLatitude, benefitLongitude);
+    }
+
+    private float bearing(Location userLocation, Benefit benefit) {
+        double userLatitude = userLocation.getLatitude();
+        double userLongitude = userLocation.getLongitude();
+
+        double benefitLatitude = benefit.getLatitude();
+        double benefitLongitude = benefit.getLongitude();
+
+        return MathUtils.getBearing(userLatitude, userLongitude, benefitLatitude, benefitLongitude);
     }
 
     // Returns true if there is another benefit drawn on there
