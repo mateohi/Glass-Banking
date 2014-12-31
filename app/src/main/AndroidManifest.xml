@@ -148,8 +148,7 @@
             android:enabled="true"
             android:icon="@drawable/logo_ic"
             android:immersive="true"
-            android:label="@string/transfer">
-        </activity>
+            android:label="@string/transfer"></activity>
         <!-- /Last transfers -->
 
         <!-- Last movements -->
@@ -158,8 +157,7 @@
             android:enabled="true"
             android:icon="@drawable/logo_ic"
             android:immersive="true"
-            android:label="@string/movement">
-        </activity>
+            android:label="@string/movement"></activity>
         <!-- /Last movements -->
 
         <!-- Products Balances -->

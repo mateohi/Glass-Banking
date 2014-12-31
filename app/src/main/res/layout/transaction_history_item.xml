@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textColor="@color/gray"
-            android:textSize="22sp"/>
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/text_view_right_title"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/card_margin"
             android:layout_alignParentBottom="true"
-            android:textSize="45sp"/>
+            android:textSize="45sp" />
 
     </RelativeLayout>
 

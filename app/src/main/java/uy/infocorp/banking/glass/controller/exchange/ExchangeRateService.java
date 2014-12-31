@@ -3,8 +3,6 @@ package uy.infocorp.banking.glass.controller.exchange;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.IBinder;
 import android.widget.RemoteViews;
@@ -80,12 +78,10 @@ public class ExchangeRateService extends Service {
     }
 
     private void loadInitialView() {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_sync);
-
         RemoteViews remoteViews = new CardBuilder(this, CardBuilder.Layout.ALERT)
                 .setText("Loading")
                 .setFootnote("Waiting for exchange rates")
-                .setIcon(bitmap)
+                .setIcon(R.drawable.ic_sync)
                 .getRemoteViews();
 
         this.liveCard.setViews(remoteViews);

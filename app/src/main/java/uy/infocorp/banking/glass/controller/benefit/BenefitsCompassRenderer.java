@@ -1,7 +1,5 @@
 package uy.infocorp.banking.glass.controller.benefit;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.location.Location;
@@ -207,8 +205,8 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
                         .setIcon(R.drawable.ic_sync)
                         .getView();
 
-                syncView.measure(syncView.getWidth(), syncView.getHeight());
-                syncView.layout(0, 0, 0, 0);
+                syncView.measure(640, 320);
+                syncView.layout(0, 0, 640, 320);
 
                 syncView.draw(canvas);
             }

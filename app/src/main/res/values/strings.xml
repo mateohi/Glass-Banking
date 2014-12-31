@@ -36,19 +36,19 @@
     </string-array>
     <!-- Currency codes according to iso 4217 -->
     <string-array name="currency_codes">
-        <item name = "32">ARG</item>
-        <item name = "152">CLP</item>
-        <item name = "170">COP</item>
-        <item name = "188">CRC</item>
-        <item name = "214">DOP</item>
-        <item name = "392">JPY</item>
-        <item name = "484">MXN</item>
-        <item name = "756">CHF</item>
-        <item name = "826">GBP</item>
-        <item name = "840">USD</item>
-        <item name = "858">UYU</item>
-        <item name = "978">EUR</item>
-        <item name = "986">BRL</item>
+        <item name="32">ARG</item>
+        <item name="152">CLP</item>
+        <item name="170">COP</item>
+        <item name="188">CRC</item>
+        <item name="214">DOP</item>
+        <item name="392">JPY</item>
+        <item name="484">MXN</item>
+        <item name="756">CHF</item>
+        <item name="826">GBP</item>
+        <item name="840">USD</item>
+        <item name="858">UYU</item>
+        <item name="978">EUR</item>
+        <item name="986">BRL</item>
     </string-array>
 
     <string name="place_text_format">%1$s (%2$s km)</string>
