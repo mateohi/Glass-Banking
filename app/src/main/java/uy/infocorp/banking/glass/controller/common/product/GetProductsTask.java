@@ -1,4 +1,4 @@
-package uy.infocorp.banking.glass.controller.account;
+package uy.infocorp.banking.glass.controller.common.product;
 
 import android.util.Log;
 
@@ -21,12 +21,11 @@ public class GetProductsTask extends SimpleAsyncTask<List<Product>> {
     @Override
     protected List<Product> doInBackground(Object... params) {
         try {
-            Thread.sleep(1000);
             String authToken = AuthenticationClient.instance().completeLogOn();
             // Load Consolidate Position
             return ProductsClient.instance().getConsolidatedPosition(authToken);
         } catch (Exception e) {
-            Log.e(TAG, "Unable to get list of Products -" + e.getMessage());
+            Log.e(TAG, "Unable to get list of Products - " + e.getMessage());
             return null;
         }
     }

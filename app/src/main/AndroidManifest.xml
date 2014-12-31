@@ -148,7 +148,7 @@
             android:enabled="true"
             android:icon="@drawable/logo_ic"
             android:immersive="true"
-            android:label="@string/transfer"></activity>
+            android:label="@string/transfer" />
         <!-- /Last transfers -->
 
         <!-- Last movements -->
@@ -157,7 +157,7 @@
             android:enabled="true"
             android:icon="@drawable/logo_ic"
             android:immersive="true"
-            android:label="@string/movement"></activity>
+            android:label="@string/movement" />
         <!-- /Last movements -->
 
         <!-- Products Balances -->
@@ -176,6 +176,23 @@
                 android:resource="@xml/balances_products_voice_trigger" />
         </activity>
         <!-- /Products Balances -->
+
+        <!-- Transfer own accounts -->
+        <activity
+            android:name=".controller.transfer.own.TransferOwnAccountsActivity"
+            android:enabled="true"
+            android:icon="@drawable/logo_ic"
+            android:immersive="true"
+            android:label="@string/transfer_own_account">
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/transfer_voice_trigger" />
+        </activity>
+        <!-- /Transfer own accounts -->
 
     </application>
 </manifest>

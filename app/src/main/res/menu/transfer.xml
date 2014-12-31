@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="uy.infocorp.banking.glass.controller.transfer.own.TransferOwnAccountsActivity">
+
+    <item
+        android:id="@+id/action_stop"
+        android:title="@string/action_stop"
+        android:icon="@drawable/ic_stop" />
+</menu>
