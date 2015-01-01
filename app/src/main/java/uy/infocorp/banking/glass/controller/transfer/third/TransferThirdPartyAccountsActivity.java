@@ -1,7 +1,7 @@
 package uy.infocorp.banking.glass.controller.transfer.third;
 
-/**
- * Created by mateo on 31/12/14.
- */
-public class TransferThirdPartyAccountsActivity {
+import uy.infocorp.banking.glass.controller.common.EditableActivity;
+
+public class TransferThirdPartyAccountsActivity extends EditableActivity {
+    // TODO implementar
 }

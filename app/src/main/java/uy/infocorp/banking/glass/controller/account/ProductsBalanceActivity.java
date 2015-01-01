@@ -25,6 +25,7 @@ import java.util.List;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.account.movements.LastMovementsActivity;
 import uy.infocorp.banking.glass.controller.account.transactions.LastTransfersActivity;
+import uy.infocorp.banking.glass.controller.common.product.GetProductsTask;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;

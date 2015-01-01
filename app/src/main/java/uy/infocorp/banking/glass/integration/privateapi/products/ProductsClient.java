@@ -20,7 +20,6 @@ public class ProductsClient extends BaseClient {
     private RestExecutionBuilder builder;
     private String authToken;
 
-
     private ProductsClient() {
         builder = RestExecutionBuilder.get(PrivateUrls.GET_CONSOLIDATED_POSITION_URL);
     }
