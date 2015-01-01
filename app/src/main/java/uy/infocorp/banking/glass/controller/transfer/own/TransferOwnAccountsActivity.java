@@ -21,6 +21,8 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
@@ -124,13 +126,13 @@ public class TransferOwnAccountsActivity extends EditableActivity {
         Iterable<Product> availableProducts = Iterables.filter(products, new Predicate<Product>() {
             @Override
             public boolean apply(Product input) {
-                return debitProduct.getBackendId() != input.getBackendId();
+                return !StringUtils.equals(debitProduct.getProductNumber(), input.getProductNumber());
             }
         });
 
-        //products = Lists.newArrayList(availableProducts);
+        products = Lists.newArrayList(availableProducts);
 
-        for (Product product : availableProducts) {
+        for (Product product : products) {
             cards.add(createCard(product, false /* is NOT debit */));
         }
 
@@ -151,16 +153,14 @@ public class TransferOwnAccountsActivity extends EditableActivity {
 
                 if (isDebit) {
                     debitProduct = products.get(position);
+                    cards.clear();
                     createCreditProductCards();
-                    Log.i("DEBIT", "isDebit=true");
                 } else {
                     creditProduct = products.get(position);
                     showAmountView();
-                    Log.i("CREDIT", "isDebit=false");
                 }
 
                 //TODO revisar si precisa invalidateOptionsMenu();
-                //TODO Pasar a siguiente paso
             }
         });
 
