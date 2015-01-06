@@ -180,14 +180,15 @@ public class TransferOwnAccountsActivity extends EditableActivity {
     private CardBuilder createCard(Product product, boolean isDebit) {
         String alias = product.getProductAlias();
         String balance = product.getConsolidatedPositionBalance();
-        String footnote = product.getProductNumber();
+        String productNumber = product.getProductNumber();
         String accountDescription = product.getProductTypeDescription();
         int iconId = product.getProductIconId();
-        String type = isDebit ? "Debit from:" : "Credit to";
+        String type = isDebit ? "Debit from:" : "Credit to:";
 
         return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
-                .setText(type + "\n" + accountDescription + "\n" + alias + "\n" + balance)
-                .setFootnote(footnote)
+                .setText(accountDescription + "\n" + alias + "\n" + balance)
+                .setFootnote(type)
+                .setTimestamp(productNumber)
                 .setIcon(iconId);
     }
 
