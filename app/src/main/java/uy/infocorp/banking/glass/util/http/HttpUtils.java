@@ -8,6 +8,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -18,10 +19,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class HttpUtils {
-
+    private static final String XAUTH_TOKEN_HEADER = Resources.getString(R.string.x_auth_header);
     private static final int DEFAULT_TIMEOUT = (int) TimeUnit.SECONDS.toMillis(300);
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(Product.class, new ProductHierarchyAdapter())
@@ -48,5 +51,9 @@ public class HttpUtils {
 
     public static <T> T typeFromStringData(String data, Class<T> clazz) {
         return GSON.fromJson(data, clazz);
+    }
+
+    public static Header buildTokenHeader(String token) {
+        return new BasicHeader(XAUTH_TOKEN_HEADER, token);
     }
 }

@@ -17,7 +17,6 @@ public class TransferHistoryUtils {
     private static final int TRANSFER_HISTORY_DAYS = Resources.getInteger(R.integer.transfer_history_days);
     private static final int TRANSFER_HISTORY_HOURS = (int) TimeUnit.DAYS.toHours(TRANSFER_HISTORY_DAYS);
     private static final int MAX_HISTORY_LENGTH = Resources.getInteger(R.integer.transfer_max_history_length);
-    ;
 
     public static String buildFormattedUrl() {
         DateTime now = new DateTime();
