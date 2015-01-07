@@ -3,16 +3,19 @@ package uy.infocorp.banking.glass.controller.transfer.own;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 
 import com.google.android.glass.media.Sounds;
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
@@ -24,14 +27,21 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.common.EditableActivity;
 import uy.infocorp.banking.glass.controller.common.product.GetProductsTask;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class TransferOwnAccountsActivity extends EditableActivity {
+
+    private static final String CURRENCY_SYMBOL = Resources.getString(R.string.alpha_symbol);
+
+    private GestureDetector gestureDetector;
+    private Menu menu;
 
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Product> products = Lists.newArrayList();
@@ -44,6 +54,7 @@ public class TransferOwnAccountsActivity extends EditableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.gestureDetector = createGestureDetector();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         showInitialView();
@@ -52,8 +63,8 @@ public class TransferOwnAccountsActivity extends EditableActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.transfer, menu);
+        this.menu = menu;
+        inflateMenu(R.menu.transfer);
         return true;
     }
 
@@ -62,6 +73,9 @@ public class TransferOwnAccountsActivity extends EditableActivity {
         switch (item.getItemId()) {
             case R.id.action_stop:
                 finish();
+                return true;
+            case R.id.action_transfer:
+                makeTransfer();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -113,7 +127,7 @@ public class TransferOwnAccountsActivity extends EditableActivity {
                     TransferOwnAccountsActivity.this.products = products;
 
                     for (Product product : products) {
-                        cards.add(createCard(product, true /* is debit */));
+                        cards.add(createScrollerCard(product, true /* is debit */));
                     }
                     updateCardScrollView(true /* is debit */);
                 }
@@ -133,7 +147,7 @@ public class TransferOwnAccountsActivity extends EditableActivity {
         products = Lists.newArrayList(availableProducts);
 
         for (Product product : products) {
-            cards.add(createCard(product, false /* is NOT debit */));
+            cards.add(createScrollerCard(product, false /* is NOT debit */));
         }
 
         updateCardScrollView(false /* is NOT debit */);
@@ -159,8 +173,6 @@ public class TransferOwnAccountsActivity extends EditableActivity {
                     creditProduct = products.get(position);
                     showAmountView();
                 }
-
-                //TODO revisar si precisa invalidateOptionsMenu();
             }
         });
 
@@ -168,16 +180,16 @@ public class TransferOwnAccountsActivity extends EditableActivity {
     }
 
     private void showAmountView() {
-        // FIXME cambiar
-        View amountView = new CardBuilder(this, CardBuilder.Layout.TEXT)
-                .setText("FROM:" + this.debitProduct.getProductAlias() + "\n" +
-                        "TO:" + this.creditProduct.getProductAlias())
-                .getView();
+        View amountView = getLayoutInflater().inflate(R.layout.transfer_amount, null);
+
+        setTextViewText(amountView, R.id.from_number, this.debitProduct.getProductNumber());
+        setTextViewText(amountView, R.id.to_number, this.creditProduct.getProductNumber());
+        setTextViewText(amountView, R.id.transfer_currency, CURRENCY_SYMBOL);
 
         setContentView(amountView);
     }
 
-    private CardBuilder createCard(Product product, boolean isDebit) {
+    private CardBuilder createScrollerCard(Product product, boolean isDebit) {
         String alias = product.getProductAlias();
         String balance = product.getConsolidatedPositionBalance();
         String productNumber = product.getProductNumber();
@@ -223,5 +235,81 @@ public class TransferOwnAccountsActivity extends EditableActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             return cards.get(position).getView(convertView, parent);
         }
+    }
+
+    private void inflateMenu(int menuId) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(menuId, this.menu);
+    }
+
+    private GestureDetector createGestureDetector() {
+        GestureDetector gestureDetector = new GestureDetector(this);
+        gestureDetector.setBaseListener(new GestureDetector.BaseListener() {
+            @Override
+            public boolean onGesture(Gesture gesture) {
+                if (gesture == Gesture.TAP) {
+                    openOptionsMenu();
+                }
+                return false;
+            }
+        });
+        gestureDetector.setScrollListener(new GestureDetector.ScrollListener() {
+            @Override
+            public boolean onScroll(float displacement, float delta, float velocity) {
+                /*
+                int oldAmount = Integer.parseInt(getTextViewText(R.id.transfer_amount));
+                int newAmount = SwipeGestureUtils.calculateNewAmountFromSwipe(displacement, oldAmount);
+
+                setTextViewText(R.id.transfer_amount, String.valueOf(newAmount));
+*/
+                return true;
+            }
+        });
+        return gestureDetector;
+    }
+
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        return gestureDetector != null && gestureDetector.onMotionEvent(event);
+    }
+
+    private void makeTransfer() {
+        invalidateOptionsMenu();
+
+        int amount = Integer.parseInt(getTextViewText(R.id.transfer_amount));
+        showLastChanceView(amount);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showTransferSuccess();
+            }
+        }, TimeUnit.SECONDS.toMillis(3));
+    }
+
+    private void showLastChanceView(int amount) {
+        // TODO agregar el indeterminate
+        View lastChance = new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText(String.format("Transferring %s %s ...", CURRENCY_SYMBOL, amount))
+                .setFootnote("swipe down to cancel")
+                .getView();
+
+        setContentView(lastChance);
+    }
+
+    private void showTransferSuccess() {
+        View success = new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText("Transfer successful")
+                .setIcon(R.drawable.ic_done_50)
+                .getView();
+
+        setContentView(success);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, TimeUnit.SECONDS.toMillis(1));
     }
 }

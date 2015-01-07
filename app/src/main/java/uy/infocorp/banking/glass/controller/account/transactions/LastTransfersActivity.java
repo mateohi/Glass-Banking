@@ -43,14 +43,20 @@ public class LastTransfersActivity extends EditableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        this.productBankIdentifier = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_BANK_IDENTIFIER);
-        this.sourceAccountAlias = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_ALIAS);
-        this.productType = EnumUtil.deserialize(ProductType.class).from(intent);
+
+        analyzeIntent();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         showInitialView();
         createCards();
+    }
+
+    private void analyzeIntent() {
+        Intent intent = getIntent();
+
+        this.productBankIdentifier = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_BANK_IDENTIFIER);
+        this.sourceAccountAlias = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_ALIAS);
+        this.productType = EnumUtil.deserialize(ProductType.class).from(intent);
     }
 
     @Override

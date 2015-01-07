@@ -15,4 +15,9 @@ public class EditableActivity extends Activity {
         TextView tv = (TextView) view.findViewById(id);
         tv.setText(text);
     }
+
+    protected String getTextViewText(int id) {
+        TextView tv = (TextView) findViewById(id);
+        return tv.getText().toString();
+    }
 }

@@ -105,6 +105,8 @@
     <string name="transfer_money">Transfer money</string>
     <string name="transfer_own_account">Own accounts</string>
     <string name="transfer_to_contact">To a contact</string>
+    <string name="transfer_amount_help">swipe to change amount</string>
+    <string name="action_transfer">Transfer</string>
     <!-- /Transfers -->
 
     <string name="title_activity_closest_atm">ClosestAtmActivity</string>
