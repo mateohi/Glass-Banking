@@ -282,28 +282,32 @@ public class TransferOwnAccountsActivity extends EditableActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                slider.hide();
+                slider = null;
+                
                 showTransferSuccess();
             }
         }, TimeUnit.SECONDS.toMillis(3));
     }
 
     private void showLastChanceView(int amount) {
-        // TODO agregar el indeterminate
-        View lastChance = new CardBuilder(this, CardBuilder.Layout.MENU)
+        View lastChanceView = new CardBuilder(this, CardBuilder.Layout.MENU)
                 .setText(String.format("Transferring %s %s ...", CURRENCY_SYMBOL, amount))
                 .setFootnote("swipe down to cancel")
                 .getView();
 
-        setContentView(lastChance);
+        this.slider = Slider.from(lastChanceView).startIndeterminate();
+
+        setContentView(lastChanceView);
     }
 
     private void showTransferSuccess() {
-        View success = new CardBuilder(this, CardBuilder.Layout.MENU)
+        View successView = new CardBuilder(this, CardBuilder.Layout.MENU)
                 .setText("Transfer successful")
                 .setIcon(R.drawable.ic_done_50)
                 .getView();
 
-        setContentView(success);
+        setContentView(successView);
 
         new Handler().postDelayed(new Runnable() {
             @Override
