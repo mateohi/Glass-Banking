@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.controller.common.EditableActivity;
+import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
 import uy.infocorp.banking.glass.domain.convertion.PriceConvertor;
 import uy.infocorp.banking.glass.domain.convertion.SymbolExtractor;
 import uy.infocorp.banking.glass.domain.ocr.PriceExtractor;
@@ -36,7 +36,7 @@ import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.format.PriceFormat;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
-public class ConvertPriceActivity extends EditableActivity {
+public class ConvertPriceActivity extends ExtendedActivity {
 
     private static final int TAKE_PICTURE_REQUEST = 1;
     private static final String TAG = ConvertPriceActivity.class.getSimpleName();

@@ -23,7 +23,7 @@ import java.util.List;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.account.ProductsBalanceActivity;
-import uy.infocorp.banking.glass.controller.common.EditableActivity;
+import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
@@ -31,7 +31,7 @@ import uy.infocorp.banking.glass.util.date.DateUtils;
 import uy.infocorp.banking.glass.util.resources.Resources;
 import uy.infocorp.banking.glass.util.serialization.EnumUtil;
 
-public class LastTransfersActivity extends EditableActivity {
+public class LastTransfersActivity extends ExtendedActivity {
 
     private List<View> views = Lists.newArrayList();
     private List<Transfer> transfers = Lists.newArrayList();

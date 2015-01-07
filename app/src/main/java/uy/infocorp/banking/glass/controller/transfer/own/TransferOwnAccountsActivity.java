@@ -30,14 +30,14 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.controller.common.EditableActivity;
+import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
 import uy.infocorp.banking.glass.controller.common.product.GetProductsTask;
 import uy.infocorp.banking.glass.domain.gesture.SwipeGestureUtils;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
-public class TransferOwnAccountsActivity extends EditableActivity {
+public class TransferOwnAccountsActivity extends ExtendedActivity {
 
     private static final String CURRENCY_SYMBOL = Resources.getString(R.string.alpha_symbol);
 
@@ -55,7 +55,6 @@ public class TransferOwnAccountsActivity extends EditableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.gestureDetector = createGestureDetector();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         showInitialView();
@@ -172,6 +171,7 @@ public class TransferOwnAccountsActivity extends EditableActivity {
                     createCreditProductCards();
                 } else {
                     creditProduct = products.get(position);
+                    gestureDetector = createGestureDetector();
                     showAmountView();
                 }
             }
@@ -262,8 +262,9 @@ public class TransferOwnAccountsActivity extends EditableActivity {
             public boolean onScroll(float displacement, float delta, float velocity) {
                 int oldAmount = Integer.parseInt(getTextViewText(R.id.transfer_amount));
                 int newAmount = SwipeGestureUtils.calculateNewAmountFromSwipe(displacement, oldAmount);
+                String amountToDisplay = SwipeGestureUtils.amountToDisplay(newAmount);
 
-                setTextViewText(R.id.transfer_amount, String.valueOf(newAmount));
+                setTextViewText(R.id.transfer_amount, amountToDisplay);
 
                 return true;
             }
@@ -280,7 +281,7 @@ public class TransferOwnAccountsActivity extends EditableActivity {
         invalidateOptionsMenu();
 
         final int amount = Integer.parseInt(getTextViewText(R.id.transfer_amount));
-        showLastChanceView(amount);
+        showLastChanceView(amount, true /*can cancel*/);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -291,6 +292,7 @@ public class TransferOwnAccountsActivity extends EditableActivity {
     }
 
     private void makeActualTransfer(int amount) {
+        showLastChanceView(amount, false /*can NOT cancel*/);
         // TODO make actual transfer
 
         slider.hide();
@@ -299,10 +301,10 @@ public class TransferOwnAccountsActivity extends EditableActivity {
         showTransferSuccess();
     }
 
-    private void showLastChanceView(int amount) {
+    private void showLastChanceView(int amount, boolean canCancel) {
         View lastChanceView = new CardBuilder(this, CardBuilder.Layout.MENU)
                 .setText(String.format("Transferring %s %s ...", CURRENCY_SYMBOL, amount))
-                .setFootnote("swipe down to cancel")
+                .setFootnote(canCancel ? "swipe down to cancel" : null)
                 .getView();
 
         this.slider = Slider.from(lastChanceView).startIndeterminate();
@@ -317,12 +319,6 @@ public class TransferOwnAccountsActivity extends EditableActivity {
                 .getView();
 
         setContentView(successView);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        }, TimeUnit.SECONDS.toMillis(1));
+        delayedFinish();
     }
 }
