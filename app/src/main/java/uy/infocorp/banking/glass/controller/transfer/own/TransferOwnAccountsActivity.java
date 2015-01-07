@@ -42,7 +42,6 @@ public class TransferOwnAccountsActivity extends ExtendedActivity {
     private static final String CURRENCY_SYMBOL = Resources.getString(R.string.alpha_symbol);
 
     private GestureDetector gestureDetector;
-    private Menu menu;
 
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Product> products = Lists.newArrayList();
@@ -63,8 +62,8 @@ public class TransferOwnAccountsActivity extends ExtendedActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
-        inflateMenu(R.menu.transfer);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.transfer, menu);
         return true;
     }
 
@@ -238,11 +237,6 @@ public class TransferOwnAccountsActivity extends ExtendedActivity {
         }
     }
 
-    private void inflateMenu(int menuId) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(menuId, this.menu);
-    }
-
     private GestureDetector createGestureDetector() {
         GestureDetector gestureDetector = new GestureDetector(this);
         gestureDetector.setBaseListener(new GestureDetector.BaseListener() {
@@ -293,12 +287,22 @@ public class TransferOwnAccountsActivity extends ExtendedActivity {
 
     private void makeActualTransfer(int amount) {
         showLastChanceView(amount, false /*can NOT cancel*/);
-        // TODO make actual transfer
 
-        slider.hide();
-        slider = null;
+        new TransferBetweenOwnAccountsTask(new FinishedTaskListener<Boolean>() {
+            @Override
+            public void onResult(Boolean successful) {
+                slider.hide();
+                slider = null;
 
-        showTransferSuccess();
+                if (successful) {
+                    showTransferSuccess();
+                } else {
+                    showTransferFailed();
+                }
+
+                delayedFinish();
+            }
+        }).execute(amount, debitProduct, creditProduct);
     }
 
     private void showLastChanceView(int amount, boolean canCancel) {
@@ -319,6 +323,14 @@ public class TransferOwnAccountsActivity extends ExtendedActivity {
                 .getView();
 
         setContentView(successView);
-        delayedFinish();
+    }
+
+    private void showTransferFailed() {
+        View successView = new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText("Unable to complete transfer")
+                .setIcon(R.drawable.ic_warning_150)
+                .getView();
+
+        setContentView(successView);
     }
 }

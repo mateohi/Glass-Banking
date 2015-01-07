@@ -8,20 +8,15 @@ public class SwipeGestureUtils {
     public static int calculateNewAmountFromSwipe(float displacement, int amount) {
         if (displacement > 500) {
             amount += 1000;
-        }
-        else if (displacement > 250) {
+        } else if (displacement > 250) {
             amount += 500;
-        }
-        else if (displacement > 50) {
+        } else if (displacement > 50) {
             amount += 100;
-        }
-        else if (displacement < -500) {
+        } else if (displacement < -500) {
             amount -= 1000;
-        }
-        else if (displacement < -250) {
+        } else if (displacement < -250) {
             amount -= 500;
-        }
-        else if (displacement < -50) {
+        } else if (displacement < -50) {
             amount -= 100;
         }
 

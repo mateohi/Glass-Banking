@@ -25,13 +25,11 @@ public class GetLastTransfersTask extends SimpleAsyncTask<List<Transfer>> {
             String productBankIdentifier = (String) params[0];
             ProductType productType = (ProductType) params[1];
             String authToken = AuthenticationClient.instance().completeLogOn();
+
             return TransferHistoryClient.instance().getLastTransfers(authToken, productType,
                     productBankIdentifier);
-        } catch (RuntimeException e) {
-            Log.e(TAG, "RuntimeException: Unable to get latest transactions -" + e.getMessage());
-            return null;
-        } catch (Exception exc) {
-            Log.e(TAG, "Unable to get latest transactions -" + exc.getMessage());
+        } catch (Exception e) {
+            Log.e(TAG, "Unable to get latest transactions - " + e.getMessage());
             return null;
         }
     }
