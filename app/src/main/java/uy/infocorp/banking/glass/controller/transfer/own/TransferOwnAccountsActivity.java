@@ -32,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.common.EditableActivity;
 import uy.infocorp.banking.glass.controller.common.product.GetProductsTask;
+import uy.infocorp.banking.glass.domain.gesture.SwipeGestureUtils;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.resources.Resources;
@@ -248,6 +249,9 @@ public class TransferOwnAccountsActivity extends EditableActivity {
             @Override
             public boolean onGesture(Gesture gesture) {
                 if (gesture == Gesture.TAP) {
+                    AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
+                    am.playSoundEffect(Sounds.TAP);
+
                     openOptionsMenu();
                 }
                 return false;
@@ -256,12 +260,11 @@ public class TransferOwnAccountsActivity extends EditableActivity {
         gestureDetector.setScrollListener(new GestureDetector.ScrollListener() {
             @Override
             public boolean onScroll(float displacement, float delta, float velocity) {
-                /*
                 int oldAmount = Integer.parseInt(getTextViewText(R.id.transfer_amount));
                 int newAmount = SwipeGestureUtils.calculateNewAmountFromSwipe(displacement, oldAmount);
 
                 setTextViewText(R.id.transfer_amount, String.valueOf(newAmount));
-*/
+
                 return true;
             }
         });
@@ -276,18 +279,24 @@ public class TransferOwnAccountsActivity extends EditableActivity {
     private void makeTransfer() {
         invalidateOptionsMenu();
 
-        int amount = Integer.parseInt(getTextViewText(R.id.transfer_amount));
+        final int amount = Integer.parseInt(getTextViewText(R.id.transfer_amount));
         showLastChanceView(amount);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                slider.hide();
-                slider = null;
-                
-                showTransferSuccess();
+                makeActualTransfer(amount);
             }
         }, TimeUnit.SECONDS.toMillis(3));
+    }
+
+    private void makeActualTransfer(int amount) {
+        // TODO make actual transfer
+
+        slider.hide();
+        slider = null;
+
+        showTransferSuccess();
     }
 
     private void showLastChanceView(int amount) {
