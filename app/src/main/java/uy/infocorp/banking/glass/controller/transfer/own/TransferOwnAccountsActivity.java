@@ -141,7 +141,7 @@ public class TransferOwnAccountsActivity extends ExtendedActivity {
             public boolean apply(Product input) {
                 String debitProductType = debitProduct.getProductType().name();
                 String otherProductType = input.getProductType().name();
-                
+
                 return !StringUtils.equals(debitProductType, otherProductType);
             }
         });
