@@ -139,7 +139,10 @@ public class TransferOwnAccountsActivity extends ExtendedActivity {
         Iterable<Product> availableProducts = Iterables.filter(products, new Predicate<Product>() {
             @Override
             public boolean apply(Product input) {
-                return !StringUtils.equals(debitProduct.getProductNumber(), input.getProductNumber());
+                String debitProductType = debitProduct.getProductType().name();
+                String otherProductType = input.getProductType().name();
+                
+                return !StringUtils.equals(debitProductType, otherProductType);
             }
         });
 
