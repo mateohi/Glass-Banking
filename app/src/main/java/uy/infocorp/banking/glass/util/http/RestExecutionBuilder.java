@@ -60,8 +60,13 @@ public class RestExecutionBuilder {
         return this;
     }
 
-    public RestExecutionBuilder appendJsonBody(String json) throws UnsupportedEncodingException {
-        StringEntity entity = new StringEntity(json);
+    public RestExecutionBuilder appendJsonBody(String json) {
+        StringEntity entity;
+        try {
+            entity = new StringEntity(json);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
 
         if (this.request instanceof HttpPost) {
             ((HttpPost) this.request).setEntity(entity);
@@ -74,11 +79,11 @@ public class RestExecutionBuilder {
         return this;
     }
 
-    public RestExecutionBuilder appendObjectBody(Object body) throws UnsupportedEncodingException {
+    public RestExecutionBuilder appendObjectBody(Object body) {
         return appendJsonBody(GSON.toJson(body));
     }
 
-    public RestExecutionBuilder appendHeader(Header header) throws ExceptionInInitializerError {
+    public RestExecutionBuilder appendHeader(Header header) {
         for (Header item : this.request.getAllHeaders()) {
             if (item.getName().equals(header.getName())) {
                 this.request.setHeader(header);

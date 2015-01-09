@@ -50,14 +50,10 @@ public class TransferOwnAccountClient extends BaseClient {
     protected Object getOnline() {
         Header authHeader = HttpUtils.buildTokenHeader(authToken);
 
-        try {
-            TransferResponse response = this.builder.appendHeader(authHeader)
-                    .appendObjectBody(transferRequest)
-                    .execute(TransferResponse.class);
-            return response.wasSuccessful();
-        } catch (UnsupportedEncodingException e) {
-            return false;
-        }
+        TransferResponse response = this.builder.appendHeader(authHeader)
+                .appendObjectBody(transferRequest)
+                .execute(TransferResponse.class);
 
+        return response.wasSuccessful();
     }
 }

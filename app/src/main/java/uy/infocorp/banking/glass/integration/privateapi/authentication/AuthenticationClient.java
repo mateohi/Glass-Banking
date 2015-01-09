@@ -4,12 +4,10 @@ import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.Header;
-import org.apache.http.message.BasicHeader;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.domain.authentication.Session;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityDeviceValidationResult;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SecurityQuestionsAnswers;
@@ -17,13 +15,13 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.authenticatio
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInInformation;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.authentication.SignInResult;
 import uy.infocorp.banking.glass.util.http.BaseClient;
+import uy.infocorp.banking.glass.util.http.HttpUtils;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class AuthenticationClient extends BaseClient {
 
     private static final String TAG = AuthenticationClient.class.getSimpleName();
-    private static final String X_AUTH_TOKEN_HEADER_NAME = Resources.getString(R.string.x_auth_header);
 
     private static AuthenticationClient instance;
     private RestExecutionBuilder builder;
@@ -39,7 +37,7 @@ public class AuthenticationClient extends BaseClient {
         return instance;
     }
 
-    private SignInResult logOnFirstStep(String username, String password) throws UnsupportedEncodingException {
+    private SignInResult logOnFirstStep(String username, String password) {
         SignInInformation signInInformation = new SignInInformation(username, password);
         //initialize and execute post
         Pair<SignInResult, List<Header>> data = builder.appendObjectBody(signInInformation)
@@ -61,14 +59,13 @@ public class AuthenticationClient extends BaseClient {
     }
 
     private SecurityDeviceValidationResult validateSecurityDeviceSecondStep(SecurityQuestionsAnswers securityQuestionsAnswers,
-                                                                            String signInAuthToken)
-            throws UnsupportedEncodingException {
+                                                                            String signInAuthToken) {
 
         SecurityQuestionsAnswersList request = new SecurityQuestionsAnswersList();
         request.getSecurityQuestionsAnswers().add(securityQuestionsAnswers);
 
         //do post
-        BasicHeader header = new BasicHeader(X_AUTH_TOKEN_HEADER_NAME, signInAuthToken);
+        Header header = HttpUtils.buildTokenHeader(signInAuthToken);
         Pair<SecurityDeviceValidationResult, List<Header>> data = builder.post(PrivateUrls.POST_VALIDATE_SECURITY_DEVICE_URL)
                 .appendObjectBody(request)
                 .appendHeader(header)
@@ -83,7 +80,7 @@ public class AuthenticationClient extends BaseClient {
         if (authToken != null) {
             result.setAuthToken(authToken.getValue());
         } else {
-            Log.w(TAG, "No se pudo obtener el header X-Auth-Token al intentar validar el dispositivo de seguridad");
+            Log.w(TAG, "Unable to get X-Auth-Token header on validation");
         }
 
         return result;
@@ -91,7 +88,7 @@ public class AuthenticationClient extends BaseClient {
 
     private static Header getAuthToken(List<Header> headers) {
         for (Header header : headers) {
-            if (header.getName().equals(X_AUTH_TOKEN_HEADER_NAME)) {
+            if (header.getName().equals(HttpUtils.XAUTH_TOKEN_HEADER)) {
                 return header;
             }
         }
@@ -103,45 +100,31 @@ public class AuthenticationClient extends BaseClient {
         return "test";
     }
 
-    /**
-     * Try to login and get the Authentication Token (executes both authentication steps)
-     *
-     * @return
-     */
+    // Try to login and get the Authentication Token (executes both authentication steps)
     @Override
     protected Object getOnline() {
         //1- LogOn
-        SignInResult signInResult;
-        try {
-            signInResult = AuthenticationClient.instance().logOnFirstStep("prueba09", "1234");
-        } catch (UnsupportedEncodingException e) {
-            Log.e("Login First Step Error:", e.getMessage());
-            return null;
-        }
+        SignInResult signInResult = AuthenticationClient.instance().logOnFirstStep("prueba09", "1234");
         //ToDo: Validar success en respuesta a login (usuario bloqueado, password invalido, etc)
-        Integer secretQuestionId = Integer.parseInt(signInResult.getSignInInformation().getSecurityQuestionsToAnswerForLoginDevice().get(0).getSecurityQuestionId());
+        String securityQuestionId = signInResult.getSignInInformation()
+                .getSecurityQuestionsToAnswerForLoginDevice()
+                .get(0)
+                .getSecurityQuestionId();
+        Integer secretQuestionId = Integer.parseInt(securityQuestionId);
         SecurityQuestionsAnswers questionAnswered = new SecurityQuestionsAnswers(secretQuestionId, "1111");
+
         //2- Security Device Validation
-        SecurityDeviceValidationResult securityDeviceValidationResult;
-        try {
-            securityDeviceValidationResult = AuthenticationClient.instance().validateSecurityDeviceSecondStep(questionAnswered,
-                    signInResult.getAuthToken());
-        } catch (UnsupportedEncodingException e) {
-            Log.e("Login second Step Error:", e.getMessage());
-            return null;
-        }
+        SecurityDeviceValidationResult result = AuthenticationClient.instance()
+                .validateSecurityDeviceSecondStep(questionAnswered, signInResult.getAuthToken());
+
         //ToDo: Validar success en respuesta a las preguntas de seguridad.
-        return securityDeviceValidationResult.getAuthToken();
+        return result.getAuthToken();
     }
 
-    /**
-     * Try to login and get the Authentication Token (executes both authentication steps)
-     *
-     * @return
-     */
+    // Try to login and get the Authentication Token (executes both authentication steps)
     public String completeLogOn() {
         String authToken = (String) (this.execute());
-        Resources.setAuthToken(authToken);
+        Session.setAuthToken(authToken);
         return authToken;
     }
 }

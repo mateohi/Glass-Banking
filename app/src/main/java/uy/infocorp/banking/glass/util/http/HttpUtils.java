@@ -24,7 +24,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.com
 import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class HttpUtils {
-    private static final String XAUTH_TOKEN_HEADER = Resources.getString(R.string.x_auth_header);
+    public static final String XAUTH_TOKEN_HEADER = Resources.getString(R.string.x_auth_header);
     private static final int DEFAULT_TIMEOUT = (int) TimeUnit.SECONDS.toMillis(300);
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(Product.class, new ProductHierarchyAdapter())

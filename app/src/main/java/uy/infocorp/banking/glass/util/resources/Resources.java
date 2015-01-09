@@ -17,15 +17,6 @@ public class Resources {
 
     private static final String TAG = Resources.class.getSimpleName();
     private static Context context = BankingApplication.getContext();
-    private static String authToken;
-
-    public static String getAuthToken() {
-        return authToken;
-    }
-
-    public static void setAuthToken(String authToken) {
-        Resources.authToken = authToken;
-    }
 
     public static String getString(int id) {
         return context.getResources().getString(id);
@@ -50,15 +41,15 @@ public class Resources {
 
     private static String readResource(Context context, int resourceId) {
         InputStream is = context.getResources().openRawResource(resourceId);
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
             String line;
             while ((line = reader.readLine()) != null) {
-                buffer.append(line);
-                buffer.append('\n');
+                sb.append(line);
+                sb.append('\n');
             }
         } catch (IOException e) {
             Log.e(TAG, "Could not read resource", e);
@@ -73,7 +64,7 @@ public class Resources {
             }
         }
 
-        return buffer.toString();
+        return sb.toString();
     }
 
 }

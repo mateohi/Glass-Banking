@@ -6,6 +6,7 @@ import org.apache.http.message.BasicHeader;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.domain.authentication.Session;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.integration.privateapi.movementsHistory.dto.MovementHistoryResponseDTO;
@@ -52,7 +53,7 @@ public class MovementHistoryClient extends BaseClient {
 
     @Override
     protected Object getOnline() {
-        this.authToken = Resources.getAuthToken();
+        this.authToken = Session.getAuthToken();
         String formattedUrl = MovementHistoryUtils.buildFormattedUrl();
         String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
         Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
