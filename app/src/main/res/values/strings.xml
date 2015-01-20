@@ -107,6 +107,8 @@
     <string name="transfer_to_contact">To a contact</string>
     <string name="transfer_amount_help">swipe to change amount</string>
     <string name="action_transfer">Transfer</string>
+
+    <string name="transfer_third_party_account">Third party</string>
     <!-- /Transfers -->
 
     <string name="title_activity_closest_atm">ClosestAtmActivity</string>
