@@ -114,7 +114,6 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity {
             @Override
             public void onResult(List<Product> products) {
                 slider.hide();
-                slider = null;
 
                 if (products == null) {
                     showNoConnectivityView();
@@ -133,11 +132,29 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity {
     }
 
     private void createCreditProductCards() {
-        for (ThirdPartyAccount account : thirdPartyAccounts) {
-            cards.add(createCreditAccountCard(account));
-        }
+        slider.show();
 
-        updateCardScrollView(false /* is NOT debit */);
+        new GetThirdPartyAccountsTask(new FinishedTaskListener<List<ThirdPartyAccount>>() {
+            @Override
+            public void onResult(List<ThirdPartyAccount> accounts) {
+                slider.hide();
+                slider = null;
+
+                if (accounts == null) {
+                    showNoConnectivityView();
+                } else if (accounts.isEmpty()) {
+                    showNoProductsView();
+                } else {
+                    TransferThirdPartyAccountsActivity.this.thirdPartyAccounts = accounts;
+
+                    for (ThirdPartyAccount account : accounts) {
+                        cards.add(createCreditAccountCard(account));
+                    }
+
+                    updateCardScrollView(false /* is NOT debit */);
+                }
+            }
+        }).execute();
     }
 
     private void updateCardScrollView(final boolean isDebit) {

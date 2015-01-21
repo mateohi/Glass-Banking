@@ -32,7 +32,7 @@ public class TransferThirdPartyAccountClient extends BaseClient {
         return instance;
     }
 
-    public Boolean makeTransferBetweenOwnAccounts(String authToken, TransferRequest transferRequest) {
+    public Boolean makeLocalTransfer(String authToken, TransferRequest transferRequest) {
         this.transferRequest = transferRequest;
         this.authToken = authToken;
 
