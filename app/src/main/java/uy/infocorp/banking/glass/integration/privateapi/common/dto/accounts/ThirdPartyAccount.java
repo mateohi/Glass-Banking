@@ -19,11 +19,11 @@ public class ThirdPartyAccount {
     private Bank bank;
     private String branch;
     //	private Map<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> extendedProperties;
-//	private Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType thirdPartyAccountType;
-    private Integer ownerDcumentTypeId = null;
+    //	private Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType thirdPartyAccountType;
+    private Integer ownerDocumentTypeId;
     private String ownerDocumentNumber;
-//	private Infocorp.Framework.BusinessEntities.Common.ProductType productType;
-//	private ThirdPartyAccountAdditionalInfo thirdPartyAccountsAdditionalInfoData;
+    //	private Infocorp.Framework.BusinessEntities.Common.ProductType productType;
+    //	private ThirdPartyAccountAdditionalInfo thirdPartyAccountsAdditionalInfoData;
 
     public final int getThirdPartyAccountId() {
         return thirdPartyAccountId;
@@ -120,12 +120,12 @@ public class ThirdPartyAccount {
 //	public final Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType getThirdPartyAccountType() { return thirdPartyAccountType; }
 //	public final void setThirdPartyAccountType(Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType value) { thirdPartyAccountType = value; }
 
-    public final Integer getOwnerDcumentTypeId() {
-        return ownerDcumentTypeId;
+    public final Integer getOwnerDocumentTypeId() {
+        return ownerDocumentTypeId;
     }
 
-    public final void setOwnerDcumentTypeId(Integer value) {
-        ownerDcumentTypeId = value;
+    public final void setOwnerDocumentTypeId(Integer value) {
+        ownerDocumentTypeId = value;
     }
 
     public final String getOwnerDocumentNumber() {

@@ -32,13 +32,13 @@ import java.util.concurrent.TimeUnit;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
 import uy.infocorp.banking.glass.controller.common.product.GetProductsTask;
-import uy.infocorp.banking.glass.controller.transfer.own.TransferBetweenOwnAccountsTask;
 import uy.infocorp.banking.glass.domain.gesture.SwipeGestureUtils;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
-public class TransferThirdPartyAccountsActivity extends ExtendedActivity { //FIXME cambiar a thirdparty
+public class TransferThirdPartyAccountsActivity extends ExtendedActivity {
 
     private static final String CURRENCY_SYMBOL = Resources.getString(R.string.alpha_symbol);
 
@@ -46,9 +46,10 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity { //FIX
 
     private List<CardBuilder> cards = Lists.newArrayList();
     private List<Product> products = Lists.newArrayList();
+    private List<ThirdPartyAccount> thirdPartyAccounts = Lists.newArrayList();
 
     private Product debitProduct;
-    private Product creditProduct;
+    private ThirdPartyAccount creditThirdPartyAccount;
     private Slider.Indeterminate slider;
 
     @Override
@@ -127,7 +128,7 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity { //FIX
                     TransferThirdPartyAccountsActivity.this.products = products;
 
                     for (Product product : products) {
-                        cards.add(createScrollerCard(product, true /* is debit */));
+                        cards.add(createDebitProductCard(product, true /* is debit */));
                     }
                     updateCardScrollView(true /* is debit */);
                 }
@@ -150,7 +151,7 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity { //FIX
         products = Lists.newArrayList(availableProducts);
 
         for (Product product : products) {
-            cards.add(createScrollerCard(product, false /* is NOT debit */));
+            cards.add(createDebitProductCard(product, false /* is NOT debit */));
         }
 
         updateCardScrollView(false /* is NOT debit */);
@@ -173,7 +174,7 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity { //FIX
                     cards.clear();
                     createCreditProductCards();
                 } else {
-                    creditProduct = products.get(position);
+                    creditThirdPartyAccount = products.get(position);
                     gestureDetector = createGestureDetector();
                     showAmountView();
                 }
@@ -187,24 +188,35 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity { //FIX
         View amountView = getLayoutInflater().inflate(R.layout.transfer_amount, null);
 
         setTextViewText(amountView, R.id.from_number, this.debitProduct.getProductNumber());
-        setTextViewText(amountView, R.id.to_number, this.creditProduct.getProductNumber());
+        setTextViewText(amountView, R.id.to_number, this.creditThirdPartyAccount.getThirdPartyAccountNumber());
         setTextViewText(amountView, R.id.transfer_currency, CURRENCY_SYMBOL);
 
         setContentView(amountView);
     }
 
-    private CardBuilder createScrollerCard(Product product, boolean isDebit) {
+    private CardBuilder createDebitProductCard(Product product) {
         String alias = product.getProductAlias();
         String balance = product.getConsolidatedPositionBalance();
         String productNumber = product.getProductNumber();
         String accountDescription = product.getProductTypeDescription();
         int iconId = product.getProductIconId();
-        String type = isDebit ? "Debit from:" : "Credit to:";
 
         return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
                 .setText(accountDescription + "\n" + alias + "\n" + balance)
-                .setFootnote(type)
+                .setFootnote("Debit from:")
                 .setTimestamp(productNumber)
+                .setIcon(iconId);
+    }
+
+    private CardBuilder createCreditAccountCard(ThirdPartyAccount account) {
+        String accountId = String.valueOf(account.getThirdPartyAccountId());
+        String accountNumber = account.getThirdPartyAccountNumber();
+        int iconId = product.getProductIconId();
+
+        return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
+                .setText(accountId)
+                .setFootnote("Debit from:")
+                .setTimestamp(accountNumber)
                 .setIcon(iconId);
     }
 
@@ -306,7 +318,7 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity { //FIX
 
                 delayedFinish();
             }
-        }).execute(amount, debitProduct, creditProduct);
+        }).execute(amount, debitProduct, creditThirdPartyAccount);
     }
 
     private void showLastChanceView(int amount, boolean canCancel) {
