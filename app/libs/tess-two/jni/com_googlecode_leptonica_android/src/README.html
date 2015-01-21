@@ -11,8 +11,11 @@
 
 
 <!-- Creative Commons License -->
-<a rel="license" href="http://creativecommons.org/licenses/by/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.gif" /></a>
-This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by/2.5/"><img
+        alt="Creative Commons License" border="0"
+        src="http://creativecommons.org/images/public/somerights20.gif"/></a>
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.5/">Creative
+    Commons Attribution 2.5 License</a>.
 <!-- /Creative Commons License -->
 
 
@@ -86,17 +89,18 @@ tar -xvf leptonica-1.71.tar
 <!--Navigation Panel-->
 <hr>
 <P>
-<A HREF="#BUILDING">Building leptonica</A><br>
-<A HREF="#DEPENDENCIES">I/O libraries leptonica is dependent on</A><br>
-<A HREF="#DEVELOP">Developing with leptonica</A><br>
-<A HREF="#CONTENTS">What's in leptonica?</A><br>
+    <A HREF="#BUILDING">Building leptonica</A><br>
+    <A HREF="#DEPENDENCIES">I/O libraries leptonica is dependent on</A><br>
+    <A HREF="#DEVELOP">Developing with leptonica</A><br>
+    <A HREF="#CONTENTS">What's in leptonica?</A><br>
+
 <P>
 <hr>
 <!--End of Navigation Panel-->
 
 
-<h2> <A NAME="BUILDING">
-Building leptonica
+<h2><A NAME="BUILDING">
+    Building leptonica
 </h2>
 
 <pre>
@@ -257,11 +261,11 @@ Building leptonica
        Tom Powers has provided a set of developer notes and project files
        for building the library and applications under windows with VC++ 2008:
      </pre>
-     <p style='margin-left:5em;'>
-        <A href="http://www.leptonica.org/vs2008doc/index.html">
-                http:///www.leptonica.org/vs2008doc/index.html</A><br>
-        <A href="http://www.leptonica.org/download.html#VS2008">
-                http:///www.leptonica.org/download.html#VS2008</A>
+<p style='margin-left:5em;'>
+    <A href="http://www.leptonica.org/vs2008doc/index.html">
+        http:///www.leptonica.org/vs2008doc/index.html</A><br>
+    <A href="http://www.leptonica.org/download.html#VS2008">
+        http:///www.leptonica.org/download.html#VS2008</A>
      <pre>
 
        He has also supplied a zip file that contains the entire 'lib'
@@ -270,9 +274,9 @@ Building leptonica
        (including static library versions of zlib, libpng, libjpeg,
        libtiff, and giflib).
        </pre>
-       <p style='margin-left:5em;'>
-      <A href="http://www.leptonica.org/source/leptonica-1.68-win32-lib-include-dirs.zip">
-              leptonica-1.68-win32-lib-include-dirs.zip</A>
+<p style='margin-left:5em;'>
+    <A href="http://www.leptonica.org/source/leptonica-1.68-win32-lib-include-dirs.zip">
+        leptonica-1.68-win32-lib-include-dirs.zip</A>
        <pre>
 
        You can download Tom's vs2008 package either from the download
@@ -316,8 +320,8 @@ Building leptonica
 </pre>
 
 
-<h2> <A NAME="DEPENDENCIES">
-I/O libraries leptonica is dependent on
+<h2><A NAME="DEPENDENCIES">
+    I/O libraries leptonica is dependent on
 </h2>
 
 <pre>
@@ -327,73 +331,74 @@ I/O libraries leptonica is dependent on
    These libraries are easy to obtain.  For example, using the
    debian package manager:
        sudo apt-get install <package>
-   where <package> = {libpng12-dev, libjpeg62-dev, libtiff4-dev}.
+    where
+    <package> = {libpng12-dev, libjpeg62-dev, libtiff4-dev}.
 
-   Leptonica also allows image I/O with bmp and pnm formats, for which
-   we provide the serializers (encoders and decoders).  It also
-   gives output drivers for wrapping images in PostScript and PDF, which
-   in turn use tiffg4, jpeg and png encoding.  Wrapping of jpeg2000
-   images in PDF is also implemented.
+        Leptonica also allows image I/O with bmp and pnm formats, for which
+        we provide the serializers (encoders and decoders). It also
+        gives output drivers for wrapping images in PostScript and PDF, which
+        in turn use tiffg4, jpeg and png encoding. Wrapping of jpeg2000
+        images in PDF is also implemented.
 
-   There is a programmatic interface to gnuplot.  To use it, you
-   need only the gnuplot executable (suggest version 3.7.2 or later);
-   the gnuplot library is not required.
+        There is a programmatic interface to gnuplot. To use it, you
+        need only the gnuplot executable (suggest version 3.7.2 or later);
+        the gnuplot library is not required.
 
-   If you build with automake, libraries on your system will be
-   automatically found and used.
+        If you build with automake, libraries on your system will be
+        automatically found and used.
 
-   The rest of this section is for building with the static makefiles.
-   The entries in environ.h specify which of these libraries to use.
-   The default is to link to these four libraries:
-      libjpeg.a  (standard jfif jpeg library, version 6b or 7, 8 or 9))
-      libtiff.a  (standard Leffler tiff library, version 3.7.4 or later;
-      libpng.a   (standard png library, suggest version 1.4.0 or later)
-      libz.a     (standard gzip library, suggest version 1.2.3)
-                  current non-beta version is 3.8.2)
+        The rest of this section is for building with the static makefiles.
+        The entries in environ.h specify which of these libraries to use.
+        The default is to link to these four libraries:
+        libjpeg.a (standard jfif jpeg library, version 6b or 7, 8 or 9))
+        libtiff.a (standard Leffler tiff library, version 3.7.4 or later;
+        libpng.a (standard png library, suggest version 1.4.0 or later)
+        libz.a (standard gzip library, suggest version 1.2.3)
+        current non-beta version is 3.8.2)
 
-   These libraries (and their shared versions) should be in /usr/lib.
-   (If they're not, you can change the LDFLAGS variable in the makefile.)
-   Additionally, for compilation, the following header files are
-   assumed to be in /usr/include:
-      jpeg:  jconfig.h
-      png:   png.h, pngconf.h
-      tiff:  tiff.h, tiffio.h
+        These libraries (and their shared versions) should be in /usr/lib.
+        (If they're not, you can change the LDFLAGS variable in the makefile.)
+        Additionally, for compilation, the following header files are
+        assumed to be in /usr/include:
+        jpeg: jconfig.h
+        png: png.h, pngconf.h
+        tiff: tiff.h, tiffio.h
 
-   If for some reason you do not want to link to specific libraries,
-   even if you have them, stub files are included for the ten
-   different output formats:
+        If for some reason you do not want to link to specific libraries,
+        even if you have them, stub files are included for the ten
+        different output formats:
         bmp, jpeg, png, pnm, ps, pdf, tiff, gif, webp and jp2.
-   For example, if you don't want to include the tiff library,
-   in environ.h set:
-       #define  HAVE_LIBTIFF   0
-   and the stubs will be linked in.
+        For example, if you don't want to include the tiff library,
+        in environ.h set:
+        #define HAVE_LIBTIFF 0
+        and the stubs will be linked in.
 
-   To read and write webp files:
-      (1) Download libwebp from sourceforge
-      (2) #define HAVE_LIBWEBP   1  (in environ.h)
-      (3) In prog/makefile, edit ALL_LIBS to include -lwebp
+        To read and write webp files:
+        (1) Download libwebp from sourceforge
+        (2) #define HAVE_LIBWEBP 1 (in environ.h)
+        (3) In prog/makefile, edit ALL_LIBS to include -lwebp
 
-   To read and write gif files:
-      (1) Download version giflib-5.0.X from souceforge
-      (2) #define  HAVE_LIBGIF   1  (in environ.h)
-      (3) In prog/makefile, edit ALL_LIBS to include -lgif
-      (4) If the library is installed into /usr/local/lib, you may need
-          to add that directory to LDFLAGS; or, equivalently, add
-          that path to the LD_LIBRARY_PATH environment variable.
-      (5) Note: do not use giflib-4.1.4: binary comp and decomp
-          don't pack the pixel data and are ridiculously slow.
+        To read and write gif files:
+        (1) Download version giflib-5.0.X from souceforge
+        (2) #define HAVE_LIBGIF 1 (in environ.h)
+        (3) In prog/makefile, edit ALL_LIBS to include -lgif
+        (4) If the library is installed into /usr/local/lib, you may need
+        to add that directory to LDFLAGS; or, equivalently, add
+        that path to the LD_LIBRARY_PATH environment variable.
+        (5) Note: do not use giflib-4.1.4: binary comp and decomp
+        don't pack the pixel data and are ridiculously slow.
 
-   To read and write jpeg2000 files:
-      (1) Download libopenjp2, version 2.X, from their distribution,
-          along with cmake.  There is no debian version of openjpeg 2.X
-          as of 6/20/2014.
-      (2) #define HAVE_LIBJP2K   1  (in environ.h)
-      (3) In prog/makefile, edit ALL_LIBS to include -lopenjp2
+        To read and write jpeg2000 files:
+        (1) Download libopenjp2, version 2.X, from their distribution,
+        along with cmake. There is no debian version of openjpeg 2.X
+        as of 6/20/2014.
+        (2) #define HAVE_LIBJP2K 1 (in environ.h)
+        (3) In prog/makefile, edit ALL_LIBS to include -lopenjp2
 </pre>
 
 
-<h2> <A NAME="DEVELOP">
-Developing with leptonica
+<h2><A NAME="DEVELOP">
+    Developing with leptonica
 </h2>
 
 <pre>
@@ -424,46 +429,47 @@ that you are using the static makefiles and customizing environ.h.
      (1) xtractprotos is part of Leptonica.  You can 'make' it in either
          src or prog (see the makefile).
      (2) You can output the prototypes for any C file to stdout by running:
-             xtractprotos <cfile>     or
-             xtractprotos -prestring=[string] <cfile>
-     (3) The source for xtractprotos has been packaged up into a tar
-         containing just the Leptonica files necessary for building it
-         in linux.  The tar file is available at:
-             www.leptonica.com/source/xtractlib-1.5.tar.gz
+             xtractprotos <cfile> or
+    xtractprotos -prestring=[string]
+    <cfile>
+        (3) The source for xtractprotos has been packaged up into a tar
+        containing just the Leptonica files necessary for building it
+        in linux. The tar file is available at:
+        www.leptonica.com/source/xtractlib-1.5.tar.gz
 
-2. GNU runtime functions for stream redirection to memory
+        2. GNU runtime functions for stream redirection to memory
 
-   There are two non-standard gnu functions, fmemopen() and open_memstream(),
-   that only work on linux and conveniently allow memory I/O with a file
-   stream interface.  This is convenient for compressing and decompressing
-   image data to memory rather than to file.  Stubs are provided
-   for all these I/O functions.  Default is not to enable them, in
-   deference to the OSX developers, who don't have these functions
-   available.  To enable, #define HAVE_FMEMOPEN  1  (in environ.h).
-   If it is not enabled, raster to compressed data in memory is
-   accomplished through a temporary file.
-   See 9 for more details on image I/O formats.
+        There are two non-standard gnu functions, fmemopen() and open_memstream(),
+        that only work on linux and conveniently allow memory I/O with a file
+        stream interface. This is convenient for compressing and decompressing
+        image data to memory rather than to file. Stubs are provided
+        for all these I/O functions. Default is not to enable them, in
+        deference to the OSX developers, who don't have these functions
+        available. To enable, #define HAVE_FMEMOPEN 1 (in environ.h).
+        If it is not enabled, raster to compressed data in memory is
+        accomplished through a temporary file.
+        See 9 for more details on image I/O formats.
 
-   If you're building with the autoconf programs, these two functions are
-   automatically enabled if available.
+        If you're building with the autoconf programs, these two functions are
+        automatically enabled if available.
 
-3. Typedefs
+        3. Typedefs
 
-   A deficiency of C is that no standard has been universally
-   adopted for typedefs of the built-in types.  As a result,
-   typedef conflicts are common, and cause no end of havoc when
-   you try to link different libraries.  If you're lucky, you
-   can find an order in which the libraries can be linked
-   to avoid these conflicts, but the state of affairs is aggravating.
+        A deficiency of C is that no standard has been universally
+        adopted for typedefs of the built-in types. As a result,
+        typedef conflicts are common, and cause no end of havoc when
+        you try to link different libraries. If you're lucky, you
+        can find an order in which the libraries can be linked
+        to avoid these conflicts, but the state of affairs is aggravating.
 
-   The most common typedefs use lower case variables: uint8, int8, ...
-   The png library avoids typedef conflicts by altruistically
-   appending "png_" to the type names.  Following that approach,
-   Leptonica appends "l_" to the type name.  This should avoid
-   just about all conflicts.  In the highly unlikely event that it doesn't,
-   here's a simple way to change the type declarations throughout
-   the Leptonica code:
-    (1) customize a file "converttypes.sed" with the following lines:
+        The most common typedefs use lower case variables: uint8, int8, ...
+        The png library avoids typedef conflicts by altruistically
+        appending "png_" to the type names. Following that approach,
+        Leptonica appends "l_" to the type name. This should avoid
+        just about all conflicts. In the highly unlikely event that it doesn't,
+        here's a simple way to change the type declarations throughout
+        the Leptonica code:
+        (1) customize a file "converttypes.sed" with the following lines:
         /l_uint8/s//YOUR_UINT8_NAME/g
         /l_int8/s//YOUR_INT8_NAME/g
         /l_uint16/s//YOUR_UINT16_NAME/g
@@ -472,78 +478,78 @@ that you are using the static makefiles and customizing environ.h.
         /l_int32/s//YOUR_INT32_NAME/g
         /l_float32/s//YOUR_FLOAT32_NAME/g
         /l_float64/s//YOUR_FLOAT64_NAME/g
-    (2) in the src and prog directories:
-       - if you have a version of sed that does in-place conversion:
-            sed -i -f converttypes.sed *
-       - else, do something like (in csh)
-           foreach file (*)
-           sed -f converttypes.sed $file > tempdir/$file
-           end
+        (2) in the src and prog directories:
+        - if you have a version of sed that does in-place conversion:
+        sed -i -f converttypes.sed *
+        - else, do something like (in csh)
+        foreach file (*)
+        sed -f converttypes.sed $file > tempdir/$file
+        end
 
-   If you are using Leptonica with a large code base that typedefs the
-   built-in types differently from Leptonica, just edit the typedefs
-   in environ.h.  This should have no side-effects with other libraries,
-   and no issues should arise with the location in which liblept is
-   included.
+        If you are using Leptonica with a large code base that typedefs the
+        built-in types differently from Leptonica, just edit the typedefs
+        in environ.h. This should have no side-effects with other libraries,
+        and no issues should arise with the location in which liblept is
+        included.
 
-   For compatibility with 64 bit hardware and compilers, where
-   necessary we use the typedefs in stdint.h to specify the pointer
-   size (either 4 or 8 byte).
+        For compatibility with 64 bit hardware and compilers, where
+        necessary we use the typedefs in stdint.h to specify the pointer
+        size (either 4 or 8 byte).
 
-4. Compile-time control over stderr output (see environ.h)
+        4. Compile-time control over stderr output (see environ.h)
 
-   Leptonica provides both compile-time and run-time control over
-   messages and debug output (thanks to Dave Bryan).  Both compile-time
-   and run-time severity thresholds can be set.  The run-time threshold
-   can also be set by an environmental variable.  Messages are
-   vararg-formatted and of 3 types: error, warning, informational.
-   These are all macros, and can be further suppressed when
-   NO_CONSOLE_IO is defined on the compile line.  For production code
-   where no output is to go to stderr, compile with -DNO_CONSOLE_IO.
+        Leptonica provides both compile-time and run-time control over
+        messages and debug output (thanks to Dave Bryan). Both compile-time
+        and run-time severity thresholds can be set. The run-time threshold
+        can also be set by an environmental variable. Messages are
+        vararg-formatted and of 3 types: error, warning, informational.
+        These are all macros, and can be further suppressed when
+        NO_CONSOLE_IO is defined on the compile line. For production code
+        where no output is to go to stderr, compile with -DNO_CONSOLE_IO.
 
-5. In-memory raster format (Pix)
+        5. In-memory raster format (Pix)
 
-   Unlike many other open source packages, Leptonica uses packed
-   data for images with all bit/pixel (bpp) depths, allowing us
-   to process pixels in parallel.  For example, rasterops works
-   on all depths with 32-bit parallel operations throughout.
-   Leptonica is also explicitly configured to work on both little-endian
-   and big-endian hardware.  RGB image pixels are always stored
-   in 32-bit words, and a few special functions are provided for
-   scaling and rotation of RGB images that have been optimized by
-   making explicit assumptions about the location of the R, G and B
-   components in the 32-bit pixel.  In such cases, the restriction
-   is documented in the function header.  The in-memory data structure
-   used throughout Leptonica to hold the packed data is a Pix,
-   which is defined and documented in pix.h.  The alpha component
-   in RGB images is significantly better supported, starting in 1.70.
+        Unlike many other open source packages, Leptonica uses packed
+        data for images with all bit/pixel (bpp) depths, allowing us
+        to process pixels in parallel. For example, rasterops works
+        on all depths with 32-bit parallel operations throughout.
+        Leptonica is also explicitly configured to work on both little-endian
+        and big-endian hardware. RGB image pixels are always stored
+        in 32-bit words, and a few special functions are provided for
+        scaling and rotation of RGB images that have been optimized by
+        making explicit assumptions about the location of the R, G and B
+        components in the 32-bit pixel. In such cases, the restriction
+        is documented in the function header. The in-memory data structure
+        used throughout Leptonica to hold the packed data is a Pix,
+        which is defined and documented in pix.h. The alpha component
+        in RGB images is significantly better supported, starting in 1.70.
 
-   Additionally, a FPix is provided for handling 2D arrays of floats,
-   and a DPix is provided for 2D arrays of doubles.  Converters
-   between these and the Pix are given.
+        Additionally, a FPix is provided for handling 2D arrays of floats,
+        and a DPix is provided for 2D arrays of doubles. Converters
+        between these and the Pix are given.
 
-6. Conversion between Pix and other in-memory raster formats
+        6. Conversion between Pix and other in-memory raster formats
 
- . If you use Leptonica with other imaging libraries, you will need
-   functions to convert between the Pix and other image data
-   structures.  To make a Pix from other image data structures, you
-   will need to understand pixel packing, pixel padding, component
-   ordering and byte ordering on raster lines.  See the file pix.h
-   for the specification of image data in the pix.
+        . If you use Leptonica with other imaging libraries, you will need
+        functions to convert between the Pix and other image data
+        structures. To make a Pix from other image data structures, you
+        will need to understand pixel packing, pixel padding, component
+        ordering and byte ordering on raster lines. See the file pix.h
+        for the specification of image data in the pix.
 
-7. Custom memory management
+        7. Custom memory management
 
-   Leptonica allows you to use custom memory management (allocator,
-   deallocator).  For Pix, which tend to be large, the alloc/dealloc
-   functions can be set programmatically.  For all other structs and arrays,
-   the allocators are specified in environ.h.  Default functions
-   are malloc and free.  We have also provided a sample custom
-   allocator/deallocator for Pix, in pixalloc.c.
+        Leptonica allows you to use custom memory management (allocator,
+        deallocator). For Pix, which tend to be large, the alloc/dealloc
+        functions can be set programmatically. For all other structs and arrays,
+        the allocators are specified in environ.h. Default functions
+        are malloc and free. We have also provided a sample custom
+        allocator/deallocator for Pix, in pixalloc.c.
 </pre>
 
 
-<h2> <A NAME="CONTENTS">
-What's in leptonica?
+<h2><A NAME="CONTENTS">
+    What's in leptonica?
 </h2>
 <pre>
 1. Rasterops
@@ -986,41 +992,44 @@ What's in leptonica?
    Leptonica 1.63.  Once you've built the encoder, use it to compress
    a set of input image files:  (e.g.)
        ./jbig2 -v -s <imagefile1 ...>  >   <jbig2_file>
-   You can also generate a pdf wrapping for the output jbig2.  To do that,
-   call jbig2 with the -p arg, which generates a symbol file (output.sym)
-   plus a set of location files for each input image (output.0000, ...):
-        ./jbig2 -v -s -p <imagefile1 ...>
-   and then generate the pdf:
-       python pdf.py output  >  <pdf_file>
-   See the usage documentation for the jbig2 compressor at:
-       http://www.imperialviolet.org/binary/jbig2enc.html
-   You can uncompress the jbig2 files using jbig2dec, which can be
-   downloaded and built from:
-       http://jbig2dec.sourceforge.net/
+    You can also generate a pdf wrapping for the output jbig2. To do that,
+    call jbig2 with the -p arg, which generates a symbol file (output.sym)
+    plus a set of location files for each input image (output.0000, ...):
+    ./jbig2 -v -s -p
+    <imagefile1
+    ...>
+    and then generate the pdf:
+    python pdf.py output >
+    <pdf_file>
+        See the usage documentation for the jbig2 compressor at:
+        http://www.imperialviolet.org/binary/jbig2enc.html
+        You can uncompress the jbig2 files using jbig2dec, which can be
+        downloaded and built from:
+        http://jbig2dec.sourceforge.net/
 
-16. Versions
+        16. Versions
 
-   New versions of the Leptonica library are released approximately
-   6 times a year, and version numbers are provided for each release in
-   the makefile and in allheaders.h.  All even versions from 1.42 to 1.60
-   have been archived at http://code.google.com/p/leptonica, as well as all
-   versions after 1.60.  However, code.google.com no longer supports
-   uploads of new distributions, which you can get at the leptonica.org
-   web site.
+        New versions of the Leptonica library are released approximately
+        6 times a year, and version numbers are provided for each release in
+        the makefile and in allheaders.h. All even versions from 1.42 to 1.60
+        have been archived at http://code.google.com/p/leptonica, as well as all
+        versions after 1.60. However, code.google.com no longer supports
+        uploads of new distributions, which you can get at the leptonica.org
+        web site.
 
-   The number of downloads of leptonica increased by nearly an order
-   of magnitude with 1.69, due to bundling with tesseract and
-   incorporation in ubuntu 12-04.  Leptonica has about 2400 functions,
-   and the binary API changed slightly with the new 1.71 release.  Having
-   a proper binary release version is required for all debian packages.
-   The binary release version for 1.69 is 3.0.0, for 1.70 it is 4.0.0,
-   and for 1.71 it is 4.2.0.
+        The number of downloads of leptonica increased by nearly an order
+        of magnitude with 1.69, due to bundling with tesseract and
+        incorporation in ubuntu 12-04. Leptonica has about 2400 functions,
+        and the binary API changed slightly with the new 1.71 release. Having
+        a proper binary release version is required for all debian packages.
+        The binary release version for 1.69 is 3.0.0, for 1.70 it is 4.0.0,
+        and for 1.71 it is 4.2.0.
 
-   A brief version chronology is maintained in version-notes.html.
-   Starting with gcc 4.3.3, error warnings (-Werror) are given for
-   minor infractions like not checking return values of built-in C
-   functions.  I have attempted to eliminate these warnings.
-   In any event, you will see warnings with the -Wall flag.
+        A brief version chronology is maintained in version-notes.html.
+        Starting with gcc 4.3.3, error warnings (-Werror) are given for
+        minor infractions like not checking return values of built-in C
+        functions. I have attempted to eliminate these warnings.
+        In any event, you will see warnings with the -Wall flag.
 
 </pre>
 

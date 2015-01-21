@@ -31,7 +31,9 @@ public class ResultIterator extends PageIterator {
         System.loadLibrary("tess");
     }
 
-    /** Pointer to native result iterator. */
+    /**
+     * Pointer to native result iterator.
+     */
     private final long mNativeResultIterator;
 
     /* package */ResultIterator(long nativeResultIterator) {
@@ -62,5 +64,6 @@ public class ResultIterator extends PageIterator {
     }
 
     private static native String nativeGetUTF8Text(long nativeResultIterator, int level);
+
     private static native float nativeConfidence(long nativeResultIterator, int level);
 }

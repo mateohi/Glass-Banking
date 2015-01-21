@@ -25,34 +25,46 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 abstract class SVAbstractMenuItem {
-  JMenuItem mi;
-  public String name;
-  public int id;
+    JMenuItem mi;
+    public String name;
+    public int id;
 
-  /**
-   * Sets the basic attributes for name, id and the corresponding swing item
-   */
-  SVAbstractMenuItem(int id, String name, JMenuItem jmi) {
-    this.mi = jmi;
-    this.name = name;
-    this.id = id;
-  }
+    /**
+     * Sets the basic attributes for name, id and the corresponding swing item
+     */
+    SVAbstractMenuItem(int id, String name, JMenuItem jmi) {
+        this.mi = jmi;
+        this.name = name;
+        this.id = id;
+    }
 
-  /** Returns the actual value of the MenuListItem. */
-  public String getValue() { return null; }
+    /**
+     * Returns the actual value of the MenuListItem.
+     */
+    public String getValue() {
+        return null;
+    }
 
-  /** Adds a child entry to the submenu. */
-  public void add(SVAbstractMenuItem mli) { }
+    /**
+     * Adds a child entry to the submenu.
+     */
+    public void add(SVAbstractMenuItem mli) {
+    }
 
-  /** Adds a child menu to the submenu (or root node). */
-  public void add(JMenu jli) { }
+    /**
+     * Adds a child menu to the submenu (or root node).
+     */
+    public void add(JMenu jli) {
+    }
 
-  /**
-   * What to do when user clicks on this item.
-   * @param window The window the event happened.
-   * @param eventType What kind of event will be associated
-   * (usually SVET_POPUP or SVET_MENU).
-   */
-  public void performAction(SVWindow window, SVEventType eventType) {}
+    /**
+     * What to do when user clicks on this item.
+     *
+     * @param window    The window the event happened.
+     * @param eventType What kind of event will be associated
+     *                  (usually SVET_POPUP or SVET_MENU).
+     */
+    public void performAction(SVWindow window, SVEventType eventType) {
+    }
 }
 

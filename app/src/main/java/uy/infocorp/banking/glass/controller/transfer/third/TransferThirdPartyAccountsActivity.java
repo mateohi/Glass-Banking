@@ -20,11 +20,7 @@ import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
 import com.google.android.glass.widget.Slider;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -128,7 +124,7 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity {
                     TransferThirdPartyAccountsActivity.this.products = products;
 
                     for (Product product : products) {
-                        cards.add(createDebitProductCard(product, true /* is debit */));
+                        cards.add(createDebitProductCard(product));
                     }
                     updateCardScrollView(true /* is debit */);
                 }
@@ -137,21 +133,8 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity {
     }
 
     private void createCreditProductCards() {
-        // All except the debit product just chosen
-        Iterable<Product> availableProducts = Iterables.filter(products, new Predicate<Product>() {
-            @Override
-            public boolean apply(Product input) {
-                String debitProductType = debitProduct.getProductType().name();
-                String otherProductType = input.getProductType().name();
-
-                return !StringUtils.equals(debitProductType, otherProductType);
-            }
-        });
-
-        products = Lists.newArrayList(availableProducts);
-
-        for (Product product : products) {
-            cards.add(createDebitProductCard(product, false /* is NOT debit */));
+        for (ThirdPartyAccount account : thirdPartyAccounts) {
+            cards.add(createCreditAccountCard(account));
         }
 
         updateCardScrollView(false /* is NOT debit */);
@@ -171,10 +154,9 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity {
 
                 if (isDebit) {
                     debitProduct = products.get(position);
-                    cards.clear();
                     createCreditProductCards();
                 } else {
-                    creditThirdPartyAccount = products.get(position);
+                    creditThirdPartyAccount = thirdPartyAccounts.get(position);
                     gestureDetector = createGestureDetector();
                     showAmountView();
                 }
@@ -211,11 +193,11 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity {
     private CardBuilder createCreditAccountCard(ThirdPartyAccount account) {
         String accountId = String.valueOf(account.getThirdPartyAccountId());
         String accountNumber = account.getThirdPartyAccountNumber();
-        int iconId = product.getProductIconId();
+        int iconId = account.getProductIconId();
 
         return new CardBuilder(this, CardBuilder.Layout.COLUMNS_FIXED)
                 .setText(accountId)
-                .setFootnote("Debit from:")
+                .setFootnote("Credit to:")
                 .setTimestamp(accountNumber)
                 .setIcon(iconId);
     }

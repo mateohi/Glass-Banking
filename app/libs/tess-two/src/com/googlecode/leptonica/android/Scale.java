@@ -18,7 +18,7 @@ package com.googlecode.leptonica.android;
 
 /**
  * Image scaling methods.
- * 
+ *
  * @author alanv@google.com (Alan Viverette)
  */
 public class Scale {
@@ -87,7 +87,7 @@ public class Scale {
      * Scales the Pix to specified scale. If no scaling is required, returns a
      * clone of the source Pix.
      *
-     * @param pixs the source Pix
+     * @param pixs  the source Pix
      * @param scale dimension scaling factor
      * @return a Pix scaled according to the supplied factors
      */
@@ -99,7 +99,7 @@ public class Scale {
      * Scales the Pix to specified x and y scale. If no scaling is required,
      * returns a clone of the source Pix.
      *
-     * @param pixs the source Pix
+     * @param pixs   the source Pix
      * @param scaleX x-dimension (width) scaling factor
      * @param scaleY y-dimension (height) scaling factor
      * @return a Pix scaled according to the supplied factors

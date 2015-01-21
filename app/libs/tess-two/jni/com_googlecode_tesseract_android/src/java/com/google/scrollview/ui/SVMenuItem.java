@@ -29,33 +29,35 @@ import javax.swing.JMenuItem;
  * wants to change it, but can just call the client with the new value.
  */
 class SVMenuItem extends SVAbstractMenuItem {
-  public String value = null;
-  public String desc = null;
+    public String value = null;
+    public String desc = null;
 
-  SVMenuItem(int id, String name, String v, String d) {
-    super(id, name, new JMenuItem(name));
-    value = v;
-    desc = d;
-  }
-
-  /**
-   * Ask the user for new input for a variable and send it.
-   * Depending on whether there is a description given for the entry, show
-   * the description in the dialog or just show the name.
-   */
-  @Override
-  public void performAction(SVWindow window, SVEventType eventType) {
-    if (desc != null) {
-      window.showInputDialog(desc, value, id, eventType);
-    } else {
-      window.showInputDialog(name, value, id, eventType);
+    SVMenuItem(int id, String name, String v, String d) {
+        super(id, name, new JMenuItem(name));
+        value = v;
+        desc = d;
     }
-  }
 
-  /** Returns the actual value of the MenuListItem. */
-  @Override
-  public String getValue() {
-    return value;
-  }
+    /**
+     * Ask the user for new input for a variable and send it.
+     * Depending on whether there is a description given for the entry, show
+     * the description in the dialog or just show the name.
+     */
+    @Override
+    public void performAction(SVWindow window, SVEventType eventType) {
+        if (desc != null) {
+            window.showInputDialog(desc, value, id, eventType);
+        } else {
+            window.showInputDialog(name, value, id, eventType);
+        }
+    }
+
+    /**
+     * Returns the actual value of the MenuListItem.
+     */
+    @Override
+    public String getValue() {
+        return value;
+    }
 }
 

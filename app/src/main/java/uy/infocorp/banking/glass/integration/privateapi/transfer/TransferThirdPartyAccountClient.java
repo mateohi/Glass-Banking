@@ -13,7 +13,7 @@ import uy.infocorp.banking.glass.util.http.HttpUtils;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
-public class TransferThirdPartyAccountClient extends BaseClient { // TODO cambiar a third party
+public class TransferThirdPartyAccountClient extends BaseClient {
 
     private static TransferThirdPartyAccountClient instance;
     private RestExecutionBuilder builder;
