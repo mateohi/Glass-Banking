@@ -11,6 +11,7 @@ import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.util.http.BaseClient;
+import uy.infocorp.banking.glass.util.http.HttpUtils;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
@@ -44,8 +45,7 @@ public class ProductsClient extends BaseClient {
 
     @Override
     protected Object getOnline() {
-        String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
-        Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, authToken);
+        Header tokenHeader = HttpUtils.buildTokenHeader(authToken);
         Product[] products = builder.appendHeader(tokenHeader).execute(Product[].class);
 
         return Arrays.asList(products);

@@ -14,10 +14,11 @@ public class Session {
     private static String authToken;
     private static DateTime lastAuthenticationDate;
 
-    private Session() {}
+    private Session() {
+    }
 
     public static String getAuthToken() {
-        if (invalidToken()) {
+        if (authToken == null || invalidToken()) {
             authToken = null;
             lastAuthenticationDate = null;
         }

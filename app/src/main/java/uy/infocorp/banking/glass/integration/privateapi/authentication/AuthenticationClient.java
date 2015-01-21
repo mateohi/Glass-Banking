@@ -17,7 +17,6 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.authenticatio
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.HttpUtils;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class AuthenticationClient extends BaseClient {
 

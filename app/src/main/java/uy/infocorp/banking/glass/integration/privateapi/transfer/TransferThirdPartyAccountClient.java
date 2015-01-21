@@ -2,8 +2,6 @@ package uy.infocorp.banking.glass.integration.privateapi.transfer;
 
 import org.apache.http.Header;
 
-import java.io.UnsupportedEncodingException;
-
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.transfer.dto.request.TransferRequest;
@@ -50,9 +48,9 @@ public class TransferThirdPartyAccountClient extends BaseClient {
     protected Object getOnline() {
         Header authHeader = HttpUtils.buildTokenHeader(authToken);
 
-            TransferResponse response = this.builder.appendHeader(authHeader)
-                    .appendObjectBody(transferRequest)
-                    .execute(TransferResponse.class);
-            return response.wasSuccessful();
+        TransferResponse response = this.builder.appendHeader(authHeader)
+                .appendObjectBody(transferRequest)
+                .execute(TransferResponse.class);
+        return response.wasSuccessful();
     }
 }

@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 
 import org.apache.http.Header;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
