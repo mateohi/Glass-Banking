@@ -40,7 +40,10 @@ public class PrivateUrls {
     // Transfer from Own Account
     public static final String POST_TRANSFER_FROM_OWN_ACCOUNT_URL = BASE_URL + "/transfers/transfers/ownAccounts";
 
-    // Transfer from Third Party Account
-    // TODO completar
-    public static final String POST_TRANSFER_THIRD_PARTY_ACCOUNT_URL = BASE_URL + "/";
+    // Transfer from Third Party Account local
+    public static final String POST_TRANSFER_THIRD_PARTY_ACCOUNT_LOCAL_URL = BASE_URL + "/transfers/transfers/intraBank";
+
+    // Transfer from Third Party Account in same country and different bank
+    public static final String POST_TRANSFER_THIRD_PARTY_ACCOUNT_INCOUNTRY_URL = BASE_URL + "/transfers/transfers/inCountry";
+
 }

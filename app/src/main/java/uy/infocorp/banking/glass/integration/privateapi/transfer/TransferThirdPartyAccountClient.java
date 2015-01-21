@@ -22,7 +22,7 @@ public class TransferThirdPartyAccountClient extends BaseClient { // TODO cambia
     private String authToken;
 
     private TransferThirdPartyAccountClient() {
-        this.builder = RestExecutionBuilder.post(PrivateUrls.POST_TRANSFER_THIRD_PARTY_ACCOUNT_URL);
+        this.builder = RestExecutionBuilder.post(PrivateUrls.POST_TRANSFER_THIRD_PARTY_ACCOUNT_LOCAL_URL);
     }
 
     public static TransferThirdPartyAccountClient instance() {

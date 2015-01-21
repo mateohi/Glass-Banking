@@ -54,6 +54,7 @@ public class TransferOwnAccountClient extends BaseClient {
             TransferResponse response = this.builder.appendHeader(authHeader)
                     .appendObjectBody(transferRequest)
                     .execute(TransferResponse.class);
+
             return response.wasSuccessful();
         } catch (UnsupportedEncodingException e) {
             return false;
