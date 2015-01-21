@@ -1,7 +1,7 @@
 package uy.infocorp.banking.glass.domain.transfer.builder;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.Objects;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Currency;
@@ -55,6 +55,10 @@ public class TransferRequestBuilder {
         request.setTransfer(transfer);
 
         return request;
+    }
+
+    public static Object betweenThirdPartyAccounts() {
+        throw new RuntimeException("Not implemented yet");
     }
 
 }

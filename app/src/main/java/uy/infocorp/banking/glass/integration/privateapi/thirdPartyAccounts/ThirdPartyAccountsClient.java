@@ -1,15 +1,14 @@
 package uy.infocorp.banking.glass.integration.privateapi.thirdPartyAccounts;
 
 import org.apache.http.Header;
-import org.apache.http.message.BasicHeader;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
 import uy.infocorp.banking.glass.util.http.BaseClient;
+import uy.infocorp.banking.glass.util.http.HttpUtils;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
@@ -31,13 +30,13 @@ public class ThirdPartyAccountsClient extends BaseClient {
         return instance;
     }
 
-    public List<ThirdPartyAccount> getThirdPartyAccountsLocal(String authToken) throws UnsupportedEncodingException {
+    public List<ThirdPartyAccount> getThirdPartyAccountsLocal(String authToken) {
         this.authToken = authToken;
         localThirdPartyAccounts = true;
         return (List<ThirdPartyAccount>) this.execute();
     }
 
-    public List<ThirdPartyAccount> getThirdPartyAccountsInCountry(String authToken) throws UnsupportedEncodingException {
+    public List<ThirdPartyAccount> getThirdPartyAccountsInCountry(String authToken) {
         this.authToken = authToken;
         localThirdPartyAccounts = false;
         return (List<ThirdPartyAccount>) this.execute();
@@ -54,16 +53,14 @@ public class ThirdPartyAccountsClient extends BaseClient {
 
     @Override
     protected Object getOnline() {
-        String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
-        Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
-        ThirdPartyAccount[] servicePaymentList;
+        Header tokenHeader = HttpUtils.buildTokenHeader(this.authToken);
+
         if (localThirdPartyAccounts) {
-            builder = RestExecutionBuilder.get(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_LOCAL_URL);
-            servicePaymentList = builder.appendHeader(tokenHeader).execute(ThirdPartyAccount[].class);
+            builder.appendUrl(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_LOCAL_URL);
         } else {
-            builder = RestExecutionBuilder.get(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_INCOUNTRY_URL);
-            servicePaymentList = builder.appendHeader(tokenHeader).execute(ThirdPartyAccount[].class);
+            builder.appendUrl(PrivateUrls.GET_THIRDPARTY_ACCOUNTS_INCOUNTRY_URL);
         }
-        return servicePaymentList;
+
+        return builder.appendHeader(tokenHeader).execute(ThirdPartyAccount[].class);
     }
 }

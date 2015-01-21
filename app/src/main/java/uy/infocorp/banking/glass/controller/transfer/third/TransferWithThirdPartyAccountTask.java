@@ -1,20 +1,17 @@
-package uy.infocorp.banking.glass.controller.transfer.own;
+package uy.infocorp.banking.glass.controller.transfer.third;
 
 import android.util.Log;
 
-import uy.infocorp.banking.glass.domain.transfer.builder.TransferRequestBuilder;
 import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
-import uy.infocorp.banking.glass.integration.privateapi.transfer.TransferOwnAccountClient;
-import uy.infocorp.banking.glass.integration.privateapi.transfer.dto.request.TransferRequest;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.async.SimpleAsyncTask;
 
-public class TransferBetweenOwnAccountsTask extends SimpleAsyncTask<Boolean> {
+public class TransferWithThirdPartyAccountTask extends SimpleAsyncTask<Boolean> {
 
-    private static final String TAG = TransferBetweenOwnAccountsTask.class.getSimpleName();
+    private static final String TAG = TransferWithThirdPartyAccountTask.class.getSimpleName();
 
-    public TransferBetweenOwnAccountsTask(FinishedTaskListener<Boolean> listener) {
+    public TransferWithThirdPartyAccountTask(FinishedTaskListener<Boolean> listener) {
         super(listener);
     }
 
@@ -26,9 +23,9 @@ public class TransferBetweenOwnAccountsTask extends SimpleAsyncTask<Boolean> {
             Product creditProduct = (Product) params[2];
             String authToken = AuthenticationClient.instance().completeLogOn();
 
-            TransferRequest request = TransferRequestBuilder.betweenOwnAccounts(amount,
-                    debitProduct, creditProduct);
-            TransferOwnAccountClient.instance().makeTransferBetweenOwnAccounts(authToken, request);
+            // FIXME cambiar por third party
+            //Object request = TransferRequestBuilder.betweenThirdPartyAccounts();
+            //TransferOwnAccountClient.instance().makeTransferBetweenOwnAccounts(authToken, request);
 
             return true;
         } catch (Exception e) {

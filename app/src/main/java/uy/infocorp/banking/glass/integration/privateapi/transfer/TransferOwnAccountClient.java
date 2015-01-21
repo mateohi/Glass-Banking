@@ -1,4 +1,4 @@
-package uy.infocorp.banking.glass.integration.privateapi.transfer.dto;
+package uy.infocorp.banking.glass.integration.privateapi.transfer;
 
 import org.apache.http.Header;
 
