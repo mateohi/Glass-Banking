@@ -1,7 +1,11 @@
 package uy.infocorp.banking.glass.integration.privateapi.thirdPartyAccounts;
 
+import com.google.common.collect.Lists;
+
 import org.apache.http.Header;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
@@ -44,11 +48,15 @@ public class ThirdPartyAccountsClient extends BaseClient {
 
     @Override
     protected Object getOffline() {
+        ThirdPartyAccount[] accounts;
+
         if (localThirdPartyAccounts) {
-            return Resources.jsonToObject(R.raw.accounts_local, Object.class);
+            accounts = Resources.jsonToObject(R.raw.accounts_local, ThirdPartyAccount[].class);
         } else {
-            return Resources.jsonToObject(R.raw.accounts_in_country, Object.class);
+            accounts = Resources.jsonToObject(R.raw.accounts_in_country, ThirdPartyAccount[].class);
         }
+
+        return Lists.newArrayList(accounts);
     }
 
     @Override

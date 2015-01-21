@@ -146,6 +146,7 @@ public class TransferThirdPartyAccountsActivity extends ExtendedActivity {
                     showNoProductsView();
                 } else {
                     TransferThirdPartyAccountsActivity.this.thirdPartyAccounts = accounts;
+                    cards.clear();
 
                     for (ThirdPartyAccount account : accounts) {
                         cards.add(createCreditAccountCard(account));
