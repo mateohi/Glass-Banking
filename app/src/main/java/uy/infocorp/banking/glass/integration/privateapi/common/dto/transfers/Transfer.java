@@ -1,13 +1,23 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers;
 
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.transactions.Transaction;
 
 public class Transfer extends Transaction {
 
+    private ThirdPartyAccount newThirdPartyAccount;
+
+    public final ThirdPartyAccount getNewThirdPartyAccount() {
+        return newThirdPartyAccount;
+    }
+
+    public final void setNewThirdPartyAccount(ThirdPartyAccount value) {
+        newThirdPartyAccount = value;
+    }
+
     /*private int frequencyId;
     private int scheduledTransferStatusId;
     private boolean containsNewBeneficiary;
-    private ThirdPartyAccount newThirdPartyAccount;
     private boolean costsChargedToTheBeneficiary;
 
     public final int getFrequencyId() {
@@ -32,14 +42,6 @@ public class Transfer extends Transaction {
 
     public final void setContainsNewBeneficiary(boolean value) {
         containsNewBeneficiary = value;
-    }
-
-    public final ThirdPartyAccount getNewThirdPartyAccount() {
-        return newThirdPartyAccount;
-    }
-
-    public final void setNewThirdPartyAccount(ThirdPartyAccount value) {
-        newThirdPartyAccount = value;
     }
 
     public final boolean getCostsChargedToTheBeneficiary() {

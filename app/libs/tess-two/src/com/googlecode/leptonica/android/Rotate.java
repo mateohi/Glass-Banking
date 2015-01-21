@@ -26,13 +26,15 @@ public class Rotate {
 
     // Rotation default
 
-    /** Default rotation quality is high. */
+    /**
+     * Default rotation quality is high.
+     */
     public static final boolean ROTATE_QUALITY = true;
 
     /**
      * Performs rotation using the default parameters.
      *
-     * @param pixs The source pix.
+     * @param pixs    The source pix.
      * @param degrees The number of degrees to rotate; clockwise is positive.
      * @return the rotated source image
      */
@@ -43,7 +45,7 @@ public class Rotate {
     /**
      * Performs rotation with resizing using the default parameters.
      *
-     * @param pixs The source pix.
+     * @param pixs    The source pix.
      * @param degrees The number of degrees to rotate; clockwise is positive.
      * @param quality Whether to use high-quality rotation.
      * @return the rotated source image
@@ -51,10 +53,10 @@ public class Rotate {
     public static Pix rotate(Pix pixs, float degrees, boolean quality) {
         return rotate(pixs, degrees, quality, true);
     }
-    
+
     /**
      * Performs basic image rotation about the center.
-     * <p>
+     * <p/>
      * Notes:
      * <ol>
      * <li>Rotation is about the center of the image.
@@ -70,12 +72,12 @@ public class Rotate {
      * maximum required size, which is a square with side = sqrt(w*w + h*h).
      * </ol>
      *
-     * @param pixs The source pix.
+     * @param pixs    The source pix.
      * @param degrees The number of degrees to rotate; clockwise is positive.
      * @param quality Whether to use high-quality rotation.
      * @param Whether to expand the output so that no pixels are lost.
-     *         <strong>Note:</strong> 1bpp images are always resized when
-     *         quality is {@code true}.
+     *                <strong>Note:</strong> 1bpp images are always resized when
+     *                quality is {@code true}.
      * @return the rotated source image
      */
     public static Pix rotate(Pix pixs, float degrees, boolean quality, boolean resize) {
@@ -95,5 +97,5 @@ public class Rotate {
     // ***************
 
     private static native long nativeRotate(long nativePix, float degrees, boolean quality,
-    		boolean resize);
+                                            boolean resize);
 }

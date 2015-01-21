@@ -1,9 +1,9 @@
 package uy.infocorp.banking.glass.domain.transfer.builder;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Currency;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
@@ -50,6 +50,23 @@ public class TransferRequestBuilder {
         transfer.setDebitProduct(debit);
         transfer.setCreditProduct(credit);
 
+        TransferRequest request = new TransferRequest();
+        request.setTransfer(transfer);
+
+        return request;
+    }
+
+    public static TransferRequest betweenThirdPartyAccounts(int amount, Product debit,
+                                                            ThirdPartyAccount credit) {
+        // FIXME arreglar bien como se llena
+        Currency currency = new Currency();
+        currency.setCurrencyId(Resources.getString(R.string.alpha_code));
+
+        Transfer transfer = new Transfer();
+        transfer.setAmount(BigDecimal.valueOf(amount));
+        transfer.setCurrency(currency);
+        transfer.setDebitProduct(debit);
+        transfer.setNewThirdPartyAccount(credit);
 
         TransferRequest request = new TransferRequest();
         request.setTransfer(transfer);

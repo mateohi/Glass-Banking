@@ -1,7 +1,9 @@
 package uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts;
 
+import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Bank;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Currency;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 
 public class ThirdPartyAccount {
 
@@ -19,11 +21,12 @@ public class ThirdPartyAccount {
     private Bank bank;
     private String branch;
     //	private Map<String, Infocorp.Framework.BusinessEntities.Common.ExtendedPropertyValue> extendedProperties;
-//	private Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType thirdPartyAccountType;
-    private Integer ownerDcumentTypeId = null;
+    //	private Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType thirdPartyAccountType;
+    private Integer ownerDocumentTypeId;
     private String ownerDocumentNumber;
-//	private Infocorp.Framework.BusinessEntities.Common.ProductType productType;
-//	private ThirdPartyAccountAdditionalInfo thirdPartyAccountsAdditionalInfoData;
+    //	private Infocorp.Framework.BusinessEntities.Common.ProductType productType;
+    //	private ThirdPartyAccountAdditionalInfo thirdPartyAccountsAdditionalInfoData;
+    private ProductType productType;
 
     public final int getThirdPartyAccountId() {
         return thirdPartyAccountId;
@@ -120,12 +123,12 @@ public class ThirdPartyAccount {
 //	public final Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType getThirdPartyAccountType() { return thirdPartyAccountType; }
 //	public final void setThirdPartyAccountType(Infocorp.Accounts.BusinessEntities.ThirdPartyAccounts.ThirdPartyAccountType value) { thirdPartyAccountType = value; }
 
-    public final Integer getOwnerDcumentTypeId() {
-        return ownerDcumentTypeId;
+    public final Integer getOwnerDocumentTypeId() {
+        return ownerDocumentTypeId;
     }
 
-    public final void setOwnerDcumentTypeId(Integer value) {
-        ownerDcumentTypeId = value;
+    public final void setOwnerDocumentTypeId(Integer value) {
+        ownerDocumentTypeId = value;
     }
 
     public final String getOwnerDocumentNumber() {
@@ -142,4 +145,34 @@ public class ThirdPartyAccount {
 //	public final ThirdPartyAccountAdditionalInfo getThirdPartyAccountsAdditionalInfoData() { return thirdPartyAccountsAdditionalInfoData; }
 //	public final void setThirdPartyAccountsAdditionalInfoData(ThirdPartyAccountAdditionalInfo value) { thirdPartyAccountsAdditionalInfoData = value; }
 
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
+
+    public int getProductIconId() {
+        switch (productType) {
+            case currentAccount:
+                return R.drawable.current_account;
+            case savingsAccount:
+                return R.drawable.savings_account;
+            case investment:
+                return R.drawable.investment;
+            case creditLine:
+                return R.drawable.credit_line;
+            case fixedTermDeposit:
+                return R.drawable.fixed_deposit;
+            case creditCard:
+                return R.drawable.credit_card;
+            case loan:
+                return R.drawable.loan;
+            case undefined://Undefined is mapped with Mortgage and instantiated with Loan
+                return R.drawable.mortgage;
+            default:
+                throw new IllegalArgumentException("Undefined product id");
+        }
+    }
 }

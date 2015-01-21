@@ -194,5 +194,22 @@
         </activity>
         <!-- /Transfer own accounts -->
 
+        <!-- Transfer third party -->
+        <activity
+            android:name=".controller.transfer.third.TransferThirdPartyAccountsActivity"
+            android:enabled="true"
+            android:icon="@drawable/logo_ic"
+            android:immersive="true"
+            android:label="@string/transfer_third_party_account">
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/transfer_voice_trigger" />
+        </activity>
+        <!-- /Transfer third party -->
+
     </application>
 </manifest>

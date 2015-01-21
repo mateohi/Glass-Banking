@@ -21,21 +21,29 @@ package com.google.scrollview.ui;
 
 import javax.swing.JMenu;
 
-/** Constructs a new submenu which can hold other entries. */
+/**
+ * Constructs a new submenu which can hold other entries.
+ */
 class SVSubMenuItem extends SVAbstractMenuItem {
-  public SVSubMenuItem(String name, JMenu jli) {
-    super(-1, name, jli);
-  }
-  /** Adds a child entry to the submenu. */
-  @Override
-  public void add(SVAbstractMenuItem mli) {
-    mi.add(mli.mi);
-  }
-  /** Adds a child menu to the submenu (or root node). */
-  @Override
-  public void add(JMenu jli) {
-    mi.add(jli);
-  }
+    public SVSubMenuItem(String name, JMenu jli) {
+        super(-1, name, jli);
+    }
+
+    /**
+     * Adds a child entry to the submenu.
+     */
+    @Override
+    public void add(SVAbstractMenuItem mli) {
+        mi.add(mli.mi);
+    }
+
+    /**
+     * Adds a child menu to the submenu (or root node).
+     */
+    @Override
+    public void add(JMenu jli) {
+        mi.add(jli);
+    }
 }
 
 
