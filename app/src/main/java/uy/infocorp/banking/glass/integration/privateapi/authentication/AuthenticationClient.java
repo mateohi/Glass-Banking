@@ -46,12 +46,12 @@ public class AuthenticationClient extends BaseClient {
         List<Header> headers = data.getRight();
 
         //gets the header x_auth_token
-        Header authToken = getAuthToken(headers);
+        Header authToken = HttpUtils.getAuthToken(headers);
 
         if (authToken != null) {
             result.setAuthToken(authToken.getValue());
         } else {
-            Log.w(TAG, "No se pudo obtener el header X-Auth-Token al intentar loguearse");
+            Log.w(TAG, "Unable to get X-Auth-Token header on login");
         }
 
         return result;
@@ -74,7 +74,7 @@ public class AuthenticationClient extends BaseClient {
         List<Header> headers = data.getRight();
 
         //gets the header corresponding to the x_auth_token
-        Header authToken = getAuthToken(headers);
+        Header authToken = HttpUtils.getAuthToken(headers);
 
         if (authToken != null) {
             result.setAuthToken(authToken.getValue());
@@ -83,15 +83,6 @@ public class AuthenticationClient extends BaseClient {
         }
 
         return result;
-    }
-
-    private static Header getAuthToken(List<Header> headers) {
-        for (Header header : headers) {
-            if (header.getName().equals(HttpUtils.XAUTH_TOKEN_HEADER)) {
-                return header;
-            }
-        }
-        return null;
     }
 
     @Override
