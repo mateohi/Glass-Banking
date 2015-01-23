@@ -17,7 +17,7 @@ import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class MessagingClient extends BaseClient {
 
-    private static String authToken;
+    private String authToken;
 
     private static MessagingClient instance;
     private RestExecutionBuilder builder;

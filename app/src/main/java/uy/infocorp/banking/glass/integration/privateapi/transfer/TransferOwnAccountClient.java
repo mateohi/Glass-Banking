@@ -32,7 +32,7 @@ public class TransferOwnAccountClient extends BaseClient {
         return instance;
     }
 
-    public Boolean makeTransferBetweenOwnAccounts(String authToken, TransferRequest transferRequest) throws UnsupportedEncodingException {
+    public Boolean makeTransferBetweenOwnAccounts(String authToken, TransferRequest transferRequest) {
         this.transferRequest = transferRequest;
         this.authToken = authToken;
 

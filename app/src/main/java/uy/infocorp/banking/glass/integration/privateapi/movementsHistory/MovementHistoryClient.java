@@ -1,12 +1,10 @@
 package uy.infocorp.banking.glass.integration.privateapi.movementsHistory;
 
 import org.apache.http.Header;
-import org.apache.http.message.BasicHeader;
 
 import java.util.List;
 
 import uy.infocorp.banking.glass.R;
-import uy.infocorp.banking.glass.domain.authentication.Session;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.movements.Movement;
 import uy.infocorp.banking.glass.integration.privateapi.movementsHistory.dto.MovementHistoryResponseDTO;
@@ -16,8 +14,6 @@ import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class MovementHistoryClient extends BaseClient {
-
-    private static final String TAG = MovementHistoryClient.class.getSimpleName();
 
     private static MovementHistoryClient instance;
     private RestExecutionBuilder builder;
@@ -36,8 +32,9 @@ public class MovementHistoryClient extends BaseClient {
         return instance;
     }
 
-    public List<Movement> getLastMovements(ProductType productType,
+    public List<Movement> getLastMovements(String authToken, ProductType productType,
                                            String productBankIdentifier) throws Exception {
+        this.authToken = authToken;
         this.productType = productType;
         this.productBankIdentifier = productBankIdentifier;
         return (List<Movement>) this.execute();
@@ -46,15 +43,12 @@ public class MovementHistoryClient extends BaseClient {
 
     @Override
     protected Object getOffline() {
-        //check if credit cards or account
-        Movement[] movements = Resources.jsonToObject(R.raw.movements,
-                Movement[].class);
+        Movement[] movements = Resources.jsonToObject(R.raw.movements, Movement[].class);
         return MovementHistoryUtils.getCorrectedMovements(movements);
     }
 
     @Override
     protected Object getOnline() {
-        this.authToken = Session.getAuthToken();
         String formattedUrl = MovementHistoryUtils.buildFormattedUrl();
         Header tokenHeader = HttpUtils.buildTokenHeader(authToken);
 

@@ -10,12 +10,11 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.com
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.integration.privateapi.transfersHistory.dto.TransferHistoryResponseDTO;
 import uy.infocorp.banking.glass.util.http.BaseClient;
+import uy.infocorp.banking.glass.util.http.HttpUtils;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class TransferHistoryClient extends BaseClient {
-
-    private static final int MAX_TRANSFERS_TO_SHOW = Resources.getInteger(R.integer.max_atms_to_show);
 
     private static TransferHistoryClient instance;
     private RestExecutionBuilder builder;
@@ -52,9 +51,9 @@ public class TransferHistoryClient extends BaseClient {
 
     @Override
     protected Object getOnline() {
-        String xAuthTokenHeaderName = Resources.getString(R.string.x_auth_header);
-        Header tokenHeader = new BasicHeader(xAuthTokenHeaderName, this.authToken);
+        Header tokenHeader = HttpUtils.buildTokenHeader(this.authToken);
         String formattedUrl = TransferHistoryUtils.buildFormattedUrl();
+
         TransferHistoryResponseDTO transferResponse = this.builder
                 .appendUrl(formattedUrl)
                 .appendHeader(tokenHeader)

@@ -37,15 +37,16 @@ public class ServicePaymentsClient extends BaseClient {
 
     @Override
     protected Object getOffline() {
-        return Resources.jsonToObject(R.raw.service_payments, ServicePayment.class);
+        ServicePayment[] servicePayments = Resources.jsonToObject(R.raw.service_payments, ServicePayment[].class);
+        return Arrays.asList(servicePayments);
     }
 
     @Override
     protected Object getOnline() {
         Header tokenHeader = HttpUtils.buildTokenHeader(this.authToken);
-        ServicePayment[] servicePaymentList = builder.appendHeader(tokenHeader)
+        ServicePayment[] servicePayments = builder.appendHeader(tokenHeader)
                 .execute(ServicePayment[].class);
 
-        return Arrays.asList(servicePaymentList);
+        return Arrays.asList(servicePayments);
     }
 }
