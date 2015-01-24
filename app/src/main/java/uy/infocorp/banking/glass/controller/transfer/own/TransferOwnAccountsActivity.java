@@ -1,6 +1,7 @@
 package uy.infocorp.banking.glass.controller.transfer.own;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.controller.auth.AuthenticableActivity;
+import uy.infocorp.banking.glass.controller.auth.AuthenticationActivity;
 import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
 import uy.infocorp.banking.glass.controller.common.product.GetProductsTask;
 import uy.infocorp.banking.glass.domain.gesture.SwipeGestureUtils;
@@ -37,7 +40,7 @@ import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.com
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
-public class TransferOwnAccountsActivity extends ExtendedActivity {
+public class TransferOwnAccountsActivity extends AuthenticableActivity {
 
     private static final String CURRENCY_SYMBOL = Resources.getString(R.string.alpha_symbol);
 
@@ -56,8 +59,24 @@ public class TransferOwnAccountsActivity extends ExtendedActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        getAuthToken();
+    }
+
+    @Override
+    protected void startPostAuthenticationActivity() {
         showInitialView();
         createDebitProductCards();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AUTH_TOKEN_REQUEST) {
+            if(resultCode == RESULT_OK){
+                authenticationOk(data);
+            } else {
+                showAuthenticationErrorView();
+            }
+        }
     }
 
     @Override
@@ -106,6 +125,16 @@ public class TransferOwnAccountsActivity extends ExtendedActivity {
                 .setText("Unable to make transfer")
                 .setFootnote("Check your internet connection")
                 .setIcon(R.drawable.ic_cloud_sad_150)
+                .getView();
+
+        setContentView(errorView);
+    }
+
+    private void showAuthenticationErrorView() {
+        View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+                .setText("Authentication error")
+                .setFootnote("Check your pin")
+                .setIcon(R.drawable.ic_warning_150)
                 .getView();
 
         setContentView(errorView);
