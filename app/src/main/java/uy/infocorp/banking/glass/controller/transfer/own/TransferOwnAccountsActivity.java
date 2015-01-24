@@ -32,8 +32,6 @@ import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.auth.AuthenticableActivity;
-import uy.infocorp.banking.glass.controller.auth.AuthenticationActivity;
-import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
 import uy.infocorp.banking.glass.controller.common.product.GetProductsTask;
 import uy.infocorp.banking.glass.domain.gesture.SwipeGestureUtils;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;

@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
-public class ExtendedActivity extends Activity {
+public abstract class ExtendedActivity extends Activity {
 
     protected void setTextViewText(int id, String text) {
         TextView tv = (TextView) findViewById(id);
