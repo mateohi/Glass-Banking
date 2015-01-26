@@ -22,8 +22,8 @@ public class GetLastTransfersTask extends SimpleAsyncTask<List<Transfer>> {
     protected List<Transfer> doInBackground(Object... params) {
         try {
             String authToken = (String) params[0];
-            String productBankIdentifier = (String) params[0];
-            ProductType productType = (ProductType) params[1];
+            String productBankIdentifier = (String) params[1];
+            ProductType productType = (ProductType) params[2];
 
             return TransferHistoryClient.instance().getLastTransfers(authToken, productType,
                     productBankIdentifier);
