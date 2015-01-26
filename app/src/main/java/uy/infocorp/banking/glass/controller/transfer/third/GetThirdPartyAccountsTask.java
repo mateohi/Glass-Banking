@@ -4,7 +4,6 @@ import android.util.Log;
 
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
 import uy.infocorp.banking.glass.integration.privateapi.thirdPartyAccounts.ThirdPartyAccountsClient;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
@@ -21,7 +20,7 @@ public class GetThirdPartyAccountsTask extends SimpleAsyncTask<List<ThirdPartyAc
     @Override
     protected List<ThirdPartyAccount> doInBackground(Object... params) {
         try {
-            String authToken = AuthenticationClient.instance().completeLogOn();
+            String authToken = (String) params[0];
             return ThirdPartyAccountsClient.instance().getThirdPartyAccountsLocal(authToken);
         } catch (Exception e) {
             Log.e(TAG, "Unable to get third party accounts - " + e.getMessage());

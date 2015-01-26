@@ -178,7 +178,7 @@ public class ProductsBalanceActivity extends AuthenticableActivity {
                     updateCardScrollView();
                 }
             }
-        }).execute();
+        }).execute(this.authToken);
     }
 
 

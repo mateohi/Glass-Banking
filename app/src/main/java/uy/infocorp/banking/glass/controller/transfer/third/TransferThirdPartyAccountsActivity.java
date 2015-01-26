@@ -148,7 +148,7 @@ public class TransferThirdPartyAccountsActivity extends AuthenticableActivity {
                     updateCardScrollView(true /* is debit */);
                 }
             }
-        }).execute();
+        }).execute(this.authToken);
     }
 
     private void createCreditProductCards() {
@@ -175,7 +175,7 @@ public class TransferThirdPartyAccountsActivity extends AuthenticableActivity {
                     updateCardScrollView(false /* is NOT debit */);
                 }
             }
-        }).execute();
+        }).execute(this.authToken);
     }
 
     private void updateCardScrollView(final boolean isDebit) {
@@ -338,7 +338,7 @@ public class TransferThirdPartyAccountsActivity extends AuthenticableActivity {
 
                 delayedFinish();
             }
-        }).execute(amount, debitProduct, creditThirdPartyAccount);
+        }).execute(this.authToken, amount, debitProduct, creditThirdPartyAccount);
     }
 
     private void showLastChanceView(int amount, boolean canCancel) {

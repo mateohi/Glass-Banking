@@ -4,7 +4,6 @@ import android.util.Log;
 
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.integration.privateapi.products.ProductsClient;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
@@ -21,7 +20,7 @@ public class GetProductsTask extends SimpleAsyncTask<List<Product>> {
     @Override
     protected List<Product> doInBackground(Object... params) {
         try {
-            String authToken = AuthenticationClient.instance().completeLogOn();
+            String authToken = (String) params[0];
             // Load Consolidate Position
             return ProductsClient.instance().getConsolidatedPosition(authToken);
         } catch (Exception e) {

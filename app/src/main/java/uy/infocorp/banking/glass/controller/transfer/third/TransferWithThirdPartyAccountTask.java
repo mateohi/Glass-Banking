@@ -3,7 +3,6 @@ package uy.infocorp.banking.glass.controller.transfer.third;
 import android.util.Log;
 
 import uy.infocorp.banking.glass.domain.transfer.builder.TransferRequestBuilder;
-import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.accounts.ThirdPartyAccount;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.integration.privateapi.transfer.TransferThirdPartyAccountClient;
@@ -22,10 +21,10 @@ public class TransferWithThirdPartyAccountTask extends SimpleAsyncTask<Boolean> 
     @Override
     protected Boolean doInBackground(Object... params) {
         try {
-            int amount = (Integer) params[0];
-            Product debitProduct = (Product) params[1];
-            ThirdPartyAccount creditAccount = (ThirdPartyAccount) params[2];
-            String authToken = AuthenticationClient.instance().completeLogOn();
+            String authToken = (String) params[0];
+            int amount = (Integer) params[1];
+            Product debitProduct = (Product) params[2];
+            ThirdPartyAccount creditAccount = (ThirdPartyAccount) params[3];
 
             TransferRequest request = TransferRequestBuilder.betweenThirdPartyAccounts(amount, debitProduct, creditAccount);
             TransferThirdPartyAccountClient.instance().makeLocalTransfer(authToken, request);
