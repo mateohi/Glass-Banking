@@ -38,6 +38,7 @@ public class LastTransfersActivity extends ExtendedActivity {
     private Slider.Indeterminate slider;
     private String productBankIdentifier;
     private String sourceAccountAlias;
+    private String authToken;
     private ProductType productType;
 
     @Override
@@ -56,6 +57,7 @@ public class LastTransfersActivity extends ExtendedActivity {
 
         this.productBankIdentifier = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_BANK_IDENTIFIER);
         this.sourceAccountAlias = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_ALIAS);
+        this.authToken = intent.getStringExtra(ProductsBalanceActivity.AUTH_TOKEN);
         this.productType = EnumUtil.deserialize(ProductType.class).from(intent);
     }
 
@@ -127,7 +129,7 @@ public class LastTransfersActivity extends ExtendedActivity {
                     updateCardScrollView();
                 }
             }
-        }).execute(this.productBankIdentifier, this.productType);
+        }).execute(this.authToken, this.productBankIdentifier, this.productType);
     }
 
     private void updateCardScrollView() {
@@ -143,7 +145,7 @@ public class LastTransfersActivity extends ExtendedActivity {
                 am.playSoundEffect(Sounds.TAP);
 
                 Transfer selected = transfers.get(position);
-                // openOptionsMenu(); y mostrale mas opciones como el de branches? o mas info de una ?
+                // TODO openOptionsMenu(); y mostrale mas opciones como el de branches? o mas info de una ?
             }
         });
 

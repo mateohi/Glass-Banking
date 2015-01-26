@@ -21,9 +21,11 @@ public class GetLastMovementsTask extends SimpleAsyncTask<List<Movement>> {
     @Override
     protected List<Movement> doInBackground(Object... params) {
         try {
-            String productBankIdentifier = (String) params[0];
-            ProductType productType = (ProductType) params[1];
-            return MovementHistoryClient.instance().getLastMovements(productType,
+            String authToken = (String) params[0];
+            String productBankIdentifier = (String) params[1];
+            ProductType productType = (ProductType) params[2];
+
+            return MovementHistoryClient.instance().getLastMovements(authToken, productType,
                     productBankIdentifier);
         } catch (RuntimeException e) {
             Log.e(TAG, "RuntimeException: Unable to get latest transactions -" + e.getMessage());

@@ -16,6 +16,7 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.CardBuilder;
+import com.google.android.glass.widget.Slider;
 import com.google.common.collect.Lists;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,14 +25,13 @@ import java.util.List;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
-import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 
 public class AuthenticationActivity extends ExtendedActivity {
 
     public static final String AUTH_TOKEN_EXTRA = "AUTH_TOKEN";
     private static final int TEN = 10;
-    private static final int PIN_SIZE = 5;
+    private static final int PIN_SIZE = 4;
 
     private List<Integer> selected = Lists.newArrayList();
     private double velocity;
@@ -40,6 +40,8 @@ public class AuthenticationActivity extends ExtendedActivity {
 
     private GestureDetector gestureDetector;
     private AudioManager audio;
+
+    private Slider.Indeterminate slider;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -164,9 +166,14 @@ public class AuthenticationActivity extends ExtendedActivity {
     }
 
     private void doLogin(String pin) {
+        showLoggingView();
+
         new LoginTask(new FinishedTaskListener<String>() {
             @Override
             public void onResult(String authToken) {
+                slider.hide();
+                slider = null;
+
                 returnToAuthenticableActivity(authToken);
             }
         }).execute(pin);
@@ -177,5 +184,16 @@ public class AuthenticationActivity extends ExtendedActivity {
         returnIntent.putExtra(AUTH_TOKEN_EXTRA, authtoken);
         setResult(RESULT_OK, returnIntent);
         finish();
+    }
+
+    private void showLoggingView() {
+        View loginView = new CardBuilder(this, CardBuilder.Layout.MENU)
+                .setText("Attempting login ...")
+                .setIcon(R.drawable.ic_sync)
+                .getView();
+
+        this.slider = Slider.from(loginView).startIndeterminate();
+
+        setContentView(loginView);
     }
 }

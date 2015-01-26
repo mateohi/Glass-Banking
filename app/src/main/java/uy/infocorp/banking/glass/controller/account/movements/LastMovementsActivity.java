@@ -38,6 +38,7 @@ public class LastMovementsActivity extends ExtendedActivity {
     private String productBankIdentifier;
     private String sourceAccountNumber;
     private String sourceAccountAlias;
+    private String authToken;
     private ProductType productType;
 
     @Override
@@ -47,6 +48,7 @@ public class LastMovementsActivity extends ExtendedActivity {
         Intent intent = getIntent();
         this.productBankIdentifier = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_BANK_IDENTIFIER);
         this.sourceAccountAlias = intent.getStringExtra(ProductsBalanceActivity.PRODUCT_ALIAS);
+        this.authToken = intent.getStringExtra(ProductsBalanceActivity.AUTH_TOKEN);
         this.sourceAccountNumber = productBankIdentifier.split("\\|")[1];
         this.productType = EnumUtil.deserialize(ProductType.class).from(intent);
 
@@ -123,7 +125,7 @@ public class LastMovementsActivity extends ExtendedActivity {
                     updateCardScrollView();
                 }
             }
-        }).execute(this.productBankIdentifier, this.productType);
+        }).execute(this.authToken, this.productBankIdentifier, this.productType);
     }
 
     private void updateCardScrollView() {

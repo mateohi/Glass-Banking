@@ -4,7 +4,6 @@ import android.util.Log;
 
 import java.util.List;
 
-import uy.infocorp.banking.glass.integration.privateapi.authentication.AuthenticationClient;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.transfers.Transfer;
 import uy.infocorp.banking.glass.integration.privateapi.transfersHistory.TransferHistoryClient;
@@ -22,9 +21,9 @@ public class GetLastTransfersTask extends SimpleAsyncTask<List<Transfer>> {
     @Override
     protected List<Transfer> doInBackground(Object... params) {
         try {
+            String authToken = (String) params[0];
             String productBankIdentifier = (String) params[0];
             ProductType productType = (ProductType) params[1];
-            String authToken = AuthenticationClient.instance().completeLogOn();
 
             return TransferHistoryClient.instance().getLastTransfers(authToken, productType,
                     productBankIdentifier);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="max_token_ttl_minutes">20</integer>
+    <integer name="max_token_ttl_minutes">5</integer>
 
     <!-- Enable offline mode -->
     <bool name="offline_mode">true</bool>

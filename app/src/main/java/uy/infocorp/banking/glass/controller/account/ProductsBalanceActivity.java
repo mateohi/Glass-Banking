@@ -1,6 +1,5 @@
 package uy.infocorp.banking.glass.controller.account;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -25,16 +24,18 @@ import java.util.List;
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.controller.account.movements.LastMovementsActivity;
 import uy.infocorp.banking.glass.controller.account.transactions.LastTransfersActivity;
+import uy.infocorp.banking.glass.controller.auth.AuthenticableActivity;
 import uy.infocorp.banking.glass.controller.common.product.GetProductsTask;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.serialization.EnumUtil;
 
-public class ProductsBalanceActivity extends Activity {
+public class ProductsBalanceActivity extends AuthenticableActivity {
 
     public static final String PRODUCT_BANK_IDENTIFIER = "productBankIdentifier";
     public static final String PRODUCT_ALIAS = "alias";
+    public static final String AUTH_TOKEN = "authToken";
 
     private static final List<ProductType> STACKED_PRODUCTS =
             Lists.newArrayList(ProductType.currentAccount, ProductType.creditCard, ProductType.savingsAccount);
@@ -51,8 +52,18 @@ public class ProductsBalanceActivity extends Activity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        getAuthToken();
+    }
+
+    @Override
+    protected void authenticationOk() {
         showInitialView();
         createCards();
+    }
+
+    @Override
+    protected void authenticationError() {
+        showAuthenticationErrorView();
     }
 
     @Override
@@ -92,6 +103,7 @@ public class ProductsBalanceActivity extends Activity {
         Intent intent = new Intent(this, LastMovementsActivity.class);
         intent.putExtra(PRODUCT_BANK_IDENTIFIER, selectedProduct.getProductBankIdentifier());
         intent.putExtra(PRODUCT_ALIAS, selectedProduct.getProductAlias());
+        intent.putExtra(AUTH_TOKEN, this.authToken);
         EnumUtil.serialize(selectedProduct.getProductType()).to(intent);
 
         startActivity(intent);
@@ -101,6 +113,7 @@ public class ProductsBalanceActivity extends Activity {
         Intent intent = new Intent(this, LastTransfersActivity.class);
         intent.putExtra(PRODUCT_BANK_IDENTIFIER, selectedProduct.getProductBankIdentifier());
         intent.putExtra(PRODUCT_ALIAS, selectedProduct.getProductAlias());
+        intent.putExtra(AUTH_TOKEN, this.authToken);
         EnumUtil.serialize(selectedProduct.getProductType()).to(intent);
 
         startActivity(intent);
@@ -133,6 +146,16 @@ public class ProductsBalanceActivity extends Activity {
                 .getView();
 
         setContentView(initialView);
+    }
+
+    private void showAuthenticationErrorView() {
+        View errorView = new CardBuilder(this, CardBuilder.Layout.ALERT)
+                .setText("Authentication error")
+                .setFootnote("Check your pin")
+                .setIcon(R.drawable.ic_warning_150)
+                .getView();
+
+        setContentView(errorView);
     }
 
     private void createCards() {

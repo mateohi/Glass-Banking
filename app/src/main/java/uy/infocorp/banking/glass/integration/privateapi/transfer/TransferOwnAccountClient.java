@@ -2,8 +2,6 @@ package uy.infocorp.banking.glass.integration.privateapi.transfer;
 
 import org.apache.http.Header;
 
-import java.io.UnsupportedEncodingException;
-
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.privateapi.PrivateUrls;
 import uy.infocorp.banking.glass.integration.privateapi.transfer.dto.request.TransferRequest;

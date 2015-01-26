@@ -33,6 +33,8 @@ public class Session {
 
     private static boolean invalidToken() {
         Minutes tokenMinutesLife = Minutes.minutesBetween(lastAuthenticationDate, new DateTime());
-        return tokenMinutesLife.isGreaterThan(MAX_TOKEN_TTL_MINUTES);
+        boolean tokenExpired = tokenMinutesLife.isGreaterThan(MAX_TOKEN_TTL_MINUTES);
+
+        return tokenExpired;
     }
 }

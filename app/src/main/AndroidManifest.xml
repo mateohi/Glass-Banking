@@ -17,6 +17,11 @@
         android:icon="@drawable/logo_ic"
         android:label="@string/app_name">
 
+        <!-- Authentication -->
+        <activity android:name=".controller.auth.AuthenticationActivity"
+            android:exported="true" />
+        <!-- Authentication -->
+
         <!-- Dialog -->
         <activity android:name=".util.view.dialog.DialogActivity" />
         <!-- /Dialog -->

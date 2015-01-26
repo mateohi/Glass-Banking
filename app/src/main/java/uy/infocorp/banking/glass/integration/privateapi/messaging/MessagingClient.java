@@ -1,7 +1,6 @@
 package uy.infocorp.banking.glass.integration.privateapi.messaging;
 
 import org.apache.http.Header;
-import org.apache.http.message.BasicHeader;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;

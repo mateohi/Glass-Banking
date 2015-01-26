@@ -61,20 +61,14 @@ public class TransferOwnAccountsActivity extends AuthenticableActivity {
     }
 
     @Override
-    protected void startPostAuthenticationActivity() {
+    protected void authenticationOk() {
         showInitialView();
         createDebitProductCards();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == AUTH_TOKEN_REQUEST) {
-            if(resultCode == RESULT_OK){
-                authenticationOk(data);
-            } else {
-                showAuthenticationErrorView();
-            }
-        }
+    protected void authenticationError() {
+        showAuthenticationErrorView();
     }
 
     @Override
@@ -332,7 +326,7 @@ public class TransferOwnAccountsActivity extends AuthenticableActivity {
 
                 delayedFinish();
             }
-        }).execute(amount, debitProduct, creditProduct);
+        }).execute(this.authToken, amount, debitProduct, creditProduct);
     }
 
     private void showLastChanceView(int amount, boolean canCancel) {
