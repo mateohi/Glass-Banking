@@ -10,5 +10,6 @@ public class PublicUrls {
     public static final String GET_NEWSFEED_URL = BASE_URL + "/newsFeed";
     public static final String GET_EXCHANGE_RATES_URL = BASE_URL + "/exchangeRates";
     public static final String GET_IMAGE_URL = BASE_URL + "/images?ids=%d";
+    public static final String POST_POINT_OF_INTEREST_RATING = BASE_URL + "/pointsOfInterestRatings";
 
 }

@@ -2,6 +2,9 @@ package uy.infocorp.banking.glass.controller.beacon.rate;
 
 import android.util.Log;
 
+import uy.infocorp.banking.glass.domain.rating.builder.PointOfInterestRatingBuilder;
+import uy.infocorp.banking.glass.integration.publicapi.rating.PointOfInterestRatingClient;
+import uy.infocorp.banking.glass.integration.publicapi.rating.dto.PointOfInterestRatingDTO;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.async.SimpleAsyncTask;
 
@@ -18,8 +21,10 @@ public class RateBranchTask extends SimpleAsyncTask<Boolean> {
         try {
             int branchId = (Integer) params[0];
             Boolean positive = (Boolean) params[1];
-            // TODO pegarle al servicio con el rating
-            return true;
+
+            PointOfInterestRatingDTO rating = PointOfInterestRatingBuilder.from(branchId, positive);
+
+            return PointOfInterestRatingClient.instance().postPointOfInterestRating(rating);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return false;

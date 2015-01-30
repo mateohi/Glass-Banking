@@ -9,10 +9,9 @@ public class InformArrivalTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... params) {
-        String id = params[0];
-        Integer placeId = Integer.parseInt(params[1]);
-
         try {
+            String id = params[0];
+            Integer placeId = Integer.parseInt(params[1]);
 
         } catch (Exception ex) {
             Log.e(TAG, "Unable to inform arrival of user", ex);
