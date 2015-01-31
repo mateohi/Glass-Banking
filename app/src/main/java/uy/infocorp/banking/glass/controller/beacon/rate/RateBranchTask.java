@@ -23,8 +23,9 @@ public class RateBranchTask extends SimpleAsyncTask<Boolean> {
             Boolean positive = (Boolean) params[1];
 
             PointOfInterestRatingDTO rating = PointOfInterestRatingBuilder.from(branchId, positive);
+            PointOfInterestRatingClient.instance().postPointOfInterestRating(rating);
 
-            return PointOfInterestRatingClient.instance().postPointOfInterestRating(rating);
+            return true;
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return false;

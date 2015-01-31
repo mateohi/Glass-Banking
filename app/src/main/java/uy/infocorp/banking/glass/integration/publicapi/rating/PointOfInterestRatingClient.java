@@ -1,12 +1,9 @@
 package uy.infocorp.banking.glass.integration.publicapi.rating;
 
-import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.rating.dto.PointOfInterestRatingDTO;
-import uy.infocorp.banking.glass.integration.publicapi.rating.dto.RatingResponseDTO;
 import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
-import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class PointOfInterestRatingClient extends BaseClient {
 
@@ -26,22 +23,20 @@ public class PointOfInterestRatingClient extends BaseClient {
         return instance;
     }
 
-    public boolean postPointOfInterestRating(PointOfInterestRatingDTO pointOfInterestRatingDTO) {
+    public void postPointOfInterestRating(PointOfInterestRatingDTO pointOfInterestRatingDTO) {
         this.pointOfInterestRatingDTO = pointOfInterestRatingDTO;
 
-        RatingResponseDTO response = (RatingResponseDTO) this.execute();
-        // FIXME evaluar response
-        return true;
+        this.execute();
     }
 
     @Override
     protected Object getOffline() {
-        return Resources.jsonToObject(R.raw.rating_response, RatingResponseDTO.class);
+        return null;
     }
 
     @Override
     protected Object getOnline() {
-        return this.builder.appendObjectBody(this.pointOfInterestRatingDTO)
-                .execute(RatingResponseDTO.class);
+        this.builder.appendObjectBody(this.pointOfInterestRatingDTO).execute();
+        return null;
     }
 }

@@ -94,6 +94,21 @@ public class RestExecutionBuilder {
         return this;
     }
 
+    public void execute() {
+        try {
+            HttpResponse response = this.httpClient.execute(this.request);
+            int status = response.getStatusLine().getStatusCode();
+
+            if (status != HttpStatus.SC_OK) {
+                Log.e(TAG, "Server response: " + status);
+                throw new ServerException(this.request.getURI().getHost(), response);
+            }
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+            throw new ConnectionException(this.request.getURI().getHost());
+        }
+    }
+
     public <T> T execute(Class<T> clazz) {
         this.request.setHeader(CONTENT_TYPE, APPLICATION_JSON);
         try {
