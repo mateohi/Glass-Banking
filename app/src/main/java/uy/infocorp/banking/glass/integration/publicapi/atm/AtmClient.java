@@ -85,13 +85,17 @@ public class AtmClient {
                 double longitude = atmDTO.getLongitude();
                 double distance = getDistance(location, latitude, longitude);
                 Bitmap image = ImageDownloadClient.instance().getImage(atmDTO.getImageId());
+                double averageRating = atmDTO.getAverageRating();
+                int ratingsCount = atmDTO.getRatingsCount();
 
                 Atm atm = new Atm();
+                atm.setAverageRating(averageRating);
                 atm.setName(name);
                 atm.setLatitude(latitude);
                 atm.setLongitude(longitude);
                 atm.setDistance(distance);
                 atm.setImage(image);
+                atm.setRatingsCount(ratingsCount);
 
                 atms.add(atm);
 

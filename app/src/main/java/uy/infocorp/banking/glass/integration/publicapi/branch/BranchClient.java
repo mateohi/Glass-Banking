@@ -92,14 +92,18 @@ public class BranchClient {
                 double distance = getDistance(location, latitude, longitude);
                 String telephone = branchDTO.getTelephone();
                 Bitmap image = ImageDownloadClient.instance().getImage(branchDTO.getImageId());
+                double averageRating = branchDTO.getAverageRating();
+                int ratingsCount = branchDTO.getRatingsCount();
 
                 Branch branch = new Branch();
+                branch.setAverageRating(averageRating);
                 branch.setName(name);
                 branch.setLatitude(latitude);
                 branch.setLongitude(longitude);
                 branch.setDistance(distance);
                 branch.setImage(image);
                 branch.setTelephone(telephone);
+                branch.setRatingsCount(ratingsCount);
 
                 branches.add(branch);
 

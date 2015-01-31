@@ -241,6 +241,7 @@ public class ClosestBranchActivity extends Activity {
         String footnote = branch.getTelephone();
         String timestamp = DistanceFormat.from(branch.getDistance()) + "km";
         Bitmap image = branch.getImage();
+        double averageRating = branch.getAverageRating();
 
         return new CardBuilder(this, CardBuilder.Layout.CAPTION)
                 .setText(text)
