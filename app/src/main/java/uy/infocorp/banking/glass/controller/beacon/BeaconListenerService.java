@@ -6,9 +6,11 @@ import android.os.IBinder;
 
 import uy.infocorp.banking.glass.controller.beacon.rate.BranchRatingActivity;
 import uy.infocorp.banking.glass.controller.beacon.rate.InformArrivalTask;
+import uy.infocorp.banking.glass.domain.authentication.Session;
 import uy.infocorp.banking.glass.domain.beacon.BeaconHandler;
 import uy.infocorp.banking.glass.domain.beacon.PlaceListener;
 import uy.infocorp.banking.glass.domain.beacon.estimote.EstimoteBeaconHandler;
+import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 
 public class BeaconListenerService extends Service {
 
@@ -44,8 +46,14 @@ public class BeaconListenerService extends Service {
     }
 
     private void informArrival(int placeId) {
-        String userId = ""; //FIXME obtener de algun lado
-        new InformArrivalTask().execute(userId, Integer.toString(placeId));
+        String authToken = Session.getAuthToken();
+
+        new InformArrivalTask(new FinishedTaskListener<Void>() {
+            @Override
+            public void onResult(Void result) {
+                // do nothing
+            }
+        }).execute(authToken, Integer.toString(placeId));
     }
 
     private void startRatingActivity(int branchId) {

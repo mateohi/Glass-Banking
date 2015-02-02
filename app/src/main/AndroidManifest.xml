@@ -26,13 +26,11 @@
         <activity android:name=".util.view.dialog.DialogActivity" />
         <!-- /Dialog -->
 
-
         <!-- Estimote beacon service -->
         <service
             android:name="com.estimote.sdk.service.BeaconService"
             android:exported="false" />
         <!-- /Estimote beacon service -->
-
 
         <!-- Exchange rates -->
         <activity android:name=".controller.exchange.ExchangeRateMenuActivity" />
@@ -52,7 +50,6 @@
         </service>
         <!-- /Exchange rates -->
 
-
         <!-- Benefits -->
         <activity android:name=".controller.benefit.BenefitsMenuActivity" />
 
@@ -71,7 +68,6 @@
         </service>
         <!-- Benefits -->
 
-
         <!-- Closest ATMs -->
         <activity
             android:name=".controller.atm.ClosestAtmActivity"
@@ -88,7 +84,6 @@
                 android:resource="@xml/find_place_voice_trigger" />
         </activity>
         <!-- Closest ATMs -->
-
 
         <!-- Closest branches -->
         <activity
@@ -107,7 +102,6 @@
         </activity>
         <!-- /Closest branches -->
 
-
         <!-- Convert price -->
         <activity
             android:name=".controller.convertion.ConvertPriceActivity"
@@ -125,7 +119,6 @@
         </activity>
         <!-- /Convert price -->
 
-
         <!-- Beacon listener (rating && welcome) -->
         <receiver android:name=".boot.BootCompletedReceiver">
             <intent-filter>
@@ -138,14 +131,12 @@
             android:enabled="true" />
         <!-- /Beacon listener (rating && welcome) -->
 
-
         <!-- Rate branches -->
         <activity
             android:name=".controller.beacon.rate.BranchRatingActivity"
             android:enabled="true"
             android:immersive="true" />
         <!-- /Rate branches -->
-
 
         <!-- Last transfers -->
         <activity

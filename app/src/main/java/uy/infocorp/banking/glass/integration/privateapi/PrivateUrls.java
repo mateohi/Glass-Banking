@@ -27,7 +27,7 @@ public class PrivateUrls {
     public static final String GET_TRANSFERS_HISTORY_URL = BASE_URL + "/transfers/transfers?dateFrom=%s&dateTo=%s";
 
     // Get Service Payments
-    public static final String GET_SERVICE_PAYMENTS_URL = BASE_URL + "/api/servicePayments/servicePayments/entities";
+    public static final String GET_SERVICE_PAYMENTS_URL = BASE_URL + "/servicePayments/servicePayments/entities";
 
     // Get Account Movements
     // FIXME parametro raro
@@ -46,4 +46,6 @@ public class PrivateUrls {
     // Transfer from Third Party Account in same country and different bank
     public static final String POST_TRANSFER_THIRD_PARTY_ACCOUNT_INCOUNTRY_URL = BASE_URL + "/transfers/transfers/inCountry";
 
+    // Post user arrival at a certain branch
+    public static final String POST_BRANCH_ARRIVAL = BASE_URL + "/framework/common/geolocation";
 }

@@ -3,17 +3,28 @@ package uy.infocorp.banking.glass.controller.beacon.rate;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class InformArrivalTask extends AsyncTask<String, Void, Void> {
+import uy.infocorp.banking.glass.domain.arrival.builder.BranchArrivalBuilder;
+import uy.infocorp.banking.glass.integration.publicapi.branch.BranchArrivalClient;
+import uy.infocorp.banking.glass.integration.publicapi.branch.dto.BranchArrivalRequestDTO;
+import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
+import uy.infocorp.banking.glass.util.async.SimpleAsyncTask;
+
+public class InformArrivalTask extends SimpleAsyncTask<Void> {
 
     private static final String TAG = InformArrivalTask.class.getSimpleName();
 
-    @Override
-    protected Void doInBackground(String... params) {
-        try {
-            String id = params[0];
-            Integer placeId = Integer.parseInt(params[1]);
+    public InformArrivalTask(FinishedTaskListener<Void> listener) {
+        super(listener);
+    }
 
-            // TODO pegarle al servicio para informar llegada
+    @Override
+    protected Void doInBackground(Object... params) {
+        try {
+            String authToken = (String) params[0];
+            String placeId = (String) params[1];
+
+            BranchArrivalRequestDTO request = BranchArrivalBuilder.from(placeId);
+            BranchArrivalClient.instance().informArrival(request, authToken);
         } catch (Exception ex) {
             Log.e(TAG, "Unable to inform arrival of user", ex);
         }

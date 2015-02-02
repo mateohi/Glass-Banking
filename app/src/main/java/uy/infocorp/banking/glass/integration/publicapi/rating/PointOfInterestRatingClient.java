@@ -2,10 +2,10 @@ package uy.infocorp.banking.glass.integration.publicapi.rating;
 
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
 import uy.infocorp.banking.glass.integration.publicapi.rating.dto.PointOfInterestRatingDTO;
-import uy.infocorp.banking.glass.util.http.BaseClient;
 import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
+import uy.infocorp.banking.glass.util.http.VoidBaseClient;
 
-public class PointOfInterestRatingClient extends BaseClient {
+public class PointOfInterestRatingClient extends VoidBaseClient {
 
     private static PointOfInterestRatingClient instance;
     private RestExecutionBuilder builder;
@@ -30,13 +30,7 @@ public class PointOfInterestRatingClient extends BaseClient {
     }
 
     @Override
-    protected Object getOffline() {
-        return null;
-    }
-
-    @Override
-    protected Object getOnline() {
+    protected void getOnlineVoid() {
         this.builder.appendObjectBody(this.pointOfInterestRatingDTO).execute();
-        return null;
     }
 }
