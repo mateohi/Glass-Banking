@@ -200,9 +200,8 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
                 updateFrontBenefits();
                 this.frameLayout.draw(canvas);
             } else {
-                View syncView = new CardBuilder(this.service, CardBuilder.Layout.MENU)
-                        .setText("Loading nearby benefits")
-                        .setIcon(R.drawable.ic_sync)
+                View syncView = new CardBuilder(this.service, CardBuilder.Layout.EMBED_INSIDE)
+                        .setEmbeddedLayout(R.layout.benefits_loading)
                         .getView();
 
                 syncView.measure(640, 320);
