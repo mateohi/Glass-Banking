@@ -152,7 +152,7 @@ public class TransferOwnAccountsActivity extends AuthenticableActivity {
                     updateCardScrollView(true /* is debit */);
                 }
             }
-        }).execute();
+        }).execute(this.authToken);
     }
 
     private void createCreditProductCards() {
