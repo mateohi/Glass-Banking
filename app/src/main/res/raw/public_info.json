@@ -282,6 +282,8 @@
     "pointsOfInterest": [
         {
             "address": "Av. 18 de Julio 999 esq. Julio Herrera y Obes",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -310,6 +312,8 @@
         },
         {
             "address": "Br. Artigas 380 esq. Solano García",
+            "averageRating": 4.30,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -338,6 +342,8 @@
         },
         {
             "address": "Av. Gral Artigas 568",
+            "averageRating": 3.10,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 9,
                 "name": "Las Piedras"
@@ -362,6 +368,8 @@
         },
         {
             "address": "Gral. Artigas 953",
+            "averageRating": 3.30,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 30,
                 "name": "Pando"
@@ -386,6 +394,8 @@
         },
         {
             "address": "26 de Marzo 3540 esq. Luis Alberto de Herrera",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -414,6 +424,8 @@
         },
         {
             "address": "Av. Gral. Flores 544",
+            "averageRating": 4.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 26,
                 "name": "Colonia"
@@ -438,6 +450,8 @@
         },
         {
             "address": "Av. Gorlero y 25",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 1,
                 "name": "Punta del Este"
@@ -462,6 +476,8 @@
         },
         {
             "address": "Calle 50 y 53, Ave. Nicanor de Obarrio Campo Alegre, Edificio St. Georges Bank. (al lado de antigua Mansión Danté)",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 22,
                 "name": "Obarrio"
@@ -486,6 +502,8 @@
         },
         {
             "address": "Av. Gral. Flores 544",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 26,
                 "name": "Colonia"
@@ -510,6 +528,8 @@
         },
         {
             "address": "Av. Gorlero y 25",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 1,
                 "name": "Punta del Este"
@@ -534,6 +554,8 @@
         },
         {
             "address": "Calle 50 y 53, Ave. Nicanor de Obarrio Campo Alegre, Edificio St. Georges Bank. (al lado de antigua Mansión Danté)",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 22,
                 "name": "Obarrio"
@@ -558,6 +580,8 @@
         },
         {
             "address": "Calle 73, PH Centro Comercial Multimall, Local PH 9",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 23,
                 "name": "San Francisco"
@@ -582,6 +606,8 @@
         },
         {
             "address": "Centro Comercial Plaza Real, Cl. D Norte entre Ave. Domingo Díaz y Ave. 9 de Enero",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 24,
                 "name": "David"
@@ -606,6 +632,8 @@
         },
         {
             "address": "Centro Comercial Los Pueblos, Local 29",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 25,
                 "name": "Juan Díaz"
@@ -630,6 +658,8 @@
         },
         {
             "address": "Centro Comercial Plaza Mirage, Local B-3, Vía Ricardo J. Alfaro",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 26,
                 "name": "El Dorado"
@@ -654,6 +684,8 @@
         },
         {
             "address": "Edificio Parvani, Calle 15, Manzana D",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 26,
                 "name": "Zona Libre"
@@ -678,6 +710,8 @@
         },
         {
             "address": "Centro Comercial Los Andes, local F22",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 27,
                 "name": "Los Andes"
@@ -702,6 +736,8 @@
         },
         {
             "address": "Centro Comercial Country Plaza II - Local N.10",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 28,
                 "name": "Altos de Panamá"
@@ -726,6 +762,8 @@
         },
         {
             "address": "Westland Mall, Vía Interamericana, Local PBG-4, Pasillo 1 Amarillo",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 29,
                 "name": "Nuevo Arraiján"
@@ -750,6 +788,8 @@
         },
         {
             "address": "Av. 18 de Julio 1111",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -777,6 +817,8 @@
         },
         {
             "address": "Av. 18 de Julio 2222",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -804,6 +846,8 @@
         },
         {
             "address": "Av. 18 de Julio 3333",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -831,6 +875,8 @@
         },
         {
             "address": "Av. 18 de Julio 4444",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -858,6 +904,8 @@
         },
         {
             "address": "Av. 18 de Julio 5555",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -885,6 +933,8 @@
         },
         {
             "address": "Av. 18 de Julio 6666",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -912,6 +962,8 @@
         },
         {
             "address": "Av. 18 de Julio 7777",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -939,6 +991,8 @@
         },
         {
             "address": "Av. 18 de Julio 8888",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -966,6 +1020,8 @@
         },
         {
             "address": "Av. 18 de Julio 9999",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -993,6 +1049,8 @@
         },
         {
             "address": "Av. 18 de Julio 1010",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
@@ -1020,6 +1078,8 @@
         },
         {
             "address": "Av. 18 de Julio 11",
+            "averageRating": 3.50,
+            "ratingsCount": 10,
             "city": {
                 "cityId": 4,
                 "name": "Montevideo"
