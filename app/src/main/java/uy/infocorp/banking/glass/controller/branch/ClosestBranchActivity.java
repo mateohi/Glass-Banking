@@ -27,6 +27,8 @@ import com.google.android.glass.widget.CardScrollView;
 import com.google.android.glass.widget.Slider;
 import com.google.common.collect.Lists;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -236,18 +238,23 @@ public class ClosestBranchActivity extends Activity {
     }
 
     private CardBuilder createCard(Branch branch) {
-        // TODO llenar bien los datos, incluyendo puntaje
         String text = branch.getName();
-        String footnote = branch.getTelephone();
-        String timestamp = DistanceFormat.from(branch.getDistance()) + "km";
+        String footnote = DistanceFormat.from(branch.getDistance()) + "km";
+        String stars = getStarsFromBranch(branch);
         Bitmap image = branch.getImage();
-        double averageRating = branch.getAverageRating();
 
         return new CardBuilder(this, CardBuilder.Layout.CAPTION)
                 .setText(text)
                 .setFootnote(footnote)
-                .setTimestamp(timestamp)
+                .setTimestamp(stars)
                 .addImage(image);
+    }
+
+    private String getStarsFromBranch(Branch branch) {
+        double averageRating = branch.getAverageRating();
+        int roundedRating = (int) Math.round(averageRating);
+
+        return StringUtils.repeat('☆', roundedRating);
     }
 
     private class BranchCardScrollAdapter extends CardScrollAdapter {
