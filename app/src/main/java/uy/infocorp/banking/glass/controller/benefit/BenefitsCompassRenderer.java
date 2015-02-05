@@ -159,11 +159,11 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
             @Override
             public void onResult(List<Benefit> result) {
                 if (result != null) {
-                    Log.i(TAG, "Updating nearby benefits");
+                    Log.i(TAG, "Updating nearby benefits: " + result.size());
                     benefitsCompassView.setNearbyPlaces(result);
                     serviceCalled = true;
                 } else {
-                    Log.e(TAG, "Unable te get benefits, stopping service...");
+                    Log.e(TAG, "Unable to get benefits, stopping service...");
                     service.stopService();
                     GlassDialog.warning(service.getApplicationContext(), "Unable to get benefits", "Check your internet connection");
                 }
@@ -224,6 +224,7 @@ public class BenefitsCompassRenderer implements DirectRenderingCallback {
         if (frontBenefit != null) {
             this.benefitNameView.setText(frontBenefit.getName());
             this.benefitDescriptionView.setText(frontBenefit.getDescription());
+            doLayout();
         }
     }
 
