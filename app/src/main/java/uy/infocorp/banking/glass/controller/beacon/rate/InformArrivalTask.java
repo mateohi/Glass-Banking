@@ -1,6 +1,5 @@
 package uy.infocorp.banking.glass.controller.beacon.rate;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import uy.infocorp.banking.glass.domain.arrival.builder.BranchArrivalBuilder;

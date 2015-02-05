@@ -66,6 +66,7 @@ public class TransferThirdPartyAccountsActivity extends AuthenticableActivity {
     @Override
     protected void authenticationError() {
         showAuthenticationErrorView();
+        delayedFinish(3);
     }
 
     @Override
@@ -137,8 +138,10 @@ public class TransferThirdPartyAccountsActivity extends AuthenticableActivity {
 
                 if (products == null) {
                     showNoConnectivityView();
+                    delayedFinish(3);
                 } else if (products.isEmpty()) {
                     showNoProductsView();
+                    delayedFinish(3);
                 } else {
                     TransferThirdPartyAccountsActivity.this.products = products;
 
@@ -162,8 +165,10 @@ public class TransferThirdPartyAccountsActivity extends AuthenticableActivity {
 
                 if (accounts == null) {
                     showNoConnectivityView();
+                    delayedFinish(3);
                 } else if (accounts.isEmpty()) {
                     showNoProductsView();
+                    delayedFinish(3);
                 } else {
                     TransferThirdPartyAccountsActivity.this.thirdPartyAccounts = accounts;
                     cards.clear();

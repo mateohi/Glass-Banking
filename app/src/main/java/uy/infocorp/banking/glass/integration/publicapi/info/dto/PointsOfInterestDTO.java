@@ -139,6 +139,7 @@ public class PointsOfInterestDTO {
     public void setZoneDTO(ZoneDTO zone) {
         this.zone = zone;
     }
+
     public double getAverageRating() {
         return averageRating;
     }

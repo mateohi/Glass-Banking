@@ -1,10 +1,8 @@
 package uy.infocorp.banking.glass.controller.beacon.rate;
 
-import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,19 +11,17 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.Slider;
 
-import java.util.concurrent.TimeUnit;
-
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
 import uy.infocorp.banking.glass.domain.gesture.HeadGestureDetector;
 import uy.infocorp.banking.glass.domain.gesture.HeadGestureListener;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 
-public class BranchRatingActivity extends Activity {
+public class BranchRatingActivity extends ExtendedActivity {
 
     public static final String BRANCH_ID = "branch_id";
 
     private static final String TAG = BranchRatingActivity.class.getSimpleName();
-    private static final int MILLIS_TO_END = (int) TimeUnit.SECONDS.toMillis(3);
 
     private Slider.Indeterminate slider;
     private HeadGestureDetector headGestureDetector;
@@ -122,12 +118,7 @@ public class BranchRatingActivity extends Activity {
         setContentView(result);
         playSound(sound);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        }, MILLIS_TO_END);
+        delayedFinish(3);
     }
 
     private void playSound(int sound) {

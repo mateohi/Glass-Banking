@@ -1,6 +1,5 @@
 package uy.infocorp.banking.glass.controller.atm;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,11 +30,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
 import uy.infocorp.banking.glass.model.benefit.Atm;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.format.DistanceFormat;
 
-public class ClosestAtmActivity extends Activity {
+public class ClosestAtmActivity extends ExtendedActivity {
 
     private static final long METERS_BETWEEN_LOCATIONS = 2;
     private static final long MILLIS_BETWEEN_LOCATIONS = TimeUnit.SECONDS.toMillis(3);
@@ -172,6 +172,7 @@ public class ClosestAtmActivity extends Activity {
 
         if (lastKnownLocation == null) {
             showNoLocationView();
+            delayedFinish(3);
         } else {
             new GetClosestAtmsTask(new FinishedTaskListener<List<Atm>>() {
                 @Override
@@ -181,8 +182,10 @@ public class ClosestAtmActivity extends Activity {
 
                     if (atms == null) {
                         showNoConnectivityView();
+                        delayedFinish(3);
                     } else if (atms.isEmpty()) {
                         showNoAtmsView();
+                        delayedFinish(3);
                     } else {
                         ClosestAtmActivity.this.atms = atms;
 

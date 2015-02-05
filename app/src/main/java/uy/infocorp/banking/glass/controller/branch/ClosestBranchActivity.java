@@ -1,6 +1,5 @@
 package uy.infocorp.banking.glass.controller.branch;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,11 +32,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import uy.infocorp.banking.glass.R;
+import uy.infocorp.banking.glass.controller.common.ExtendedActivity;
 import uy.infocorp.banking.glass.model.benefit.Branch;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.format.DistanceFormat;
 
-public class ClosestBranchActivity extends Activity {
+public class ClosestBranchActivity extends ExtendedActivity {
 
     private static final long METERS_BETWEEN_LOCATIONS = 2;
     private static final long MILLIS_BETWEEN_LOCATIONS = TimeUnit.SECONDS.toMillis(3);
@@ -185,6 +185,7 @@ public class ClosestBranchActivity extends Activity {
 
         if (lastKnownLocation == null) {
             showNoLocationView();
+            delayedFinish(3);
         } else {
             new GetClosestBranchesTask(new FinishedTaskListener<List<Branch>>() {
                 @Override
@@ -194,8 +195,10 @@ public class ClosestBranchActivity extends Activity {
 
                     if (branches == null) {
                         showNoConnectivityView();
+                        delayedFinish(3);
                     } else if (branches.isEmpty()) {
                         showNoBranchesView();
+                        delayedFinish(3);
                     } else {
                         ClosestBranchActivity.this.branches = branches;
 

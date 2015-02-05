@@ -60,6 +60,7 @@ public class ConvertPriceActivity extends ExtendedActivity {
             public void onResult(List<ExchangeRateDTO> result) {
                 if (result == null) {
                     showNoConnectivityView();
+                    delayedFinish(3);
                 } else {
                     exchangeRates = result;
                     takePicture();
@@ -147,6 +148,7 @@ public class ConvertPriceActivity extends ExtendedActivity {
 
         if (prices.isEmpty()) {
             showNoPriceView();
+            delayedFinish(3);
         } else {
             String convertionCode = Resources.getString(R.string.alpha_code);
             List<Pair<Price, Price>> convertions = PriceConvertor.convertPrices(prices, this.exchangeRates, convertionCode);

@@ -115,8 +115,10 @@ public class LastMovementsActivity extends ExtendedActivity {
 
                 if (movements == null) {
                     showNoConnectivityView();
+                    delayedFinish(3);
                 } else if (movements.isEmpty()) {
                     showNoMovementsView();
+                    delayedFinish(3);
                 } else {
 
                     for (Movement movement : movements) {

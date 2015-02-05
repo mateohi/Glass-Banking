@@ -64,6 +64,7 @@ public class ProductsBalanceActivity extends AuthenticableActivity {
     @Override
     protected void authenticationError() {
         showAuthenticationErrorView();
+        delayedFinish(3);
     }
 
     @Override
@@ -167,8 +168,10 @@ public class ProductsBalanceActivity extends AuthenticableActivity {
 
                 if (products == null) {
                     showNoConnectivityView();
+                    delayedFinish(3);
                 } else if (products.isEmpty()) {
                     showNoProductsView();
+                    delayedFinish(3);
                 } else {
                     ProductsBalanceActivity.this.products = products;
 

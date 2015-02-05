@@ -118,8 +118,10 @@ public class LastTransfersActivity extends ExtendedActivity {
 
                 if (transfers == null) {
                     showNoConnectivityView();
+                    delayedFinish(3);
                 } else if (transfers.isEmpty()) {
                     showNoTransactionsView();
+                    delayedFinish(3);
                 } else {
                     LastTransfersActivity.this.transfers = transfers;
 

@@ -1,7 +1,6 @@
 package uy.infocorp.banking.glass.controller.transfer.own;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -69,6 +68,7 @@ public class TransferOwnAccountsActivity extends AuthenticableActivity {
     @Override
     protected void authenticationError() {
         showAuthenticationErrorView();
+        delayedFinish(3);
     }
 
     @Override
@@ -141,8 +141,10 @@ public class TransferOwnAccountsActivity extends AuthenticableActivity {
 
                 if (products == null) {
                     showNoConnectivityView();
+                    delayedFinish(3);
                 } else if (products.isEmpty()) {
                     showNoProductsView();
+                    delayedFinish(3);
                 } else {
                     TransferOwnAccountsActivity.this.products = products;
 
