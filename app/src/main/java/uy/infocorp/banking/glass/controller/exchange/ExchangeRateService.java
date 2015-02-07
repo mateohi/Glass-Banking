@@ -175,8 +175,10 @@ public class ExchangeRateService extends Service {
         this.updateRatesViewTask.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 try {
-                    flipExchangeRates();
-                    updateView();
+                    if (exchangeRates.size() > RATES_TO_SHOW) {
+                        flipExchangeRates();
+                        updateView();
+                    }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
@@ -185,13 +187,11 @@ public class ExchangeRateService extends Service {
     }
 
     private void flipExchangeRates() {
-        Log.i(TAG, Arrays.toString(exchangeRates.toArray()));
         ExchangeRateDTO last = Iterables.getLast(exchangeRates);
         List<ExchangeRateDTO> restList = exchangeRates.subList(0, exchangeRates.size() - 1);
         ExchangeRateDTO[] rest = restList.toArray(new ExchangeRateDTO[restList.size()]);
 
         this.exchangeRates = Lists.asList(last, rest);
-        Log.i(TAG, Arrays.toString(exchangeRates.toArray()));
     }
 
 }
