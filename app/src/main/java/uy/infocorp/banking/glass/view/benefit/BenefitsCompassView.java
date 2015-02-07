@@ -37,7 +37,7 @@ public class BenefitsCompassView extends View {
     private static final float DIRECTION_TEXT_HEIGHT = 40.0f;
 
     private static final float PLACE_TEXT_HEIGHT = 50.0f;
-    private static final float PLACE_DISTANCE_TEXT_HEIGHT = 30.0f;
+    private static final float PLACE_DISTANCE_TEXT_HEIGHT = 25.0f;
 
     private static final float PLACE_PIN_WIDTH = 50.0f;
     private static final float PLACE_TEXT_LEADING = 4.0f;
@@ -239,7 +239,7 @@ public class BenefitsCompassView extends View {
                         canvas.drawBitmap(benefitType, offset + bearing * pixelsPerDegree
                                 - PLACE_PIN_WIDTH / 2, textBounds.top + 2, paint);
                         canvas.drawText(name, x, y, benefitPaint);
-                        canvas.drawText(distance, x + name.length() * 25, y, benefitDistancePaint);
+                        canvas.drawText(distance, x + benefitPaint.measureText(name) + 20, y, benefitDistancePaint);
 
                         // Update front benefit
                         double difference = MathUtils.getAngleDifference(bearing, this.heading);
