@@ -83,5 +83,39 @@
         "buyRate": 10.49,
         "sellRate": 11,
         "official": 10.5
+    },
+    {
+        "sourceCurrency": {
+            "currencyId": "858",
+            "currencyAlpha3Code": "UYU",
+            "currencyDescription": "Uruguayan peso",
+            "currencySymbol": "$"
+        },
+        "destinationCurrency": {
+            "currencyId": "2",
+            "currencyAlpha3Code": "ABC",
+            "currencyDescription": "Algo pesos",
+            "currencySymbol": "R$"
+        },
+        "buyRate": 20,
+        "sellRate": 23,
+        "official": 30.5
+    },
+    {
+        "sourceCurrency": {
+            "currencyId": "858",
+            "currencyAlpha3Code": "UYU",
+            "currencyDescription": "Uruguayan peso",
+            "currencySymbol": "$"
+        },
+        "destinationCurrency": {
+            "currencyId": "3",
+            "currencyAlpha3Code": "LIB",
+            "currencyDescription": "Libras",
+            "currencySymbol": "L"
+        },
+        "buyRate": 34.49,
+        "sellRate": 34,
+        "official": 34.5
     }
 ]

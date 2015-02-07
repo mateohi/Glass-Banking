@@ -5,13 +5,17 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 import com.google.android.glass.widget.CardBuilder;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -26,14 +30,21 @@ import uy.infocorp.banking.glass.util.view.dialog.GlassDialog;
 public class ExchangeRateService extends Service {
 
     private static final String TAG = ExchangeRateService.class.getSimpleName();
+    private static final int RATES_TO_SHOW = 4;
 
-    private static final int INITIAL_DELAY = 0;
-    private static final int TASK_DELAY = 5;
+    // Task for updating rates values over time
+    private static final int VALUES_TASK_INITIAL_DELAY = 0;
+    private static final int VALUES_TASK_DELAY = 5;
 
-    private ScheduledExecutorService task;
+    private ScheduledExecutorService updateRatesTask;
+
+    // Task for updating rates view
+    private static final int VIEW_TASK_DELAY = 3;
+
+    private ScheduledExecutorService updateRatesViewTask;
 
     private LiveCard liveCard;
-    private List<ExchangeRateDTO> exchangeRates = Lists.newArrayList();
+    private List<ExchangeRateDTO> exchangeRates = Collections.<ExchangeRateDTO> synchronizedList(Lists.<ExchangeRateDTO>newArrayList());
     private boolean firstRates;
     private String alphaCode;
 
@@ -56,7 +67,8 @@ public class ExchangeRateService extends Service {
             this.liveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
             this.liveCard.publish(PublishMode.REVEAL);
 
-            createAndStartScheduledTask();
+            createAndStartValuesTask();
+            createAndStartViewTask();
         } else {
             this.liveCard.navigate();
         }
@@ -74,7 +86,7 @@ public class ExchangeRateService extends Service {
             this.liveCard.unpublish();
             this.liveCard = null;
         }
-        this.task.shutdown();
+        this.updateRatesTask.shutdown();
     }
 
     private void loadInitialView() {
@@ -94,25 +106,22 @@ public class ExchangeRateService extends Service {
     }
 
     private void updateView() {
-        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.exchange_rate);
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.exchange_rates);
 
-        RemoteViews header = new RemoteViews(getPackageName(), R.layout.exchange_rate_header);
-        remoteViews.addView(R.id.content, header);
+        RemoteViews rates = new RemoteViews(getPackageName(), R.layout.exchange_rate_nested);
+        createNestedViews(rates);
+        remoteViews.addView(R.id.exchange_rates, rates);
 
-        createNestedViews(remoteViews, 0);
-        //remoteViews.setScrollPosition(R.id.nested, 10);
         this.liveCard.setViews(remoteViews);
     }
 
-    private void createNestedViews(RemoteViews parent, int position) {
-        if (position < this.exchangeRates.size()) {
-            RemoteViews row = createRowRemoteView(position);
+    private void createNestedViews(RemoteViews parent) {
+        for (int i = 0; i < RATES_TO_SHOW; i++) {
+            RemoteViews row = createRowRemoteView(i);
 
-            RemoteViews nested = new RemoteViews(getPackageName(), R.layout.exchange_rate);
+            RemoteViews nested = new RemoteViews(getPackageName(), R.layout.exchange_rate_nested);
             nested.addView(R.id.content, row);
             parent.addView(R.id.nested, nested);
-
-            createNestedViews(parent, ++position);
         }
     }
 
@@ -140,10 +149,10 @@ public class ExchangeRateService extends Service {
         return row;
     }
 
-    private void createAndStartScheduledTask() {
-        this.task = Executors.newSingleThreadScheduledExecutor();
+    private void createAndStartValuesTask() {
+        this.updateRatesTask = Executors.newSingleThreadScheduledExecutor();
 
-        this.task.scheduleAtFixedRate(new Runnable() {
+        this.updateRatesTask.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 try {
                     exchangeRates = ExchangeRateClient.instance().getExchangeRatesByAlpha3Code(alphaCode);
@@ -157,7 +166,32 @@ public class ExchangeRateService extends Service {
                     // else -> No update, no need to throw an error, we just show older rates
                 }
             }
-        }, INITIAL_DELAY, TASK_DELAY, TimeUnit.MINUTES);
+        }, VALUES_TASK_INITIAL_DELAY, VALUES_TASK_DELAY, TimeUnit.MINUTES);
+    }
+
+    private void createAndStartViewTask() {
+        this.updateRatesViewTask = Executors.newSingleThreadScheduledExecutor();
+
+        this.updateRatesViewTask.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                try {
+                    flipExchangeRates();
+                    updateView();
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        }, VIEW_TASK_DELAY, VIEW_TASK_DELAY, TimeUnit.SECONDS);
+    }
+
+    private void flipExchangeRates() {
+        Log.i(TAG, Arrays.toString(exchangeRates.toArray()));
+        ExchangeRateDTO last = Iterables.getLast(exchangeRates);
+        List<ExchangeRateDTO> restList = exchangeRates.subList(0, exchangeRates.size() - 1);
+        ExchangeRateDTO[] rest = restList.toArray(new ExchangeRateDTO[restList.size()]);
+
+        this.exchangeRates = Lists.asList(last, rest);
+        Log.i(TAG, Arrays.toString(exchangeRates.toArray()));
     }
 
 }

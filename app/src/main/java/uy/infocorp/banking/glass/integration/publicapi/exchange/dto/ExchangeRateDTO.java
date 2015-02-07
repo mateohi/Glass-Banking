@@ -52,5 +52,11 @@ public class ExchangeRateDTO {
         this.sourceCurrency = sourceCurrency;
     }
 
+    @Override
+    public String toString() {
+        return this.sourceCurrency.getCurrencyAlpha3Code() + " - " +
+                this.destinationCurrency.getCurrencyAlpha3Code();
+    }
+
 }
 
