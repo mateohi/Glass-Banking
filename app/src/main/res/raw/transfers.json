@@ -8,7 +8,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Giro para Asado",
+        "description": "Party preparations",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -37,7 +37,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Transfiero monto garage",
+        "description": "Garage improvements",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -67,7 +67,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Transferencia bancaria",
+        "description": "Transfer",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -97,7 +97,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Transferencia santander",
+        "description": "Santander transfer",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -128,7 +128,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Transferencia tercero",
+        "description": "Third party transfer",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -158,7 +158,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Transferencia mensual",
+        "description": "Monthly payment",
         "debitProduct": {
             "productId": 0,
             "productNumber": "5521960700018116",
@@ -187,7 +187,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "transferencia gym",
+        "description": "Gym payment",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -218,7 +218,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "primer transferencia",
+        "description": "School payment",
         "debitProduct": {
             "productId": 0,
             "productNumber": "5521960700018116",
@@ -248,7 +248,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "giro para Carlos",
+        "description": "Charles' transfer",
         "debitProduct": {
             "productId": 0,
             "productNumber": "5521960700018116",
@@ -277,7 +277,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Giro para Ceci",
+        "description": "Transfer for Lucy",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003150000067",
@@ -1027,7 +1027,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "transferencia gym",
+        "description": "Weekly food",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003106853222",
@@ -1057,7 +1057,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "pruebagm",
+        "description": "Bike repair",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003106853222",
@@ -1087,7 +1087,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "pruebagm",
+        "description": "Car repair",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003106853222",
@@ -1117,7 +1117,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "pruebagm",
+        "description": "Glass frames",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003106853222",
@@ -1147,7 +1147,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "al exterior",
+        "description": "Transfer to Brazil",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003106853222",
@@ -1177,7 +1177,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "dsd",
+        "description": "Magazine payment",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003107442803",
@@ -1208,7 +1208,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "test3",
+        "description": "User payment",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003004793136",
@@ -1238,7 +1238,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "test",
+        "description": "Engineer salary",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003004793144",
@@ -1268,7 +1268,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "TestMHR 100412",
+        "description": "Big amount",
         "debitProduct": {
             "productId": 0,
             "productNumber": "004001725276",
@@ -1417,7 +1417,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "ddddd",
+        "description": "Third party transfer",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003004793136",
@@ -1446,7 +1446,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "ffff",
+        "description": "Money transfer",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003004793136",
@@ -1475,7 +1475,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "Testing",
+        "description": "Payment",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003004793144",
@@ -1504,7 +1504,7 @@
         "currency": {
             "currencyId": "840"
         },
-        "description": "test movil 011912",
+        "description": "Mobile payment",
         "debitProduct": {
             "productId": 0,
             "productNumber": "003004793144",
@@ -1531,7 +1531,7 @@
         "createdDate": "2012-01-19T13:35:47.203Z",
         "amount": 2,
         "currency": {
-            "currencyId": "840"
+            "currencyId": "Payment"
         },
         "description": "prueba movil 011912",
         "debitProduct": {

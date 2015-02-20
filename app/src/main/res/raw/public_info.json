@@ -296,7 +296,7 @@
             "latitude": -34.90589,
             "longitude": -56.1947,
             "modifiedDate": "2014-07-07T21:11:58.703Z",
-            "name": "Van Gogh Centro",
+            "name": "Van Gogh",
             "notes": "",
             "state": {
                 "name": "Montevideo",
@@ -1130,7 +1130,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "20% de descuento en llantas",
+            "title": "20% discount on tires",
             "type": "automobiles"
         },
         {
@@ -1156,7 +1156,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "2 por 1 en ropa de mujer",
+            "title": "2 for 1 in women's clothing",
             "type": "clothesAndFootwear"
         },
         {
@@ -1182,7 +1182,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "10% de descuento los martes",
+            "title": "10% off on tuesdays",
             "type": "entertainment"
         },
         {
@@ -1208,7 +1208,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "2 por 1 los viernes",
+            "title": "2 for 1 on fridays",
             "type": "healthAndSport"
         },
         {
@@ -1234,7 +1234,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "20% de descuento",
+            "title": "20% off",
             "type": "home"
         },
         {
@@ -1260,7 +1260,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "2 por uno todos los dias",
+            "title": "2 for 1 every day",
             "type": "others"
         },
         {
@@ -1286,7 +1286,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "Postre de regalo",
+            "title": "Free dessert",
             "type": "restaurants"
         },
         {
@@ -1312,7 +1312,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "10% de descuento",
+            "title": "10% off",
             "type": "services"
         },
         {
@@ -1338,7 +1338,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "Jugo de regalo",
+            "title": "Free juice",
             "type": "supermarketsAndStores"
         },
         {
@@ -1364,7 +1364,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "35% de descuento",
+            "title": "35% off",
             "type": "technology"
         },
         {
@@ -1390,7 +1390,7 @@
             "moreInformationUrl": "",
             "publishedDate": "2014-05-03T03:00:00Z",
             "textColor": "rgb(18, 28, 48)",
-            "title": "100 millas por cada compra",
+            "title": "100 miles with every purchase",
             "type": "travelAndTourism"
         }
     ],

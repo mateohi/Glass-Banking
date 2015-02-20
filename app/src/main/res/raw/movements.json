@@ -5,11 +5,11 @@
         "movementDate": "2014-10-26T02:00:00Z",
         "amount": 10.00,
         "isDebit": false,
-        "balance": 4583.73,
+        "balance": 4500.00,
         "typeId": 0,
         "checkId": "",
         "extendedProperties": {
-            "observations": "PR 025052 - ADEL TRANS INTERNET",
+            "observations": "ATM withdrawal",
             "productCode": "003106853222",
             "movNumber": "000013275",
             "reference": "P0012014-10-24145250"
@@ -20,11 +20,11 @@
         "movementDate": "2014-10-25T02:00:00Z",
         "amount": 500.00,
         "isDebit": false,
-        "balance": 4573.73,
+        "balance": 400.00,
         "typeId": 0,
         "checkId": "",
         "extendedProperties": {
-            "observations": "PR 084152 - ADEL TRANS INTERNET",
+            "observations": "Deposit",
             "productCode": "003106853224",
             "movNumber": "000013274",
             "reference": "P0012014-10-24141841"
@@ -39,7 +39,7 @@
         "typeId": 0,
         "checkId": "",
         "extendedProperties": {
-            "observations": "PR 052552 - ADEL TRANS INTERNET",
+            "observations": "Cellphone payment",
             "productCode": "003106853221",
             "movNumber": "000013273",
             "reference": "P0012014-10-24141525"
@@ -54,7 +54,7 @@
         "typeId": 0,
         "checkId": "",
         "extendedProperties": {
-            "observations": " Transferencia Inter. **0067",
+            "observations": "ATM withdrawal",
             "productCode": "003106853224",
             "movNumber": "000013272",
             "reference": "P0012014-10-2400000000"
