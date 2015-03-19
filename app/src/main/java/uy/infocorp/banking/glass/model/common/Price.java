@@ -1,5 +1,8 @@
 package uy.infocorp.banking.glass.model.common;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class Price {
 
     private double amount;
@@ -28,5 +31,15 @@ public class Price {
 
     public void setAlpha3Code(String alpha3Code) {
         this.alpha3Code = alpha3Code;
+    }
+
+    @Override
+    public boolean equals(Object price) {
+        return EqualsBuilder.reflectionEquals(this, price);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }

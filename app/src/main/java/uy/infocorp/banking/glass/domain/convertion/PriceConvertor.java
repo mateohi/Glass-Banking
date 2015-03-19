@@ -3,6 +3,7 @@ package uy.infocorp.banking.glass.domain.convertion;
 import android.util.Pair;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import java.util.List;
 import java.util.Set;
@@ -13,9 +14,9 @@ import uy.infocorp.banking.glass.model.common.Price;
 
 public class PriceConvertor {
 
-    public static List<Pair<Price, Price>> convertPrices(Set<Price> prices, List<ExchangeRateDTO> rates,
+    public static Set<Pair<Price, Price>> convertPrices(Set<Price> prices, List<ExchangeRateDTO> rates,
                                                          String convertionCode) {
-        List<Pair<Price, Price>> convertions = Lists.newArrayList();
+        Set<Pair<Price, Price>> convertions = Sets.newHashSet();
         for (Price price : prices) {
             String priceSymbol = price.getSymbol();
             ExchangeRateDTO appliedRate = getAppliedRate(rates, priceSymbol, convertionCode);
