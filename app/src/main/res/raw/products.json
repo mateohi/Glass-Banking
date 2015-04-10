@@ -6,9 +6,9 @@
         },
         "productId": 527422876,
         "productBankIdentifier": "1|003106853222|DDA",
-        "accountCountableBalance": 4583.73,
+        "accountCountableBalance": 4500.00,
         "productNumber": "003106853222",
-        "accountAvailableBalance": 5095.38,
+        "accountAvailableBalance": 5000.00,
         "productAlias": "Family account",
         "accountBalance24Hrs": 0,
         "productType": "currentAccount",
@@ -46,9 +46,9 @@
         },
         "productId": -447082747,
         "productBankIdentifier": "1|003150000075|DDA",
-        "accountCountableBalance": 7661.81,
+        "accountCountableBalance": 7600.00,
         "productNumber": "003150000075",
-        "accountAvailableBalance": 7661.81,
+        "accountAvailableBalance": 7600.00,
         "productAlias": "Family savings",
         "accountBalance24Hrs": 0,
         "productType": "currentAccount",
@@ -86,9 +86,9 @@
         },
         "productId": -1961023109,
         "productBankIdentifier": "2|004150000055|SVT",
-        "accountCountableBalance": 4190.29,
+        "accountCountableBalance": 4100.00,
         "productNumber": "004150000055",
-        "accountAvailableBalance": 4190.29,
+        "accountAvailableBalance": 4100.00,
         "productAlias": "Retirement",
         "accountBalance24Hrs": 0,
         "productType": "savingsAccount",
@@ -107,7 +107,7 @@
             "eStatementActive": false,
             "eStatementPending": false,
             "achFee": 3,
-            "realAvailableBalance": 4190.29
+            "realAvailableBalance": 4100.00
         },
         "certifiedChecks": 0,
         "canTransact": false,
@@ -218,9 +218,9 @@
             "currencyId": "840"
         },
         "extendedProperties": {
-            "availableBalance": 112900.25,
-            "availableBalanceBDC": 110400.25,
-            "currentBalance": 110400.25,
+            "availableBalance": 11900.00,
+            "availableBalanceBDC": 11900.00,
+            "currentBalance": 11900.00,
             "loanReserveInformation_lastPaymentAmount": 4000
         },
         "canTransact": false,
@@ -260,7 +260,7 @@
     {
         "$type": "Infocorp.UIProcess.Entities.CreditCards.CreditCards.CreditCard, Infocorp.UIProcess.Entities",
         "creditCardId": 0,
-        "dollarBalance": 1585.67,
+        "dollarBalance": 1585.00,
         "dollarCreditLimit": 0,
         "dueDate": "2014-10-28T02:00:00Z",
         "fatherCreditCardId": 0,
@@ -303,7 +303,7 @@
         "productAlias": "Vacations loan",
         "paidFees": 0,
         "productType": "loan",
-        "currentBalance": 17707.24,
+        "currentBalance": 17700.00,
         "nextFee": {
             "feeNumber": 0,
             "principalAmount": 423.51,
@@ -319,7 +319,7 @@
             "currencyId": "840"
         },
         "feesDue": 0,
-        "feesDuePrincipalAmount": 17707.24,
+        "feesDuePrincipalAmount": 17700.00,
         "extendedProperties": {
             "lastPaymentDate": "2014-10-21T02:00:00Z",
             "interestPaidYearToDate": 3437.94,

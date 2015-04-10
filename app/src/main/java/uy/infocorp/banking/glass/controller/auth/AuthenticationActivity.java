@@ -35,6 +35,7 @@ public class AuthenticationActivity extends ExtendedActivity {
 
     private List<Integer> selected = Lists.newArrayList();
     private double velocity;
+    private boolean finished;
     private int selection;
     private View view;
 
@@ -50,6 +51,7 @@ public class AuthenticationActivity extends ExtendedActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         selection = 0;
+        finished = false;
         gestureDetector = createGestureDetector();
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
@@ -85,7 +87,9 @@ public class AuthenticationActivity extends ExtendedActivity {
             @Override
             public boolean onGesture(Gesture gesture) {
                 if (gesture == Gesture.TAP) {
-                    selectedNumber();
+                    if (!finished) {
+                        selectedNumber();
+                    }
                 } else if (gesture == Gesture.SWIPE_LEFT) {
                     changeNumbers(true);
                 } else if (gesture == Gesture.SWIPE_RIGHT) {
@@ -109,6 +113,7 @@ public class AuthenticationActivity extends ExtendedActivity {
         selected.add(selection);
 
         if (selected.size() == PIN_SIZE) {
+            finished = true;
             String pin = StringUtils.join(selected);
             doLogin(pin);
         }
