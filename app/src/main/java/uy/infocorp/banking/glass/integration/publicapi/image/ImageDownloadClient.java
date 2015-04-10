@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import uy.infocorp.banking.glass.R;
 import uy.infocorp.banking.glass.integration.publicapi.PublicUrls;
@@ -18,6 +19,8 @@ import uy.infocorp.banking.glass.util.http.RestExecutionBuilder;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class ImageDownloadClient extends BaseClient {
+
+    private static int index = 0;
 
     private static ImageDownloadClient instance;
     private RestExecutionBuilder builder;
@@ -60,11 +63,15 @@ public class ImageDownloadClient extends BaseClient {
     }
 
     private int randomImage() {
-        List<Integer> images = Arrays.asList(R.raw.image_1, R.raw.image_2, /*R.raw.image_3,crucero*/
-                /*R.raw.image_4, es una de masajes*/ R.raw.image_5);
-        int random = new Random().nextInt(images.size());
+        List<Integer> images = Arrays.asList(R.raw.image_1, R.raw.image_2, R.raw.image_3,
+                R.raw.image_4, R.raw.image_5);
 
-        return images.get(random);
+        index = index + 1;
+        if (index >= images.size()) {
+            index = 0;
+        }
+
+        return images.get(index);
     }
 }
 

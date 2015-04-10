@@ -150,14 +150,14 @@ public class ConvertPriceActivity extends ExtendedActivity {
             showNoPriceView();
             delayedFinish(3);
         } else {
-            String convertionCode = Resources.getString(R.string.alpha_code);
-            List<Pair<Price, Price>> convertions = PriceConvertor.convertPrices(prices, this.exchangeRates, convertionCode);
+            String convertionCode = "USD";//Resources.getString(R.string.alpha_code);
+            Set<Pair<Price, Price>> convertions = PriceConvertor.convertPrices(prices, this.exchangeRates, convertionCode);
 
             showPriceConvertions(convertions);
         }
     }
 
-    private void showPriceConvertions(List<Pair<Price, Price>> convertions) {
+    private void showPriceConvertions(Set<Pair<Price, Price>> convertions) {
         this.cards = buildConvertionViews(convertions);
 
         CardScrollAdapter adapter = new ConvertionCardScrollAdapter();
@@ -169,7 +169,7 @@ public class ConvertPriceActivity extends ExtendedActivity {
         setContentView(cardScrollView);
     }
 
-    private List<View> buildConvertionViews(List<Pair<Price, Price>> convertions) {
+    private List<View> buildConvertionViews(Set<Pair<Price, Price>> convertions) {
         List<View> views = Lists.newArrayList();
 
         for (Pair<Price, Price> convertion : convertions) {

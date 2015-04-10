@@ -113,11 +113,11 @@ public class AuthenticationActivity extends ExtendedActivity {
             doLogin(pin);
         }
 
-        String mask = StringUtils.repeat('*', selected.size()).replace("", " ").trim();
+        String mask = StringUtils.join(selected, " ");
         String rest = StringUtils.repeat('_', PIN_SIZE - selected.size()).replace("", " ").trim();
 
         TextView tv = (TextView) view.findViewById(R.id.mask);
-        tv.setText(mask + rest);
+        tv.setText(mask + " " + rest);
     }
 
     private void changeNumbers(final boolean fromLeft) {

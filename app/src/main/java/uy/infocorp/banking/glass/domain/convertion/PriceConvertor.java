@@ -2,7 +2,6 @@ package uy.infocorp.banking.glass.domain.convertion;
 
 import android.util.Pair;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import java.util.List;
