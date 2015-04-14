@@ -43,8 +43,8 @@ public class TransferOwnAccountsActivity extends AuthenticableActivity {
 
     private static final String CURRENCY_SYMBOL = Resources.getString(R.string.alpha_symbol);
 
-    private static final List<ProductType> VALID_TYPES = Arrays.asList(ProductType.currentAccount,
-            ProductType.savingsAccount);
+    private static final List<String> VALID_TYPES = Arrays.asList(ProductType.currentAccount.name(),
+            ProductType.savingsAccount.name());
 
     private GestureDetector gestureDetector;
 
@@ -151,12 +151,10 @@ public class TransferOwnAccountsActivity extends AuthenticableActivity {
                     showNoProductsView();
                     delayedFinish(3);
                 } else {
-                    TransferOwnAccountsActivity.this.products = products;
+                    TransferOwnAccountsActivity.this.products = validProducts(products);
 
-                    for (Product product : products) {
-                        if (VALID_TYPES.contains(product.getProductType())) {
-                            cards.add(createScrollerCard(product, true /* is debit */));
-                        }
+                    for (Product product : TransferOwnAccountsActivity.this.products) {
+                        cards.add(createScrollerCard(product, true /* is debit */));
                     }
                     updateCardScrollView(true /* is debit */);
                 }
@@ -164,15 +162,25 @@ public class TransferOwnAccountsActivity extends AuthenticableActivity {
         }).execute(this.authToken);
     }
 
+    private static List<Product> validProducts(List<Product> products) {
+        List<Product> validProducts = Lists.newArrayList();
+        for (Product product : products) {
+            if (VALID_TYPES.contains(product.getProductType().name())) {
+                validProducts.add(product);
+            }
+        }
+        return validProducts;
+    }
+
     private void createCreditProductCards() {
         // All except the debit product just chosen
         Iterable<Product> availableProducts = Iterables.filter(products, new Predicate<Product>() {
             @Override
             public boolean apply(Product input) {
-                String debitProductType = debitProduct.getProductType().name();
-                String otherProductType = input.getProductType().name();
+                String debitProductNumber = debitProduct.getProductNumber();
+                String otherProductNumber = input.getProductNumber();
 
-                return !StringUtils.equals(debitProductType, otherProductType);
+                return !StringUtils.equals(debitProductNumber, otherProductNumber);
             }
         });
 
