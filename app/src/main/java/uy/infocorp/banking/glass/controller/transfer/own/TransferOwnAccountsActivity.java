@@ -26,6 +26,7 @@ import com.google.common.collect.Lists;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -34,12 +35,16 @@ import uy.infocorp.banking.glass.controller.auth.AuthenticableActivity;
 import uy.infocorp.banking.glass.controller.common.product.GetProductsTask;
 import uy.infocorp.banking.glass.domain.gesture.SwipeGestureUtils;
 import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.Product;
+import uy.infocorp.banking.glass.integration.privateapi.common.dto.framework.common.ProductType;
 import uy.infocorp.banking.glass.util.async.FinishedTaskListener;
 import uy.infocorp.banking.glass.util.resources.Resources;
 
 public class TransferOwnAccountsActivity extends AuthenticableActivity {
 
     private static final String CURRENCY_SYMBOL = Resources.getString(R.string.alpha_symbol);
+
+    private static final List<ProductType> VALID_TYPES = Arrays.asList(ProductType.currentAccount,
+            ProductType.savingsAccount);
 
     private GestureDetector gestureDetector;
 
@@ -149,7 +154,9 @@ public class TransferOwnAccountsActivity extends AuthenticableActivity {
                     TransferOwnAccountsActivity.this.products = products;
 
                     for (Product product : products) {
-                        cards.add(createScrollerCard(product, true /* is debit */));
+                        if (VALID_TYPES.contains(product.getProductType())) {
+                            cards.add(createScrollerCard(product, true /* is debit */));
+                        }
                     }
                     updateCardScrollView(true /* is debit */);
                 }
